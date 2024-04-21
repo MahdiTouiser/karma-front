@@ -18,10 +18,11 @@ import Home from './pages/userPanel/Home'
 import SkyDiveEventsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventPage'
 
 import { useAppDispatch } from './hooks/reduxHooks'
+import EmployerPage from './pages/Auth/EmployerPage'
+import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage'
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage'
+import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage'
 import SignUpUserInfoPage from './pages/Auth/signUp/SignUpUserInfoPage'
-import SignUpMobilePage from './pages/Auth/signUp/SingUpMobilePage'
-import SignUpPersonaPage from './pages/Auth/signUp/SingnUpPersonalPage'
 import PaymentPage from './pages/Payment/PaymentPage'
 import PaymentStatus from './pages/Payment/PaymentStatus'
 import SendMessage from './pages/adminPanel/pages/SendMessage'
@@ -77,6 +78,7 @@ function App() {
             <Route Component={PaymentPage} path="payment"></Route>
           </Route>
           <Route Component={PaymentStatus} path="payment-status"></Route>
+          <Route Component={EmployerPage} path="employer"></Route>
           <Route Component={AuthContainer} path="auth">
             <Route Component={UsernameLoginPage} path=""></Route>
             <Route Component={PasswordLoginPage} path="password"></Route>

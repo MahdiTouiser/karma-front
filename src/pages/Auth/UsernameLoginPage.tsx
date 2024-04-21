@@ -34,7 +34,7 @@ export default function UsernameLoginPage() {
   }
   return (
     <form onSubmit={onSubmit} className="p-8">
-      <h1 className="mb-6 text-lg font-semibold">ورود</h1>
+      <h1 className="mb-6 text-lg font-semibold flex justify-center">ورود کارجو</h1>
       <div className="flex w-full gap-1 flex-wrap sm:flex-nowrap">
         <div className="relative w-full mb-0">
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
