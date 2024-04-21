@@ -1,22 +1,30 @@
-@import "react-toastify/dist/ReactToastify.css";
+@import 'react-toastify/dist/ReactToastify.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  src: url("assets/iranyekanwebregular(fanum).ttf");
-  font-family: "IRANYekan";
-}
-
-body{
+  src: url('assets/iranyekanwebregular(fanum).ttf');
   font-family: 'IRANYekan';
 }
 
 :root {
-  --toastify-font-family: "IRANYekan";
+  --toastify-font-family: 'IRANYekan';
 }
 
+/* editor */
+.ck-editor {
+  max-width: 100%;
+}
+
+.ck-editor__editable {
+  /* height: 200px; */
+}
+
+.ck-source-editing-area textarea {
+  direction: ltr !important;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -24,11 +32,47 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: 'IRANYekan';
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6px;
+    margin: 10px;
+    height: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-400;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 9px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
 @layer components {
   .ltr {
     direction: ltr;
   }
-  .rtl{
+  .rtl {
     direction: rtl;
   }
   input,
@@ -43,6 +87,8 @@ input::-webkit-inner-spin-button {
   }
 
   .top-shadow {
-    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.14), 0 -2px 2px rgba(0, 0, 0, 0.05);
+    box-shadow:
+      0 -1px 1px rgba(0, 0, 0, 0.14),
+      0 -2px 2px rgba(0, 0, 0, 0.05);
   }
 }
