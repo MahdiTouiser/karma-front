@@ -25,7 +25,7 @@ export default function AuthContainer() {
       <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border">
         <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">
           <h1 className="font-bold text-xl  text-center  my-4">
-            باشگاه سقوط آزاد ایرانیان
+            کارما , جایی برای پیدا کردن کار
           </h1>
         </div>
         <Outlet></Outlet>

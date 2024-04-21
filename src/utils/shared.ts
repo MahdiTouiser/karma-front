@@ -1,3 +1,4 @@
+import printJS from "print-js";
 
 export function sortDate<T>(data: T[], dateField: keyof T): T[] {
   return data.sort(sortDateComprator<T>(dateField));
@@ -68,6 +69,6 @@ export function printResponse(fileName: string,response: Blob) {
   link.href = url;
   link.download = `${fileName}.pdf`;
 
-  // printJS({ printable: url, documentTitle: "test.pdf" });
+  printJS({ printable: url, documentTitle: "test.pdf" });
   URL.revokeObjectURL(url);
 }

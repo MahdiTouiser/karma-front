@@ -6,7 +6,6 @@ interface OTPInputProp {
   durationSeconds: number;
   phone: string;
   onFinish(code: string): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onRefresh: () => Promise<any>;
 }
 
@@ -16,7 +15,6 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
   const [canRefresh, setCanRefresh] = useState<boolean>(false);
 
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function renderInput(props: any) {
     return (
       <input

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OTPBox from "../../../components/auth/OTPBox";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "../../../hooks/reduxHooks";
 import useAPi, { axiosIntance } from "../../../hooks/useApi";
 import { AuthData } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";

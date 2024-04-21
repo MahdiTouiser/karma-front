@@ -1,15 +1,15 @@
-import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { ChangeEvent, useState } from "react";
 import SDButton from "../../../components/shared/Button";
 import SDSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
+import { OTPRequest, OTPResponse } from "../../../models/auth.models";
+import { BaseResponse } from "../../../models/shared.models";
 import { authActions } from "../../../store/auth";
 import { Regexes } from "../../../utils/shared";
 import { phoneInputValidator } from "../../../utils/validations";
-import { BaseResponse } from "../../../models/shared.models";
-import { OTPRequest, OTPResponse } from "../../../models/auth.models";
 
 const SignUpMobilePage: React.FC = () => {
   const {
@@ -119,10 +119,11 @@ const SignUpMobilePage: React.FC = () => {
             type="text"
             id="input-group-1"
             maxLength={14}
-            className={`${errors.phone
-              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-              : "border-gray-300 focus:border-blue-500"
-              } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+            className={`${
+              errors.phone
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 focus:border-blue-500"
+            } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
             placeholder="شماره موبایل خود را وارد کنید"
           />
         </div>
