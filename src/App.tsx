@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-      <h1>mahdi</h1>
+      <h1>مهدی</h1>
     </>
   )
 }
