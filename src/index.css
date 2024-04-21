@@ -1,16 +1,10 @@
 @import "react-toastify/dist/ReactToastify.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @font-face {
   src: url("assets/iranyekanwebregular(fanum).ttf");
   font-family: "IRANYekan";
-}
-
-body{
-  font-family: 'IRANYekan';
 }
 
 :root {
@@ -22,6 +16,37 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: "IRANYekan";
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6px;
+    margin: 10px;
+    height: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-400;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 9px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
 }
 
 @layer components {
