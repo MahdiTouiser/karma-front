@@ -1,0 +1,48 @@
+@import "react-toastify/dist/ReactToastify.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  src: url("assets/iranyekanwebregular(fanum).ttf");
+  font-family: "IRANYekan";
+}
+
+body{
+  font-family: 'IRANYekan';
+}
+
+:root {
+  --toastify-font-family: "IRANYekan";
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@layer components {
+  .ltr {
+    direction: ltr;
+  }
+  .rtl{
+    direction: rtl;
+  }
+  input,
+  textarea {
+    outline: none;
+  }
+  th {
+    white-space: nowrap;
+  }
+  .horizental-scrol ::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .top-shadow {
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.14), 0 -2px 2px rgba(0, 0, 0, 0.05);
+  }
+}
