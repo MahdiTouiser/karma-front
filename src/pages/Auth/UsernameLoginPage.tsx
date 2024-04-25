@@ -61,21 +61,21 @@ export default function UsernameLoginPage() {
             className={`${submitted && !username
               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
               : "border-gray-300 focus:border-blue-500"
-              } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36`}
+              } ltr placeholder:text-right w-full bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36`}
             placeholder="نام کاربری یا شماره موبایل"
           />
-          <div className="absolute left-0 h-10 top-0.5 py-1 pl-3 w-28">
+          <div className="absolute left-0 h-10 top-1 py-1 w-28">
             <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-            <Link className="text-primary text-sm" to="forget-password">
+            <Link className="text-primary text-sm mr-2" to="forget-password">
               فراموش کردید؟
             </Link>
           </div>
         </div>
-        <div className="w-full sm:w-auto mt-2 sm:mt-0">
+        <div className="w-full sm:w-auto mt-2 mr-2 sm:mt-0">
           <SDButton
             className="w-full"
             type="submit"
-            color="success"
+            color="primary2"
             disabled={isPending}
           >
             {isPending && <SDSpinner />}
@@ -92,7 +92,7 @@ export default function UsernameLoginPage() {
       <div className="flex flex-wrap items-center gap-2 mt-6  ">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <SDButton color="success" className="w-full">
+          <SDButton color="primary2" className="w-full">
             ایجاد حساب کاربری
           </SDButton>
         </Link>
