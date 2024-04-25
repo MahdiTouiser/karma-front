@@ -14,25 +14,27 @@ const EmployerLoginPage = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
     const navigate = useNavigate();
     const { sendRequest, errors, isPending } = useAPi();
-    function onChangeUsername(event: FormEvent) {
-        const input: string = replacePersianArabicsNumbers(
-            (event.target as HTMLInputElement).value
-        );
+
+    const onChangeUsername = (event: FormEvent<HTMLInputElement>) => {
+        const input: string = replacePersianArabicsNumbers(event.currentTarget.value);
         dispatch(authActions.setUsername(input));
-    }
-    function onSubmit(event: FormEvent) {
+    };
+
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSubmitted(true);
-        if (!username) {
-            return;
-        }
-        sendRequest(
-            {
+        if (!username) return;
+
+        try {
+            await sendRequest({
                 url: `/Users/CheckUserExistence/${username}`,
-            },
+            });
             () => navigate("password", { state: { username } })
-        );
-    }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <form onSubmit={onSubmit} className="p-8">
             <h1 className="mb-6 text-lg font-semibold flex justify-center">ورود کارفرما</h1>

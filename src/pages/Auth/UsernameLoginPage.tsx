@@ -13,25 +13,27 @@ export default function UsernameLoginPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
   const { sendRequest, errors, isPending } = useAPi();
-  function onChangeUsername(event: FormEvent) {
-    const input: string = replacePersianArabicsNumbers(
-      (event.target as HTMLInputElement).value
-    );
+
+  const onChangeUsername = (event: FormEvent<HTMLInputElement>) => {
+    const input: string = replacePersianArabicsNumbers(event.currentTarget.value);
     dispatch(authActions.setUsername(input));
-  }
-  function onSubmit(event: FormEvent) {
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    if (!username) {
-      return;
-    }
-    sendRequest(
-      {
+    if (!username) return;
+
+    try {
+      await sendRequest({
         url: `/Users/CheckUserExistence/${username}`,
-      },
+      });
       () => navigate("password", { state: { username } })
-    );
-  }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="p-8">
       <h1 className="mb-6 text-lg font-semibold flex justify-center">ورود کارجو</h1>
@@ -61,12 +63,12 @@ export default function UsernameLoginPage() {
             className={`${submitted && !username
               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
               : "border-gray-300 focus:border-blue-500"
-              } ltr  placeholder:text-right w-full bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36 rounded`}
+              } ltr placeholder:text-right w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36 rounded`}
             placeholder="نام کاربری یا شماره موبایل"
           />
           <div className="absolute left-0 h-10 top-1 py-1 w-28">
             <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-            <Link className="text-primary text-sm mr-2" to="forget-password">
+            <Link to="forget-password" className="text-primary text-sm mr-2">
               فراموش کردید؟
             </Link>
           </div>
@@ -78,8 +80,7 @@ export default function UsernameLoginPage() {
             color="primary2"
             disabled={isPending}
           >
-            {isPending && <SDSpinner />}
-            ورود
+            {isPending ? <SDSpinner /> : "ورود"}
           </SDButton>
         </div>
       </div>
@@ -89,7 +90,7 @@ export default function UsernameLoginPage() {
         </p>
       )}
       {errors && <p className="text-red-600 text-sm pr-2">{errors.message}</p>}
-      <div className="flex flex-wrap items-center gap-2 mt-6  ">
+      <div className="flex flex-wrap items-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
           <SDButton color="primary2" className="w-full">
