@@ -171,7 +171,7 @@ const PasswordLoginPage: React.FC = () => {
             <SDButton
               className="w-full"
               type="submit"
-              color="success"
+              color="primary2"
               disabled={isPending}
             >
               {isPending && <SDSpinner />}

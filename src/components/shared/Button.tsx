@@ -22,7 +22,7 @@ const customTheme: DeepPartial<FlowbiteButtonTheme> = {
 const SDButton: React.FC<SDButtonProps> = (props) => {
 
   return (
-    <Button theme={customTheme} {...props} className={`${props.className || ''}`}>
+    <Button theme={customTheme} {...props} className={`${props.className || ''} rounded`}>
       {props.children}
     </Button>
   );

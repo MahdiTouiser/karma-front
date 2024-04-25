@@ -18,7 +18,7 @@ import Home from './pages/userPanel/Home'
 import SkyDiveEventsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventPage'
 
 import { useAppDispatch } from './hooks/reduxHooks'
-import EmployerPage from './pages/Auth/EmployerPage'
+import EmployerPage from './pages/Auth/EmployerLoginPage'
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage'
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage'
 import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage'
@@ -78,8 +78,8 @@ function App() {
             <Route Component={PaymentPage} path="payment"></Route>
           </Route>
           <Route Component={PaymentStatus} path="payment-status"></Route>
-          <Route Component={EmployerPage} path="employer"></Route>
           <Route Component={AuthContainer} path="auth">
+            <Route Component={EmployerPage} path="employer"></Route>
             <Route Component={UsernameLoginPage} path=""></Route>
             <Route Component={PasswordLoginPage} path="password"></Route>
             <Route Component={OTPLoginPage} path="otp"></Route>
