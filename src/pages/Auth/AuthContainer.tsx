@@ -6,7 +6,7 @@ import { getAuthDataFromLocal } from "../../utils/authUtils";
 export default function AuthContainer() {
   const authState = useAppSelector((state) => state.auth);
   const [wasAuthenticated, setWasAuthenticated] = useState<boolean>(false);
-  const [isEmployerMode, setIsEmployerMode] = useState<boolean>(false);
+  const [isJobseekerMode, setIsJobseekerMode] = useState<boolean>(true);
 
   useEffect(() => {
     const authData = getAuthDataFromLocal();
@@ -18,7 +18,7 @@ export default function AuthContainer() {
   }, []);
 
   const handleModeToggle = () => {
-    setIsEmployerMode(!isEmployerMode);
+    setIsJobseekerMode(!isJobseekerMode);
   };
 
   return ((authState.isAuthenticated &&
@@ -39,12 +39,12 @@ export default function AuthContainer() {
           <Outlet />
           <div className="bg-gray-100 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
             <Link
-              to={isEmployerMode ? "/auth/employer" : "/auth"}
+              to={isJobseekerMode ? "/auth/employer" : "/auth"}
               onClick={handleModeToggle}
               className="flex items-center justify-center w-full"
             >
               <h6 className="text-blue-500">
-                {isEmployerMode ? "کارفرما هستید؟" : "کارجو هستید ؟"}
+                {isJobseekerMode ? "کارفرما هستید ؟" : "کارجو هستید ؟"}
               </h6>
             </Link>
           </div>
