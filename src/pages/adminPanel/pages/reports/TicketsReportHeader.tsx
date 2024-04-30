@@ -127,7 +127,7 @@ const TicketsReportHeader: React.FC<TicketsReportHeaderProps> = ({ onGetReport }
               </SDTooltip>
             </div>
             <div className="flex items-center justify-center mr-8 mb-2">
-              <SDButton color="primary" onClick={handleGetReport} disabled={!isDateSelected || isPending}>
+              <SDButton color="primary2" onClick={handleGetReport} disabled={!isDateSelected || isPending}>
                 تهیه گزارش
               </SDButton>
             </div>

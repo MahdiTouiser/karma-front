@@ -1,15 +1,15 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { FaWallet } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import PaymentMethod from "../../components/payment/PaymentMethod";
 import Basket from "../../components/shared/Basket/Basket";
 import SDCard from "../../components/shared/Card";
-import { FaWallet } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
 import { BaseResponse } from "../../models/shared.models";
-import { toast } from "react-toastify";
-import { basketActions } from "../../store/basket";
 import { WalletData } from "../../models/wallet.models";
+import { basketActions } from "../../store/basket";
 
 const PaymentPage: React.FC = () => {
   const [method, setMethod] = useState<string>("");
@@ -162,7 +162,7 @@ const PaymentPage: React.FC = () => {
             checked={acceptRules}
             onChange={onChangeAcceptance}
             name="colored-radio"
-            className="h-6 w-6 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+            className="h-6 w-6 border-gray-300 bg-gray-100 text-primary2-600 focus:ring-2 focus:ring-primary2-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary2-600"
           />
           <label
             htmlFor="red-radio"

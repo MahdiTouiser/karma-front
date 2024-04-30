@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import SDCard from "../../components/shared/Card";
+import NumberWithSeperator from "../../components/shared/NumberWithSeperator";
+import SDSpinner from "../../components/shared/Spinner";
 import useAPi from "../../hooks/useApi";
 import { BaseResponse } from "../../models/shared.models";
 import { WalletData } from "../../models/wallet.models";
-import SDSpinner from "../../components/shared/Spinner";
-import NumberWithSeperator from "../../components/shared/NumberWithSeperator";
 
 const Wallet: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
@@ -97,7 +97,7 @@ const Wallet: React.FC = () => {
               />
               <SDButton
                 type="submit"
-                color="primary"
+                color="primary2"
                 onClick={handlePayment}
                 className="w-full md:w-auto"
               >

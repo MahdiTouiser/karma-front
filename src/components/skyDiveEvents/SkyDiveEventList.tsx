@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import useAPi from "../../hooks/useApi";
 import { BaseResponse, SelectPageEvent } from "../../models/shared.models";
 import { SkyDiveEvent } from "../../models/skyDiveEvents.models";
-import SkyDiveEventCard from "./SkyDiveEventCard";
 import SDSpinner from "../shared/Spinner";
-import ReactPaginate from "react-paginate";
+import SkyDiveEventCard from "./SkyDiveEventCard";
 
 interface SkyDiveEventListProps {
   id: string;
@@ -105,11 +105,11 @@ const SkyDiveEventList: React.FC<SkyDiveEventListProps> = (props) => {
           containerClassName="flex gap-5  justify-center"
           nextClassName="flex items-center"
           previousClassName="flex items-center"
-          pageLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
-          nextLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
-          previousLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
-          breakClassName="p-1 block hover:text-primary-400"
-          activeClassName="text-primary-500"
+          pageLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
+          nextLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
+          previousLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
+          breakClassName="p-1 block hover:text-primary2-400"
+          activeClassName="text-primary2-500"
           pageClassName="text-base "
         />
       )}

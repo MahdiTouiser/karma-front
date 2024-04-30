@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import useAPi from "../../../hooks/useApi";
+import { BaseResponse } from "../../../models/shared.models";
 import {
   NewTicketFeeList,
   SkyDiveEventTicketType,
   TicketFee,
 } from "../../../models/skyDiveEvents.models";
-import SDModal from "../../shared/Modal/Modal";
-import SDLabel from "../../shared/Label";
 import SDButton from "../../shared/Button";
-import SDSpinner from "../../shared/Spinner";
-import { BaseResponse } from "../../../models/shared.models";
-import useAPi from "../../../hooks/useApi";
-import { toast } from "react-toastify";
-import { useFieldArray, useForm } from "react-hook-form";
+import SDLabel from "../../shared/Label";
+import SDModal from "../../shared/Modal/Modal";
 import SDSelect from "../../shared/Select";
+import SDSpinner from "../../shared/Spinner";
 import ThousandSeparatorInput from "../../shared/ThousandSeparatorInput";
 
 export interface CostModalProps {
@@ -211,7 +211,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                         <div className="flex  justify-between pr-4  w-4/12 xs:w-3/12">
                           {fields.length !== 1 && (
                             <SDButton
-                              color="primary"
+                              color="primary2"
                               className="font-extrabold !h-10 w-10"
                               onClick={() => removeFeeItem(index)}
                             >

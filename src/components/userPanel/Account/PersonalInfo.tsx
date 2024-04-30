@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { UseFormReturn } from 'react-hook-form'
-import SDButton from '../../shared/Button'
-import SDLabel from '../../shared/Label'
-import SDTextInput from '../../shared/TextInput'
-import useAPi from '../../../hooks/useApi'
-import { BaseResponse, UserPersonalInfo } from '../../../models/shared.models'
 import { useEffect } from 'react'
-import { PersonalInfoEditableFormData } from '../../../models/account.models'
+import { UseFormReturn } from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
+import useAPi from '../../../hooks/useApi'
+import { PersonalInfoEditableFormData } from '../../../models/account.models'
+import { BaseResponse, UserPersonalInfo } from '../../../models/shared.models'
 import { accoutnActions } from '../../../store/account'
 import { Regexes } from '../../../utils/shared'
 import { heightRangeOptions, phoneInputValidator, weightRangeOptions } from '../../../utils/validations'
+import SDButton from '../../shared/Button'
+import SDLabel from '../../shared/Label'
+import SDTextInput from '../../shared/TextInput'
 
 interface PersonalInfoProps {
   onSubmit: () => void
@@ -241,7 +241,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
           </div>
         </div>
         <div className="flex w-full justify-center ">
-          <SDButton className="w-full md:w-1/2" color="primary" type="submit" disabled={props.disableAll}>
+          <SDButton className="w-full md:w-1/2" color="primary2" type="submit" disabled={props.disableAll}>
             مرحله بعد
           </SDButton>
         </div>

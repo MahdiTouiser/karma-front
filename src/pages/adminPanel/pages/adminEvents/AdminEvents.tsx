@@ -1,29 +1,29 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import Grid from "../../../../components/shared/Grid/Grid";
-import SDButton from "../../../../components/shared/Button";
-import useAPi from "../../../../hooks/useApi";
-import {
-  NewEvent,
-  SkyDiveEventStatus,
-  SkyDiveEvent,
-} from "../../../../models/skyDiveEvents.models";
-import { BaseResponse } from "../../../../models/shared.models";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { BiToggleLeft } from "react-icons/bi";
+import { BsAirplaneEngines } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import AdminEventModal from "../../../../components/adminPanel/adminEvent/AdminEventModal";
+import CostModal from "../../../../components/adminPanel/adminEvent/CostModal";
+import TermsAndConditionsModal from "../../../../components/adminPanel/adminEvent/TermsAndConditionsModal";
+import SDButton from "../../../../components/shared/Button";
+import DateRangeFilter from "../../../../components/shared/DateRangeFilter";
+import Grid from "../../../../components/shared/Grid/Grid";
 import {
   ColDef,
   GridGetData,
   GridRef,
 } from "../../../../components/shared/Grid/grid.types";
-import StatusIndicator from "../../../../components/shared/StatusIndicator";
-import { BiToggleLeft } from "react-icons/bi";
-import { BsAirplaneEngines } from "react-icons/bs";
-import useConfirm from "../../../../hooks/useConfirm";
-import { toast } from "react-toastify";
-import CostModal from "../../../../components/adminPanel/adminEvent/CostModal";
-import { useNavigate } from "react-router-dom";
-import TermsAndConditionsModal from "../../../../components/adminPanel/adminEvent/TermsAndConditionsModal";
 import SDSelect from "../../../../components/shared/Select";
-import DateRangeFilter from "../../../../components/shared/DateRangeFilter";
+import StatusIndicator from "../../../../components/shared/StatusIndicator";
+import useAPi from "../../../../hooks/useApi";
+import useConfirm from "../../../../hooks/useConfirm";
+import { BaseResponse } from "../../../../models/shared.models";
+import {
+  NewEvent,
+  SkyDiveEvent,
+  SkyDiveEventStatus,
+} from "../../../../models/skyDiveEvents.models";
 
 const AdminEvents: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState<string>("");
@@ -274,7 +274,7 @@ const AdminEvents: React.FC = () => {
 
       <div className="mt-12  flex flex-wrap">
         <div className=" mb-4 basis-full xl:mb-0 xl:basis-1/12">
-          <SDButton color="success" onClick={onCreate}>
+          <SDButton color="primary2" onClick={onCreate}>
             + جدید
           </SDButton>
         </div>

@@ -2,18 +2,18 @@ import { useModalContext } from "./ModalContext";
 
 interface ModalHeaderProps {
   children: React.ReactNode;
-  color?: "primary" | "primary2" | "warning";
+  color?: "primary2" | "primary2" | "warning";
   withClose?: boolean;
 }
 
 const SDModalHeader: React.FC<ModalHeaderProps> = ({
   children,
-  color = "primary",
+  color = "primary2",
   withClose = true,
 }) => {
   const { onClose } = useModalContext();
   const classNames = {
-    primary: "bg-primary-500",
+    primary2: "bg-primary2-500",
     primary2: "bg-primary2-900",
     warning: "bg-yellow-300",
   };

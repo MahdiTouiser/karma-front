@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useAPi from "../../../hooks/useApi";
 import useConfirm from "../../../hooks/useConfirm";
 import { BaseResponse } from "../../../models/shared.models";
@@ -6,8 +8,6 @@ import SDButton from "../../shared/Button";
 import SDSpinner from "../../shared/Spinner";
 import AddFlightModal from "./AddFlightModal";
 import AdminFlightItem from "./AdminFlightItem";
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const AdminFlighList: React.FC<{ dayId: string; date: string }> = ({
   dayId,
@@ -93,7 +93,7 @@ const AdminFlighList: React.FC<{ dayId: string; date: string }> = ({
           <>
             <div className="flex gap-2 ">
               <SDButton
-                color="success"
+                color="primary2"
                 className="px-8"
                 onClick={startAddFlight}
                 disabled={flightsResponse.content.flights.length > 0}

@@ -1,17 +1,17 @@
-import { useCallback, useState, useRef } from "react";
-import useAPi from "../../hooks/useApi";
-import { JumpRecord } from "../../models/jumps.models";
-import { BaseResponse } from "../../models/shared.models";
+import { useCallback, useRef, useState } from "react";
+import SDButton from "../../components/shared/Button";
+import SDCard from "../../components/shared/Card";
+import Grid from "../../components/shared/Grid/Grid";
 import {
   ColDef,
   GridGetData,
   GridParams,
   GridRef,
 } from "../../components/shared/Grid/grid.types";
-import SDCard from "../../components/shared/Card";
-import Grid from "../../components/shared/Grid/Grid";
-import SDButton from "../../components/shared/Button";
 import JumpRecordModal from "../../components/userPanel/JumpRecordModal";
+import useAPi from "../../hooks/useApi";
+import { JumpRecord } from "../../models/jumps.models";
+import { BaseResponse } from "../../models/shared.models";
 
 const JumpRecordsPage: React.FC = () => {
   const { sendRequest } = useAPi<null, BaseResponse<JumpRecord[]>>();
@@ -100,7 +100,7 @@ const JumpRecordsPage: React.FC = () => {
         <div className="py-5 md:px-8">
           <>
             <div className="mb-2">
-              <SDButton color="primary" onClick={openModal}>
+              <SDButton color="primary2" onClick={openModal}>
                 + جدید
               </SDButton>
             </div>

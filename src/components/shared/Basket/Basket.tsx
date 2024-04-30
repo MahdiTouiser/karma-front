@@ -78,7 +78,7 @@ const Basket: React.FC<BasketProps> = ({
             <div className="top-shadow fixed bottom-1 right-0 flex w-full items-center   justify-between  bg-white p-3 px-6 pb-4 lg:static lg:p-0 lg:shadow-none">
               <SDButton
                 disabled={!canPay || isPaying}
-                color="success"
+                color="primary2"
                 className="w-40 max-w-md items-center lg:w-full "
                 type="button"
                 onClick={() => {
@@ -122,9 +122,8 @@ const Basket: React.FC<BasketProps> = ({
 
   return (
     <SDCard
-      className={`${
-        inPayment && "mb-10"
-      } mb-0 border border-gray-200 text-black`}
+      className={`${inPayment && "mb-10"
+        } mb-0 border border-gray-200 text-black`}
     >
       <div className="border-b border-gray-400 pb-5 text-center">
         <p className="mb-3 text-xl font-semibold text-slate-600">

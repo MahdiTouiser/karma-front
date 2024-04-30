@@ -1,20 +1,20 @@
-import React, { useState, useCallback } from "react";
-import Grid from "../../../../components/shared/Grid/Grid";
-import SDButton from "../../../../components/shared/Button";
-import {
-  BaseResponse,
-  UserStatusesPersianMap,
-} from "../../../../models/shared.models";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserListItem } from "../../../../models/usermanagement.models";
+import SDButton from "../../../../components/shared/Button";
+import DateRangeFilter from "../../../../components/shared/DateRangeFilter";
+import Grid from "../../../../components/shared/Grid/Grid";
 import {
   ColDef,
   GridGetData,
 } from "../../../../components/shared/Grid/grid.types";
-import SDSelect from "../../../../components/shared/Select";
 import SearchInput from "../../../../components/shared/SearchInput";
-import DateRangeFilter from "../../../../components/shared/DateRangeFilter";
+import SDSelect from "../../../../components/shared/Select";
 import useAPi from "../../../../hooks/useApi";
+import {
+  BaseResponse,
+  UserStatusesPersianMap,
+} from "../../../../models/shared.models";
+import { UserListItem } from "../../../../models/usermanagement.models";
 
 const UserManagement: React.FC = () => {
   const { sendRequest, errors } = useAPi<null, BaseResponse<UserListItem[]>>();
@@ -129,7 +129,7 @@ const UserManagement: React.FC = () => {
       <div className="flex  mt-12 flex-wrap">
         <div className=" basis-full mb-4 xl:mb-0 xl:basis-1/12">
           <Link to="create" className="w-full">
-            <SDButton color="success">+ جدید</SDButton>
+            <SDButton color="primary2">+ جدید</SDButton>
           </Link>
         </div>
         <div className="flex flex-wrap justify-between xl:basis-11/12 gap-4">

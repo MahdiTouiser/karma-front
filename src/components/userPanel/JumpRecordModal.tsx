@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
-import SDModal from "../shared/Modal/Modal";
-import SDLabel from "../shared/Label";
-import SDDatepicker from "../shared/DatePicker";
-import SDTextInput from "../shared/TextInput";
 import { useRef } from "react";
-import SDButton from "../shared/Button";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import useAPi from "../../hooks/useApi";
 import { AddJumpRecordRequest } from "../../models/jumps.models";
 import { BaseResponse } from "../../models/shared.models";
-import SDTextArea from "../shared/TextArea";
+import SDButton from "../shared/Button";
+import SDDatepicker from "../shared/DatePicker";
+import SDLabel from "../shared/Label";
+import SDModal from "../shared/Modal/Modal";
 import SDSpinner from "../shared/Spinner";
-import { toast } from "react-toastify";
+import SDTextArea from "../shared/TextArea";
+import SDTextInput from "../shared/TextInput";
 
 interface JumpRecordModalProps {
   showModal: boolean;
@@ -98,7 +98,7 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
       onClose={() => resetModal(false)}
       containerClass="!p-0 lg:!w-[480px]"
     >
-      <SDModal.Header color={adminStyling ? "primary2" : "primary"}>
+      <SDModal.Header color={adminStyling ? "primary2" : "primary2"}>
         سابقه پرش جدید
       </SDModal.Header>
       <SDModal.Body>
@@ -248,9 +248,8 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
               </div>
               {(formErrors.minutes?.message || formErrors.hours?.message) && (
                 <p className="text-red-600 text-xs pr-2 mt-2">
-                  {`${formErrors.minutes?.message || ""} ${
-                    formErrors.hours?.message || ""
-                  }`}
+                  {`${formErrors.minutes?.message || ""} ${formErrors.hours?.message || ""
+                    }`}
                 </p>
               )}
             </div>
@@ -270,7 +269,7 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
           <div className="w-full px-5 pt-5 flex justify-start items-center">
             <SDButton
               type="submit"
-              color={adminStyling ? "primary2" : "primary"}
+              color={adminStyling ? "primary2" : "primary2"}
               className="!w-full"
               disabled={isPending}
             >

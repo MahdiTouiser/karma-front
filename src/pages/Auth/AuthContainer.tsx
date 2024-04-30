@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { getAuthDataFromLocal } from "../../utils/authUtils";
 
 export default function AuthContainer() {
+
   const authState = useAppSelector((state) => state.auth);
   const [wasAuthenticated, setWasAuthenticated] = useState<boolean>(false);
   const [isJobseekerMode, setIsJobseekerMode] = useState<boolean>(true);

@@ -1,9 +1,9 @@
 import { Table } from "flowbite-react";
-import { GridRowActions, GridRowModel } from "./grid.types";
+import { useCallback, useState } from "react";
 import SDTooltip from "../Tooltip";
 import GridRowOtherActionComponent from "./GridOtherRowActionComponent";
 import GridRowMoreActionComponent from "./GridRowMoreActionsComponent";
-import { useCallback, useState } from "react";
+import { GridRowActions, GridRowModel } from "./grid.types";
 
 interface GridRowProps<T> {
   row: GridRowModel<T>;
@@ -13,7 +13,7 @@ interface GridRowProps<T> {
   onRemoveRow?: (item: T) => void;
   selectable?: boolean;
   onSelectedChange?: (row: GridRowModel<T>, selected: boolean) => void;
-  theme?: "primary" | "primary2";
+  theme?: "primary2" | "primary2";
 }
 
 function GridRow<T>({
@@ -24,7 +24,7 @@ function GridRow<T>({
   onRemoveRow,
   selectable = false,
   onSelectedChange,
-  theme = "primary",
+  theme = "primary2",
 }: GridRowProps<T>) {
   const [lastTouched, setLastTouched] = useState<number>(0);
   const handleTouchEnd = useCallback(
@@ -55,9 +55,8 @@ function GridRow<T>({
       onTouchEnd={(e) => {
         handleTouchEnd(e, row);
       }}
-      className={`${
-        onRowDobuleClisk && "!cursor-pointer"
-      } bg-white dark:border-gray-700 dark:bg-gray-800`}
+      className={`${onRowDobuleClisk && "!cursor-pointer"
+        } bg-white dark:border-gray-700 dark:bg-gray-800`}
     >
       {selectable && (
         <Table.Cell className="w-5 px-3 pl-0">

@@ -1,17 +1,17 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import SDAlert from "../../../components/shared/Alert";
 import SDButton from "../../../components/shared/Button";
+import SDDatepicker from "../../../components/shared/DatePicker";
 import SDLabel from "../../../components/shared/Label";
 import SDSpinner from "../../../components/shared/Spinner";
 import SDTextInput from "../../../components/shared/TextInput";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { UserPersonalInfo } from "../../../models/shared.models";
-import SDDatepicker from "../../../components/shared/DatePicker";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { authActions } from "../../../store/auth";
 import { updateAuthDataInLocal } from "../../../utils/authUtils";
-import { useEffect } from "react";
 import { Regexes } from "../../../utils/shared";
 import {
   birthDateBaseNowValidation,
@@ -157,7 +157,7 @@ const SignUpPersonaPage: React.FC = () => {
         <div>
           <SDButton
             type="submit"
-            color="success"
+            color="primary2"
             className="w-full"
             disabled={isPending}
           >

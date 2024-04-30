@@ -120,8 +120,8 @@ const SignUpMobilePage: React.FC = () => {
             id="input-group-1"
             maxLength={14}
             className={`${errors.phone
-                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 focus:border-blue-500"
+              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+              : "border-gray-300 focus:border-blue-500"
               } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
             placeholder="شماره موبایل خود را وارد کنید"
           />
@@ -130,7 +130,7 @@ const SignUpMobilePage: React.FC = () => {
           <SDButton
             className="w-full"
             type="submit"
-            color="success"
+            color="primary2"
             disabled={finalPending}
           >
             {finalPending && <SDSpinner />}
@@ -146,7 +146,7 @@ const SignUpMobilePage: React.FC = () => {
           checked={acceptRules}
           onChange={onChangeAcceptance}
           name="colored-radio"
-          className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          className="w-4 h-4 text-primary2-600 bg-gray-100 border-gray-300 focus:ring-primary2-500 dark:focus:ring-primary2-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label
           htmlFor="red-radio"
@@ -182,7 +182,7 @@ const SignUpMobilePage: React.FC = () => {
       <div className="flex items-center gap-2 mt-6 justify-center ">
         <p>حساب کاربری دارید؟</p>
         <Link to="../">
-          <SDButton color="success" className="w-full">
+          <SDButton color="primary2" className="w-full">
             ورود
           </SDButton>
         </Link>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { UserMessage } from "../../../models/messages.models";
+import { readMessage } from "../../../store/messages";
+import SDButton from "../../shared/Button";
 import SDCard from "../../shared/Card";
 import SDSpinner from "../../shared/Spinner";
-import SDButton from "../../shared/Button";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import { readMessage } from "../../../store/messages";
 
 const MessagesItem: React.FC<UserMessage> = (props) => {
   const [isFullTextShown, setIsFullTextShown] = useState(false);
@@ -36,9 +36,8 @@ const MessagesItem: React.FC<UserMessage> = (props) => {
   return (
     <SDCard className="mb-2 !border">
       <div
-        className={`flex gap-11 items-center   pb-6 ${
-          props.visited ? "read" : "unread"
-        }`}
+        className={`flex gap-11 items-center   pb-6 ${props.visited ? "read" : "unread"
+          }`}
       >
         <div className="hidden sm:block">
           <svg
@@ -78,7 +77,7 @@ const MessagesItem: React.FC<UserMessage> = (props) => {
               <div className="flex items-center ">
                 <SDButton
                   onClick={markAsRead}
-                  color="primary"
+                  color="primary2"
                   disabled={changingMessageId === props.id}
                 >
                   <span className="flex items-center">

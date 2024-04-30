@@ -1,9 +1,9 @@
-import SDButton from "../../shared/Button";
-import {  useEffect, useState } from "react";
-import DocumentItemComponent from "./DocumentsItemComponent";
-import { UserDocumentsFields } from "../../../store/account";
-import SDSpinner from "../../shared/Spinner";
+import { useEffect, useState } from "react";
 import { UserStatuses } from "../../../models/shared.models";
+import { UserDocumentsFields } from "../../../store/account";
+import SDButton from "../../shared/Button";
+import SDSpinner from "../../shared/Spinner";
+import DocumentItemComponent from "./DocumentsItemComponent";
 
 interface DocumentsProp {
   onSubmit: () => Promise<void>;
@@ -14,13 +14,13 @@ interface DocumentsProp {
 
 const Documents: React.FC<DocumentsProp> = (props) => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [disableAll,setDisableAll] = useState<boolean>(false);
+  const [disableAll, setDisableAll] = useState<boolean>(false);
 
-  useEffect(()=>{
-    if(props.userStatus === UserStatuses.PENDING){
+  useEffect(() => {
+    if (props.userStatus === UserStatuses.PENDING) {
       setDisableAll(true);
     }
-  },[props.userStatus])
+  }, [props.userStatus])
 
 
   async function onSubmit() {
@@ -65,7 +65,7 @@ const Documents: React.FC<DocumentsProp> = (props) => {
           </div>
           <div className="flex justify-center pt-6">
             <SDButton
-              color="success"
+              color="primary2"
               type="submit"
               className="basis-full xs:basis-1/2"
               onClick={onSubmit}

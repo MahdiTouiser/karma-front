@@ -68,7 +68,7 @@ export default function UsernameLoginPage() {
           />
           <div className="absolute left-0 h-10 top-1 py-1 w-28">
             <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-            <Link to="forget-password" className="text-primary text-sm mr-2">
+            <Link to="forget-password" className="text-primary2 text-sm mr-2">
               فراموش کردید؟
             </Link>
           </div>

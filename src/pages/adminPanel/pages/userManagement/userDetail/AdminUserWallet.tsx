@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { toast } from "react-toastify";
-import SDCard from "../../../../../components/shared/Card";
-import SDButton from "../../../../../components/shared/Button";
-import { BaseResponse } from "../../../../../models/shared.models";
-import useApi from "../../../../../hooks/useApi";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import SDButton from "../../../../../components/shared/Button";
+import SDCard from "../../../../../components/shared/Card";
+import NumberWithSeperator from "../../../../../components/shared/NumberWithSeperator";
 import SDSpinner from "../../../../../components/shared/Spinner";
+import ThousandSeparatorInput from "../../../../../components/shared/ThousandSeparatorInput";
+import useApi from "../../../../../hooks/useApi";
+import useConfirm from "../../../../../hooks/useConfirm";
+import { BaseResponse } from "../../../../../models/shared.models";
 import {
   ChargeWalletData,
   WalletData,
 } from "../../../../../models/wallet.models";
-import NumberWithSeperator from "../../../../../components/shared/NumberWithSeperator";
-import useConfirm from "../../../../../hooks/useConfirm";
-import ThousandSeparatorInput from "../../../../../components/shared/ThousandSeparatorInput";
 interface FormData {
   amount: number;
 }
@@ -23,14 +23,13 @@ const AdminUserWallet: React.FC = () => {
 
   const [ConfirmModal, confirmation] = useConfirm(
     confirmAmount >= 0
-      ? `آیا از شارژ کیف پول به مبلغ \u200E${
-          confirmAmount.toLocaleString() ?? "0"
-        } ریال مطمئن هستید؟`
+      ? `آیا از شارژ کیف پول به مبلغ \u200E${confirmAmount.toLocaleString() ?? "0"
+      } ریال مطمئن هستید؟`
       : `آیا از برداشت کیف پول به مبلغ \u200E${confirmAmount} ریال مطمئن هستید؟`,
     "عملیات کیف پول"
   );
 
-  const {  handleSubmit, control,formState:{errors} } = useForm<FormData>({
+  const { handleSubmit, control, formState: { errors } } = useForm<FormData>({
     mode: "onTouched",
   });
 
@@ -131,7 +130,7 @@ const AdminUserWallet: React.FC = () => {
                 <SDButton
                   className="w-full md:w-auto lg:w-1/3 flex items-center justify-center"
                   type="submit"
-                  color="success"
+                  color="primary2"
                   disabled={isPendingChargeWallet}
                 >
                   {isPendingChargeWallet && <SDSpinner size={5} />}
@@ -139,10 +138,10 @@ const AdminUserWallet: React.FC = () => {
                 </SDButton>
               </div>
               {errors.amount?.message && (
-                  <p className="text-red-600 text-sm pr-2 mt-2">
-                    {errors.amount.message}
-                  </p>
-                )}
+                <p className="text-red-600 text-sm pr-2 mt-2">
+                  {errors.amount.message}
+                </p>
+              )}
             </form>
           </>
         )}

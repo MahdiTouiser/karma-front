@@ -1,18 +1,17 @@
-import { useState } from 'react'
-import { Link, NavLink, Outlet, useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import CheckInfoMessageModal from '../../../../../components/adminPanel/userManagement/CheckInfoMessageModal'
 import SDButton from '../../../../../components/shared/Button'
 import SDCard from '../../../../../components/shared/Card'
+import SDSpinner from '../../../../../components/shared/Spinner'
+import UserStatusLabel from '../../../../../components/shared/UserStatusLabel'
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/reduxHooks'
 import useAPi from '../../../../../hooks/useApi'
+import useConfirm from '../../../../../hooks/useConfirm'
 import { BaseResponse, UserStatuses } from '../../../../../models/shared.models'
 import { CheckUserInfoRequest } from '../../../../../models/usermanagement.models'
-import { useEffect } from 'react'
-import UserStatusLabel from '../../../../../components/shared/UserStatusLabel'
-import SDSpinner from '../../../../../components/shared/Spinner'
-import { toast } from 'react-toastify'
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/reduxHooks'
 import { fetchUserDetail, usermanagementActions } from '../../../../../store/usermanagement'
-import CheckInfoMessageModal from '../../../../../components/adminPanel/userManagement/CheckInfoMessageModal'
-import useConfirm from '../../../../../hooks/useConfirm'
 
 const UserDetailPage: React.FC = () => {
   const params = useParams()
@@ -148,7 +147,7 @@ const UserDetailPage: React.FC = () => {
               {userManagementState.userDetail.userStatus === UserStatuses.PENDING && (
                 <>
                   <SDButton
-                    color="success"
+                    color="primary2"
                     onClick={() =>
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       approveInfo(userManagementState.userDetail!.id)
@@ -235,8 +234,7 @@ const UserDetailPage: React.FC = () => {
               <NavLink
                 end={true}
                 className={nav =>
-                  `${
-                    nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
+                  `${nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
                   } block pb-4 text-gray-500 transition-all duration-75 ease-linear  hover:border-b-2 hover:border-gray-300 hover:text-gray-600`
                 }
                 to={''}
@@ -247,8 +245,7 @@ const UserDetailPage: React.FC = () => {
             <li className="flex-grow text-center">
               <NavLink
                 className={nav =>
-                  `${
-                    nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
+                  `${nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
                   } block pb-4 text-gray-500 transition-all duration-75 ease-linear  hover:border-b-2 hover:border-blue-300 hover:text-blue-400`
                 }
                 to="transactions"
@@ -259,8 +256,7 @@ const UserDetailPage: React.FC = () => {
             <li className="flex-grow text-center">
               <NavLink
                 className={nav =>
-                  `${
-                    nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
+                  `${nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
                   } block pb-4 text-gray-500 transition-all duration-75 ease-linear  hover:border-b-2 hover:border-blue-300 hover:text-blue-400`
                 }
                 to="documents"
@@ -271,8 +267,7 @@ const UserDetailPage: React.FC = () => {
             <li className="flex-grow text-center">
               <NavLink
                 className={nav =>
-                  `${
-                    nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
+                  `${nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
                   } block pb-4 text-gray-500 transition-all duration-75 ease-linear  hover:border-b-2 hover:border-blue-300 hover:text-blue-400`
                 }
                 to="jumps"
@@ -283,8 +278,7 @@ const UserDetailPage: React.FC = () => {
             <li className="flex-grow text-center">
               <NavLink
                 className={nav =>
-                  `${
-                    nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
+                  `${nav.isActive && 'border-b-2 !border-blue-500 !text-blue-500'
                   } block pb-4 text-gray-500 transition-all duration-75 ease-linear  hover:border-b-2 hover:border-blue-300 hover:text-blue-400`
                 }
                 to="wallet"
