@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ResetPasswordOtpComponent from "../../../components/auth/ResetPasswordOtpComponet";
 import BackButton from "../../../components/shared/BackButton";
 import { useAppSelector } from "../../../hooks/reduxHooks";
-import { useEffect } from "react";
-import ResetPasswordOtpComponent from "../../../components/auth/ResertPasswordOtpComponet";
 
 const ForgetPasswordOtpPage: React.FC = () => {
   const phone = useAppSelector((state) => state.auth.enteredPhone);

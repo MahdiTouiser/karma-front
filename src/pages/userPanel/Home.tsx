@@ -1,22 +1,16 @@
+import { useEffect, useState } from "react";
 import SDCard from "../../components/shared/Card";
 import HomeLink, {
   HomeLinkProps,
 } from "../../components/userPanel/home/HomeLink";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import useApi from "../../hooks/useApi";
-import { BaseResponse, UserStatuses } from "../../models/shared.models";
-import { useState, useEffect } from "react";
-import { authActions } from "../../store/auth";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { UserStatuses } from "../../models/shared.models";
 
 const Home: React.FC = () => {
   const [links, setLinks] = useState<HomeLinkProps[]>([]);
   const name = useAppSelector((state) => state.auth.name);
   const authState = useAppSelector((state) => state.auth);
-  const { sendRequest: sendCheckActiveRequest } = useApi<
-    null,
-    BaseResponse<boolean>
-  >();
-  const dispatch = useAppDispatch();
+
   const termsLink = useAppSelector(
     (state) => state.generalSettings.generalSettings?.termsAndConditionsUrl
   );
@@ -28,18 +22,6 @@ const Home: React.FC = () => {
     [UserStatuses.INACTIVE, "bg-red-500"],
   ]);
 
-  useEffect(() => {
-    sendCheckActiveRequest(
-      {
-        url: "/Users/CheckIfUserIsActive",
-      },
-      (response) => {
-        if (response.content) {
-          dispatch(authActions.setUserStatus(UserStatuses.ACTIVE));
-        }
-      }
-    );
-  }, [dispatch, sendCheckActiveRequest, authState.userStatus]);
 
   useEffect(() => {
     setLinks([

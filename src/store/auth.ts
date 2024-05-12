@@ -65,9 +65,9 @@ const authSlice = createSlice({
       state.token = action.payload.authToken
       state.refreshToken = action.payload.refreshToken
       state.isAuthenticated = true
-      state.isAdmin = action.payload.isAdmin
-      state.securityInformationCompleted = action.payload.securityInformationCompleted
-      state.personalInformationCompleted = action.payload.personalInformationCompleted
+      // state.isAdmin = action.payload.isAdmin
+      // state.securityInformationCompleted = action.payload.securityInformationCompleted
+      // state.personalInformationCompleted = action.payload.personalInformationCompleted
     },
     signUpPhone: (state, action: PayloadAction<{ id: string; phone: string }>) => {
       state.enteredPhone = action.payload.phone

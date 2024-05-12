@@ -12,9 +12,7 @@ export default function AuthContainer() {
   useEffect(() => {
     const authData = getAuthDataFromLocal();
     setWasAuthenticated(
-      !!authData &&
-      authData.personalInformationCompleted &&
-      authData.securityInformationCompleted
+      !!authData
     );
   }, []);
 

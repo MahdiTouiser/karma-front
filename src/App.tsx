@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import AuthenticatedRoute from './AuthenticatedRoute'
@@ -17,7 +16,6 @@ import OTPLoginPage from './pages/Auth/OTPLoginPage'
 import Home from './pages/userPanel/Home'
 import SkyDiveEventsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventPage'
 
-import { useAppDispatch } from './hooks/reduxHooks'
 import EmployerPage from './pages/Auth/EmployerLoginPage'
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage'
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage'
@@ -48,13 +46,9 @@ import Wallet from './pages/userPanel/Wallet'
 import SkyDiveEventDaysPage from './pages/userPanel/skyDiveEvents/SkyDiveEventDaysPage'
 import SkyDiveEventFlightsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventFlightsPage'
 import SkyDiveEventTermsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventTermsPage'
-import { fetchGeneralSettings } from './store/generalSettings'
 
 function App() {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchGeneralSettings())
-  }, [dispatch])
+
   return (
     <>
       <ToastContainer rtl theme="colored" position="top-left" icon={false} closeButton={false} autoClose={2000} />

@@ -63,10 +63,10 @@ const PasswordLoginPage: React.FC = () => {
       (response) => {
         setAuthDataInLocal(response.content);
         dispatch(authActions.setToken(response.content));
-        if (response.content.isAdmin) {
-          navigate("/admin");
-          return;
-        }
+        // if (response.content.isAdmin) {
+        //   navigate("/admin");
+        //   return;
+        // }
         navigate("/");
       }
     );

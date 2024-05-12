@@ -12,6 +12,7 @@ export interface LinkWithIcon {
 }
 
 export interface BaseResponse<T> {
+  value(value: any): unknown;
   message: string;
   content: T;
   total: number;
