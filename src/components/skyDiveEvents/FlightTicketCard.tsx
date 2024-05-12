@@ -1,9 +1,9 @@
-import { Ticket } from "../../models/skyDiveEvents.models";
-import NumberWithSeperator from "../shared/NumberWithSeperator";
-import AddOrRemoveTicket from "../shared/Basket/AddorRemoveTicket";
 import { useEffect, useState } from "react";
-import { AggregatedTicket } from "../../models/shared.models";
 import useBasketTickets from "../../hooks/useBasketTickets";
+import { AggregatedTicket } from "../../models/shared.models";
+import { Ticket } from "../../models/skyDiveEvents.models";
+import AddOrRemoveTicket from "../shared/Notification/AddorRemoveTicket";
+import NumberWithSeperator from "../shared/NumberWithSeperator";
 
 interface FlightTicketCardProps extends Ticket {
   className?: string;
@@ -30,9 +30,8 @@ const FlightTicketCard: React.FC<FlightTicketCardProps> = (props) => {
   }, [aggregatedTickets, props, getAggregate]);
   return (
     <div
-      className={`${
-        props.className || ""
-      } flex w-full flex-col items-center  justify-center py-8 text-lg font-semibold`}
+      className={`${props.className || ""
+        } flex w-full flex-col items-center  justify-center py-8 text-lg font-semibold`}
     >
       <p className="mb-1 text-slate-600">بلیت‌ {props.ticketType}</p>
       <p className="mb-5 text-slate-600">

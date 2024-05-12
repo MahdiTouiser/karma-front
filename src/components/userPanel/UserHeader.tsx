@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { authActions } from "../../store/auth";
 import { removeAuthDataFromLocal } from "../../utils/authUtils";
-import Basket from "../shared/Basket/Basket";
 import SDDropdown, { DropDownItem } from "../shared/Dropdown";
 import NotifBadge from "../shared/NotifBadge";
+import Basket from "../shared/Notification/Notification";
 import SDTooltip from "../shared/Tooltip";
 
 const UserHeader: React.FC = () => {
@@ -23,16 +23,6 @@ const UserHeader: React.FC = () => {
     (state) => state.basket.basket?.ticketsCount
   );
 
-  useEffect(() => {
-    if (
-      location.pathname.includes("flights") ||
-      location.pathname.includes("payment")
-    ) {
-      setCartIsInBody(true);
-    } else {
-      setCartIsInBody(false);
-    }
-  }, [location]);
 
   useEffect(() => {
     setDropdownItems([
@@ -149,7 +139,7 @@ const UserHeader: React.FC = () => {
                 />
               )}
             </div>
-            <FaShoppingCart size="1.5rem" />
+            <FaBell size="1.5rem" />
             {!cartIsInBody && showBasket && (
               <div className="hidden  md:block absolute max-h-screen overflow-auto rounded-t-lg top-[50px] left-36 z-20 w-96">
                 <Basket />

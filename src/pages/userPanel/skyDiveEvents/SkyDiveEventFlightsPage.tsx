@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import Basket from "../../../components/shared/Basket/Basket";
-import BookButton from "../../../components/shared/Basket/‌BookButton";
 import SDCard from "../../../components/shared/Card";
+import Basket from "../../../components/shared/Notification/Notification";
+import BookButton from "../../../components/shared/Notification/‌BookButton";
 import FlightList from "../../../components/skyDiveEvents/FlightList";
 import useAPi from "../../../hooks/useApi";
 import { useUserContainerDom } from "../../../hooks/userContainerDom";

@@ -25,7 +25,7 @@ const Basket: React.FC<BasketProps> = ({
   const { aggregatedTickets } = useBasketTickets();
 
   const emptyMessage = (
-    <p className="mt-5 text-center">سبد خرید شما خالی است.</p>
+    <p className="mt-5 text-center">اعلانی موجود نیست .</p>
   );
 
   const body = (
@@ -127,7 +127,7 @@ const Basket: React.FC<BasketProps> = ({
     >
       <div className="border-b border-gray-400 pb-5 text-center">
         <p className="mb-3 text-xl font-semibold text-slate-600">
-          سبد خرید شما
+          اعلانات شما
         </p>
         {basketState.basket && basketState.basket.items.length > 0 && (
           <p className="text-green-500">
