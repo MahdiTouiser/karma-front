@@ -56,7 +56,7 @@ const SignUpMobilePage: React.FC = () => {
       {
         url: "/Users/OtpRequest",
         method: "post",
-        data: { username: phone },
+        data: { phone: phone },
       },
       () => {
         setFinalPending(false);

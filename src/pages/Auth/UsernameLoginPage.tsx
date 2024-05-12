@@ -9,6 +9,8 @@ import { replacePersianArabicsNumbers } from "../../utils/shared";
 
 export default function UsernameLoginPage() {
   const username = useAppSelector((state) => state.auth.enteredUsername);
+  const password = useAppSelector((state) => state.auth.enteredPassword);
+
   const dispatch = useAppDispatch();
   const [submitted, setSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -19,6 +21,11 @@ export default function UsernameLoginPage() {
     dispatch(authActions.setUsername(input));
   };
 
+  const onChangePassword = (event: FormEvent<HTMLInputElement>) => {
+    const input: string = replacePersianArabicsNumbers(event.currentTarget.value);
+    dispatch(authActions.setPassword(input));
+  };
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
@@ -26,7 +33,9 @@ export default function UsernameLoginPage() {
 
     try {
       await sendRequest({
-        url: `/Users/CheckUserExistence/${username}`,
+        method: 'post',
+        url: `/Users/Login`,
+        data: ''
       });
       () => navigate("password", { state: { username } })
     } catch (error) {
@@ -63,7 +72,7 @@ export default function UsernameLoginPage() {
             className={`${submitted && !username
               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
               : "border-gray-300 focus:border-blue-500"
-              } ltr placeholder:text-right w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36 rounded`}
+              } ltr placeholder:text-right w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-12 rounded`}
             placeholder="نام کاربری یا شماره موبایل"
           />
           <div className="absolute left-0 h-10 top-1 py-1 w-28">
@@ -73,17 +82,33 @@ export default function UsernameLoginPage() {
             </Link>
           </div>
         </div>
-        <div className="w-full sm:w-auto mt-2 mr-2 sm:mt-0">
-          <SDButton
-            className="w-full"
-            type="submit"
-            color="primary2"
-            disabled={isPending}
-          >
-            {isPending ? <SDSpinner /> : "ورود"}
-          </SDButton>
-        </div>
       </div>
+
+      <div className="flex w-full gap-1 flex-wrap sm:flex-nowrap mt-4">
+        <input
+          type="text"
+          value={password}
+          onInput={onChangePassword}
+          id="input-group-1"
+          className={`${submitted && !password
+            ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+            : "border-gray-300 focus:border-blue-500"
+            } ltr placeholder:text-right w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-12 rounded`}
+          placeholder="رمز عبور"
+        />
+      </div>
+
+      <div className="w-full sm:w-auto mt-4">
+        <SDButton
+          className="w-full"
+          type="submit"
+          color="primary2"
+          disabled={isPending}
+        >
+          {isPending ? <SDSpinner /> : "ورود"}
+        </SDButton>
+      </div>
+
       {submitted && !username && (
         <p className="text-red-600 text-sm pr-2">
           لطفا نام کاربری خود را وارد کنید.
@@ -99,5 +124,7 @@ export default function UsernameLoginPage() {
         </Link>
       </div>
     </form>
+
+
   );
 }

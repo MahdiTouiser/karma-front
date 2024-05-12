@@ -77,7 +77,7 @@ const PasswordLoginPage: React.FC = () => {
       {
         url: "/Users/OtpRequest",
         method: "post",
-        data: { username: enteredUsername },
+        data: { phone: enteredUsername },
       },
       (response) => {
         dispatch(authActions.setMobile(response.content));

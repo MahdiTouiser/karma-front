@@ -44,7 +44,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
 
   return (
     <div>
-      <p className="mb-6 text-lg font-semibold">
+      <p className="mb-6 text-lg font-semibold flex justify-center">
         کد فرستاده شده برای <span dir="auto">({phone})</span> را وارد کنید.
       </p>
       <div className="flex flex-col items-center">
