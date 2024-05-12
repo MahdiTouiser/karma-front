@@ -63,10 +63,10 @@ const PasswordLoginPage: React.FC = () => {
       (response) => {
         setAuthDataInLocal(response.content);
         dispatch(authActions.setToken(response.content));
-        if (response.content.isAdmin) {
-          navigate("/admin");
-          return;
-        }
+        // if (response.content.isAdmin) {
+        //   navigate("/admin");
+        //   return;
+        // }
         navigate("/");
       }
     );
@@ -77,7 +77,7 @@ const PasswordLoginPage: React.FC = () => {
       {
         url: "/Users/OtpRequest",
         method: "post",
-        data: { username: enteredUsername },
+        data: { phone: enteredUsername },
       },
       (response) => {
         dispatch(authActions.setMobile(response.content));
@@ -148,8 +148,8 @@ const PasswordLoginPage: React.FC = () => {
               onInput={onPasswordChange}
               id="input-group-1"
               className={`${submitted && !password
-                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 focus:border-blue-500"
                 } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-40`}
             />
             <button
@@ -162,7 +162,7 @@ const PasswordLoginPage: React.FC = () => {
             </button>
             <div className="absolute left-0 h-10 top-0.5 py-1 pl-3 w-28">
               <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-3 w-px"></div>
-              <Link className="text-primary text-sm" to="../forget-password">
+              <Link className="text-primary2 text-sm" to="../forget-password">
                 فراموش کردید؟
               </Link>
             </div>
@@ -171,7 +171,7 @@ const PasswordLoginPage: React.FC = () => {
             <SDButton
               className="w-full"
               type="submit"
-              color="success"
+              color="primary2"
               disabled={isPending}
             >
               {isPending && <SDSpinner />}

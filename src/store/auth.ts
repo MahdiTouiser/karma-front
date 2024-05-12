@@ -1,104 +1,109 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthData } from "../models/auth.models";
-import { UserGeneralInfo, UserStatusesPersianMap } from "../models/shared.models";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuthData } from '../models/auth.models'
+import { UserGeneralInfo, UserStatusesPersianMap } from '../models/shared.models'
 
 interface AuthState {
-  enteredUsername: string;
-  isAuthenticated: boolean;
-  enteredPhone: string;
-  token: string;
-  refreshToken: string;
-  userId: string;
-  name: string;
-  userStatus: string;
-  userType: string;
-  username: string;
-  code: number;
-  mobile: string;
-  userStatusDisplay: string;
-  isAdmin: boolean;
-  genralInfoSet: boolean;
-  httpHeaderSet: boolean;
-  personalInformationCompleted: boolean,
+  enteredUsername: string
+  enteredPassword: string
+  isAuthenticated: boolean
+  enteredPhone: string
+  token: string
+  refreshToken: string
+  userId: string
+  name: string
+  userStatus: string
+  userType: string
+  username: string
+  password: string
+  code: number
+  mobile: string
+  userStatusDisplay: string
+  isAdmin: boolean
+  genralInfoSet: boolean
+  httpHeaderSet: boolean
+  personalInformationCompleted: boolean
   securityInformationCompleted: boolean
 }
 
 const initialState: AuthState = {
-  enteredUsername: "",
+  enteredUsername: '',
+  enteredPassword: '',
+  password: '',
   isAuthenticated: false,
-  enteredPhone: "",
-  token: "",
-  userId: "",
-  refreshToken: "",
-  userStatus: "",
-  userType: "",
-  name: "",
-  username: "",
+  enteredPhone: '',
+  token: '',
+  userId: '',
+  refreshToken: '',
+  userStatus: '',
+  userType: '',
+  name: '',
+  username: '',
   code: -1,
-  mobile: "",
-  userStatusDisplay: "",
+  mobile: '',
+  userStatusDisplay: '',
   isAdmin: false,
   genralInfoSet: false,
   httpHeaderSet: false,
   personalInformationCompleted: false,
   securityInformationCompleted: false,
-};
+}
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: initialState,
   reducers: {
     setUsername: (state, action: PayloadAction<string>) => {
-      state.enteredUsername = action.payload;
+      state.enteredUsername = action.payload
+    },
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.enteredPassword = action.payload
     },
     setMobile: (state, action: PayloadAction<string>) => {
-      state.enteredPhone = action.payload;
+      state.enteredPhone = action.payload
     },
     setToken: (state, action: PayloadAction<AuthData>) => {
-      state.token = action.payload.authToken;
-      state.refreshToken = action.payload.refreshToken;
-      state.isAuthenticated = true;
-      state.isAdmin = action.payload.isAdmin;
-      state.securityInformationCompleted = action.payload.securityInformationCompleted;
-      state.personalInformationCompleted = action.payload.personalInformationCompleted;
+      state.token = action.payload.authToken
+      state.refreshToken = action.payload.refreshToken
+      state.isAuthenticated = true
+      // state.isAdmin = action.payload.isAdmin
+      // state.securityInformationCompleted = action.payload.securityInformationCompleted
+      // state.personalInformationCompleted = action.payload.personalInformationCompleted
     },
-    signUpPhone: (
-      state,
-      action: PayloadAction<{ id: string; phone: string }>
-    ) => {
-      state.enteredPhone = action.payload.phone;
-      state.userId = action.payload.id;
+    signUpPhone: (state, action: PayloadAction<{ id: string; phone: string }>) => {
+      state.enteredPhone = action.payload.phone
+      state.userId = action.payload.id
     },
     logOut: () => {
-      return { ...initialState };
+      return { ...initialState }
     },
     setUserGenralInfo: (state, action: PayloadAction<UserGeneralInfo>) => {
-      state.name = `${action.payload.firstName} ${action.payload.lastName}`;
-      state.userStatus = action.payload.userStatus;
-      state.userStatusDisplay = action.payload.userStatusDisplay;
-      state.userType = action.payload.userType;
-      state.username = action.payload.userName;
-      state.code = action.payload.code;
-      state.mobile = action.payload.mobile;
-      state.enteredPhone = "";
-      state.enteredUsername = "";
-      state.genralInfoSet = true;
+      state.name = `${action.payload.firstName} ${action.payload.lastName}`
+      state.userStatus = action.payload.userStatus
+      state.userStatusDisplay = action.payload.userStatusDisplay
+      state.userType = action.payload.userType
+      state.username = action.payload.userName
+      state.code = action.payload.code
+      state.mobile = action.payload.mobile
+      state.enteredPhone = ''
+      state.enteredUsername = ''
+      state.enteredPassword = ''
+      state.genralInfoSet = true
     },
-    setUserStatus:(state,action: PayloadAction<string>)=>{
-      state.userStatus = action.payload;
+    setUserStatus: (state, action: PayloadAction<string>) => {
+      state.userStatus = action.payload
       state.userStatusDisplay = UserStatusesPersianMap.get(action.payload) || ''
     },
-    setHttpHeader: (state) => {
-      state.httpHeaderSet = true;
+    setHttpHeader: state => {
+      state.httpHeaderSet = true
     },
-    completePersonalInformation:(state) => {
-      state.personalInformationCompleted = true;
+    completePersonalInformation: state => {
+      state.personalInformationCompleted = true
     },
-    completeSecurityInformation:(state) => {
-      state.securityInformationCompleted = true;
-    }
+    completeSecurityInformation: state => {
+      state.securityInformationCompleted = true
+    },
   },
-});
+})
 
-export const authActions = authSlice.actions;
-export default authSlice.reducer;
+export const authActions = authSlice.actions
+export default authSlice.reducer

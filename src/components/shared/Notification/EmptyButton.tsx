@@ -12,7 +12,7 @@ const EmptyButton: React.FC = () => {
   return (
     <SDButton
       onClick={onEmpty}
-      color="success"
+      color="primary2"
       outline
       className="w-full mt-1"
       type="button"

@@ -7,9 +7,9 @@ import SDLabel from "../../../components/shared/Label";
 import PasswordInput from "../../../components/shared/PasswordInput";
 import SDSpinner from "../../../components/shared/Spinner";
 import SDTextInput from "../../../components/shared/TextInput";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { UserSecurityInformation } from "../../../models/auth.models";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { authActions } from "../../../store/auth";
 import { updateAuthDataInLocal } from "../../../utils/authUtils";
 import { Regexes } from "../../../utils/shared";
@@ -149,7 +149,7 @@ const SignUpUserInfoPage: React.FC = () => {
         <div>
           <SDButton
             type="submit"
-            color="success"
+            color="primary2"
             className="w-full"
             disabled={isPending}
           >

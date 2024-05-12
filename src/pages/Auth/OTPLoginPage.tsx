@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import OTPBox from "../../components/auth/OTPBox";
 import BackButton from "../../components/shared/BackButton";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi, { axiosIntance } from "../../hooks/useApi";
 import { AuthData } from "../../models/auth.models";
 import { BaseResponse } from "../../models/shared.models";
@@ -38,18 +38,18 @@ const OTPLoginPage: React.FC = () => {
       (response) => {
         setAuthDataInLocal(response.content);
         dispatch(authActions.setToken(response.content));
-        if (response.content.isAdmin) {
-          navigate("/admin");
-          return;
-        }
-        if (!response.content.personalInformationCompleted) {
-          navigate("/auth/signup/personal");
-          return;
-        }
-        if (!response.content.securityInformationCompleted) {
-          navigate("/auth/signup/user-info");
-          return;
-        }
+        // if (response.content.isAdmin) {
+        //   navigate("/admin");
+        //   return;
+        // }
+        // if (!response.content.personalInformationCompleted) {
+        //   navigate("/auth/signup/personal");
+        //   return;
+        // }
+        // if (!response.content.securityInformationCompleted) {
+        //   navigate("/auth/signup/user-info");
+        //   return;
+        // }
         navigate("/");
       }
     );

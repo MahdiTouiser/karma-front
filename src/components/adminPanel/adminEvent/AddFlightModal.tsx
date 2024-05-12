@@ -284,7 +284,7 @@ const AddFlightModal: React.FC<AddFlightModalProps> = ({
                       <div className="flex w-4/12 justify-between  pl-5 pr-2 xs:w-3/12">
                         {fields.length !== 1 && (
                           <SDButton
-                            color="primary"
+                            color="primary2"
                             className="!h-10 w-10 font-extrabold"
                             onClick={() => removeTicket(index)}
                           >

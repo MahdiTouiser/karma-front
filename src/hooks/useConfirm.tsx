@@ -1,6 +1,6 @@
+import { useState } from "react";
 import SDButton from "../components/shared/Button";
 import SDModal from "../components/shared/Modal/Modal";
-import { useState } from "react";
 let resolvePromise: (value: boolean | PromiseLike<boolean>) => void;
 
 function useConfirm(
@@ -60,14 +60,14 @@ function useConfirm(
             <SDButton
               onClick={handleReject}
               outline
-              color="primary"
+              color="primary2"
               className="!rounded-md"
             >
               {rejectButton}
             </SDButton>
             <SDButton
               onClick={handleConfirm}
-              color="primary"
+              color="primary2"
               className="!rounded-md"
             >
               {confirmButton}

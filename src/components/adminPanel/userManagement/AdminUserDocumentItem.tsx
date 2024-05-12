@@ -1,13 +1,13 @@
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import DocumentImagePlacholder from "../../../assets/document.png";
+import noImage from "../../../assets/no-image.png";
+import useAPi, { axiosIntance } from "../../../hooks/useApi";
 import { DocumentItem, DocumentStatus } from "../../../models/account.models";
+import { BaseResponse } from "../../../models/shared.models";
 import SDButton from "../../shared/Button";
 import SDCard from "../../shared/Card";
-import noImage from "../../../assets/no-image.png";
 import UserDocumentStatusLabel from "../../shared/UserDocumentStatusLabel";
-import DocumentImagePlacholder from "../../../assets/document.png";
-import { useCallback, useEffect, useState } from "react";
-import useAPi, { axiosIntance } from "../../../hooks/useApi";
-import { BaseResponse } from "../../../models/shared.models";
-import { toast } from "react-toastify";
 interface AdminUserDocumentItemProp {
   withDate?: boolean;
   title: string;
@@ -121,7 +121,7 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
       {documentData?.status === DocumentStatus.PENDING && (
         <div className="flex justify-center gap-1 mt-auto">
           <SDButton
-            color="success"
+            color="primary2"
             size="xs"
             className="px-0 py-0"
             disabled={isPending}

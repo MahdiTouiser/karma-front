@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import useAPi from "../../hooks/useApi";
+import { Regexes } from "../../utils/shared";
 import SDAlert from "../shared/Alert";
+import SDButton from "../shared/Button";
 import SDLabel from "../shared/Label";
 import PasswordInput from "../shared/PasswordInput";
-import SDButton from "../shared/Button";
 import SDSpinner from "../shared/Spinner";
-import { toast } from "react-toastify";
-import { Regexes } from "../../utils/shared";
 
 interface ChangePasswordFormData {
   password: string;
@@ -103,7 +103,7 @@ const ResetPasswordFinalComponent: React.FC<
       </div>
       <SDButton
         className="mt-4 w-full"
-        color="primary"
+        color="primary2"
         type="submit"
         disabled={isPending}
       >

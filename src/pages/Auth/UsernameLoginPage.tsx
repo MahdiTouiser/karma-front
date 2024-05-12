@@ -4,39 +4,66 @@ import SDButton from "../../components/shared/Button";
 import SDSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
+import { UserSecurityInformation } from "../../models/auth.models";
 import { authActions } from "../../store/auth";
+import { setAuthDataInLocal } from "../../utils/authUtils";
 import { replacePersianArabicsNumbers } from "../../utils/shared";
 
 export default function UsernameLoginPage() {
   const username = useAppSelector((state) => state.auth.enteredUsername);
+  const password = useAppSelector((state) => state.auth.enteredPassword);
+
   const dispatch = useAppDispatch();
   const [submitted, setSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
   const { sendRequest, errors, isPending } = useAPi();
-  function onChangeUsername(event: FormEvent) {
-    const input: string = replacePersianArabicsNumbers(
-      (event.target as HTMLInputElement).value
-    );
+
+  const onChangeUsername = (event: FormEvent<HTMLInputElement>) => {
+    const input: string = replacePersianArabicsNumbers(event.currentTarget.value);
     dispatch(authActions.setUsername(input));
-  }
-  function onSubmit(event: FormEvent) {
+  };
+
+  const onChangePassword = (event: FormEvent<HTMLInputElement>) => {
+    const input: string = replacePersianArabicsNumbers(event.currentTarget.value);
+    dispatch(authActions.setPassword(input));
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    if (!username) {
-      return;
-    }
+    if (!username || !password) return;
+
+    const data: UserSecurityInformation = {
+      username: username,
+      password: password
+    };
+
+
     sendRequest(
       {
-        url: `/Users/CheckUserExistence/${username}`,
+        method: 'post',
+        url: `/Users/Login`,
+        data: data
       },
-      () => navigate("password", { state: { username } })
+      (response) => {
+        setAuthDataInLocal(response.value);
+        dispatch(authActions.setToken(response.value));
+        navigate("/");
+      },
+      (error) => {
+        console.error("Error:", error);
+      }
     );
-  }
+
+  };
+
+
+
   return (
     <form onSubmit={onSubmit} className="p-8">
-      <h1 className="mb-6 text-lg font-semibold">ورود</h1>
-      <div className="flex w-full gap-1 flex-wrap sm:flex-nowrap">
-        <div className="relative w-full mb-0">
+      <h1 className="mb-6 text-lg font-semibold flex justify-center">ورود کارجو</h1>
+      <div className="flex flex-col items-center">
+        <div className="relative w-full mb-4">
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +71,7 @@ export default function UsernameLoginPage() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 fill-gray-950"
+              className="w-6 h-6"
             >
               <path
                 strokeLinecap="round"
@@ -61,42 +88,77 @@ export default function UsernameLoginPage() {
             className={`${submitted && !username
               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
               : "border-gray-300 focus:border-blue-500"
-              } ltr placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block pr-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-36`}
+              } ltr placeholder:text-center w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-12 rounded`}
             placeholder="نام کاربری یا شماره موبایل"
           />
-          <div className="absolute left-0 h-10 top-0.5 py-1 pl-3 w-28">
-            <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-            <Link className="text-primary text-sm" to="forget-password">
-              فراموش کردید؟
-            </Link>
-          </div>
         </div>
-        <div className="w-full sm:w-auto mt-2 sm:mt-0">
+
+        {submitted && !username && (
+          <p className="text-red-600 text-sm mb-3">
+            لطفا نام کاربری خود را وارد کنید.
+          </p>
+        )}
+
+        <div className="relative w-full mb-4">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="password"
+            value={password}
+            onInput={onChangePassword}
+            id="input-group-2"
+            className={`${submitted && !password
+              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+              : "border-gray-300 focus:border-blue-500"
+              } ltr placeholder:text-center w-full bg-gray-50 border text-gray-900 text-sm focus:ring-blue-500 mr-1 focus:border-blue-500 block pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pl-12 rounded`}
+            placeholder="رمز عبور"
+          />
+        </div>
+
+        {submitted && !password && (
+          <p className="text-red-600 text-sm pr-2 mb-3">
+            لطفا رمز عبور خود را وارد کنید.
+          </p>
+        )}
+
+        <div className="w-full mr-1">
           <SDButton
             className="w-full"
             type="submit"
-            color="success"
+            color="primary2"
             disabled={isPending}
           >
-            {isPending && <SDSpinner />}
-            ورود
+            {isPending ? <SDSpinner /> : "ورود"}
           </SDButton>
         </div>
       </div>
-      {submitted && !username && (
-        <p className="text-red-600 text-sm pr-2">
-          لطفا نام کاربری خود را وارد کنید.
-        </p>
-      )}
+
       {errors && <p className="text-red-600 text-sm pr-2">{errors.message}</p>}
-      <div className="flex flex-wrap items-center gap-2 mt-6  ">
+
+      <div className="flex flex-wrap items-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <SDButton color="success" className="w-full">
+          <SDButton color="primary2" className="w-full">
             ایجاد حساب کاربری
           </SDButton>
         </Link>
       </div>
     </form>
+
+
   );
 }

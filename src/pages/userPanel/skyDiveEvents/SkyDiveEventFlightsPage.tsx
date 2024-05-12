@@ -1,14 +1,14 @@
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import SDCard from "../../../components/shared/Card";
+import Basket from "../../../components/shared/Notification/Notification";
+import BookButton from "../../../components/shared/Notification/‌BookButton";
+import FlightList from "../../../components/skyDiveEvents/FlightList";
 import useAPi from "../../../hooks/useApi";
+import { useUserContainerDom } from "../../../hooks/userContainerDom";
 import { BaseResponse } from "../../../models/shared.models";
 import { SkyDiveEventDay } from "../../../models/skyDiveEvents.models";
-import { useCallback, useEffect, useState } from "react";
-import FlightList from "../../../components/skyDiveEvents/FlightList";
-import Basket from "../../../components/shared/Basket/Basket";
-import BookButton from "../../../components/shared/Basket/‌BookButton";
 import { sortDate } from "../../../utils/shared";
-import { useUserContainerDom } from "../../../hooks/userContainerDom";
 
 const SkyDiveEventFlightsPage: React.FC = () => {
   const params = useParams();
@@ -111,10 +111,9 @@ const SkyDiveEventFlightsPage: React.FC = () => {
                       className="flex-grow text-center min-w-[100px]"
                     >
                       <a
-                        className={`${
-                          currentDayId === item.id &&
-                          "border-b-2 !border-primary-500 !text-primary-500"
-                        } cursor-pointer pb-4 block hover:border-b-2 text-gray-500 hover:text-gray-600 hover:border-gray-300  transition-all ease-linear duration-75`}
+                        className={`${currentDayId === item.id &&
+                          "border-b-2 !border-primary2-500 !text-primary2-500"
+                          } cursor-pointer pb-4 block hover:border-b-2 text-gray-500 hover:text-gray-600 hover:border-gray-300  transition-all ease-linear duration-75`}
                         onClick={() => changeCurrentDay(item.id)}
                       >
                         {item.date}

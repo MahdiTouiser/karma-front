@@ -1,5 +1,5 @@
+import { useState } from "react";
 import OtpInput from "react-otp-input";
-import {  useState } from "react";
 import Timer from "../shared/Timer";
 interface OTPInputProp {
   condLength: number;
@@ -44,7 +44,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
 
   return (
     <div>
-      <p className="mb-6 text-lg font-semibold">
+      <p className="mb-6 text-lg font-semibold flex justify-center">
         کد فرستاده شده برای <span dir="auto">({phone})</span> را وارد کنید.
       </p>
       <div className="flex flex-col items-center">
@@ -61,7 +61,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
         <div className="text-sm">
           {canRefresh ? (
             <button
-              className="text-primary"
+              className="text-primary2"
               type="button"
               onClick={handleRefresh}
             >

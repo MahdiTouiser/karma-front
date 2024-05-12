@@ -166,7 +166,7 @@ const AdminJumpRecords: React.FC = () => {
 
       <div className="py-16 px-12">
         <div className="mb-2">
-          <SDButton color="success" onClick={openModal}>
+          <SDButton color="primary2" onClick={openModal}>
             + جدید
           </SDButton>
         </div>

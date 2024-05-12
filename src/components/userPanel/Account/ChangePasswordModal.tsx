@@ -1,7 +1,7 @@
-import ResetPasswordOtpComponent from "../../auth/ResertPasswordOtpComponet";
-import ResetPasswordFinalComponent from "../../auth/ResetPasswordFinalComponent";
-import SDModal from "../../shared/Modal/Modal";
 import { useEffect, useState } from "react";
+import ResetPasswordFinalComponent from "../../auth/ResetPasswordFinalComponent";
+import ResetPasswordOtpComponent from "../../auth/ResetPasswordOtpComponet";
+import SDModal from "../../shared/Modal/Modal";
 
 const ChangePasswordModal: React.FC<{
   phone: string;

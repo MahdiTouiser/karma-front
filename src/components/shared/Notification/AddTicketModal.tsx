@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAPi from "../../../hooks/useApi";
+import { BaseResponse, UserId } from "../../../models/shared.models";
+import SDButton from "../Button";
 import SDLabel from "../Label";
 import SDModal from "../Modal/Modal";
 import SDTextInput from "../TextInput";
-import { useState } from "react";
-import SDButton from "../Button";
-import useAPi from "../../../hooks/useApi";
-import { BaseResponse, UserId } from "../../../models/shared.models";
 
 interface AddTicketModalProps {
   onClose: () => void;
@@ -86,7 +86,7 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
                 checked={owner === "self"}
                 onChange={onChangeOwner}
                 name="owner"
-                className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 text-primary2-600 bg-gray-100 border-gray-300 focus:ring-primary2-500 dark:focus:ring-primary2-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label
                 htmlFor="self"
@@ -103,7 +103,7 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
                 checked={owner === "other"}
                 onChange={onChangeOwner}
                 name="owner"
-                className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 text-primary2-600 bg-gray-100 border-gray-300 focus:ring-primary2-500 dark:focus:ring-primary2-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label
                 htmlFor="other"
@@ -159,7 +159,7 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
           <div className="flex justify-end px-3">
             <SDButton
               type="submit"
-              color="primary"
+              color="primary2"
               disabled={owner === "other" && !fullNameFetched}
             >
               رزرو

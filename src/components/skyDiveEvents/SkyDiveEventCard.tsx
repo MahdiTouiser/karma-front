@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import SDCard from "../shared/Card";
 import { SkyDiveEvent } from "../../models/skyDiveEvents.models";
+import SDCard from "../shared/Card";
 
 const SkyDiveEventCard: React.FC<SkyDiveEvent> = (props) => {
   return (
@@ -15,7 +15,7 @@ const SkyDiveEventCard: React.FC<SkyDiveEvent> = (props) => {
             alt={props.title}
             className="h-full w-full rounded-t-lg object-cover"
           />
-          <span className="absolute bottom-2 left-2 rounded-xl bg-primary-100 px-3 py-0.5 text-sm shadow">
+          <span className="absolute bottom-2 left-2 rounded-xl bg-primary2-100 px-3 py-0.5 text-sm shadow">
             {props.statusTitle}
           </span>
         </div>

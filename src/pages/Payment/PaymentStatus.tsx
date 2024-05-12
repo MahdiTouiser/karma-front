@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import SDCard from '../../components/shared/Card'
-import SDButton from '../../components/shared/Button'
-import { BaseResponse } from '../../models/shared.models'
-import useAPi from '../../hooks/useApi'
 import { toast } from 'react-toastify'
-import { getAuthDataFromLocal } from '../../utils/authUtils'
-import { ZarinPalPayment } from '../../models/transactions.models'
+import SDButton from '../../components/shared/Button'
+import SDCard from '../../components/shared/Card'
 import NumberWithSeperator from '../../components/shared/NumberWithSeperator'
 import SDSpinner from '../../components/shared/Spinner'
+import useAPi from '../../hooks/useApi'
+import { BaseResponse } from '../../models/shared.models'
+import { ZarinPalPayment } from '../../models/transactions.models'
+import { getAuthDataFromLocal } from '../../utils/authUtils'
 
 const PaymentStatus: React.FC = () => {
   const location = useLocation()
@@ -128,7 +128,7 @@ const PaymentStatus: React.FC = () => {
             </div>
             <div className="align-center flex justify-center">
               <Link to="/">
-                <SDButton color="primary" className="mt-10 !h-10 font-extrabold">
+                <SDButton color="primary2" className="mt-10 !h-10 font-extrabold">
                   بازگشت به سامانه
                 </SDButton>
               </Link>

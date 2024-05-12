@@ -1,15 +1,9 @@
-import { useCallback, useState, useRef } from "react";
-import useAPi from "../../../../../hooks/useApi";
-import {
-  DocumentItem,
-  DocumentItemRow,
-  DocumentsList,
-  DocumentStatus,
-} from '../../../../../models/account.models';
-import { BaseResponse } from '../../../../../models/shared.models';
+import { useCallback, useRef, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../../../hooks/reduxHooks';
-import { fetchUserDetail } from '../../../../../store/usermanagement';
+import { toast } from 'react-toastify';
+import AdminUploadDocumentModal from '../../../../../components/adminPanel/userManagement/AdminUploadDocumentModal';
+import SDButton from '../../../../../components/shared/Button';
+import FileViewButton from '../../../../../components/shared/FileViewButtom';
 import Grid from '../../../../../components/shared/Grid/Grid';
 import {
   ColDef,
@@ -17,12 +11,18 @@ import {
   GridRef,
 } from '../../../../../components/shared/Grid/grid.types';
 import UserDocumentStatusLabel from '../../../../../components/shared/UserDocumentStatusLabel';
-import { sortDate } from '../../../../../utils/shared';
-import { toast } from 'react-toastify';
-import FileViewButton from '../../../../../components/shared/FileViewButtom';
-import SDButton from '../../../../../components/shared/Button';
+import { useAppDispatch } from '../../../../../hooks/reduxHooks';
+import useAPi from "../../../../../hooks/useApi";
 import useConfirm from '../../../../../hooks/useConfirm';
-import AdminUploadDocumentModal from '../../../../../components/adminPanel/userManagement/AdminUploadDocumentModal';
+import {
+  DocumentItem,
+  DocumentItemRow,
+  DocumentStatus,
+  DocumentsList,
+} from '../../../../../models/account.models';
+import { BaseResponse } from '../../../../../models/shared.models';
+import { fetchUserDetail } from '../../../../../store/usermanagement';
+import { sortDate } from '../../../../../utils/shared';
 
 const AdminUserDocument: React.FC = () => {
   const params = useParams();
@@ -188,7 +188,7 @@ const AdminUserDocument: React.FC = () => {
       )}
       <div className="py-16 px-12">
         <div className="mb-2">
-          <SDButton color="success" onClick={uploadDocumentStart}>
+          <SDButton color="primary2" onClick={uploadDocumentStart}>
             + جدید
           </SDButton>
         </div>
