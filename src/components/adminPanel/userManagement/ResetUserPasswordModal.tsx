@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-import SDButton from "../../shared/Button";
-import SDModal from "../../shared/Modal/Modal";
-import SDLabel from "../../shared/Label";
-import PasswordInput from "../../shared/PasswordInput";
+import { toast } from "react-toastify";
 import useAPi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
-import { toast } from "react-toastify";
-import SDSpinner from "../../shared/Spinner";
 import { Regexes } from "../../../utils/shared";
+import SDButton from "../../shared/Button";
+import SDLabel from "../../shared/Label";
+import SDModal from "../../shared/Modal/Modal";
+import PasswordInput from "../../shared/PasswordInput";
+import SDSpinner from "../../shared/Spinner";
 
 interface ResetUserPasswordModalProps {
   showModal: boolean;

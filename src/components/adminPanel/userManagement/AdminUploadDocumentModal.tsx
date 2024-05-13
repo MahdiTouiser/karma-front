@@ -1,16 +1,16 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useAppSelector } from "../../../hooks/reduxHooks";
+import useAPi from "../../../hooks/useApi";
 import {
   DocumentItemModel,
   DocumentsUplodModel,
 } from "../../../models/account.models";
+import { BaseResponse } from "../../../models/shared.models";
 import SDButton from "../../shared/Button";
 import SDModal from "../../shared/Modal/Modal";
-import { useState } from "react";
-import AdminDocumentUploadItem from "./AdminDocumentUploadItem";
-import useAPi from "../../../hooks/useApi";
-import { BaseResponse } from "../../../models/shared.models";
-import { toast } from "react-toastify";
 import SDSpinner from "../../shared/Spinner";
-import { useAppSelector } from "../../../hooks/reduxHooks";
+import AdminDocumentUploadItem from "./AdminDocumentUploadItem";
 
 interface AdminUploadDocumentModalProps {
   onCloseModal: (submitted: boolean) => void;
@@ -93,15 +93,15 @@ const AdminUploadDocumentModal: React.FC<AdminUploadDocumentModalProps> = ({
             : undefined,
           attorneyDocument: attorneyDocumentModel.fileId
             ? {
-                fileId: attorneyDocumentModel.fileId,
-                expirationDate: attorneyDocumentModel.expirationDate,
-              }
+              fileId: attorneyDocumentModel.fileId,
+              expirationDate: attorneyDocumentModel.expirationDate,
+            }
             : undefined,
           medicalDocument: medicalDocumentModel.fileId
             ? {
-                fileId: medicalDocumentModel.fileId,
-                expirationDate: medicalDocumentModel.expirationDate,
-              }
+              fileId: medicalDocumentModel.fileId,
+              expirationDate: medicalDocumentModel.expirationDate,
+            }
             : undefined,
         },
         method: "put",
