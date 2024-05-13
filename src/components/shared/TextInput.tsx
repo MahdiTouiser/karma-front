@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, forwardRef, Ref } from "react";
+import { InputHTMLAttributes, Ref, forwardRef } from "react";
 import { replacePersianArabicsNumbers } from "../../utils/shared";
 import SDButton from "./Button";
 import SDSpinner from "./Spinner";
@@ -52,13 +52,11 @@ const SDTextInput = forwardRef(
           id={props.id}
           onInput={inputProps.onInput ? inputProps.onInput : inputHandler}
           ref={ref}
-          className={`${
-            props.invalid
-              ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-              : "border-gray-300 focus:border-blue-500"
-          } ${
-            props.className || ""
-          } block h-10 w-full rounded-sm border  bg-gray-50 p-2.5 text-sm text-gray-900 placeholder:text-right focus:border-blue-500  focus:ring-blue-500 disabled:cursor-not-allowed disabled:text-gray-400  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
+          className={`${props.invalid
+            ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+            : "border-gray-300 focus:border-blue-500"
+            } ${props.className || ""
+            } block h-10 w-full rounded-sm border  bg-gray-50 p-2.5 text-sm text-gray-900 placeholder:text-right focus:border-blue-500  focus:ring-blue-500 disabled:cursor-not-allowed disabled:text-gray-400  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
         />
 
         {props.isPending ? (

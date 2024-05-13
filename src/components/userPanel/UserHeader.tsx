@@ -1,14 +1,18 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { authActions } from "../../store/auth";
+import { removeAuthDataFromLocal } from "../../utils/authUtils";
 
 const UserHeader: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const dropdownItems = [
     { label: "داشبورد", href: "dashboard" },
     { label: "تنظیمات", href: "settings" },
     { isDivider: true },
-    { label: "خروج", href: "auth" },
+    { label: "خروج" },
   ];
 
   const navLinks = [
@@ -19,6 +23,11 @@ const UserHeader: React.FC = () => {
   const handleDropdownItemClick = (href: string) => {
     navigate(`/${href}`);
   };
+
+  const logOut = () => {
+    removeAuthDataFromLocal();
+    dispatch(authActions.logOut());
+  }
 
   return (
     <>
@@ -43,7 +52,7 @@ const UserHeader: React.FC = () => {
                 return (
                   <Dropdown.Item
                     key={index}
-                    onClick={() => handleDropdownItemClick(item.href as string)}
+                    onClick={item.label === "خروج" ? logOut : () => handleDropdownItemClick(item.href as string)}
                   >
                     {item.label}
                   </Dropdown.Item>

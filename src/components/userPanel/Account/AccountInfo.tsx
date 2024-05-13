@@ -75,7 +75,7 @@ const AccountInfo: React.FC = () => {
       {
         url: "/Users/OtpRequest",
         method: "post",
-        data: { username: authState.mobile },
+        data: { phone: authState.mobile },
       },
       () => {
         setStartChangePassword(true);

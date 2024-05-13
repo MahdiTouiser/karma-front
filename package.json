@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "flowbite": "^1.6.5",
-    "flowbite-react": "^0.4.6",
+    "flowbite-react": "^0.9.0",
     "lodash.debounce": "^4.0.8",
     "print-js": "^1.6.0",
     "react": "^18.2.0",
