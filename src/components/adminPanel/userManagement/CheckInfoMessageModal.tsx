@@ -1,13 +1,13 @@
-import SDButton from "../../shared/Button";
-import SDModal from "../../shared/Modal/Modal";
 import { useState } from "react";
-import SDSpinner from "../../shared/Spinner";
-import SDLabel from "../../shared/Label";
-import SDTextArea from "../../shared/TextArea";
-import useAPi from "../../../hooks/useApi";
-import { CheckUserInfoRequest } from "../../../models/usermanagement.models";
-import { BaseResponse } from "../../../models/shared.models";
 import { toast } from "react-toastify";
+import useAPi from "../../../hooks/useApi";
+import { BaseResponse } from "../../../models/shared.models";
+import { CheckUserInfoRequest } from "../../../models/usermanagement.models";
+import SDButton from "../../shared/Button";
+import SDLabel from "../../shared/Label";
+import SDModal from "../../shared/Modal/Modal";
+import SDSpinner from "../../shared/Spinner";
+import SDTextArea from "../../shared/TextArea";
 interface CheckInfoMessageModalProps {
   onCloseModal: (submitted: boolean) => void;
   userId: string;

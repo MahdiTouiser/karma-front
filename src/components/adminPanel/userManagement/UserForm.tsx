@@ -1,14 +1,14 @@
-import { useForm } from 'react-hook-form'
-import { UserDatail, UserRequest, userType } from '../../../models/usermanagement.models'
-import SDButton from '../../shared/Button'
-import UserFormInput from './UserFormInput'
 import { useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import useAPi from '../../../hooks/useApi'
 import { BaseResponse } from '../../../models/shared.models'
-import UserFormSelect from './UserFormSelect'
+import { UserDatail, UserRequest, userType } from '../../../models/usermanagement.models'
 import { Regexes } from '../../../utils/shared'
-import ResetUserPasswordModal from './ResetUserPasswordModal'
 import { birthDateBaseNowValidation, heightRangeOptions, nationalCodeValidator, phoneInputValidator, weightRangeOptions } from '../../../utils/validations'
+import SDButton from '../../shared/Button'
+import ResetUserPasswordModal from './ResetUserPasswordModal'
+import UserFormInput from './UserFormInput'
+import UserFormSelect from './UserFormSelect'
 
 interface UserFormProps {
   userDetail?: UserDatail

@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import SDModal from "../../shared/Modal/Modal";
+import { toast } from "react-toastify";
+import useAPi from "../../../hooks/useApi";
+import { BaseResponse } from "../../../models/shared.models";
 import {
   AdminTicketModel,
   EditTicketRequest,
@@ -7,12 +10,9 @@ import {
 } from "../../../models/skyDiveEvents.models";
 import SDButton from "../../shared/Button";
 import SDLabel from "../../shared/Label";
-import SDSelect from "../../shared/Select";
+import SDModal from "../../shared/Modal/Modal";
 import RadioButton from "../../shared/RadioButton";
-import { useState, useEffect } from "react";
-import useAPi from "../../../hooks/useApi";
-import { BaseResponse } from "../../../models/shared.models";
-import { toast } from "react-toastify";
+import SDSelect from "../../shared/Select";
 import SDSpinner from "../../shared/Spinner";
 
 interface EditTicketModal {

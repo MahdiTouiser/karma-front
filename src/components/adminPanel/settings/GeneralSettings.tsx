@@ -1,19 +1,19 @@
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
+import { GeneralSettings } from "../../../models/settings.models";
 import {
   BaseResponse,
   UserStatuses,
   UserStatusesPersianMap,
 } from "../../../models/shared.models";
-import { useEffect } from "react";
-import SDLabel from "../../shared/Label";
-import SDTextInput from "../../shared/TextInput";
-import SDButton from "../../shared/Button";
-import { toast } from "react-toastify";
-import SDSpinner from "../../shared/Spinner";
-import { GeneralSettings } from "../../../models/settings.models";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { fetchGeneralSettings } from "../../../store/generalSettings";
+import SDButton from "../../shared/Button";
+import SDLabel from "../../shared/Label";
+import SDSpinner from "../../shared/Spinner";
+import SDTextInput from "../../shared/TextInput";
 
 const GeneralSettingsComponent: React.FC = () => {
   const {
@@ -46,23 +46,23 @@ const GeneralSettingsComponent: React.FC = () => {
           .length
           ? generalSettingsState.generalSettings.userStatusInfo
           : [
-              {
-                status: UserStatuses.AWAITING_COMPLETION,
-                description: "",
-              },
-              {
-                status: UserStatuses.PENDING,
-                description: "",
-              },
-              {
-                status: UserStatuses.ACTIVE,
-                description: "",
-              },
-              {
-                status: UserStatuses.INACTIVE,
-                description: "",
-              },
-            ],
+            {
+              status: UserStatuses.AWAITING_COMPLETION,
+              description: "",
+            },
+            {
+              status: UserStatuses.PENDING,
+              description: "",
+            },
+            {
+              status: UserStatuses.ACTIVE,
+              description: "",
+            },
+            {
+              status: UserStatuses.INACTIVE,
+              description: "",
+            },
+          ],
         registrationTermsAndConditionsUrl:
           generalSettingsState.generalSettings
             .registrationTermsAndConditionsUrl,

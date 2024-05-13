@@ -14,7 +14,6 @@ const SDModalHeader: React.FC<ModalHeaderProps> = ({
   const { onClose } = useModalContext();
   const classNames = {
     primary2: "bg-primary2-500",
-    // primary2: "bg-primary2-900",
     warning: "bg-yellow-300",
   };
   return (

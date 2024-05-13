@@ -1,16 +1,16 @@
 // import { CKEditor } from "@ckeditor/ckeditor5-react";
 // import  Editor from "ckeditor5-custom-build/src/ckeditor";
+import { FormEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import useAPi from "../../../hooks/useApi";
+import { BaseResponse } from "../../../models/shared.models";
 import {
   AddTermAndConditionsRequest,
   SkyDiveEvent,
 } from "../../../models/skyDiveEvents.models";
-import SDModal from "../../shared/Modal/Modal";
-import SDEditor from "../../shared/Editor";
-import { useEffect, useState, FormEvent } from "react";
 import SDButton from "../../shared/Button";
-import useAPi from "../../../hooks/useApi";
-import { BaseResponse } from "../../../models/shared.models";
-import { toast } from "react-toastify";
+import SDEditor from "../../shared/Editor";
+import SDModal from "../../shared/Modal/Modal";
 import SDSpinner from "../../shared/Spinner";
 // import * as ClassicEditor from "../../../assets/ckEditor/build/ckeditor.js"
 

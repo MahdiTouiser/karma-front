@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import SDButton from "../../components/shared/Button";
 import SDSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
-import { UserSecurityInformation } from "../../models/auth.models";
+import { AuthData, UserSecurityInformation } from "../../models/auth.models";
 import { authActions } from "../../store/auth";
 import { setAuthDataInLocal } from "../../utils/authUtils";
 import { replacePersianArabicsNumbers } from "../../utils/shared";
@@ -46,8 +47,9 @@ export default function UsernameLoginPage() {
         data: data
       },
       (response) => {
-        setAuthDataInLocal(response.value);
-        dispatch(authActions.setToken(response.value));
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
+        toast.success(response.message);
         navigate("/");
       },
       (error) => {
