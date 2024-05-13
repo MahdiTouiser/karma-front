@@ -11,11 +11,8 @@ import AdminPanelContainer from './pages/adminPanel/AdminPanelContainer'
 import Cartable from './pages/adminPanel/pages/Cartable'
 import UserPanelContainer from './pages/userPanel/UserPanelContainer'
 
-import OTPLoginPage from './pages/Auth/OTPLoginPage'
-import Home from './pages/userPanel/Home'
-import SkyDiveEventsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventPage'
-
 import EmployerPage from './pages/Auth/EmployerLoginPage'
+import OTPLoginPage from './pages/Auth/OTPLoginPage'
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage'
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage'
 import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage'
@@ -37,14 +34,13 @@ import AdminUserWallet from './pages/adminPanel/pages/userManagement/userDetail/
 import UserDetailPage from './pages/adminPanel/pages/userManagement/userDetail/UserDetailPage'
 import UserTickets from './pages/adminPanel/pages/userManagement/userDetail/UserTickets'
 import UserTransactions from './pages/adminPanel/pages/userManagement/userDetail/UserTransactions'
+import Home from './pages/userPanel/Home/Home'
 import JumpRecordsPage from './pages/userPanel/JumpRecordsPage'
 import Messages from './pages/userPanel/Messages'
 import MyTicketsPage from './pages/userPanel/MyTicketsPage'
 import MyTransactionsPage from './pages/userPanel/MyTransactionsPage'
 import Wallet from './pages/userPanel/Wallet'
-import SkyDiveEventDaysPage from './pages/userPanel/skyDiveEvents/SkyDiveEventDaysPage'
-import SkyDiveEventFlightsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventFlightsPage'
-import SkyDiveEventTermsPage from './pages/userPanel/skyDiveEvents/SkyDiveEventTermsPage'
+
 
 function App() {
 
@@ -57,12 +53,6 @@ function App() {
           <Route element={<AuthenticatedRoute component={UserPanelContainer} />} path="">
             <Route Component={Home} path=""></Route>
             <Route Component={Messages} path="messages"></Route>
-            <Route Component={Outlet} path="events">
-              <Route Component={SkyDiveEventsPage} path=":statusId?"></Route>
-              <Route Component={SkyDiveEventDaysPage} path=":eventId/days"></Route>
-              <Route Component={SkyDiveEventFlightsPage} path=":eventId/flights"></Route>
-              <Route Component={SkyDiveEventTermsPage} path=":eventId/terms"></Route>
-            </Route>
             <Route Component={MyTicketsPage} path="tickets"></Route>
             <Route Component={MyTransactionsPage} path="transactions"></Route>
             <Route Component={Wallet} path="wallet"></Route>
