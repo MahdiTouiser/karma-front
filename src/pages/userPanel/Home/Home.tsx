@@ -4,11 +4,13 @@ import Statistics from './Statistics';
 
 const Home: React.FC = () => {
   return (
-    <div className='px-48'>
-      <div className='mt-20'>
+    <div className='flex flex-col px-48 justify-center h-screen'>
+      <div>
         <Statistics />
       </div>
-      <JobSearch />
+      <div>
+        <JobSearch />
+      </div>
     </div>
   );
 };
