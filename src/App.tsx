@@ -21,7 +21,6 @@ import JumpRecordsPage from './pages/userPanel/JumpRecordsPage'
 import Messages from './pages/userPanel/Messages'
 import MyTicketsPage from './pages/userPanel/MyTicketsPage'
 import MyTransactionsPage from './pages/userPanel/MyTransactionsPage'
-import Wallet from './pages/userPanel/Wallet'
 
 
 function App() {
@@ -36,9 +35,9 @@ function App() {
             <Route Component={Home} path=""></Route>
             <Route Component={Messages} path="messages"></Route>
             <Route Component={MyResume} path="my-resume"></Route>
+            <Route Component={MyResume} path="job-opportunities"></Route>
             <Route Component={MyTicketsPage} path="tickets"></Route>
             <Route Component={MyTransactionsPage} path="transactions"></Route>
-            <Route Component={Wallet} path="wallet"></Route>
             <Route Component={JumpRecordsPage} path="jumps"></Route>
           </Route>
           <Route Component={AuthContainer} path="auth">

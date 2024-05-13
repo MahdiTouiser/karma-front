@@ -33,7 +33,7 @@ const UserHeader: React.FC = () => {
     <>
       <Navbar fluid className="bg-primary2">
         <Navbar.Brand href="/" className="mr-12">
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــارما</span>
+          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــــــــــــارما</span>
         </Navbar.Brand>
         <div className="flex ml-12 md:order-2">
           <Dropdown

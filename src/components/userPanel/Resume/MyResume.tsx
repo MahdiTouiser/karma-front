@@ -9,7 +9,7 @@ const MyResume: React.FC = () => {
                     <AboutMe />
                 </div>
                 <div>
-                    
+
                 </div>
             </div>
         </>
