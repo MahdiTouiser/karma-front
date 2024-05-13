@@ -9,7 +9,6 @@ import ForgetPasswordFirstPage from './pages/Auth/forgetPassword/ForgetPasswordF
 import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtpPage'
 import AdminPanelContainer from './pages/adminPanel/AdminPanelContainer'
 import Cartable from './pages/adminPanel/pages/Cartable'
-import Account from './pages/userPanel/Account'
 import UserPanelContainer from './pages/userPanel/UserPanelContainer'
 
 import OTPLoginPage from './pages/Auth/OTPLoginPage'
@@ -57,7 +56,6 @@ function App() {
         <Routes>
           <Route element={<AuthenticatedRoute component={UserPanelContainer} />} path="">
             <Route Component={Home} path=""></Route>
-            <Route Component={Account} path="account"></Route>
             <Route Component={Messages} path="messages"></Route>
             <Route Component={Outlet} path="events">
               <Route Component={SkyDiveEventsPage} path=":statusId?"></Route>
