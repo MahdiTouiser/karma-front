@@ -4,15 +4,15 @@ import { toast } from "react-toastify";
 import useAPi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
 import { AdminEventModalProps, NewEvent, SkyDiveEvent } from "../../../models/skyDiveEvents.models";
-import SDButton from "../../shared/Button";
-import SDDatepicker from "../../shared/DatePicker";
-import SDLabel from "../../shared/Label";
+import KButton from "../../shared/Button";
+import KDatepicker from "../../shared/DatePicker";
+import KLabel from "../../shared/Label";
 import LabeledFileInput from "../../shared/LabeledFileInput";
-import SDModal from "../../shared/Modal/Modal";
+import KModal from "../../shared/Modal/Modal";
 import RadioButton from "../../shared/RadioButton";
-import SDSelect from "../../shared/Select";
-import SDSpinner from "../../shared/Spinner";
-import SDTextInput from "../../shared/TextInput";
+import KSelect from "../../shared/Select";
+import KSpinner from "../../shared/Spinner";
+import KTextInput from "../../shared/TextInput";
 
 const AdminEventModal: React.FC<AdminEventModalProps> = ({
   eventStatusData,
@@ -124,21 +124,21 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
 
   return (
     <div>
-      <SDModal
+      <KModal
         show={showModal}
         onClose={() => resetModal(false)}
         containerClass="lg:!w-[480px]"
       >
-        <SDModal.Header color="primary2">
+        <KModal.Header color="primary2">
           {eventData ? "ویرایش رویداد" : "ثبت رویداد جدید"}
-        </SDModal.Header>
-        <SDModal.Body>
+        </KModal.Header>
+        <KModal.Body>
           <form onSubmit={handleSubmit(handleSaveButton)}>
             <div className="px-6 py-8">
               <div className="flex flex-row mb-6 w-full mt-5">
                 <div className="flex flex-col">
-                  <SDLabel className="mb-2">کد</SDLabel>
-                  <SDTextInput
+                  <KLabel className="mb-2">کد</KLabel>
+                  <KTextInput
                     type="text"
                     id="eventCode"
                     defaultValue={eventData?.code || lastCode}
@@ -146,8 +146,8 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                   />
                 </div>
                 <div className="flex flex-col mr-4 w-full">
-                  <SDLabel className="mb-2">عنوان رویداد </SDLabel>
-                  <SDTextInput
+                  <KLabel className="mb-2">عنوان رویداد </KLabel>
+                  <KTextInput
                     type="text"
                     id="title"
                     invalid={!!formErrors.title}
@@ -161,8 +161,8 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                 </div>
               </div>
               <div className="mb-6 w-full mt-5">
-                <SDLabel>محل رویداد</SDLabel>
-                <SDTextInput
+                <KLabel>محل رویداد</KLabel>
+                <KTextInput
                   type="text"
                   id="location"
                   {...register("location", { required: "فیلد اجباری است." })}
@@ -176,14 +176,14 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
               </div>
               <div className="flex items-center flex-wrap  justify-between">
                 <div className="w-full md:w-1/2 mb-5 md:mb-0">
-                  <SDLabel>تاریخ شروع</SDLabel>
+                  <KLabel>تاریخ شروع</KLabel>
 
                   <div>
-                    <SDDatepicker
+                    <KDatepicker
                       name="startDate"
                       required={true}
                       control={control}
-                    ></SDDatepicker>
+                    ></KDatepicker>
                     {formErrors.startDate?.message && (
                       <p className="text-red-600 text-sm pr-2 mt-2">
                         {formErrors.startDate.message}
@@ -192,14 +192,14 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                   </div>
                 </div>
                 <div className="w-full md:pr-3 md:w-1/2">
-                  <SDLabel>تاریخ پایان</SDLabel>
+                  <KLabel>تاریخ پایان</KLabel>
 
                   <div>
-                    <SDDatepicker
+                    <KDatepicker
                       name="endDate"
                       required={true}
                       control={control}
-                    ></SDDatepicker>
+                    ></KDatepicker>
                     {formErrors.endDate?.message && (
                       <p className="text-red-600 text-sm pr-2 mt-2">
                         {formErrors.endDate.message}
@@ -212,9 +212,9 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                 <div className="flex flex-col w-full md:w-1/2 mt-5 mb-6">
                   <div className="flex flex-col">
                     <div>
-                      <SDLabel>وضعیت</SDLabel>
+                      <KLabel>وضعیت</KLabel>
                     </div>
-                    <SDSelect
+                    <KSelect
                       id="eventStatus"
                       invalid={!!formErrors.statusId}
                       {...register("statusId", {
@@ -232,7 +232,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                             {status.title}
                           </option>
                         ))}
-                    </SDSelect>
+                    </KSelect>
                     {formErrors.statusId?.message && (
                       <p className="text-red-600 text-sm pr-2 mt-2">
                         {formErrors.statusId.message}
@@ -241,7 +241,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                   </div>
                   <div className="flex flex-col mt-5 justify-center">
                     <div>
-                      <SDLabel>تصویر</SDLabel>
+                      <KLabel>تصویر</KLabel>
                     </div>
                     <div className="mt-3">
                       {!uploadedImageId && eventData?.image && (
@@ -270,7 +270,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                 </div>
                 <div className="flex flex-col w-full md:pr-3  md:w-1/2 mt-5">
                   <div className="flex flex-col  ">
-                    <SDLabel className="mr-5">قابلیت لغو</SDLabel>
+                    <KLabel className="mr-5">قابلیت لغو</KLabel>
                     <div>
                       <RadioButton
                         groupName="voidable"
@@ -285,7 +285,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
                     </div>
                   </div>
                   <div className="flex flex-col mt-6 ">
-                    <SDLabel className="mr-5">ارزش افزوده</SDLabel>
+                    <KLabel className="mr-5">ارزش افزوده</KLabel>
                     <div>
                       <RadioButton
                         groupName="subjecToVAT"
@@ -301,19 +301,19 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
               </div>
             </div>
             <div className="w-full px-5 pb-6 flex justify-start items-center">
-              <SDButton
+              <KButton
                 type="submit"
                 className="w-full "
                 color="primary2"
                 disabled={isPending}
               >
-                {isPending && <SDSpinner />}
+                {isPending && <KSpinner />}
                 ذخیره
-              </SDButton>
+              </KButton>
             </div>
           </form>
-        </SDModal.Body>
-      </SDModal>
+        </KModal.Body>
+      </KModal>
     </div>
   );
 };

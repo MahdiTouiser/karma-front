@@ -1,9 +1,9 @@
 import { useAppSelector } from "../../../hooks/reduxHooks";
 import useBasketTickets from "../../../hooks/useBasketTickets";
-import SDButton from "../Button";
-import SDCard from "../Card";
+import KButton from "../Button";
+import KCard from "../Card";
 import NumberWithSeperator from "../NumberWithSeperator";
-import SDSpinner from "../Spinner";
+import KSpinner from "../Spinner";
 import BasketTicketItem from "./BasketTicketItem";
 import EmptyButton from "./EmptyButton";
 import BookButton from "./‌BookButton";
@@ -76,7 +76,7 @@ const Basket: React.FC<BasketProps> = ({
           </div>
           {inPayment ? (
             <div className="top-shadow fixed bottom-1 right-0 flex w-full items-center   justify-between  bg-white p-3 px-6 pb-4 lg:static lg:p-0 lg:shadow-none">
-              <SDButton
+              <KButton
                 disabled={!canPay || isPaying}
                 color="primary2"
                 className="w-40 max-w-md items-center lg:w-full "
@@ -86,9 +86,9 @@ const Basket: React.FC<BasketProps> = ({
                   onZarinPalClicked && onZarinPalClicked();
                 }}
               >
-                {isPaying && <SDSpinner />}
+                {isPaying && <KSpinner />}
                 پرداخت
-              </SDButton>
+              </KButton>
               <div className="text-centers font-semibold lg:hidden">
                 <p className=" mb-3">قابل پرداخت:</p>
                 <p>
@@ -116,12 +116,12 @@ const Basket: React.FC<BasketProps> = ({
 
   const laodingContainer = (
     <div className="flex justify-center pt-6">
-      <SDSpinner size={20} />
+      <KSpinner size={20} />
     </div>
   );
 
   return (
-    <SDCard
+    <KCard
       className={`${inPayment && "mb-10"
         } mb-0 border border-gray-200 text-black`}
     >
@@ -142,7 +142,7 @@ const Basket: React.FC<BasketProps> = ({
         !basketState.loading &&
         !basketState.error &&
         emptyMessage}
-    </SDCard>
+    </KCard>
   );
 };
 

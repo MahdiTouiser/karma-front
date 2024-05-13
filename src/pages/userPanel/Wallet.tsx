@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import SDCard from "../../components/shared/Card";
+import KCard from "../../components/shared/Card";
 import NumberWithSeperator from "../../components/shared/NumberWithSeperator";
-import SDSpinner from "../../components/shared/Spinner";
+import KSpinner from "../../components/shared/Spinner";
 import useAPi from "../../hooks/useApi";
 import { BaseResponse } from "../../models/shared.models";
 import { WalletData } from "../../models/wallet.models";
@@ -45,12 +45,12 @@ const Wallet: React.FC = () => {
   }, [fetchWallet]);
 
   return (
-    <SDCard className="flex items-center justify-center min-h-screen p-8">
-      <SDCard className="shadow rounded-lg w-full md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl mb-16 sm:w-full sm:max-w-screen-md flex flex-col items-center">
+    <KCard className="flex items-center justify-center min-h-screen p-8">
+      <KCard className="shadow rounded-lg w-full md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl mb-16 sm:w-full sm:max-w-screen-md flex flex-col items-center">
         <h1 className="text-4xl font-bold mb-4 text-center">کیف پول کاربر</h1>
 
         {getPending ? (
-          <SDSpinner size={10}></SDSpinner>
+          <KSpinner size={10}></KSpinner>
         ) : (
           <>
             <div className="flex items-center mb-8 flex-wrap justify-center">
@@ -80,7 +80,7 @@ const Wallet: React.FC = () => {
               <div className="text-center md:text-left ml-5 md:w-1/6">
                 <h1>مبلغ شارژ</h1>
               </div>
-              <SDTextInput
+              <KTextInput
                 numeric={true}
                 allowMinus={true}
                 id="amount"
@@ -95,19 +95,19 @@ const Wallet: React.FC = () => {
                 }
                 onChange={handlePaymentAmountChange}
               />
-              <SDButton
+              <KButton
                 type="submit"
                 color="primary2"
                 onClick={handlePayment}
                 className="w-full md:w-auto"
               >
                 پرداخت
-              </SDButton>
+              </KButton>
             </div> */}
           </>
         )}
-      </SDCard>
-    </SDCard>
+      </KCard>
+    </KCard>
   );
 };
 

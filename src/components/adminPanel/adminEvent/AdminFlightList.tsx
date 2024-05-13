@@ -4,8 +4,8 @@ import useAPi from "../../../hooks/useApi";
 import useConfirm from "../../../hooks/useConfirm";
 import { BaseResponse } from "../../../models/shared.models";
 import { AdminFlightOfDay } from "../../../models/skyDiveEvents.models";
-import SDButton from "../../shared/Button";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KSpinner from "../../shared/Spinner";
 import AddFlightModal from "./AddFlightModal";
 import AdminFlightItem from "./AdminFlightItem";
 
@@ -86,28 +86,28 @@ const AdminFlighList: React.FC<{ dayId: string; date: string }> = ({
       <div className="min-h-[300px]">
         {(isPending || deletePending) && (
           <div className="mt-8 flex justify-center">
-            <SDSpinner color="blue" size={28} />
+            <KSpinner color="blue" size={28} />
           </div>
         )}
         {flightsResponse?.content && !isPending && !deletePending && (
           <>
             <div className="flex gap-2 ">
-              <SDButton
+              <KButton
                 color="primary2"
                 className="px-8"
                 onClick={startAddFlight}
                 disabled={flightsResponse.content.flights.length > 0}
               >
                 افزودن
-              </SDButton>
-              <SDButton
+              </KButton>
+              <KButton
                 color="failure"
                 className="px-8"
                 onClick={removeFlights}
                 disabled={!flightsResponse.content.flights.length}
               >
                 حذف
-              </SDButton>
+              </KButton>
             </div>
             <div className="mt-8">
               {flightsResponse.content.flights.length ? (

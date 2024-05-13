@@ -1,16 +1,16 @@
 import { useState } from "react";
-import AddTicketModal from "./AddTicketModal";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import {
+  AggregatedTicket,
+  BasketTicketModel,
+  RequestTicketItem,
+} from "../../../models/shared.models";
 import {
   addTicketToBasket,
   removeTicketFromBasket,
 } from "../../../store/basket";
-import {
-  RequestTicketItem,
-  AggregatedTicket,
-  BasketTicketModel,
-} from "../../../models/shared.models";
-import SDSpinner from "../Spinner";
+import KSpinner from "../Spinner";
+import AddTicketModal from "./AddTicketModal";
 import RemoveTicketModal from "./RemoveTicketModal";
 interface PlusMinusProps {
   aggretadTicket: AggregatedTicket;
@@ -29,8 +29,8 @@ const AddOrRemoveTicket: React.FC<PlusMinusProps> = ({
   const pending =
     Boolean(
       changingTicket &&
-        changingTicket.flightLoadId === aggretadTicket.flightLoadId &&
-        changingTicket.ticketTypeId === aggretadTicket.ticketTypeId
+      changingTicket.flightLoadId === aggretadTicket.flightLoadId &&
+      changingTicket.ticketTypeId === aggretadTicket.ticketTypeId
     ) || isEmmptying;
 
   function increase() {
@@ -97,9 +97,9 @@ const AddOrRemoveTicket: React.FC<PlusMinusProps> = ({
           </svg>
         </button>
         <div className="text-lg">
-          {/* <SDSpinner size={10}></SDSpinner> */}
+          {/* <KSpinner size={10}></KSpinner> */}
           {pending ? (
-            <SDSpinner size={10}></SDSpinner>
+            <KSpinner size={10}></KSpinner>
           ) : (
             aggretadTicket?.ticketMembers?.length || 0
           )}

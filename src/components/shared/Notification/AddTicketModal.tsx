@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAPi from "../../../hooks/useApi";
 import { BaseResponse, UserId } from "../../../models/shared.models";
-import SDButton from "../Button";
-import SDLabel from "../Label";
-import SDModal from "../Modal/Modal";
-import SDTextInput from "../TextInput";
+import KButton from "../Button";
+import KLabel from "../Label";
+import KModal from "../Modal/Modal";
+import KTextInput from "../TextInput";
 
 interface AddTicketModalProps {
   onClose: () => void;
@@ -73,9 +73,9 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
   };
 
   return (
-    <SDModal show={true} containerClass="!pb-2" onClose={closeModal}>
-      <SDModal.Header>رزرو بلیت</SDModal.Header>
-      <SDModal.Body>
+    <KModal show={true} containerClass="!pb-2" onClose={closeModal}>
+      <KModal.Header>رزرو بلیت</KModal.Header>
+      <KModal.Body>
         <form onSubmit={handleSubmit(onsubmit)}>
           <div className="p-5 w-80">
             <div className="mb-2">
@@ -115,9 +115,9 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
             {owner === "other" && (
               <div className="mb-3">
                 <div>
-                  <SDLabel htmlFor="userCode">کد کاربر</SDLabel>
+                  <KLabel htmlFor="userCode">کد کاربر</KLabel>
                   <div>
-                    <SDTextInput
+                    <KTextInput
                       type="number"
                       id="userCode"
                       invalid={!!errors.userCode}
@@ -130,11 +130,11 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
                       onChange={handleUserCodeChange}
                     />
                   </div>
-                  <SDLabel htmlFor="username" className="mt-5">
+                  <KLabel htmlFor="username" className="mt-5">
                     نام کاربر
-                  </SDLabel>
+                  </KLabel>
                   <div>
-                    <SDTextInput
+                    <KTextInput
                       type="text"
                       id="username"
                       invalid={!!errors.userCode}
@@ -157,17 +157,17 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
             )}
           </div>
           <div className="flex justify-end px-3">
-            <SDButton
+            <KButton
               type="submit"
               color="primary2"
               disabled={owner === "other" && !fullNameFetched}
             >
               رزرو
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

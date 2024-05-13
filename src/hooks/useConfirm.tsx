@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SDButton from "../components/shared/Button";
-import SDModal from "../components/shared/Modal/Modal";
+import KButton from "../components/shared/Button";
+import KModal from "../components/shared/Modal/Modal";
 let resolvePromise: (value: boolean | PromiseLike<boolean>) => void;
 
 function useConfirm(
@@ -28,13 +28,13 @@ function useConfirm(
   }
   const ConfirmModal: React.FC = () => {
     return (
-      <SDModal
+      <KModal
         show={showModal}
         onClose={() => handleReject()}
         containerClass="!pb-2"
       >
         {title && (
-          <SDModal.Header withClose={false} color="warning">
+          <KModal.Header withClose={false} color="warning">
             <div className="flex gap-2 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,29 +52,29 @@ function useConfirm(
               </svg>
               <div className="text-yellow-600 font-semibold">{title}</div>
             </div>
-          </SDModal.Header>
+          </KModal.Header>
         )}
         <div className="px-5 mt-8">
           <p className="mb-8">{message}</p>
           <div className="flex justify-end gap-2">
-            <SDButton
+            <KButton
               onClick={handleReject}
               outline
               color="primary2"
               className="!rounded-md"
             >
               {rejectButton}
-            </SDButton>
-            <SDButton
+            </KButton>
+            <KButton
               onClick={handleConfirm}
               color="primary2"
               className="!rounded-md"
             >
               {confirmButton}
-            </SDButton>
+            </KButton>
           </div>
         </div>
-      </SDModal>
+      </KModal>
     );
   };
   return [ConfirmModal, confirmation];

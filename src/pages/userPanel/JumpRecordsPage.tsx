@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import SDButton from "../../components/shared/Button";
-import SDCard from "../../components/shared/Card";
+import KButton from "../../components/shared/Button";
+import KCard from "../../components/shared/Card";
 import Grid from "../../components/shared/Grid/Grid";
 import {
   ColDef,
@@ -95,14 +95,14 @@ const JumpRecordsPage: React.FC = () => {
   return (
     <>
       <JumpRecordModal showModal={showModal} onClose={onCloseModal} />
-      <SDCard>
+      <KCard>
         <h1 className="text-center font-bold text-xl py-5">سوابق پرش</h1>
         <div className="py-5 md:px-8">
           <>
             <div className="mb-2">
-              <SDButton color="primary2" onClick={openModal}>
+              <KButton color="primary2" onClick={openModal}>
                 + جدید
-              </SDButton>
+              </KButton>
             </div>
             <Grid<JumpRecord>
               colDefs={colDefs}
@@ -112,7 +112,7 @@ const JumpRecordsPage: React.FC = () => {
             />
           </>
         </div>
-      </SDCard>
+      </KCard>
     </>
   );
 };

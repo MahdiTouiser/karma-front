@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import SDAlert from "../../../components/shared/Alert";
-import SDButton from "../../../components/shared/Button";
-import SDLabel from "../../../components/shared/Label";
+import KAlert from "../../../components/shared/Alert";
+import KButton from "../../../components/shared/Button";
+import KLabel from "../../../components/shared/Label";
 import PasswordInput from "../../../components/shared/PasswordInput";
-import SDSpinner from "../../../components/shared/Spinner";
-import SDTextInput from "../../../components/shared/TextInput";
+import KSpinner from "../../../components/shared/Spinner";
+import KTextInput from "../../../components/shared/TextInput";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { UserSecurityInformation } from "../../../models/auth.models";
@@ -75,14 +75,14 @@ const SignUpUserInfoPage: React.FC = () => {
         </p>
       </div>
       {apiErrors && (
-        <SDAlert color="red" className="my-2">
+        <KAlert color="red" className="my-2">
           {apiErrors.message}
-        </SDAlert>
+        </KAlert>
       )}
       <div>
         <div className="mb-6">
-          <SDLabel htmlFor="nationalId">نام کاربری</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="nationalId">نام کاربری</KLabel>
+          <KTextInput
             {...register("username", {
               required: "فیلد الزامی است.",
               pattern: {
@@ -105,9 +105,9 @@ const SignUpUserInfoPage: React.FC = () => {
           )}
         </div>
         <div className="mb-6">
-          <SDLabel htmlFor="password">
+          <KLabel htmlFor="password">
             رمز عبور مورد نظر خود را وارد کنید.
-          </SDLabel>
+          </KLabel>
           <PasswordInput
             {...register("password", {
               required: "لطفا رمزعبور خود را وارد کنید.",
@@ -127,9 +127,9 @@ const SignUpUserInfoPage: React.FC = () => {
           )}
         </div>
         <div className="mb-6">
-          <SDLabel htmlFor="repeatPassword">
+          <KLabel htmlFor="repeatPassword">
             رمز عبور مورد نظر خود را مجدد وارد کنید.
-          </SDLabel>
+          </KLabel>
           <PasswordInput
             {...register("repeatPassword", {
               required: "لطفا رمزعبور خود را مجدد وارد کنید.",
@@ -147,15 +147,15 @@ const SignUpUserInfoPage: React.FC = () => {
           )}
         </div>
         <div>
-          <SDButton
+          <KButton
             type="submit"
             color="primary2"
             className="w-full"
             disabled={isPending}
           >
-            {isPending && <SDSpinner />}
+            {isPending && <KSpinner />}
             ثبت اطلاعات
-          </SDButton>
+          </KButton>
         </div>
       </div>
     </form>

@@ -10,10 +10,10 @@ import {
   UserStatusesPersianMap,
 } from "../../../models/shared.models";
 import { fetchGeneralSettings } from "../../../store/generalSettings";
-import SDButton from "../../shared/Button";
-import SDLabel from "../../shared/Label";
-import SDSpinner from "../../shared/Spinner";
-import SDTextInput from "../../shared/TextInput";
+import KButton from "../../shared/Button";
+import KLabel from "../../shared/Label";
+import KSpinner from "../../shared/Spinner";
+import KTextInput from "../../shared/TextInput";
 
 const GeneralSettingsComponent: React.FC = () => {
   const {
@@ -99,10 +99,10 @@ const GeneralSettingsComponent: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-6">
-        <SDLabel htmlFor="termsAndConditionsUrl">
+        <KLabel htmlFor="termsAndConditionsUrl">
           لینک شرایط و قوانین اصلی:
-        </SDLabel>
-        <SDTextInput
+        </KLabel>
+        <KTextInput
           className="ltr"
           disabled={generalSettingsState.loading}
           invalid={!!formErrors.termsAndConditionsUrl}
@@ -118,10 +118,10 @@ const GeneralSettingsComponent: React.FC = () => {
         )}
       </div>
       <div className="mb-6">
-        <SDLabel htmlFor="registrationTermsAndConditionsUrl">
+        <KLabel htmlFor="registrationTermsAndConditionsUrl">
           لینک شرایط و قوانین ثبت نام:
-        </SDLabel>
-        <SDTextInput
+        </KLabel>
+        <KTextInput
           className="ltr"
           disabled={generalSettingsState.loading}
           invalid={!!formErrors.registrationTermsAndConditionsUrl}
@@ -138,8 +138,8 @@ const GeneralSettingsComponent: React.FC = () => {
       </div>
       <div className="mb-6 flex gap-6">
         <div className="w-full">
-          <SDLabel htmlFor="fileSizeLimitation">حداکثر حجم آپلود (KB):</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="fileSizeLimitation">حداکثر حجم آپلود (KB):</KLabel>
+          <KTextInput
             numeric={true}
             className="ltr"
             disabled={generalSettingsState.loading}
@@ -157,8 +157,8 @@ const GeneralSettingsComponent: React.FC = () => {
           )}
         </div>
         <div className="w-full">
-          <SDLabel htmlFor="jumpDuration">اعتبار سابقه پرش (روز):</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="jumpDuration">اعتبار سابقه پرش (روز):</KLabel>
+          <KTextInput
             numeric={true}
             className="ltr"
             invalid={!!formErrors.jumpDuration}
@@ -178,10 +178,10 @@ const GeneralSettingsComponent: React.FC = () => {
       </div>
       <div className="mb-6 flex gap-6">
         <div className="w-full">
-          <SDLabel htmlFor="attorneyDocumentsValidityDuration">
+          <KLabel htmlFor="attorneyDocumentsValidityDuration">
             حداقل اعتبار وکالت‌نامه (روز):
-          </SDLabel>
-          <SDTextInput
+          </KLabel>
+          <KTextInput
             numeric={true}
             className="ltr"
             disabled={generalSettingsState.loading}
@@ -199,10 +199,10 @@ const GeneralSettingsComponent: React.FC = () => {
           )}
         </div>
         <div className="w-full">
-          <SDLabel htmlFor="medicalDocumentsValidityDuration">
+          <KLabel htmlFor="medicalDocumentsValidityDuration">
             حداقل اعتبار مدارک پزشکی (روز):
-          </SDLabel>
-          <SDTextInput
+          </KLabel>
+          <KTextInput
             numeric={true}
             className="ltr"
             invalid={!!formErrors.medicalDocumentsValidityDuration}
@@ -222,8 +222,8 @@ const GeneralSettingsComponent: React.FC = () => {
       </div>
       <div className="mb-6 flex ml-6">
         <div className="w-1/2">
-          <SDLabel htmlFor="vat">مالیات بر ارزش افزوده (درصد):</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="vat">مالیات بر ارزش افزوده (درصد):</KLabel>
+          <KTextInput
             numeric={true}
             className="ltr"
             invalid={!!formErrors.vat}
@@ -253,10 +253,10 @@ const GeneralSettingsComponent: React.FC = () => {
         {fields.map((field, index) => {
           return (
             <div key={field.id} className="mb-6">
-              <SDLabel htmlFor={field.status}>
+              <KLabel htmlFor={field.status}>
                 {UserStatusesPersianMap.get(field.status)}
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 id={field.status}
                 disabled={generalSettingsState.loading}
                 {...register(`userStatusInfo.${index}.description` as const, {
@@ -273,15 +273,15 @@ const GeneralSettingsComponent: React.FC = () => {
         })}
       </div>
       <div className="mt-8 flex justify-center">
-        <SDButton
+        <KButton
           className="w-full max-w-sm"
           color="primary2"
           disabled={generalSettingsState.loading || isSaving}
           type="submit"
         >
-          {isSaving && <SDSpinner />}
+          {isSaving && <KSpinner />}
           ذخیره
-        </SDButton>
+        </KButton>
       </div>
     </form>
   );

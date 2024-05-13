@@ -1,9 +1,9 @@
 import { InputHTMLAttributes, Ref, forwardRef } from "react";
 import { replacePersianArabicsNumbers } from "../../utils/shared";
-import SDButton from "./Button";
-import SDSpinner from "./Spinner";
+import KButton from "./Button";
+import KSpinner from "./Spinner";
 
-export interface SDTextInputProps
+export interface KTextInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean;
   numeric?: boolean;
@@ -13,8 +13,8 @@ export interface SDTextInputProps
   isPending?: boolean;
 }
 
-const SDTextInput = forwardRef(
-  (props: SDTextInputProps, ref: Ref<HTMLInputElement>) => {
+const KTextInput = forwardRef(
+  (props: KTextInputProps, ref: Ref<HTMLInputElement>) => {
     const inputProps = { ...props };
     delete inputProps.invalid;
     delete inputProps.numeric;
@@ -61,12 +61,12 @@ const SDTextInput = forwardRef(
 
         {props.isPending ? (
           <div className="absolute inset-y-0 left-1 flex items-center pr-3">
-            <SDSpinner />
+            <KSpinner />
           </div>
         ) : (
           props.magnifier && (
             <div className="absolute inset-y-0 left-1 flex items-center pr-3">
-              <SDButton
+              <KButton
                 className="!h-8 w-8 bg-white font-extrabold  hover:bg-gray-300"
                 onClick={props.onButtonClick}
               >
@@ -84,7 +84,7 @@ const SDTextInput = forwardRef(
                     d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-              </SDButton>
+              </KButton>
             </div>
           )
         )}
@@ -93,4 +93,4 @@ const SDTextInput = forwardRef(
   },
 );
 
-export default SDTextInput;
+export default KTextInput;

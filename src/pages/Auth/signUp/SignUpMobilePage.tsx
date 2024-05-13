@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import SDButton from "../../../components/shared/Button";
-import SDSpinner from "../../../components/shared/Spinner";
+import KButton from "../../../components/shared/Button";
+import KSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
@@ -127,15 +127,15 @@ const SignUpMobilePage: React.FC = () => {
           />
         </div>
         <div className="">
-          <SDButton
+          <KButton
             className="w-full"
             type="submit"
             color="primary2"
             disabled={finalPending}
           >
-            {finalPending && <SDSpinner />}
+            {finalPending && <KSpinner />}
             ادامه
-          </SDButton>
+          </KButton>
         </div>
       </div>
       <div className="flex items-center mr-4 mt-2">
@@ -182,9 +182,9 @@ const SignUpMobilePage: React.FC = () => {
       <div className="flex items-center gap-2 mt-6 justify-center ">
         <p>حساب کاربری دارید؟</p>
         <Link to="../">
-          <SDButton color="primary2" className="w-full">
+          <KButton color="primary2" className="w-full">
             ورود
-          </SDButton>
+          </KButton>
         </Link>
       </div>
     </form>

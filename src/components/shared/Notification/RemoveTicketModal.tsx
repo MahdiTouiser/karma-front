@@ -4,8 +4,8 @@ import {
   AggregatedTicket,
   BasketTicketModel,
 } from "../../../models/shared.models";
-import SDButton from "../Button";
-import SDModal from "../Modal/Modal";
+import KButton from "../Button";
+import KModal from "../Modal/Modal";
 
 interface AddTicketModalProps {
   show: boolean;
@@ -67,9 +67,9 @@ const RemoveTicketModal: React.FC<AddTicketModalProps> = ({
   }
 
   return (
-    <SDModal show={showModal} containerClass="!pb-2" onClose={closeModal}>
-      <SDModal.Header>حذف بلیت از سبد</SDModal.Header>
-      <SDModal.Body>
+    <KModal show={showModal} containerClass="!pb-2" onClose={closeModal}>
+      <KModal.Header>حذف بلیت از سبد</KModal.Header>
+      <KModal.Body>
         <form onSubmit={onsubmit}>
           <div className="p-5 w-80">
             {aggregatedTicket.ticketMembers.map((item, index) => {
@@ -96,17 +96,17 @@ const RemoveTicketModal: React.FC<AddTicketModalProps> = ({
             })}
           </div>
           <div className="flex justify-end px-3">
-            <SDButton
+            <KButton
               type="submit"
               color="primary2"
               disabled={selectedTickets.length === 0}
             >
               حذف
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

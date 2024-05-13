@@ -11,7 +11,7 @@ import {
 } from "react";
 import ReactPaginate from "react-paginate";
 import { SelectPageEvent } from "../../../models/shared.models";
-import SDSpinner from "../Spinner";
+import KSpinner from "../Spinner";
 import GridHeaderComponent from "./GridHeaderComponent";
 import GridRow from "./GridRow";
 import {
@@ -266,7 +266,7 @@ function MainGrid<T = any>(
                       colSpan={colDefs.length + Number(Boolean(rowActions))}
                     >
                       <div className="flex justify-center py-12">
-                        <SDSpinner color="blue" size={28} />
+                        <KSpinner color="blue" size={28} />
                       </div>
                     </Table.Cell>
                   </Table.Row>

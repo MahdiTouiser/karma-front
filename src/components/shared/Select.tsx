@@ -1,12 +1,12 @@
 import { InputHTMLAttributes, Ref, forwardRef } from "react";
 
-interface SDSelectProps extends InputHTMLAttributes<HTMLSelectElement> {
+interface KSelectProps extends InputHTMLAttributes<HTMLSelectElement> {
   invalid?: boolean;
   children: React.ReactNode;
 }
 
-const SDSelect = forwardRef(
-  (props: SDSelectProps, ref: Ref<HTMLSelectElement>) => {
+const KSelect = forwardRef(
+  (props: KSelectProps, ref: Ref<HTMLSelectElement>) => {
     const { invalid, className, placeholder, children, ...rest } = props;
 
     return (
@@ -26,4 +26,4 @@ const SDSelect = forwardRef(
   }
 );
 
-export default SDSelect;
+export default KSelect;

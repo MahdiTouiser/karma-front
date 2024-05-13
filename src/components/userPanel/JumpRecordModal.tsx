@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 import useAPi from "../../hooks/useApi";
 import { AddJumpRecordRequest } from "../../models/jumps.models";
 import { BaseResponse } from "../../models/shared.models";
-import SDButton from "../shared/Button";
-import SDDatepicker from "../shared/DatePicker";
-import SDLabel from "../shared/Label";
-import SDModal from "../shared/Modal/Modal";
-import SDSpinner from "../shared/Spinner";
-import SDTextArea from "../shared/TextArea";
-import SDTextInput from "../shared/TextInput";
+import KButton from "../shared/Button";
+import KDatepicker from "../shared/DatePicker";
+import KLabel from "../shared/Label";
+import KModal from "../shared/Modal/Modal";
+import KSpinner from "../shared/Spinner";
+import KTextArea from "../shared/TextArea";
+import KTextInput from "../shared/TextInput";
 
 interface JumpRecordModalProps {
   showModal: boolean;
@@ -93,26 +93,26 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
   }
 
   return (
-    <SDModal
+    <KModal
       show={showModal}
       onClose={() => resetModal(false)}
       containerClass="!p-0 lg:!w-[480px]"
     >
-      <SDModal.Header color={adminStyling ? "primary2" : "primary2"}>
+      <KModal.Header color={adminStyling ? "primary2" : "primary2"}>
         سابقه پرش جدید
-      </SDModal.Header>
-      <SDModal.Body>
+      </KModal.Header>
+      <KModal.Body>
         <form className="px-3 py-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="w-full flex flex-wrap">
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel htmlFor="date" className="mb-2">
+              <KLabel htmlFor="date" className="mb-2">
                 تاریخ
-              </SDLabel>
-              <SDDatepicker
+              </KLabel>
+              <KDatepicker
                 name="date"
                 required={true}
                 control={control}
-              ></SDDatepicker>
+              ></KDatepicker>
               {formErrors.date?.message && (
                 <p className="text-red-600 text-sm pr-2 mt-2">
                   {formErrors.date.message}
@@ -120,10 +120,10 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
               )}
             </div>
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel htmlFor="location" className="mb-2">
+              <KLabel htmlFor="location" className="mb-2">
                 محل پرواز
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 type="text"
                 id="location"
                 invalid={!!formErrors.location}
@@ -140,10 +140,10 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
           </div>
           <div className="w-full flex flex-wrap">
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel htmlFor="equipments" className="mb-2">
+              <KLabel htmlFor="equipments" className="mb-2">
                 تجهیزات
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 type="text"
                 id="equipments"
                 invalid={!!formErrors.equipments}
@@ -158,10 +158,10 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
               )}
             </div>
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel htmlFor="planeType" className="mb-2">
+              <KLabel htmlFor="planeType" className="mb-2">
                 نوع هواپیما
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 type="text"
                 id="planeType"
                 invalid={!!formErrors.planeType}
@@ -178,10 +178,10 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
           </div>
           <div className="w-full flex flex-wrap">
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel htmlFor="height" className="mb-2">
+              <KLabel htmlFor="height" className="mb-2">
                 ارتفاع(متر)
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 className="ltr"
                 numeric={true}
                 id="height"
@@ -201,10 +201,10 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
               )}
             </div>
             <div className="w-full md:w-1/2 px-5 py-3">
-              <SDLabel className="mb-2">مدت</SDLabel>
+              <KLabel className="mb-2">مدت</KLabel>
               <div className="flex justify-between items-center">
                 <div className="px-5">
-                  <SDTextInput
+                  <KTextInput
                     numeric={true}
                     id="minutes"
                     placeholder="mm"
@@ -225,7 +225,7 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
 
                 <span className="text-3xl">:</span>
                 <div className="px-5">
-                  <SDTextInput
+                  <KTextInput
                     numeric={true}
                     id="hours"
                     placeholder="hh"
@@ -256,30 +256,30 @@ const JumpRecordModal: React.FC<JumpRecordModalProps> = ({
           </div>
           <div className="w-full flex flex-wrap">
             <div className="w-full px-5 py-3">
-              <SDLabel htmlFor="height" className="mb-2">
+              <KLabel htmlFor="height" className="mb-2">
                 توضیحات
-              </SDLabel>
-              <SDTextArea
+              </KLabel>
+              <KTextArea
                 id="description"
                 {...register("description")}
                 rows={4}
-              ></SDTextArea>
+              ></KTextArea>
             </div>
           </div>
           <div className="w-full px-5 pt-5 flex justify-start items-center">
-            <SDButton
+            <KButton
               type="submit"
               color={adminStyling ? "primary2" : "primary2"}
               className="!w-full"
               disabled={isPending}
             >
-              {isPending && <SDSpinner />}
+              {isPending && <KSpinner />}
               افزودن
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

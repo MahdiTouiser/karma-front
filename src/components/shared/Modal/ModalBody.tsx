@@ -1,5 +1,5 @@
-const SDModalBody: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const KModalBody: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div className="max-h-[80vh] overflow-auto ">{children}</div>;
 };
 
-export default SDModalBody;
+export default KModalBody;

@@ -8,11 +8,11 @@ import {
   SkyDiveEventTicketType,
   TicketFee,
 } from "../../../models/skyDiveEvents.models";
-import SDButton from "../../shared/Button";
-import SDLabel from "../../shared/Label";
-import SDModal from "../../shared/Modal/Modal";
-import SDSelect from "../../shared/Select";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KLabel from "../../shared/Label";
+import KModal from "../../shared/Modal/Modal";
+import KSelect from "../../shared/Select";
+import KSpinner from "../../shared/Spinner";
 import ThousandSeparatorInput from "../../shared/ThousandSeparatorInput";
 
 export interface CostModalProps {
@@ -131,17 +131,17 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
 
   return (
     <div>
-      <SDModal
+      <KModal
         show={true}
         onClose={() => resetModal(false)}
         containerClass="!w-[480px]"
       >
-        <SDModal.Header color="primary2">ویرایش بهای فروش</SDModal.Header>
-        <SDModal.Body>
+        <KModal.Header color="primary2">ویرایش بهای فروش</KModal.Header>
+        <KModal.Body>
           <>
             {(getTypesPending || getFeesPending) && (
               <div className="flex justify-center py-5">
-                <SDSpinner color="blue" size={20}></SDSpinner>
+                <KSpinner color="blue" size={20}></KSpinner>
               </div>
             )}
             {typesResponse?.content && !getTypesPending && !getFeesPending && (
@@ -150,12 +150,12 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                   <div className="flex flex-row items-center  w-full mt-5">
                     <div className="flex flex-col w-5/12 ">
                       <div>
-                        <SDLabel>نوع</SDLabel>
+                        <KLabel>نوع</KLabel>
                       </div>
                     </div>
                     <div className="flex flex-col w-5/12  mr-4">
                       <div>
-                        <SDLabel>قیمت واحد</SDLabel>
+                        <KLabel>قیمت واحد</KLabel>
                       </div>
                     </div>
                   </div>
@@ -167,7 +167,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                       >
                         <div className="flex flex-col w-5/12">
                           <div className="">
-                            <SDSelect
+                            <KSelect
                               id={`ticketType-${index}`}
                               {...register(`items.${index}.typeId` as const, {
                                 required: "فیلد اجباری است.",
@@ -186,7 +186,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                                   {type.title}
                                 </option>
                               ))}
-                            </SDSelect>
+                            </KSelect>
                             {formErrors?.items?.[index]?.typeId && (
                               <p className="text-red-600 text-xs pr-2 mt-2">
                                 {formErrors?.items?.[index]?.typeId?.message}
@@ -210,7 +210,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                         </div>
                         <div className="flex  justify-between pr-4  w-4/12 xs:w-3/12">
                           {fields.length !== 1 && (
-                            <SDButton
+                            <KButton
                               color="primary2"
                               className="font-extrabold !h-10 w-10"
                               onClick={() => removeFeeItem(index)}
@@ -229,10 +229,10 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                                   d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                                 />
                               </svg>
-                            </SDButton>
+                            </KButton>
                           )}
                           {index === fields.length - 1 && (
-                            <SDButton
+                            <KButton
                               className=" mr-1 !h-10 w-10"
                               onClick={addFeeItem}
                               disabled={
@@ -253,7 +253,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                                   d="M12 4.5v15m7.5-7.5h-15"
                                 />
                               </svg>
-                            </SDButton>
+                            </KButton>
                           )}
                         </div>
                       </div>
@@ -261,22 +261,22 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                   })}
                 </div>
                 <div className="w-full px-5 pb-6 flex justify-start items-center">
-                  <SDButton
+                  <KButton
                     color="primary2"
                     type="submit"
                     className="w-full"
                     onClick={handleSaveButton}
                     disabled={sendDataIsPending}
                   >
-                    {sendDataIsPending && <SDSpinner />}
+                    {sendDataIsPending && <KSpinner />}
                     افزودن
-                  </SDButton>
+                  </KButton>
                 </div>
               </form>
             )}
           </>
-        </SDModal.Body>
-      </SDModal>
+        </KModal.Body>
+      </KModal>
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import SDButton from "../../../components/shared/Button"
-import SDCard from "../../../components/shared/Card"
-import SDSelect from "../../../components/shared/Select"
-import SDTextInput from "../../../components/shared/TextInput"
+import KButton from "../../../components/shared/Button"
+import KCard from "../../../components/shared/Card"
+import KSelect from "../../../components/shared/Select"
+import KTextInput from "../../../components/shared/TextInput"
 
 const JobSearch = () => {
     return (
-        <SDCard className="flex justify-center items-center mt-10">
+        <KCard className="flex justify-center items-center mt-10">
             <main className="w-full flex flex-col justify-center">
                 <div className="flex flex-col justify-center">
                     <p className="flex justify-start font-bold text-xl mr-4">
@@ -13,29 +13,29 @@ const JobSearch = () => {
                     </p>
                     <div className="flex ">
                         <div className="m-4 w-1/2">
-                            <SDTextInput
+                            <KTextInput
                                 type="text"
                                 id="title"
                                 placeholder="عنوان شغلی یا شرکت"
                             />
                         </div>
                         <div className="m-4 w-1/4">
-                            <SDSelect
+                            <KSelect
                                 id='job-category'
                                 placeholder="گروه شغلی"
                             >
                                 <option value="developer">برنامه نویسی</option>
-                            </SDSelect>
+                            </KSelect>
                         </div>
                         <div className="m-4 w-1/4">
-                            <SDTextInput
+                            <KTextInput
                                 type="text"
                                 id="title"
                                 placeholder="شهر"
                             />
                         </div>
                         <div className="m-4 w-1/4">
-                            <SDButton
+                            <KButton
                                 color="primary2"
                                 className="px-8"
                             >
@@ -45,12 +45,12 @@ const JobSearch = () => {
                                 <p className="mr-2">
                                     جستجو مشاغل
                                 </p>
-                            </SDButton>
+                            </KButton>
                         </div>
                     </div>
                 </div>
             </main>
-        </SDCard>)
+        </KCard>)
 }
 
 export default JobSearch

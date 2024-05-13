@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import SDCard from "../../components/shared/Card";
-import SDSpinner from "../../components/shared/Spinner";
+import KCard from "../../components/shared/Card";
+import KSpinner from "../../components/shared/Spinner";
 import MessagesItem from "../../components/userPanel/Messages/MessagesItem";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { SelectPageEvent } from "../../models/shared.models";
@@ -25,7 +25,7 @@ const Messages: React.FC = () => {
 
   const loading = (
     <div className="flex justify-center pt-6 w-full">
-      <SDSpinner size={20} />
+      <KSpinner size={20} />
     </div>
   );
 
@@ -40,7 +40,7 @@ const Messages: React.FC = () => {
   );
 
   return (
-    <SDCard className="border flex flex-col mb-6 px-12 !border-red">
+    <KCard className="border flex flex-col mb-6 px-12 !border-red">
       <div className="flex justify-center flex-wrap">
         {messagesState.isLoading && loading}
         {messagesState.messages.length > 0 && !messagesState.isLoading && body}
@@ -95,7 +95,7 @@ const Messages: React.FC = () => {
           />
         )}
       </div>
-    </SDCard>
+    </KCard>
   );
 };
 

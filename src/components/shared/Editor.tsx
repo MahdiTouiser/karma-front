@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import  { Component } from "react";
+import { Component } from "react";
 // import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
@@ -14,7 +14,7 @@ const editorConfiguration = {
   //       Authorization: `Bearer ${token}`,
   //     },
   //   },
-  removePlugins: ['ImageUpload','ImageInsert','SpecialCharacters'],
+  removePlugins: ['ImageUpload', 'ImageInsert', 'SpecialCharacters'],
   htmlSupport: {
     allow: [
       {
@@ -27,15 +27,15 @@ const editorConfiguration = {
   },
 };
 
-interface EditorProps{
-    data: string;
-    onChange?: (data:string)=>void;
-    onReady?: (editor:any)=>void;
+interface EditorProps {
+  data: string;
+  onChange?: (data: string) => void;
+  onReady?: (editor: any) => void;
 }
 
-class SDEditor extends Component<EditorProps> {
+class KEditor extends Component<EditorProps> {
   render() {
-    const {data,onChange}  = this.props;
+    const { data, onChange } = this.props;
     return (
       // <h1>t</h1>
       <CKEditor
@@ -55,4 +55,4 @@ class SDEditor extends Component<EditorProps> {
   }
 }
 
-export default SDEditor;
+export default KEditor;

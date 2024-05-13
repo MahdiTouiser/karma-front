@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { axiosIntance } from "../../hooks/useApi";
 import pdfIcon from "../../assets/pdf-icon.jpg";
-import SDSpinner from "./Spinner";
+import { axiosIntance } from "../../hooks/useApi";
+import KSpinner from "./Spinner";
 
 const FileViewer: React.FC<{ fileId: string; alt?: string }> = ({
   fileId,
@@ -48,7 +48,7 @@ const FileViewer: React.FC<{ fileId: string; alt?: string }> = ({
     <>
       <a href={imageLink} target="_blank" className="block relative">
         {isPending ? (
-          <SDSpinner color="blue" size={10} />
+          <KSpinner color="blue" size={10} />
         ) : (
           <>
             <img

@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SDButton from "../../components/shared/Button";
-import SDSpinner from "../../components/shared/Spinner";
+import KButton from "../../components/shared/Button";
+import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
 import { authActions } from "../../store/auth";
@@ -75,15 +75,15 @@ const EmployerLoginPage = () => {
                     </div>
                 </div>
                 <div className="w-full sm:w-auto mt-2 mr-2 sm:mt-0">
-                    <SDButton
+                    <KButton
                         className="w-full"
                         type="submit"
                         color="primary2"
                         disabled={isPending}
                     >
-                        {isPending && <SDSpinner />}
+                        {isPending && <KSpinner />}
                         ورود
-                    </SDButton>
+                    </KButton>
                 </div>
             </div>
             {submitted && !username && (
@@ -95,9 +95,9 @@ const EmployerLoginPage = () => {
             <div className="flex flex-wrap items-center gap-2 mt-6  ">
                 <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
                 <Link to="signup" className="w-full xs:w-auto">
-                    <SDButton color="primary2" className="w-full">
+                    <KButton color="primary2" className="w-full">
                         ایجاد حساب کاربری
-                    </SDButton>
+                    </KButton>
                 </Link>
             </div>
         </form>

@@ -6,7 +6,7 @@ interface ModalHeaderProps {
   withClose?: boolean;
 }
 
-const SDModalHeader: React.FC<ModalHeaderProps> = ({
+const KModalHeader: React.FC<ModalHeaderProps> = ({
   children,
   color = "primary2",
   withClose = true,
@@ -43,4 +43,4 @@ const SDModalHeader: React.FC<ModalHeaderProps> = ({
   );
 };
 
-export default SDModalHeader;
+export default KModalHeader;

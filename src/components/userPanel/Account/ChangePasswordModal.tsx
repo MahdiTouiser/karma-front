@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ResetPasswordFinalComponent from "../../auth/ResetPasswordFinalComponent";
 import ResetPasswordOtpComponent from "../../auth/ResetPasswordOtpComponet";
-import SDModal from "../../shared/Modal/Modal";
+import KModal from "../../shared/Modal/Modal";
 
 const ChangePasswordModal: React.FC<{
   phone: string;
@@ -25,7 +25,7 @@ const ChangePasswordModal: React.FC<{
   }
   return (
     <>
-      <SDModal
+      <KModal
         show={showModal}
         closeOnBackDrop={false}
         onClose={() => {
@@ -33,7 +33,7 @@ const ChangePasswordModal: React.FC<{
         }}
         containerClass="pt-0 px-0 pb-2"
       >
-        <SDModal.Header>تغییر رمز عبور</SDModal.Header>
+        <KModal.Header>تغییر رمز عبور</KModal.Header>
 
         <div className="pt-5">
           {step === "otp" && (
@@ -46,7 +46,7 @@ const ChangePasswordModal: React.FC<{
             <ResetPasswordFinalComponent onResetPassword={resetModal} />
           )}
         </div>
-      </SDModal>
+      </KModal>
     </>
   );
 };

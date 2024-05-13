@@ -1,8 +1,8 @@
 import React from 'react';
 import { AiOutlineFileExcel } from 'react-icons/ai';
 import useApi from '../../hooks/useApi';
-import SDButton from './Button'; // Import SDButton component
-import SDSpinner from './Spinner';
+import KButton from './Button'; // Import KButton component
+import KSpinner from './Spinner';
 
 interface ExcelDownloadButtonProps {
     url: string;
@@ -42,12 +42,12 @@ const ExcelDownloadButton: React.FC<ExcelDownloadButtonProps> = ({
     return (
         <>
             {isPending ? (
-                <SDSpinner color="blue" />
+                <KSpinner color="blue" />
             ) : (
-                <SDButton onClick={handleExportExcel} color='success'>
+                <KButton onClick={handleExportExcel} color='success'>
                     <AiOutlineFileExcel size="1.5rem" className='ml-2' />
                     خروجی اکسل
-                </SDButton>
+                </KButton>
             )}
         </>
     );

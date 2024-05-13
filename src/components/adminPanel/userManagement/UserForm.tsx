@@ -5,7 +5,7 @@ import { BaseResponse } from '../../../models/shared.models'
 import { UserDatail, UserRequest, userType } from '../../../models/usermanagement.models'
 import { Regexes } from '../../../utils/shared'
 import { birthDateBaseNowValidation, heightRangeOptions, nationalCodeValidator, phoneInputValidator, weightRangeOptions } from '../../../utils/validations'
-import SDButton from '../../shared/Button'
+import KButton from '../../shared/Button'
 import ResetUserPasswordModal from './ResetUserPasswordModal'
 import UserFormInput from './UserFormInput'
 import UserFormSelect from './UserFormSelect'
@@ -227,7 +227,7 @@ const UserForm: React.FC<UserFormProps> = props => {
               />
               {props.userDetail ? (
                 <div className="mb-6 flex h-12 flex-col justify-center">
-                  <SDButton className="h-12 w-12" color="light" onClick={openPasswordModal}>
+                  <KButton className="h-12 w-12" color="light" onClick={openPasswordModal}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="ml-2 h-6 w-6 stroke-slate-800">
                       <path
                         strokeLinecap="round"
@@ -235,7 +235,7 @@ const UserForm: React.FC<UserFormProps> = props => {
                         d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                       />
                     </svg>
-                  </SDButton>
+                  </KButton>
                 </div>
               ) : (
                 <UserFormInput
@@ -328,9 +328,9 @@ const UserForm: React.FC<UserFormProps> = props => {
           </div>
         </div>
         <div className="my-3 flex">
-          <SDButton color="primary2" type="submit" className="mr-auto" disabled={isSubmitting}>
+          <KButton color="primary2" type="submit" className="mr-auto" disabled={isSubmitting}>
             ذخیره
-          </SDButton>
+          </KButton>
         </div>
       </form>
     </>

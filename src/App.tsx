@@ -9,6 +9,7 @@ import ForgetPasswordFirstPage from './pages/Auth/forgetPassword/ForgetPasswordF
 import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtpPage'
 import UserPanelContainer from './pages/userPanel/UserPanelContainer'
 
+import MyResume from './components/userPanel/Resume/MyResume'
 import EmployerPage from './pages/Auth/EmployerLoginPage'
 import OTPLoginPage from './pages/Auth/OTPLoginPage'
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage'
@@ -34,7 +35,7 @@ function App() {
           <Route element={<AuthenticatedRoute component={UserPanelContainer} />} path="">
             <Route Component={Home} path=""></Route>
             <Route Component={Messages} path="messages"></Route>
-            <Route Component={Messages} path="my-resume"></Route>
+            <Route Component={MyResume} path="my-resume"></Route>
             <Route Component={MyTicketsPage} path="tickets"></Route>
             <Route Component={MyTransactionsPage} path="transactions"></Route>
             <Route Component={Wallet} path="wallet"></Route>

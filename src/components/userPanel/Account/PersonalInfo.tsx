@@ -8,9 +8,9 @@ import { BaseResponse, UserPersonalInfo } from '../../../models/shared.models'
 import { accoutnActions } from '../../../store/account'
 import { Regexes } from '../../../utils/shared'
 import { heightRangeOptions, phoneInputValidator, weightRangeOptions } from '../../../utils/validations'
-import SDButton from '../../shared/Button'
-import SDLabel from '../../shared/Label'
-import SDTextInput from '../../shared/TextInput'
+import KButton from '../../shared/Button'
+import KLabel from '../../shared/Label'
+import KTextInput from '../../shared/TextInput'
 
 interface PersonalInfoProps {
   onSubmit: () => void
@@ -86,30 +86,30 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
       <form className="mx-auto flex max-w-xl flex-wrap justify-end" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6 flex w-full gap-6">
           <div className="w-1/2">
-            <SDLabel htmlFor="nationalCode">کد ملی</SDLabel>
-            <SDTextInput type="text" id="nationalCode" disabled={true} defaultValue={personalInfo?.content.nationalCode} />
+            <KLabel htmlFor="nationalCode">کد ملی</KLabel>
+            <KTextInput type="text" id="nationalCode" disabled={true} defaultValue={personalInfo?.content.nationalCode} />
           </div>
           <div className="w-1/2">
-            <SDLabel htmlFor="birthDate">تاریخ تولد</SDLabel>
-            <SDTextInput disabled={true} type="text" id="birthDate" defaultValue={personalInfo?.content.birthDate} />
+            <KLabel htmlFor="birthDate">تاریخ تولد</KLabel>
+            <KTextInput disabled={true} type="text" id="birthDate" defaultValue={personalInfo?.content.birthDate} />
           </div>
         </div>
         <div className="mb-6 flex w-full gap-3">
           <div className="w-1/3">
-            <SDLabel htmlFor="firstName">نام</SDLabel>
-            <SDTextInput type="text" id="firstName" disabled={true} defaultValue={personalInfo?.content.firstName} />
+            <KLabel htmlFor="firstName">نام</KLabel>
+            <KTextInput type="text" id="firstName" disabled={true} defaultValue={personalInfo?.content.firstName} />
           </div>
           <div className="w-2/3">
-            <SDLabel htmlFor="lastName">نام خانوادگی</SDLabel>
-            <SDTextInput disabled={true} type="text" id="lastName" defaultValue={personalInfo?.content.lastName} />
+            <KLabel htmlFor="lastName">نام خانوادگی</KLabel>
+            <KTextInput disabled={true} type="text" id="lastName" defaultValue={personalInfo?.content.lastName} />
           </div>
         </div>
         <div className="mb-6 w-full">
-          <SDLabel htmlFor="email">
+          <KLabel htmlFor="email">
             ایمیل
             {errors.email?.message && <span className="text-red-600">*</span>}
-          </SDLabel>
-          <SDTextInput
+          </KLabel>
+          <KTextInput
             {...register('email', {
               required: 'فیلد اجباری است.',
               pattern: {
@@ -126,33 +126,33 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
           {errors.email?.message && touchedFields.email && <p className="mt-2 pr-2 text-sm text-red-600">{errors.email.message}</p>}
         </div>
         <div className="mb-6 w-full">
-          <SDLabel htmlFor="cityId">
+          <KLabel htmlFor="cityId">
             استان و شهر اقامت
             {errors.cityAndState?.message && <span className="text-red-600">*</span>}
-          </SDLabel>
-          <SDTextInput
+          </KLabel>
+          <KTextInput
             id="cityId"
             {...register('cityAndState', { required: 'فیلد اجباری است.' })}
             invalid={!!errors.cityAndState && touchedFields.cityAndState}
             disabled={props.disableAll}
-          ></SDTextInput>
+          ></KTextInput>
           {errors.cityAndState?.message && touchedFields.cityAndState && <p className="mt-2 pr-2 text-sm text-red-600">{errors.cityAndState.message}</p>}
         </div>
         <div className=" mb-6 w-full">
-          <SDLabel htmlFor="address">
+          <KLabel htmlFor="address">
             نشانی
             {errors.address?.message && <span className="text-red-600">*</span>}
-          </SDLabel>
-          <SDTextInput {...register('address', { required: 'فیلد اجباری است.' })} type="address" id="address" disabled={props.disableAll} invalid={!!errors.address && touchedFields.address} />
+          </KLabel>
+          <KTextInput {...register('address', { required: 'فیلد اجباری است.' })} type="address" id="address" disabled={props.disableAll} invalid={!!errors.address && touchedFields.address} />
           {errors.address?.message && touchedFields.address && <p className="mt-2 pr-2 text-sm text-red-600">{errors.address.message}</p>}
         </div>
         <div className="mb-6 flex w-full gap-6">
           <div className="w-1/2 ">
-            <SDLabel htmlFor="height">
+            <KLabel htmlFor="height">
               قد (سانتی متر)
               {errors.height?.message && <span className="text-red-600">*</span>}
-            </SDLabel>
-            <SDTextInput
+            </KLabel>
+            <KTextInput
               {...register('height', {
                 valueAsNumber: true,
                 required: 'فیلد اجباری است.',
@@ -167,11 +167,11 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
             {errors.height?.message && touchedFields.height && <p className="mt-2 pr-2 text-sm text-red-600">{errors.height.message}</p>}
           </div>
           <div className="w-1/2">
-            <SDLabel htmlFor="weight">
+            <KLabel htmlFor="weight">
               وزن (کیلوگرم)
               {errors.weight?.message && <span className="text-red-600">*</span>}
-            </SDLabel>
-            <SDTextInput
+            </KLabel>
+            <KTextInput
               {...register('weight', {
                 valueAsNumber: true,
                 required: 'فیلد اجباری است.',
@@ -190,11 +190,11 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
           <p className="mb-4 text-slate-700">اطلاعات تماس اضطراری</p>
           <div className="mb-6 flex w-full gap-6">
             <div className="w-1/2 ">
-              <SDLabel htmlFor="emergencyContact">
+              <KLabel htmlFor="emergencyContact">
                 نام
                 {errors.emergencyContact?.message && <span className="text-red-600">*</span>}
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 {...register('emergencyContact', {
                   required: 'فیلد اجباری است.',
                   pattern: {
@@ -210,11 +210,11 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
               {errors.emergencyContact?.message && touchedFields.emergencyContact && <p className="mt-2 pr-2 text-sm text-red-600">{errors.emergencyContact.message}</p>}
             </div>
             <div className="w-1/2">
-              <SDLabel htmlFor="emergencyPhone">
+              <KLabel htmlFor="emergencyPhone">
                 موبایل
                 {errors.emergencyPhone?.message && <span className="text-red-600">*</span>}
-              </SDLabel>
-              <SDTextInput
+              </KLabel>
+              <KTextInput
                 {...phoneInputValidator}
                 {...register('emergencyPhone', {
                   pattern: {
@@ -241,9 +241,9 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
           </div>
         </div>
         <div className="flex w-full justify-center ">
-          <SDButton className="w-full md:w-1/2" color="primary2" type="submit" disabled={props.disableAll}>
+          <KButton className="w-full md:w-1/2" color="primary2" type="submit" disabled={props.disableAll}>
             مرحله بعد
-          </SDButton>
+          </KButton>
         </div>
       </form>
     </div>

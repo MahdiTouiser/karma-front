@@ -8,10 +8,10 @@ import {
   AddTermAndConditionsRequest,
   SkyDiveEvent,
 } from "../../../models/skyDiveEvents.models";
-import SDButton from "../../shared/Button";
-import SDEditor from "../../shared/Editor";
-import SDModal from "../../shared/Modal/Modal";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KEditor from "../../shared/Editor";
+import KModal from "../../shared/Modal/Modal";
+import KSpinner from "../../shared/Spinner";
 // import * as ClassicEditor from "../../../assets/ckEditor/build/ckeditor.js"
 
 interface TermsAndConditionsModalProps {
@@ -62,13 +62,13 @@ const TermsAndConditionsModal: React.FC<TermsAndConditionsModalProps> = ({
   }
 
   return (
-    <SDModal
+    <KModal
       show={true}
       onClose={() => resetModal(false)}
       containerClass="!w-[900px]"
     >
-      <SDModal.Header color="primary2">قوانین و شرایط رویداد</SDModal.Header>
-      <SDModal.Body>
+      <KModal.Header color="primary2">قوانین و شرایط رویداد</KModal.Header>
+      <KModal.Body>
         <div>
           <div className="flex flex-col gap-3 my-5 items-center text-slate-700 text-center w-full ">
             <div className="flex gap-6">
@@ -79,23 +79,23 @@ const TermsAndConditionsModal: React.FC<TermsAndConditionsModalProps> = ({
           <form className=" overflow-auto" onSubmit={onSubmit}>
             <div className="p-3">
               {/* <CKEditor editor={Editor as any}></CKEditor> */}
-              <SDEditor data={content} onChange={onChangeContent} />
+              <KEditor data={content} onChange={onChangeContent} />
             </div>
             <div className="w-full px-5 py-5 flex justify-center items-center">
-              <SDButton
+              <KButton
                 color="primary2"
                 type="submit"
                 className="w-96"
                 disabled={isPending}
               >
-                {isPending && <SDSpinner color="blue" />}
+                {isPending && <KSpinner color="blue" />}
                 ذخیره
-              </SDButton>
+              </KButton>
             </div>
           </form>
         </div>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { UserStatuses } from "../../../models/shared.models";
 import { UserDocumentsFields } from "../../../store/account";
-import SDButton from "../../shared/Button";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KSpinner from "../../shared/Spinner";
 import DocumentItemComponent from "./DocumentsItemComponent";
 
 interface DocumentsProp {
@@ -64,16 +64,16 @@ const Documents: React.FC<DocumentsProp> = (props) => {
             />
           </div>
           <div className="flex justify-center pt-6">
-            <SDButton
+            <KButton
               color="primary2"
               type="submit"
               className="basis-full xs:basis-1/2"
               onClick={onSubmit}
               disabled={props.isPending || disableAll || (props.userStatus === UserStatuses.ACTIVE && !props.anyChange)}
             >
-              {props.isPending && <SDSpinner />}
+              {props.isPending && <KSpinner />}
               ذخیره
-            </SDButton>
+            </KButton>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import SDCard from "../../components/shared/Card";
+import KCard from "../../components/shared/Card";
 import Grid from "../../components/shared/Grid/Grid";
 import { ColDef, GridGetData } from "../../components/shared/Grid/grid.types";
 import MultiplePdfPrintButton from "../../components/shared/MultiplePdfPrintButton";
@@ -86,7 +86,7 @@ const MyTicketsPage: React.FC = () => {
   );
 
   return (
-    <SDCard>
+    <KCard>
       <h1 className="text-center font-bold text-xl py-5">بلیت‌های من</h1>
       <div className="py-5 md:px-8">
         <MultiplePdfPrintButton
@@ -120,7 +120,7 @@ const MyTicketsPage: React.FC = () => {
           }}
         />
       </div>
-    </SDCard>
+    </KCard>
   );
 };
 

@@ -1,8 +1,8 @@
 import { AiFillPrinter } from "react-icons/ai";
 import useAPi from "../../hooks/useApi";
 import { printResponse } from "../../utils/shared";
-import SDButton from "./Button";
-import SDSpinner from "./Spinner";
+import KButton from "./Button";
+import KSpinner from "./Spinner";
 
 interface MultiplePdfPrintButtonProps {
   pdfUrl: string;
@@ -37,24 +37,24 @@ const MultiplePdfPrintButton: React.FC<MultiplePdfPrintButtonProps> = ({
   };
 
   return (
-    <SDButton
+    <KButton
       onClick={handlePrint}
       color={color}
       className={className}
       disabled={disable || isPending}
     >
       {isPending ? (
-        <SDSpinner
+        <KSpinner
           size={6}
           color={color === "primary2" ? "primary2" : "blue"}
-        ></SDSpinner>
+        ></KSpinner>
       ) : (
         <span className="ml-2">
           <AiFillPrinter size="1.5rem"></AiFillPrinter>
         </span>
       )}
       چاپ گروهی
-    </SDButton>
+    </KButton>
   );
 };
 

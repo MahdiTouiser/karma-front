@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import SDButton from "../../components/shared/Button";
-import SDSpinner from "../../components/shared/Spinner";
+import KButton from "../../components/shared/Button";
+import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
 import { AuthData, UserSecurityInformation } from "../../models/auth.models";
@@ -138,14 +138,14 @@ export default function UsernameLoginPage() {
         )}
 
         <div className="w-full mr-1">
-          <SDButton
+          <KButton
             className="w-full"
             type="submit"
             color="primary2"
             disabled={isPending}
           >
-            {isPending ? <SDSpinner /> : "ورود"}
-          </SDButton>
+            {isPending ? <KSpinner /> : "ورود"}
+          </KButton>
         </div>
       </div>
 
@@ -154,9 +154,9 @@ export default function UsernameLoginPage() {
       <div className="flex flex-wrap items-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <SDButton color="primary2" className="w-full">
+          <KButton color="primary2" className="w-full">
             ایجاد حساب کاربری
-          </SDButton>
+          </KButton>
         </Link>
       </div>
     </form>

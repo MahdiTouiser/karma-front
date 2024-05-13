@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import useAPi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
 import { CheckUserInfoRequest } from "../../../models/usermanagement.models";
-import SDButton from "../../shared/Button";
-import SDLabel from "../../shared/Label";
-import SDModal from "../../shared/Modal/Modal";
-import SDSpinner from "../../shared/Spinner";
-import SDTextArea from "../../shared/TextArea";
+import KButton from "../../shared/Button";
+import KLabel from "../../shared/Label";
+import KModal from "../../shared/Modal/Modal";
+import KSpinner from "../../shared/Spinner";
+import KTextArea from "../../shared/TextArea";
 interface CheckInfoMessageModalProps {
   onCloseModal: (submitted: boolean) => void;
   userId: string;
@@ -63,20 +63,20 @@ const CheckInfoMessageModal: React.FC<CheckInfoMessageModalProps> = ({
     );
   }
   return (
-    <SDModal
+    <KModal
       show={showModal}
       onClose={() => resetModal(false)}
       containerClass="lg:!w-[480px]"
     >
-      <SDModal.Header color="primary2">{title}</SDModal.Header>
-      <SDModal.Body>
+      <KModal.Header color="primary2">{title}</KModal.Header>
+      <KModal.Body>
         <form onSubmit={onSubmit}>
           <div className="px-6 py-6">
             <div className=" w-full">
-              <SDLabel htmlFor="message" className="mb-2">
+              <KLabel htmlFor="message" className="mb-2">
                 پیام
-              </SDLabel>
-              <SDTextArea
+              </KLabel>
+              <KTextArea
                 id="message"
                 value={message}
                 onChange={onMessageChange}
@@ -85,19 +85,19 @@ const CheckInfoMessageModal: React.FC<CheckInfoMessageModalProps> = ({
             </div>
           </div>
           <div className="w-full px-5 pb-6 flex justify-start items-center">
-            <SDButton
+            <KButton
               color="primary2"
               type="submit"
               className="w-full"
               disabled={isPending}
             >
-              {isPending && <SDSpinner />}
+              {isPending && <KSpinner />}
               ارسال
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

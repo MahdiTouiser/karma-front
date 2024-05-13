@@ -1,6 +1,6 @@
-import SDDropdown, { DropDownItem } from "../Dropdown";
+import { useEffect, useState } from "react";
+import KDropdown, { DropDownItem } from "../Dropdown";
 import { GridRowModel, GridRowOtherAction } from "./grid.types";
-import { useState, useEffect } from "react";
 
 function GridRowMoreActionComponent<T>(props: {
   actions: GridRowOtherAction<T>[];
@@ -61,7 +61,7 @@ function GridRowMoreActionComponent<T>(props: {
   }, [props.actions, props.row]);
 
   return (
-    <SDDropdown buttonClassName="!p-0 !h-auto" withChevron={false} items={item}>
+    <KDropdown buttonClassName="!p-0 !h-auto" withChevron={false} items={item}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -76,7 +76,7 @@ function GridRowMoreActionComponent<T>(props: {
           d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
         />
       </svg>
-    </SDDropdown>
+    </KDropdown>
   );
 }
 

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { UserMessage } from "../../../models/messages.models";
 import { readMessage } from "../../../store/messages";
-import SDButton from "../../shared/Button";
-import SDCard from "../../shared/Card";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KCard from "../../shared/Card";
+import KSpinner from "../../shared/Spinner";
 
 const MessagesItem: React.FC<UserMessage> = (props) => {
   const [isFullTextShown, setIsFullTextShown] = useState(false);
@@ -34,7 +34,7 @@ const MessagesItem: React.FC<UserMessage> = (props) => {
   };
 
   return (
-    <SDCard className="mb-2 !border">
+    <KCard className="mb-2 !border">
       <div
         className={`flex gap-11 items-center   pb-6 ${props.visited ? "read" : "unread"
           }`}
@@ -75,13 +75,13 @@ const MessagesItem: React.FC<UserMessage> = (props) => {
             </div>
             {!props.visited && (
               <div className="flex items-center ">
-                <SDButton
+                <KButton
                   onClick={markAsRead}
                   color="primary2"
                   disabled={changingMessageId === props.id}
                 >
                   <span className="flex items-center">
-                    {changingMessageId === props.id && <SDSpinner />}
+                    {changingMessageId === props.id && <KSpinner />}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -98,13 +98,13 @@ const MessagesItem: React.FC<UserMessage> = (props) => {
                     </svg>
                     علامت‌گذاری به عنوان خوانده شده
                   </span>
-                </SDButton>
+                </KButton>
               </div>
             )}
           </div>
         </div>
       </div>
-    </SDCard>
+    </KCard>
   );
 };
 

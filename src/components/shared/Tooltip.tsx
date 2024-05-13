@@ -1,5 +1,5 @@
 import { Tooltip } from "flowbite-react";
 
-const SDTooltip  = Tooltip
+const KTooltip = Tooltip
 
-export default SDTooltip
+export default KTooltip

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SDTooltip from "../Tooltip";
+import KTooltip from "../Tooltip";
 import { GridRowModel, GridRowOtherAction } from "./grid.types";
 
 function GridRowOtherActionComponent<T>(props: {
@@ -31,7 +31,7 @@ function GridRowOtherActionComponent<T>(props: {
   }
   return mustShow ? (
     props.action.descriptions ? (
-      <SDTooltip
+      <KTooltip
         content={props.action.descriptions}
         trigger="hover"
         placement="bottom"
@@ -46,7 +46,7 @@ function GridRowOtherActionComponent<T>(props: {
         >
           {props.action.icon}
         </button>
-      </SDTooltip>
+      </KTooltip>
     ) : (
       <button
         onClick={(event) => {
