@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import UserHeader from "../../components/userPanel/UserHeader";
+import UserHeader from "../../components/userpanel/UserHeader";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchBasket } from "../../store/basket";
 import { fetchMessages } from "../../store/messages";
