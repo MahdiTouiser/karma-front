@@ -29,7 +29,7 @@ const BasicInfo: React.FC = () => {
             {infoData.map((info, index) => (
                 <div key={index} className='flex justify-between'>
                     <p className='text-gray-600 mt-5'>{info.label}</p>
-                    <p className='font-bold text-black mt-5'>{info.value}</p>
+                    <p className='text-black mt-5 font-extrabold'>{info.value}</p>
                 </div>
             ))}
         </KCard>
