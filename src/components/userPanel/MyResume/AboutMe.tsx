@@ -22,7 +22,7 @@ const AboutMe: React.FC = () => {
             </div>
             <div>
                 <p className='text-gray-600 text-justify ltr mt-10'>
-                    I am a highly adaptable and enthusiastic Front-End Developer with a strong passion for web development. Eager to learn, I actively seek new knowledge and stay updated with the latest trends and technologies. With expertise in HTML, CSS, and JavaScript, I create visually appealing and responsive user interfaces. I thrive in collaborative environments, working closely with designers, back-end developers, and stakeholders to exceed expectations. My adaptability enables me to quickly adapt to new challenges and technologies. I embrace continuous learning and always strive to expand my skill set to deliver exceptional web experiences.
+                    I am a highly adaptable and enthusiastic Front-End Developer with a strong passion for web development. Eager to learn, I actively seek new knowledge and stay updated with the latest trends and technologies.
                 </p>
             </div>
         </KCard>
