@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import KCard from "../../components/shared/Card";
 import KSpinner from "../../components/shared/Spinner";
-import MessagesItem from "../../components/userPanel/Messages/MessagesItem";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { SelectPageEvent } from "../../models/shared.models";
 import { fetchMessages } from "../../store/messages";
@@ -31,11 +30,11 @@ const Messages: React.FC = () => {
 
   const body = (
     <>
-      <div className="w-full lg:w-9/12">
+      {/* <div className="w-full lg:w-9/12">
         {messagesState.messages.map((item, index) => {
           return <MessagesItem key={index} {...item} />;
         })}
-      </div>
+      </div> */}
     </>
   );
 

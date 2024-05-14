@@ -16,7 +16,6 @@ import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage'
 import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage'
 import SignUpUserInfoPage from './pages/Auth/signUp/SignUpUserInfoPage'
 import Home from './pages/userPanel/Home/Home'
-import JumpRecordsPage from './pages/userPanel/JumpRecordsPage'
 import Messages from './pages/userPanel/Messages'
 import MyTicketsPage from './pages/userPanel/MyTicketsPage'
 import MyTransactionsPage from './pages/userPanel/MyTransactionsPage'
@@ -38,7 +37,6 @@ function App() {
             <Route Component={JobOpportunities} path="job-opportunities"></Route>
             <Route Component={MyTicketsPage} path="tickets"></Route>
             <Route Component={MyTransactionsPage} path="transactions"></Route>
-            <Route Component={JumpRecordsPage} path="jumps"></Route>
           </Route>
           <Route Component={AuthContainer} path="auth">
             <Route Component={EmployerPage} path="employer"></Route>

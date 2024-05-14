@@ -1,7 +1,9 @@
 import React from 'react'
 import AboutMe from './AboutMe'
 import BasicInfo from './BasicInfo'
+import CareerHistory from './CareerHistory'
 import EducationalHistory from './EducationalHistory'
+import Languages from './Languages'
 
 const MyResume: React.FC = () => {
     return (
@@ -15,6 +17,12 @@ const MyResume: React.FC = () => {
                 </div>
                 <div className='w-3/5 mt-6 flex justify-center items-center'>
                     <EducationalHistory />
+                </div>
+                <div className='w-3/5 mt-6 flex justify-center items-center'>
+                    <CareerHistory />
+                </div>
+                <div className='w-3/5 mt-6 flex justify-center items-center'>
+                    <Languages />
                 </div>
             </div>
         </>

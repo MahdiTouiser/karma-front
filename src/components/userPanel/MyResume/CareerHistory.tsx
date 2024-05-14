@@ -1,16 +1,16 @@
 import React from 'react';
 import KCard from '../../shared/Card';
 
-const EducationalHistory: React.FC = () => {
+const CareerHistory: React.FC = () => {
     const EducationalData = [
-        { label: 'کارشناسی : مهندسی مکانیک', university: 'دانشگاه بین المللی امام خمینی - قزوین', date: '۱۴۰۱-۱۳۹۷' },
-        { label: 'کارشناسی ارشد: مهندسی کامپیوتر', university: 'دانشگاه شهید بهشتی', date: '1402 تا کنون' },
+        { label: 'کارشناس برنامه نویس', company: 'فریلنسر', date: '۱۴۰۱-۱۳۹۷' },
+        { label: 'برنامه نویس فرانت اند', company: 'رایانش ابری یکتا شیوه', date: '1402 تا کنون' },
     ];
 
     return (
         <KCard className='flex flex-col justify-between w-full'>
             <div className="flex items-center justify-between">
-                <h1 className='text-xl font-extrabold'>سوابق تحصیلی</h1>
+                <h1 className='text-xl font-extrabold'>سوابق شغلی</h1>
                 <button className="text-sm text-blue-500 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -35,7 +35,7 @@ const EducationalHistory: React.FC = () => {
                         </div>
                         <div className="pl-2 mr-4">
                             <p className='text-black font-extrabold'>{info.label}</p>
-                            <p className='mt-4'>{info.university}</p>
+                            <p className='mt-4'>{info.company}</p>
                             <p className='mt-4'>{info.date}</p>
                         </div>
                     </div>
@@ -45,4 +45,4 @@ const EducationalHistory: React.FC = () => {
     );
 }
 
-export default EducationalHistory;
+export default CareerHistory
