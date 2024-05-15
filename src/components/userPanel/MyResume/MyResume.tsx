@@ -2,40 +2,45 @@ import React from 'react'
 import AboutMe from './AboutMe'
 import BasicInfo from './BasicInfo'
 import CareerHistory from './CareerHistory'
+import Contact from './Contact'
 import EducationalHistory from './EducationalHistory'
 import Languages from './Languages'
+import Samples from './Samples'
 import SoftwareSkills from './SoftwareSkills'
 
 
 const MyResume: React.FC = () => {
     return (
-        <>
-            <div className='flex flex-col mt-10 w-screen p-16'>
-                <div className='flex'>
-                    <div className='w-3/5'>
-                        <AboutMe />
-                    </div>
-                    <div className='w-2/5 pr-10'>
-                        <AboutMe />
-                    </div>
+        <div className='flex py-16'>
+            <div className='flex flex-col w-3/5 px-8'>
+                <div>
+                    <AboutMe />
                 </div>
-                <div className='w-3/5 mt-6'>
+                <div className='mt-6'>
                     <BasicInfo />
                 </div>
-                <div className='w-3/5 mt-6'>
+                <div className='mt-6'>
                     <EducationalHistory />
                 </div>
-                <div className='w-3/5 mt-6'>
+                <div className='mt-6'>
                     <CareerHistory />
                 </div>
-                <div className='w-3/5 mt-6'>
+                <div className='mt-6'>
                     <Languages />
                 </div>
-                <div className='w-3/5 mt-6'>
+                <div className='mt-6'>
                     <SoftwareSkills />
                 </div>
             </div>
-        </>
+            <div className='flex flex-col w-2/5 px-8'>
+                <div>
+                    <Contact />
+                </div>
+                <div className='mt-6'>
+                    <Samples />
+                </div>
+            </div>
+        </div>
     )
 }
 
