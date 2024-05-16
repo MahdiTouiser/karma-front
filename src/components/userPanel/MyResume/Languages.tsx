@@ -10,7 +10,7 @@ const Languages: React.FC = () => {
     return (
         <KCard className='flex flex-col justify-between w-full'>
             <div className="flex items-center justify-between">
-                <h1 className='text-xl font-extrabold'>مهارت های نرم افزاری</h1>
+                <h1 className='text-xl font-extrabold'>زبان ها</h1>
                 <button className="text-sm text-blue-500 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
