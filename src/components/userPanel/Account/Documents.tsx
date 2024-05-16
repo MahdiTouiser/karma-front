@@ -65,7 +65,7 @@ const Documents: React.FC<DocumentsProp> = (props) => {
           </div>
           <div className="flex justify-center pt-6">
             <KButton
-              color="primary2"
+              color="primary"
               type="submit"
               className="basis-full xs:basis-1/2"
               onClick={onSubmit}

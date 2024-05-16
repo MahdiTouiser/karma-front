@@ -275,7 +275,7 @@ const GeneralSettingsComponent: React.FC = () => {
       <div className="mt-8 flex justify-center">
         <KButton
           className="w-full max-w-sm"
-          color="primary2"
+          color="primary"
           disabled={generalSettingsState.loading || isSaving}
           type="submit"
         >

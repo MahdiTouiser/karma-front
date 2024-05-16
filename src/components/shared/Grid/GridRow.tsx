@@ -13,7 +13,7 @@ interface GridRowProps<T> {
   onRemoveRow?: (item: T) => void;
   selectable?: boolean;
   onSelectedChange?: (row: GridRowModel<T>, selected: boolean) => void;
-  theme?: "primary2" | "primary2";
+  theme?: "primary" | "primary";
 }
 
 function GridRow<T>({
@@ -24,7 +24,7 @@ function GridRow<T>({
   onRemoveRow,
   selectable = false,
   onSelectedChange,
-  theme = "primary2",
+  theme = "primary",
 }: GridRowProps<T>) {
   const [lastTouched, setLastTouched] = useState<number>(0);
   const handleTouchEnd = useCallback(

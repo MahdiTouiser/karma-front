@@ -129,7 +129,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
         onClose={() => resetModal(false)}
         containerClass="lg:!w-[480px]"
       >
-        <KModal.Header color="primary2">
+        <KModal.Header color="primary">
           {eventData ? "ویرایش رویداد" : "ثبت رویداد جدید"}
         </KModal.Header>
         <KModal.Body>
@@ -304,7 +304,7 @@ const AdminEventModal: React.FC<AdminEventModalProps> = ({
               <KButton
                 type="submit"
                 className="w-full "
-                color="primary2"
+                color="primary"
                 disabled={isPending}
               >
                 {isPending && <KSpinner />}

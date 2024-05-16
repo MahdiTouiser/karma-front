@@ -93,7 +93,7 @@ const AdminFlighList: React.FC<{ dayId: string; date: string }> = ({
           <>
             <div className="flex gap-2 ">
               <KButton
-                color="primary2"
+                color="primary"
                 className="px-8"
                 onClick={startAddFlight}
                 disabled={flightsResponse.content.flights.length > 0}

@@ -149,7 +149,7 @@ const SignUpUserInfoPage: React.FC = () => {
         <div>
           <KButton
             type="submit"
-            color="primary2"
+            color="primary"
             className="w-full"
             disabled={isPending}
           >

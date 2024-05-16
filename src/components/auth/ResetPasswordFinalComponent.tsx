@@ -103,7 +103,7 @@ const ResetPasswordFinalComponent: React.FC<
       </div>
       <KButton
         className="mt-4 w-full"
-        color="primary2"
+        color="primary"
         type="submit"
         disabled={isPending}
       >

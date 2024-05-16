@@ -60,14 +60,14 @@ function useConfirm(
             <KButton
               onClick={handleReject}
               outline
-              color="primary2"
+              color="primary"
               className="!rounded-md"
             >
               {rejectButton}
             </KButton>
             <KButton
               onClick={handleConfirm}
-              color="primary2"
+              color="primary"
               className="!rounded-md"
             >
               {confirmButton}

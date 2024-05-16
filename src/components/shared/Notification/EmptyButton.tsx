@@ -12,7 +12,7 @@ const EmptyButton: React.FC = () => {
   return (
     <KButton
       onClick={onEmpty}
-      color="primary2"
+      color="primary"
       outline
       className="w-full mt-1"
       type="button"

@@ -62,7 +62,7 @@ const ResetUserPasswordModal: React.FC<ResetUserPasswordModalProps> = ({
       onClose={() => resetModal()}
       containerClass="!w-[480px]"
     >
-      <KModal.Header color="primary2">بازنشانی رمزعبور کاربر</KModal.Header>
+      <KModal.Header color="primary">بازنشانی رمزعبور کاربر</KModal.Header>
       <KModal.Body>
         <form className="px-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="px-6 py-8">
@@ -85,7 +85,7 @@ const ResetUserPasswordModal: React.FC<ResetUserPasswordModalProps> = ({
           </div>
           <div className="w-full px-5 pb-6 flex justify-start items-center">
             <KButton
-              color="primary2"
+              color="primary"
               type="submit"
               className="w-full"
               disabled={isPending}

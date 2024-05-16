@@ -112,7 +112,7 @@ const PdfPrintButton: React.FC<PdfPrintButtonProps> = ({
               {isPending ? (
                 <KSpinner color="blue" />
               ) : (
-                <KButton onClick={handlePrint} color="primary2" className="py-1/2">
+                <KButton onClick={handlePrint} color="primary" className="py-1/2">
                   <span className="ml-2">
                     <AiOutlinePrinter size="1.5rem"></AiOutlinePrinter>
                   </span>

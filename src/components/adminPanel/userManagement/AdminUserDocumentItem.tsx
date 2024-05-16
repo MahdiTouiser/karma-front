@@ -121,7 +121,7 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
       {documentData?.status === DocumentStatus.PENDING && (
         <div className="flex justify-center gap-1 mt-auto">
           <KButton
-            color="primary2"
+            color="primary"
             size="xs"
             className="px-0 py-0"
             disabled={isPending}

@@ -106,7 +106,7 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
       onClose={() => resetModal(false)}
       containerClass="!w-[480px]"
     >
-      <KModal.Header color="primary2">ویرایش بلیت</KModal.Header>
+      <KModal.Header color="primary">ویرایش بلیت</KModal.Header>
       <KModal.Body>
         <div className="px-3 py-5">
           <div className="flex flex-col gap-3 items-center text-slate-700 text-center w-full">
@@ -164,7 +164,7 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
             </div>
             <div className="w-full px-5 pt-5 flex justify-start items-center">
               <KButton
-                color="primary2"
+                color="primary"
                 type="submit"
                 className="w-full"
                 disabled={editPending}

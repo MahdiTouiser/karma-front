@@ -1,7 +1,6 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
-import ProgressBar from './components/shared/Progress';
 import JobOpportunities from './components/userpanel/MyResume/JobOpportunities';
 import MyResume from './components/userpanel/MyResume/MyResume';
 import AuthContainer from './pages/Auth/AuthContainer';
@@ -27,7 +26,6 @@ function App() {
     <>
       <ToastContainer rtl theme="colored" position="top-left" icon={false} closeButton={false} autoClose={2000} />
       <Router>
-        <ProgressBar />
         <Routes>
           <Route element={<AuthenticatedRoute component={UserPanelContainer} />} path="">
             <Route Component={Home} path=""></Route>

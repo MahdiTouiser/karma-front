@@ -141,7 +141,7 @@ export default function UsernameLoginPage() {
           <KButton
             className="w-full"
             type="submit"
-            color="primary2"
+            color="primary"
             disabled={isPending}
           >
             {isPending ? <KSpinner /> : "ورود"}
@@ -154,7 +154,7 @@ export default function UsernameLoginPage() {
       <div className="flex flex-wrap items-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <KButton color="primary2" className="w-full">
+          <KButton color="primary" className="w-full">
             ایجاد حساب کاربری
           </KButton>
         </Link>

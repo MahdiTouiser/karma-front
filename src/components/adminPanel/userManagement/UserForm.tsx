@@ -328,7 +328,7 @@ const UserForm: React.FC<UserFormProps> = props => {
           </div>
         </div>
         <div className="my-3 flex">
-          <KButton color="primary2" type="submit" className="mr-auto" disabled={isSubmitting}>
+          <KButton color="primary" type="submit" className="mr-auto" disabled={isSubmitting}>
             ذخیره
           </KButton>
         </div>

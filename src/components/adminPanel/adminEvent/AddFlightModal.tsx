@@ -144,7 +144,7 @@ const AddFlightModal: React.FC<AddFlightModalProps> = ({
 
   return (
     <KModal show={showModal} onClose={() => resetModal(false)}>
-      <KModal.Header color="primary2">ایجاد پرواز</KModal.Header>
+      <KModal.Header color="primary">ایجاد پرواز</KModal.Header>
       <KModal.Body>
         <div className="px-3 py-5">
           <div className="flex w-full flex-col items-center gap-3 text-center text-slate-700">
@@ -284,7 +284,7 @@ const AddFlightModal: React.FC<AddFlightModalProps> = ({
                       <div className="flex w-4/12 justify-between  pl-5 pr-2 xs:w-3/12">
                         {fields.length !== 1 && (
                           <KButton
-                            color="primary2"
+                            color="primary"
                             className="!h-10 w-10 font-extrabold"
                             onClick={() => removeTicket(index)}
                           >
@@ -335,7 +335,7 @@ const AddFlightModal: React.FC<AddFlightModalProps> = ({
               </section>
               <div className="flex w-full items-center justify-start px-5 pt-5">
                 <KButton
-                  color="primary2"
+                  color="primary"
                   type="submit"
                   className="w-full"
                   disabled={savePending}

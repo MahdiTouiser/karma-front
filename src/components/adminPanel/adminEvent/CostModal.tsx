@@ -136,7 +136,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
         onClose={() => resetModal(false)}
         containerClass="!w-[480px]"
       >
-        <KModal.Header color="primary2">ویرایش بهای فروش</KModal.Header>
+        <KModal.Header color="primary">ویرایش بهای فروش</KModal.Header>
         <KModal.Body>
           <>
             {(getTypesPending || getFeesPending) && (
@@ -211,7 +211,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                         <div className="flex  justify-between pr-4  w-4/12 xs:w-3/12">
                           {fields.length !== 1 && (
                             <KButton
-                              color="primary2"
+                              color="primary"
                               className="font-extrabold !h-10 w-10"
                               onClick={() => removeFeeItem(index)}
                             >
@@ -262,7 +262,7 @@ const CostModal: React.FC<CostModalProps> = ({ onCloseModal, rowId }) => {
                 </div>
                 <div className="w-full px-5 pb-6 flex justify-start items-center">
                   <KButton
-                    color="primary2"
+                    color="primary"
                     type="submit"
                     className="w-full"
                     onClick={handleSaveButton}

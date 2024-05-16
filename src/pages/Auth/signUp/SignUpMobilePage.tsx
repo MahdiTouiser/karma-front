@@ -130,7 +130,7 @@ const SignUpMobilePage: React.FC = () => {
           <KButton
             className="w-full"
             type="submit"
-            color="primary2"
+            color="primary"
             disabled={finalPending}
           >
             {finalPending && <KSpinner />}
@@ -146,7 +146,7 @@ const SignUpMobilePage: React.FC = () => {
           checked={acceptRules}
           onChange={onChangeAcceptance}
           name="colored-radio"
-          className="w-4 h-4 text-primary2-600 bg-gray-100 border-gray-300 focus:ring-primary2-500 dark:focus:ring-primary2-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label
           htmlFor="red-radio"
@@ -182,7 +182,7 @@ const SignUpMobilePage: React.FC = () => {
       <div className="flex items-center gap-2 mt-6 justify-center ">
         <p>حساب کاربری دارید؟</p>
         <Link to="../">
-          <KButton color="primary2" className="w-full">
+          <KButton color="primary" className="w-full">
             ورود
           </KButton>
         </Link>

@@ -241,7 +241,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
           </div>
         </div>
         <div className="flex w-full justify-center ">
-          <KButton className="w-full md:w-1/2" color="primary2" type="submit" disabled={props.disableAll}>
+          <KButton className="w-full md:w-1/2" color="primary" type="submit" disabled={props.disableAll}>
             مرحله بعد
           </KButton>
         </div>

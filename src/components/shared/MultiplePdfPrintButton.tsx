@@ -8,7 +8,7 @@ interface MultiplePdfPrintButtonProps {
   pdfUrl: string;
   fileName: string;
   body?: string[];
-  color?: "primary2" | "primary2";
+  color?: "primary" | "primary";
   disable?: boolean;
   className?: string;
 }
@@ -17,7 +17,7 @@ const MultiplePdfPrintButton: React.FC<MultiplePdfPrintButtonProps> = ({
   pdfUrl,
   fileName,
   body,
-  color = "primary2",
+  color = "primary",
   disable = false,
   className = "",
 }) => {
@@ -46,7 +46,7 @@ const MultiplePdfPrintButton: React.FC<MultiplePdfPrintButtonProps> = ({
       {isPending ? (
         <KSpinner
           size={6}
-          color={color === "primary2" ? "primary2" : "blue"}
+          color={color === "primary" ? "primary" : "blue"}
         ></KSpinner>
       ) : (
         <span className="ml-2">

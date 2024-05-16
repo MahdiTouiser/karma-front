@@ -69,7 +69,7 @@ const EmployerLoginPage = () => {
                     />
                     <div className="absolute left-0 h-10 top-1 py-1 w-28">
                         <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-                        <Link className="text-primary2 text-sm mr-2" to="forget-password">
+                        <Link className="text-primary text-sm mr-2" to="forget-password">
                             فراموش کردید؟
                         </Link>
                     </div>
@@ -78,7 +78,7 @@ const EmployerLoginPage = () => {
                     <KButton
                         className="w-full"
                         type="submit"
-                        color="primary2"
+                        color="primary"
                         disabled={isPending}
                     >
                         {isPending && <KSpinner />}
@@ -95,7 +95,7 @@ const EmployerLoginPage = () => {
             <div className="flex flex-wrap items-center gap-2 mt-6  ">
                 <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
                 <Link to="signup" className="w-full xs:w-auto">
-                    <KButton color="primary2" className="w-full">
+                    <KButton color="primary" className="w-full">
                         ایجاد حساب کاربری
                     </KButton>
                 </Link>

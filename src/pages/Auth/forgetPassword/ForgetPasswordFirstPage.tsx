@@ -87,7 +87,7 @@ const ForgetPasswordFirstPage: React.FC = () => {
         <KButton
           type="submit"
           className="w-full mt-3"
-          color="primary2"
+          color="primary"
           disabled={isPending}
         >
           {isPending && <KSpinner></KSpinner>}

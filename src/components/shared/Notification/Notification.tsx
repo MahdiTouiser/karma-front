@@ -78,7 +78,7 @@ const Basket: React.FC<BasketProps> = ({
             <div className="top-shadow fixed bottom-1 right-0 flex w-full items-center   justify-between  bg-white p-3 px-6 pb-4 lg:static lg:p-0 lg:shadow-none">
               <KButton
                 disabled={!canPay || isPaying}
-                color="primary2"
+                color="primary"
                 className="w-40 max-w-md items-center lg:w-full "
                 type="button"
                 onClick={() => {

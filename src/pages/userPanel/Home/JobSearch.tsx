@@ -36,7 +36,7 @@ const JobSearch = () => {
                         </div>
                         <div className="m-4 w-1/4">
                             <KButton
-                                color="primary2"
+                                color="primary"
                                 className="px-8"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
