@@ -31,7 +31,7 @@ const UserHeader: React.FC = () => {
 
   return (
     <>
-      <Navbar fluid className="bg-primary">
+      <Navbar fluid className="bg-primary2">
         <Navbar.Brand href="/" className="mr-12">
           <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــــــــــــارما</span>
         </Navbar.Brand>

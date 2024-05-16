@@ -1,7 +1,7 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
-import JobOpportunities from './components/userpanel/MyResume/JobOpportunities';
+import JobOpportunities from './components/userpanel/JobOpportunities.tsx/JobOpportunities';
 import MyResume from './components/userpanel/MyResume/MyResume';
 import AuthContainer from './pages/Auth/AuthContainer';
 import EmployerPage from './pages/Auth/EmployerLoginPage';
