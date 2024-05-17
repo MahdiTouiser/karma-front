@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import KCard from '../../shared/Card';
 
-const JobsDescription: React.FC = () => {
-    return (
-        <div>JobsDescription</div>
-    )
+interface JobsDescriptionProps {
+    selectedJobLabel: string | null;
 }
 
-export default JobsDescription
+const JobsDescription: React.FC<JobsDescriptionProps> = ({ selectedJobLabel }) => {
+    return (
+        <KCard className='flex items-center justify-center'>
+            <p>{selectedJobLabel ? selectedJobLabel : "JobsDescription"}</p>
+        </KCard>
+    );
+};
+
+export default JobsDescription;

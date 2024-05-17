@@ -21,10 +21,9 @@ const MyResume: React.FC = () => {
                     <div className='flex items-center'>
                         <p className='ml-2'>نحوه نمایش رزومه به</p>
                         <span>
-                            <KSelect>
-                                <option value="jobseeker" selected>خودم</option>
+                            <KSelect defaultValue="jobseeker" id='How to display resume'>
+                                <option value="jobseeker">خودم</option>
                                 <option value="employer">کارفرما</option>
-
                             </KSelect>
                         </span>
                     </div>

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 
-const JobsCards: React.FC = () => {
+interface JobsCardsProps {
+    setSelectedJobLabel: (label: string) => void;
+}
+
+const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJobLabel }) => {
     const JobsData = [
         { label: 'برنامه نویس فرانت', companyName: 'سعادت رنت', salary: '۸۰ میلیون تومان', date: 'امروز' },
         { label: 'برنامه نویس', companyName: 'رایانش ابری یکتا شیوه', salary: '۸۰ میلیون تومان', date: 'دیروز' },
@@ -22,17 +26,21 @@ const JobsCards: React.FC = () => {
         newLiked[index] = !newLiked[index];
         setLiked(newLiked);
     };
+
     return (
-        <div className='flex flex-col p-40'>
-            <KCard className='w-1/4 text-gray-500'>
+        <div className='flex flex-col'>
+            <KCard className='w-full text-gray-500'>
                 <p>4302 فرصت شغلی</p>
             </KCard>
             {JobsData.map((item, index) => (
-                <KCard key={index} className='mt-5 w-1/4 border-r-4 border-sky-500'>
+                <KCard
+                    key={index}
+                    className='mt-5 w-full border-r-4 border-sky-500 cursor-pointer'
+                    onClick={() => setSelectedJobLabel(item.label)}
+                >
                     <div className='flex justify-end'>
-                        <button>
+                        <button onClick={(e) => { e.stopPropagation(); toggleLike(index); }}>
                             <svg
-                                onClick={() => toggleLike(index)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill={liked[index] ? 'red' : 'gray'}
@@ -49,7 +57,6 @@ const JobsCards: React.FC = () => {
                         <p className='ml-2'>{item.companyName}</p> | <p className='mr-2'>{item.salary}</p>
                     </div>
                     <p className='text-gray-500'>{item.date}</p>
-
                 </KCard>
             ))}
         </div>
