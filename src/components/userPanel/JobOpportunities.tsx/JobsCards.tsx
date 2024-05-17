@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 
 interface JobsCardsProps {
-    setSelectedJobLabel: (label: string) => void;
+    setSelectedJob: (job: { label: string; companyName: string; salary: string; date: string }) => void;
 }
 
-const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJobLabel }) => {
+const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJob }) => {
     const JobsData = [
         { label: 'برنامه نویس فرانت', companyName: 'سعادت رنت', salary: '۸۰ میلیون تومان', date: 'امروز' },
         { label: 'برنامه نویس', companyName: 'رایانش ابری یکتا شیوه', salary: '۸۰ میلیون تومان', date: 'دیروز' },
@@ -20,6 +20,7 @@ const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJobLabel }) => {
     ];
 
     const [liked, setLiked] = useState(Array(10).fill(false));
+    const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(null);
 
     const toggleLike = (index: number) => {
         const newLiked = [...liked];
@@ -27,18 +28,30 @@ const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJobLabel }) => {
         setLiked(newLiked);
     };
 
+    const handleCardClick = (index: number, job: { label: string; companyName: string; salary: string; date: string }) => {
+        setSelectedCardIndex(index);
+        setSelectedJob(job);
+    };
+
     return (
         <div className='flex flex-col'>
-            <KCard className='w-full text-gray-500'>
+            <KCard className='w-full text-gray-500 flex justify-center'>
                 <p>4302 فرصت شغلی</p>
             </KCard>
             {JobsData.map((item, index) => (
                 <KCard
                     key={index}
-                    className='mt-5 w-full border-r-4 border-sky-500 cursor-pointer'
-                    onClick={() => setSelectedJobLabel(item.label)}
+                    className={`mt-5 w-full border-r-4 border-sky-500 cursor-pointer ${selectedCardIndex === index ? 'border-2 border-blue-500' : ''
+                        }`}
+                    onClick={() => handleCardClick(index, item)}
                 >
-                    <div className='flex justify-end'>
+                    <div className='flex justify-between'>
+                        <div className="relative inline-block">
+                            <span className="absolute top-[-10px] left-[-40px] bg-red-100 text-red-500 p-2 rounded text-xs">
+                                فوری
+                            </span>
+                        </div>
+
                         <button onClick={(e) => { e.stopPropagation(); toggleLike(index); }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
