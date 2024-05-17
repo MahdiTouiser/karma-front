@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SDButton from "../../components/shared/Button";
-import SDSpinner from "../../components/shared/Spinner";
+import KButton from "../../components/shared/Button";
+import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
 import { authActions } from "../../store/auth";
@@ -69,21 +69,21 @@ const EmployerLoginPage = () => {
                     />
                     <div className="absolute left-0 h-10 top-1 py-1 w-28">
                         <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-4 w-px"></div>
-                        <Link className="text-primary2 text-sm mr-2" to="forget-password">
+                        <Link className="text-primary text-sm mr-2" to="forget-password">
                             فراموش کردید؟
                         </Link>
                     </div>
                 </div>
                 <div className="w-full sm:w-auto mt-2 mr-2 sm:mt-0">
-                    <SDButton
+                    <KButton
                         className="w-full"
                         type="submit"
-                        color="primary2"
+                        color="primary"
                         disabled={isPending}
                     >
-                        {isPending && <SDSpinner />}
+                        {isPending && <KSpinner />}
                         ورود
-                    </SDButton>
+                    </KButton>
                 </div>
             </div>
             {submitted && !username && (
@@ -95,9 +95,9 @@ const EmployerLoginPage = () => {
             <div className="flex flex-wrap items-center gap-2 mt-6  ">
                 <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
                 <Link to="signup" className="w-full xs:w-auto">
-                    <SDButton color="primary2" className="w-full">
+                    <KButton color="primary" className="w-full">
                         ایجاد حساب کاربری
-                    </SDButton>
+                    </KButton>
                 </Link>
             </div>
         </form>

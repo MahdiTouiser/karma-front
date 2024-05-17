@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from "react";
 import {
   Control,
   FieldErrors,
@@ -5,12 +6,11 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { UserRequest } from "../../../models/usermanagement.models";
-import SDTextInput, { SDTextInputProps } from "../../shared/TextInput";
-import { HTMLInputTypeAttribute } from "react";
+import KDatepicker, { BaseNowValidationOptions } from "../../shared/DatePicker";
 import PasswordInput from "../../shared/PasswordInput";
-import SDDatepicker, { BaseNowValidationOptions } from "../../shared/DatePicker";
+import KTextInput, { KTextInputProps } from "../../shared/TextInput";
 
-interface UserFormInputProps extends SDTextInputProps {
+interface UserFormInputProps extends KTextInputProps {
   register?: UseFormRegister<UserRequest>;
   options?: RegisterOptions;
   errors: FieldErrors<UserRequest>;
@@ -43,7 +43,7 @@ const UserFormInput: React.FC<UserFormInputProps> = ({
   return (
     <div className="mb-6 h-12 flex flex-col justify-center">
       {!register && !control && (
-        <SDTextInput
+        <KTextInput
           {...inputProps}
           id={name}
           type={type}
@@ -51,7 +51,7 @@ const UserFormInput: React.FC<UserFormInputProps> = ({
         />
       )}
       {["text", "number", "email"].includes(type) && register && (
-        <SDTextInput
+        <KTextInput
           {...inputProps}
           id={name}
           {...register(
@@ -73,13 +73,13 @@ const UserFormInput: React.FC<UserFormInputProps> = ({
         />
       )}
       {type === "date" && control && (
-        <SDDatepicker
+        <KDatepicker
           name={castedName}
           control={control}
           id={name}
           required={required}
           baseNowValidationOptions={baseNowValidation}
-        ></SDDatepicker>
+        ></KDatepicker>
       )}
       {errors[castedName]?.message && (
         <p className="text-red-600 text-xs pr-2 inline-block w-44">

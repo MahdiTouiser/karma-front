@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import SDButton from "../../../components/shared/Button";
-import SDSpinner from "../../../components/shared/Spinner";
+import KButton from "../../../components/shared/Button";
+import KSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
@@ -127,15 +127,15 @@ const SignUpMobilePage: React.FC = () => {
           />
         </div>
         <div className="">
-          <SDButton
+          <KButton
             className="w-full"
             type="submit"
-            color="primary2"
+            color="primary"
             disabled={finalPending}
           >
-            {finalPending && <SDSpinner />}
+            {finalPending && <KSpinner />}
             ادامه
-          </SDButton>
+          </KButton>
         </div>
       </div>
       <div className="flex items-center mr-4 mt-2">
@@ -146,7 +146,7 @@ const SignUpMobilePage: React.FC = () => {
           checked={acceptRules}
           onChange={onChangeAcceptance}
           name="colored-radio"
-          className="w-4 h-4 text-primary2-600 bg-gray-100 border-gray-300 focus:ring-primary2-500 dark:focus:ring-primary2-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label
           htmlFor="red-radio"
@@ -182,9 +182,9 @@ const SignUpMobilePage: React.FC = () => {
       <div className="flex items-center gap-2 mt-6 justify-center ">
         <p>حساب کاربری دارید؟</p>
         <Link to="../">
-          <SDButton color="primary2" className="w-full">
+          <KButton color="primary" className="w-full">
             ورود
-          </SDButton>
+          </KButton>
         </Link>
       </div>
     </form>

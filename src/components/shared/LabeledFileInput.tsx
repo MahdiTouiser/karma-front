@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import useAPi from "../../hooks/useApi";
-import SDSpinner from "./Spinner";
+import KSpinner from "./Spinner";
 
 interface LabeledFileInputProps {
   acceptFiles?: string;
@@ -67,14 +67,13 @@ const LabeledFileInput: React.FC<LabeledFileInputProps> = ({
       {!(isPending || uploadedFile) && (
         <label
           htmlFor={title}
-          className={`text-blue-700 font-semibold ${
-            disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
-          }`}
+          className={`text-blue-700 font-semibold ${disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
         >
           بارگذاری فایل
         </label>
       )}
-      {isPending && <SDSpinner size={8}></SDSpinner>}
+      {isPending && <KSpinner size={8}></KSpinner>}
       {error && <p className="text-red-600">{error}</p>}
       {uploadedFile && (
         <span className="flex">

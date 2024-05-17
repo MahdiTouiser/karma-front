@@ -33,13 +33,14 @@ const UserHeader: React.FC = () => {
     <>
       <Navbar fluid className="bg-primary2">
         <Navbar.Brand href="/" className="mr-12">
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــارما</span>
+          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــــــــــــارما</span>
         </Navbar.Brand>
         <div className="flex ml-12 md:order-2">
           <Dropdown
             arrowIcon={false}
             inline
-            label={<Avatar alt="User settings" rounded />}
+
+            label={<Avatar alt="User settings" img='src/assets/profile-photo.jpg' rounded />}
             className="ml-12"
           >
             <Dropdown.Header>
@@ -69,7 +70,7 @@ const UserHeader: React.FC = () => {
             </Navbar.Link>
           ))}
         </Navbar.Collapse>
-      </Navbar>
+      </Navbar >
     </>
   );
 };

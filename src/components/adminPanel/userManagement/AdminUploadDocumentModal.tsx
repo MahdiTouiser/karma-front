@@ -7,9 +7,9 @@ import {
   DocumentsUplodModel,
 } from "../../../models/account.models";
 import { BaseResponse } from "../../../models/shared.models";
-import SDButton from "../../shared/Button";
-import SDModal from "../../shared/Modal/Modal";
-import SDSpinner from "../../shared/Spinner";
+import KButton from "../../shared/Button";
+import KModal from "../../shared/Modal/Modal";
+import KSpinner from "../../shared/Spinner";
 import AdminDocumentUploadItem from "./AdminDocumentUploadItem";
 
 interface AdminUploadDocumentModalProps {
@@ -117,13 +117,13 @@ const AdminUploadDocumentModal: React.FC<AdminUploadDocumentModalProps> = ({
   }
 
   return (
-    <SDModal
+    <KModal
       show={true}
       onClose={() => resetModal(false)}
       containerClass="!p-0 lg:!w-[480px]"
     >
-      <SDModal.Header color="primary2">بارگذاری مدارک</SDModal.Header>
-      <SDModal.Body>
+      <KModal.Header color="primary">بارگذاری مدارک</KModal.Header>
+      <KModal.Body>
         <form onSubmit={onSubmit}>
           <div className="px-6 py-6">
             <AdminDocumentUploadItem
@@ -162,19 +162,19 @@ const AdminUploadDocumentModal: React.FC<AdminUploadDocumentModalProps> = ({
             />
           </div>
           <div className="w-full px-5 pb-6 flex justify-start items-center">
-            <SDButton
-              color="primary2"
+            <KButton
+              color="primary"
               type="submit"
               className="w-full"
               disabled={isPending || !anyChange}
             >
-              {isPending && <SDSpinner />}
+              {isPending && <KSpinner />}
               ذخیره
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

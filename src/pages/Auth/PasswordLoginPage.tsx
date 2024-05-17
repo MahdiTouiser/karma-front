@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import SDAlert from "../../components/shared/Alert";
+import KAlert from "../../components/shared/Alert";
 import BackButton from "../../components/shared/BackButton";
-import SDButton from "../../components/shared/Button";
-import SDSpinner from "../../components/shared/Spinner";
+import KButton from "../../components/shared/Button";
+import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import useAPi from "../../hooks/useApi";
 import { AuthData, OTPRequest, OTPResponse } from "../../models/auth.models";
@@ -130,14 +130,14 @@ const PasswordLoginPage: React.FC = () => {
       <BackButton />
       <form onSubmit={onSubmit} className="p-8 pt-4 border-b">
         {errors && (
-          <SDAlert color="red" className="my-2">
+          <KAlert color="red" className="my-2">
             {errors.message}
-          </SDAlert>
+          </KAlert>
         )}
         {otpError && (
-          <SDAlert color="red" className="my-2">
+          <KAlert color="red" className="my-2">
             {otpError.message}
-          </SDAlert>
+          </KAlert>
         )}
         <p className="mb-6 text-lg font-semibold">رمز عبور خود را وارد کنید.</p>
         <div className="flex w-full gap-1 flex-wrap sm:flex-nowrap">
@@ -162,21 +162,21 @@ const PasswordLoginPage: React.FC = () => {
             </button>
             <div className="absolute left-0 h-10 top-0.5 py-1 pl-3 w-28">
               <div className="bg-gray-300 h-4/5 top-0.5 absolute -right-3 w-px"></div>
-              <Link className="text-primary2 text-sm" to="../forget-password">
+              <Link className="text-primary text-sm" to="../forget-password">
                 فراموش کردید؟
               </Link>
             </div>
           </div>
           <div className="w-full sm:w-auto mt-2 sm:mt-0">
-            <SDButton
+            <KButton
               className="w-full"
               type="submit"
-              color="primary2"
+              color="primary"
               disabled={isPending}
             >
-              {isPending && <SDSpinner />}
+              {isPending && <KSpinner />}
               ورود
-            </SDButton>
+            </KButton>
           </div>
         </div>
         {submitted && !password && (

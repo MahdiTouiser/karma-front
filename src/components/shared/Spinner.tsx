@@ -1,15 +1,15 @@
-const SDSpinner: React.FC<{ size?: number | string; color?: "primary2" | "blue" }> = ({
+const KSpinner: React.FC<{ size?: number | string; color?: "primary" | "blue" }> = ({
   size,
-  color = "primary2",
+  color = "primary",
 }) => {
   const spinnerSize = size || "5";
-  // const spinnerColor = color === "primary2" ? "primary2" : "blue-500";
+  // const spinnerColor = color === "primary" ? "primary" : "blue-500";
   return (
     <div role="status" className="ml-2">
-      {color === "primary2" ? (
+      {color === "primary" ? (
         <svg
           aria-hidden="true"
-          className={`w-${spinnerSize} h-${spinnerSize} mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-primary2`}
+          className={`w-${spinnerSize} h-${spinnerSize} mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-primary`}
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -46,4 +46,4 @@ const SDSpinner: React.FC<{ size?: number | string; color?: "primary2" | "blue" 
   );
 };
 
-export default SDSpinner;
+export default KSpinner;

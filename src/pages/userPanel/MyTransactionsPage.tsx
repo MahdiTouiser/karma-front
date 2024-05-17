@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
-import SDCard from "../../components/shared/Card";
+import KCard from "../../components/shared/Card";
 import useAPi from "../../hooks/useApi.tsx";
 
-import { BaseResponse } from "../../models/shared.models";
-import { ColDef, GridGetData } from "../../components/shared/Grid/grid.types";
 import Grid from "../../components/shared/Grid/Grid";
+import { ColDef, GridGetData } from "../../components/shared/Grid/grid.types";
 import PdfPrintButton from "../../components/shared/PdfPrintButton";
+import { BaseResponse } from "../../models/shared.models";
 import { UserTransaction } from "../../models/transactions.models.tsx";
 
 const MyTransactionsPage: React.FC = () => {
@@ -66,9 +66,8 @@ const MyTransactionsPage: React.FC = () => {
         }
         return (
           <PdfPrintButton
-            pdfUrl={`${import.meta.env.VITE_BASE_API_URL}/transactions/Print/${
-              item.id
-            }`}
+            pdfUrl={`${import.meta.env.VITE_BASE_API_URL}/transactions/Print/${item.id
+              }`}
             fileName={`فاکتور ${item.ticketNumber}`}
           />
         );
@@ -99,7 +98,7 @@ const MyTransactionsPage: React.FC = () => {
   );
 
   return (
-    <SDCard>
+    <KCard>
       <h1 className="text-center font-bold text-xl py-5">تراکنش های من</h1>
       <div className="py-5 md:px-8">
         <Grid<UserTransaction>
@@ -108,7 +107,7 @@ const MyTransactionsPage: React.FC = () => {
           rowActions={null}
         />
       </div>
-    </SDCard>
+    </KCard>
   );
 };
 

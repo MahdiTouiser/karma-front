@@ -1,18 +1,18 @@
-import { useForm } from "react-hook-form";
-import SDLabel from "../../shared/Label";
-import SDTextInput from "../../shared/TextInput";
-import SDTooltip from "../../shared/Tooltip";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import { BaseResponse } from "../../../models/shared.models";
-import useConfirm from "../../../hooks/useConfirm";
-import useAPi from "../../../hooks/useApi";
-import { toast } from "react-toastify";
-import { authActions } from "../../../store/auth";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import useAPi from "../../../hooks/useApi";
+import useConfirm from "../../../hooks/useConfirm";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
-import ChangePasswordModal from "./ChangePasswordModal";
-import UserStatusLabel from "../../shared/UserStatusLabel";
+import { BaseResponse } from "../../../models/shared.models";
+import { authActions } from "../../../store/auth";
 import { removeAuthDataFromLocal } from "../../../utils/authUtils";
+import KLabel from "../../shared/Label";
+import KTextInput from "../../shared/TextInput";
+import KTooltip from "../../shared/Tooltip";
+import UserStatusLabel from "../../shared/UserStatusLabel";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 interface AccountInfoFormData {
   username: string;
@@ -106,7 +106,7 @@ const AccountInfo: React.FC = () => {
             status={authState.userStatus}
             display={authState.userStatusDisplay}
           />
-          <SDTooltip
+          <KTooltip
             content={statusDescription}
             trigger="hover"
             placement="bottom"
@@ -125,7 +125,7 @@ const AccountInfo: React.FC = () => {
                 d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
               />
             </svg>
-          </SDTooltip>
+          </KTooltip>
         </div>
         <div className="flex gap-4">
           <p className="text-slate-500">نوع حساب کاربری</p>
@@ -134,8 +134,8 @@ const AccountInfo: React.FC = () => {
       </div>
       <form className="flex flex-wrap max-w-2xl">
         <div className="mb-6 w-full sm:w-1/2 sm:pl-12">
-          <SDLabel htmlFor="userId">کد کاربری</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="userId">کد کاربری</KLabel>
+          <KTextInput
             value={authState.code}
             disabled={true}
             type="text"
@@ -144,8 +144,8 @@ const AccountInfo: React.FC = () => {
           />
         </div>
         <div className="mb-6 w-full sm:w-1/2 sm:pl-12">
-          <SDLabel htmlFor="username">نام کاربری</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="username">نام کاربری</KLabel>
+          <KTextInput
             // {...register("username", {
             //   required: "فیلد الزامی است.",
             //   pattern: {
@@ -176,7 +176,7 @@ const AccountInfo: React.FC = () => {
         </div>
         <div className="mb-6 w-full sm:w-1/2 sm:pl-12">
           <div className="flex justify-between">
-            <SDLabel htmlFor="phone">رمز ورود</SDLabel>
+            <KLabel htmlFor="phone">رمز ورود</KLabel>
             <button
               type="button"
               className="text-green-500 mb-2 font-semibold text-sm pl-2"
@@ -186,7 +186,7 @@ const AccountInfo: React.FC = () => {
               ویرایش
             </button>
           </div>
-          <SDTextInput
+          <KTextInput
             type="password"
             disabled={true}
             id="phone"
@@ -195,7 +195,7 @@ const AccountInfo: React.FC = () => {
         </div>
         <div className="mb-6 w-full sm:w-1/2 sm:pl-12">
           <div className="flex justify-between">
-            <SDLabel htmlFor="phone">موبایل</SDLabel>
+            <KLabel htmlFor="phone">موبایل</KLabel>
             {/* <button
               type="button"
               className="text-green-500 mb-2 font-semibold text-sm pl-2"
@@ -203,7 +203,7 @@ const AccountInfo: React.FC = () => {
               ویرایش
             </button> */}
           </div>
-          <SDTextInput
+          <KTextInput
             type="text"
             // {...register("phone", {
             //   required: "لطفا شماره موبایل خود را وارد کنید.",

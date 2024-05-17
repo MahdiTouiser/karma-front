@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import SDAlert from "../../../components/shared/Alert";
-import SDButton from "../../../components/shared/Button";
-import SDDatepicker from "../../../components/shared/DatePicker";
-import SDLabel from "../../../components/shared/Label";
-import SDSpinner from "../../../components/shared/Spinner";
-import SDTextInput from "../../../components/shared/TextInput";
+import KAlert from "../../../components/shared/Alert";
+import KButton from "../../../components/shared/Button";
+import KDatepicker from "../../../components/shared/DatePicker";
+import KLabel from "../../../components/shared/Label";
+import KSpinner from "../../../components/shared/Spinner";
+import KTextInput from "../../../components/shared/TextInput";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { UserPersonalInfo } from "../../../models/shared.models";
@@ -71,14 +71,14 @@ const SignUpPersonaPage: React.FC = () => {
         </p>
       </div>
       {apiErrors && (
-        <SDAlert color="red" className="my-2">
+        <KAlert color="red" className="my-2">
           {apiErrors.message}
-        </SDAlert>
+        </KAlert>
       )}
       <div>
         <div className="mb-4">
-          <SDLabel htmlFor="nationalCode">کد ملی</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="nationalCode">کد ملی</KLabel>
+          <KTextInput
             {...nationalCodeValidator}
             {...register("nationalCode", {
               required: "فیلد الزامی است.",
@@ -99,8 +99,8 @@ const SignUpPersonaPage: React.FC = () => {
           )}
         </div>
         <div className="mb-4">
-          <SDLabel htmlFor="firstName">نام</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="firstName">نام</KLabel>
+          <KTextInput
             {...register("firstName", {
               required: "فیلد الزامی است.",
               pattern: {
@@ -119,8 +119,8 @@ const SignUpPersonaPage: React.FC = () => {
           )}
         </div>
         <div className="mb-4">
-          <SDLabel htmlFor="lastName">نام خانوادگی</SDLabel>
-          <SDTextInput
+          <KLabel htmlFor="lastName">نام خانوادگی</KLabel>
+          <KTextInput
             {...register("lastName", {
               required: "فیلد الزامی است.",
               pattern: {
@@ -139,14 +139,14 @@ const SignUpPersonaPage: React.FC = () => {
           )}
         </div>
         <div className="mb-4">
-          <SDLabel htmlFor="birthDate">تاریخ تولد</SDLabel>
-          <SDDatepicker
+          <KLabel htmlFor="birthDate">تاریخ تولد</KLabel>
+          <KDatepicker
             name="birthDate"
             control={control}
             required={true}
             id="birthDate"
             baseNowValidationOptions={birthDateBaseNowValidation}
-          ></SDDatepicker>
+          ></KDatepicker>
 
           {errors.birthDate && (
             <p className="text-red-600 text-sm pr-2 mt-2">
@@ -155,15 +155,15 @@ const SignUpPersonaPage: React.FC = () => {
           )}
         </div>
         <div>
-          <SDButton
+          <KButton
             type="submit"
-            color="primary2"
+            color="primary"
             className="w-full"
             disabled={isPending}
           >
-            {isPending && <SDSpinner />}
+            {isPending && <KSpinner />}
             مرحله بعد
-          </SDButton>
+          </KButton>
         </div>
       </div>
     </form>

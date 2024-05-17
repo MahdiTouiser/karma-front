@@ -1,4 +1,4 @@
-import SDDatepicker from "./DatePicker";
+import KDatepicker from "./DatePicker";
 interface DateRangeFilterProps {
   label: string;
   fromDate: string;
@@ -12,15 +12,15 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = (props) => {
       <p className="pl-4 text-sm"> {props.label}: </p>
 
       <div className="flex">
-        <SDDatepicker
+        <KDatepicker
           name="expireDate"
           required={true}
           placeholder="از :"
           onOpenPickNewDate={false}
           value={props.fromDate}
           onChange={props.onChangeFromDate}
-        ></SDDatepicker>
-        <SDDatepicker
+        ></KDatepicker>
+        <KDatepicker
           containerClassName="mr-1"
           name="expireDate"
           required={true}
@@ -28,7 +28,7 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = (props) => {
           onOpenPickNewDate={false}
           value={props.toDate}
           onChange={props.onChangeToDate}
-        ></SDDatepicker>
+        ></KDatepicker>
       </div>
     </div>
   );

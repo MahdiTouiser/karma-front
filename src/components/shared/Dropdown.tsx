@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState, useEffect, useRef, MouseEvent } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-interface SDDropdownProps {
+interface KDropdownProps {
   items: DropDownItem[];
   children: React.ReactNode;
   buttonClassName?: string;
@@ -10,7 +10,7 @@ interface SDDropdownProps {
   withChevron?: boolean;
 }
 
-const SDDropdown: React.FC<SDDropdownProps> = ({
+const KDropdown: React.FC<KDropdownProps> = ({
   items,
   children,
   buttonClassName,
@@ -75,9 +75,8 @@ const SDDropdown: React.FC<SDDropdownProps> = ({
         onClick={toggleShow}
         id="dropdownDividerButton"
         data-dropdown-toggle="dropdownDivider"
-        className={`${
-          buttonClassName || ""
-        } font-medium rounded-lg  px-4 py-2.5 text-center inline-flex items-center  h-[40px]`}
+        className={`${buttonClassName || ""
+          } font-medium rounded-lg  px-4 py-2.5 text-center inline-flex items-center  h-[40px]`}
         type="button"
         ref={buttonRef}
       >
@@ -103,9 +102,8 @@ const SDDropdown: React.FC<SDDropdownProps> = ({
 
       <div
         id="dropdownDivider"
-        className={`${
-          !show && "hidden"
-        } z-20 fixed top-[43px] left-0 inset-y-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 overflow-y-auto`}
+        className={`${!show && "hidden"
+          } z-20 fixed top-[43px] left-0 inset-y-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 overflow-y-auto`}
         ref={menuRef}
       >
         <ul
@@ -114,11 +112,11 @@ const SDDropdown: React.FC<SDDropdownProps> = ({
         >
           {items.map((item, index) => {
             return (
-              <SDDropDownItem
+              <KDropDownItem
                 key={index}
                 handleLiClick={() => setShow(false)}
                 {...item}
-              ></SDDropDownItem>
+              ></KDropDownItem>
             );
           })}
 
@@ -138,11 +136,11 @@ export interface DropDownItem {
   disabled?: boolean;
 }
 
-interface SDDropdownItemProps extends DropDownItem {
+interface KDropdownItemProps extends DropDownItem {
   handleLiClick?: (event: MouseEvent<HTMLLIElement>) => void;
 }
 
-export const SDDropDownItem: React.FC<SDDropdownItemProps> = ({
+export const KDropDownItem: React.FC<KDropdownItemProps> = ({
   handleLiClick,
   onClick,
   mode = "Link",
@@ -154,11 +152,10 @@ export const SDDropDownItem: React.FC<SDDropdownItemProps> = ({
   return (
     <li
       onClick={handleLiClick}
-      className={`${
-        !disabled
+      className={`${!disabled
           ? " hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           : "opacity-70"
-      } block  `}
+        } block  `}
     >
       {mode === "Link" ? (
         <Link
@@ -184,4 +181,4 @@ export const SDDropDownItem: React.FC<SDDropdownItemProps> = ({
   );
 };
 
-export default SDDropdown;
+export default KDropdown;

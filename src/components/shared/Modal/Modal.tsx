@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import SDCard from "../Card";
-import SDModalHeader from "./ModalHeader";
+import KCard from "../Card";
+import KModalBody from "./ModalBody";
 import { ModalContext } from "./ModalContext";
-import SDModalBody from "./ModalBody";
+import KModalHeader from "./ModalHeader";
 
 interface ModalProps {
   children: ReactNode;
@@ -36,14 +36,14 @@ const BackDrop: React.FC<BackDropProps> = (props) => {
 
 const ModalContainer: React.FC<ModalBodyProps> = (props) => {
   return (
-    <SDCard
+    <KCard
       className={` ${props.containerClass} !p-0 z-50 fixed  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-[100vh]`}
     >
       {props.children}
-    </SDCard>
+    </KCard>
   );
 };
-const SDModalComponent: React.FC<ModalProps> = ({
+const KModalComponent: React.FC<ModalProps> = ({
   children,
   show: propsShow,
   closeOnBackDrop = true,
@@ -79,11 +79,11 @@ const SDModalComponent: React.FC<ModalProps> = ({
     </ModalContext.Provider>
   );
 };
-SDModalComponent.displayName = "SDModal";
-SDModalHeader.displayName = "SDModal.header";
-SDModalBody.displayName = "SDModal.body";
-export const SDModal = Object.assign(SDModalComponent, {
-  Header: SDModalHeader,
-  Body: SDModalBody,
+KModalComponent.displayName = "KModal";
+KModalHeader.displayName = "KModal.header";
+KModalBody.displayName = "KModal.body";
+export const KModal = Object.assign(KModalComponent, {
+  Header: KModalHeader,
+  Body: KModalBody,
 });
-export default SDModal;
+export default KModal;

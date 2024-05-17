@@ -5,8 +5,8 @@ import noImage from "../../../assets/no-image.png";
 import useAPi, { axiosIntance } from "../../../hooks/useApi";
 import { DocumentItem, DocumentStatus } from "../../../models/account.models";
 import { BaseResponse } from "../../../models/shared.models";
-import SDButton from "../../shared/Button";
-import SDCard from "../../shared/Card";
+import KButton from "../../shared/Button";
+import KCard from "../../shared/Card";
 import UserDocumentStatusLabel from "../../shared/UserDocumentStatusLabel";
 interface AdminUserDocumentItemProp {
   withDate?: boolean;
@@ -78,7 +78,7 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
   //   const documentImage  =
 
   return (
-    <SDCard className="border w-52 flex flex-col items-center mb-6">
+    <KCard className="border w-52 flex flex-col items-center mb-6">
       <div className="border w-40 ">
         <div className="h-48 block">
           {documentData?.fileId ? (
@@ -120,16 +120,16 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
       </div>
       {documentData?.status === DocumentStatus.PENDING && (
         <div className="flex justify-center gap-1 mt-auto">
-          <SDButton
-            color="primary2"
+          <KButton
+            color="primary"
             size="xs"
             className="px-0 py-0"
             disabled={isPending}
             onClick={() => checkDocument(documentData.id || "", true)}
           >
             تأیید
-          </SDButton>
-          <SDButton
+          </KButton>
+          <KButton
             size="xs"
             className="px-0 py-0"
             color="failure"
@@ -137,10 +137,10 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
             onClick={() => checkDocument(documentData.id || "", false)}
           >
             عدم تأیید
-          </SDButton>
+          </KButton>
         </div>
       )}
-    </SDCard>
+    </KCard>
   );
 };
 

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../../components/shared/BackButton";
-import SDButton from "../../../components/shared/Button";
-import SDSpinner from "../../../components/shared/Spinner";
+import KButton from "../../../components/shared/Button";
+import KSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
@@ -84,15 +84,15 @@ const ForgetPasswordFirstPage: React.FC = () => {
         {apiErrors && (
           <p className="text-red-600 text-sm pr-2 mt-2">{apiErrors.message}</p>
         )}
-        <SDButton
+        <KButton
           type="submit"
           className="w-full mt-3"
-          color="primary2"
+          color="primary"
           disabled={isPending}
         >
-          {isPending && <SDSpinner></SDSpinner>}
+          {isPending && <KSpinner></KSpinner>}
           بازیابی رمز عبور
-        </SDButton>
+        </KButton>
       </form>
     </section>
   );

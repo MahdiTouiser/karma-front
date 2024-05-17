@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/reduxHooks";
-import SDDropdown, { DropDownItem } from "../shared/Dropdown";
-import HumbergerButton from "../shared/HumbergerButtom";
-import { ShellElement } from "../shared/PanelShell";
 import { authActions } from "../../store/auth";
 import { removeAuthDataFromLocal } from "../../utils/authUtils";
+import KDropdown, { DropDownItem } from "../shared/Dropdown";
+import HumbergerButton from "../shared/HumbergerButtom";
+import { ShellElement } from "../shared/PanelShell";
 
 const AdminHeader: React.FC<ShellElement> = (props) => {
   const name = useAppSelector((state) => state.auth.name);
@@ -41,9 +41,9 @@ const AdminHeader: React.FC<ShellElement> = (props) => {
     <div className="bg-blue-900 h-[50px] flex items-center">
       <HumbergerButton {...props} className="stroke-white"></HumbergerButton>
       <div className="mr-auto md:ml-12">
-        <SDDropdown items={dropdownItems} chevronClassName="stroke-white">
+        <KDropdown items={dropdownItems} chevronClassName="stroke-white">
           <span className="text-white">{name}</span>
-        </SDDropdown>
+        </KDropdown>
       </div>
     </div>
   );

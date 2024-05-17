@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { DocumentItemModel } from "../../../models/account.models";
-import SDDatepicker from "../../shared/DatePicker";
-import SDLabel from "../../shared/Label";
-import LabeledFileInput from "../../shared/LabeledFileInput";
-import { DateObject } from "react-multi-date-picker";
-import persian_en from "react-date-object/locales/persian_en";
 import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_en";
+import { DateObject } from "react-multi-date-picker";
 import { useAppSelector } from "../../../hooks/reduxHooks";
+import { DocumentItemModel } from "../../../models/account.models";
+import KDatepicker from "../../shared/DatePicker";
+import KLabel from "../../shared/Label";
+import LabeledFileInput from "../../shared/LabeledFileInput";
 
 interface AdminDocumentUploadItemProps {
   title: string;
@@ -55,8 +55,8 @@ const AdminDocumentUploadItem: React.FC<AdminDocumentUploadItemProps> = ({
         locale: persian_en,
         calendar: persian,
       });
-      const expirationJSDate = expireDateObejct.toDate();
-      if (expirationJSDate.getTime() < timeStamp) {
+      const expirationJKate = expireDateObejct.toDate();
+      if (expirationJKate.getTime() < timeStamp) {
         localDocumentData.validationMessage =
           "حداقل مدت اعتبار رعایت نشده است.";
       }
@@ -89,10 +89,10 @@ const AdminDocumentUploadItem: React.FC<AdminDocumentUploadItemProps> = ({
         />
         {documentData.withDate && (
           <div className="relative mr-3 md:mr-12">
-            <SDLabel className="whitespace-nowrap   !mb-0 bg-white text-sm -top-3 px-1 right-2  absolute ml-0">
+            <KLabel className="whitespace-nowrap   !mb-0 bg-white text-sm -top-3 px-1 right-2  absolute ml-0">
               تاریخ انقضا
-            </SDLabel>
-            <SDDatepicker
+            </KLabel>
+            <KDatepicker
               inputClass=" text-center !bg-white border-slate-500 !w-44"
               name="expireDate"
               onChange={onDateChange}
@@ -103,7 +103,7 @@ const AdminDocumentUploadItem: React.FC<AdminDocumentUploadItemProps> = ({
               }
               value={expirationDate}
               onOpenPickNewDate={false}
-            ></SDDatepicker>
+            ></KDatepicker>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
-import React from "react";
 import { Radio } from "flowbite-react";
-import SDLabel from "./Label";
+import React from "react";
+import KLabel from "./Label";
 
 interface Option {
   value: string;
@@ -31,9 +31,9 @@ const RadioButton: React.FC<RadioButtonProps> = ({
             checked={selectedOption === option.value}
             onChange={() => onOptionChange(option.value)}
           />
-          <SDLabel htmlFor={groupName + option.value} className="mr-3">
+          <KLabel htmlFor={groupName + option.value} className="mr-3">
             {option.label}
-          </SDLabel>
+          </KLabel>
         </div>
       ))}
     </div>

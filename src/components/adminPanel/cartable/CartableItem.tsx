@@ -3,7 +3,7 @@ import {
   CartableMessage,
   CartableRequestTypes,
 } from "../../../models/cartable.models";
-import SDTooltip from "../../shared/Tooltip";
+import KTooltip from "../../shared/Tooltip";
 
 interface CartableItemProps extends CartableMessage {
   onDelete: (id: string) => void;
@@ -52,7 +52,7 @@ const CartableItem: React.FC<CartableItemProps> = (props) => {
             <span className="mx-2">{timeString}</span>
           </p>
           <div className="mr-10">
-            <SDTooltip
+            <KTooltip
               content="حذف"
               trigger="hover"
               placement="bottom"
@@ -75,7 +75,7 @@ const CartableItem: React.FC<CartableItemProps> = (props) => {
                   />
                 </svg>
               </button>
-            </SDTooltip>
+            </KTooltip>
           </div>
         </div>
         <div className="flex gap-6 flex-wrap md:gap-12 text-slate-600">

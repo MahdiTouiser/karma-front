@@ -1,22 +1,22 @@
 import React, { ChangeEvent, useState } from "react";
 import {
-  RegisterOptions,
   Control,
   Controller,
-  ValidationRule,
   Message,
+  RegisterOptions,
+  ValidationRule,
 } from "react-hook-form";
-import SDTextInput, { SDTextInputProps } from "./TextInput";
+import KTextInput, { KTextInputProps } from "./TextInput";
 
 interface ThousandSeparatorInputProps
-  extends Omit<SDTextInputProps, "onChange" | "required" | "min" | "max"> {
+  extends Omit<KTextInputProps, "onChange" | "required" | "min" | "max"> {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: Control<any>;
   onChange?: (value: number | "") => void;
   required?: ValidationRule<boolean> | Message;
-  min?: number | {value:number, message:string};
-  max?:  number | {value:number, message:string}
+  min?: number | { value: number, message: string };
+  max?: number | { value: number, message: string }
 }
 
 const ThousandSeparatorInput: React.FC<ThousandSeparatorInputProps> = ({
@@ -64,18 +64,18 @@ const ThousandSeparatorInput: React.FC<ThousandSeparatorInputProps> = ({
     // register(name).onChange({ target: { value: e.target.value } });
   };
 
-  const shardAttrs: Partial<SDTextInputProps> = {
+  const shardAttrs: Partial<KTextInputProps> = {
     ...otherProps,
     numeric: true,
     name: name,
     allowMinus: allowMinus,
     className: `ltr ${otherProps.className || ""}`,
   };
-  const rules : RegisterOptions = {
+  const rules: RegisterOptions = {
     validate: (value) => value !== "-",
-    ...(required ? {required:required} : {}),
-    ...(max ? {max:max} : {}),
-    ...(min ? {min:min} : {})
+    ...(required ? { required: required } : {}),
+    ...(max ? { max: max } : {}),
+    ...(min ? { min: min } : {})
   }
   return control ? (
     <Controller
@@ -84,11 +84,11 @@ const ThousandSeparatorInput: React.FC<ThousandSeparatorInputProps> = ({
       rules={rules}
       render={({
         field: { onChange, value, onBlur },
-        fieldState: { isTouched,error }, 
+        fieldState: { isTouched, error },
       }) => {
         return (
           <>
-            <SDTextInput
+            <KTextInput
               {...shardAttrs}
               value={value?.toLocaleString() || ""}
               onBlur={onBlur}
@@ -108,13 +108,13 @@ const ThousandSeparatorInput: React.FC<ThousandSeparatorInputProps> = ({
       }}
     />
   ) : (
-    <SDTextInput
+    <KTextInput
       {...shardAttrs}
       value={innerValue}
       onChange={handleInputChange}
       required={!!required}
-      {...(typeof min === 'number' ? {min} : {min:min?.value} || {} )}
-      {...(typeof max === 'number' ? {max} : {max:max?.value} || {} )}
+      {...(typeof min === 'number' ? { min } : { min: min?.value } || {})}
+      {...(typeof max === 'number' ? { max } : { max: max?.value } || {})}
     />
   );
 };

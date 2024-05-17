@@ -8,12 +8,12 @@ import {
   EditTicketRequest,
   SkyDiveEventTicketType,
 } from "../../../models/skyDiveEvents.models";
-import SDButton from "../../shared/Button";
-import SDLabel from "../../shared/Label";
-import SDModal from "../../shared/Modal/Modal";
+import KButton from "../../shared/Button";
+import KLabel from "../../shared/Label";
+import KModal from "../../shared/Modal/Modal";
 import RadioButton from "../../shared/RadioButton";
-import SDSelect from "../../shared/Select";
-import SDSpinner from "../../shared/Spinner";
+import KSelect from "../../shared/Select";
+import KSpinner from "../../shared/Spinner";
 
 interface EditTicketModal {
   onCloseModal: (submitted: boolean) => void;
@@ -101,13 +101,13 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
   }, [getTicketTypesRequest]);
 
   return (
-    <SDModal
+    <KModal
       show={true}
       onClose={() => resetModal(false)}
       containerClass="!w-[480px]"
     >
-      <SDModal.Header color="primary2">ویرایش بلیت</SDModal.Header>
-      <SDModal.Body>
+      <KModal.Header color="primary">ویرایش بلیت</KModal.Header>
+      <KModal.Body>
         <div className="px-3 py-5">
           <div className="flex flex-col gap-3 items-center text-slate-700 text-center w-full">
             <div className="flex gap-6">
@@ -118,10 +118,10 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
           <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full flex flex-wrap">
               <div className="w-full md:w-1/2 px-5 py-3">
-                <SDLabel htmlFor="tpyeId" className="mb-2">
+                <KLabel htmlFor="tpyeId" className="mb-2">
                   نوع بلیت
-                </SDLabel>
-                <SDSelect
+                </KLabel>
+                <KSelect
                   id="tpyeId"
                   invalid={!!formErrors.ticketTypeId}
                   {...register("ticketTypeId", {
@@ -137,7 +137,7 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
                         </option>
                       );
                     })}
-                </SDSelect>
+                </KSelect>
                 {formErrors.ticketTypeId?.message && (
                   <p className="text-red-600 text-xs pr-2 mt-2">
                     {formErrors.ticketTypeId.message}
@@ -145,9 +145,9 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
                 )}
               </div>
               <div className="w-full md:w-1/2 px-5 py-3">
-                <SDLabel htmlFor="reservableQty" className="mb-2">
+                <KLabel htmlFor="reservableQty" className="mb-2">
                   قابل رزرو
-                </SDLabel>
+                </KLabel>
                 <div className="mt-3">
                   <RadioButton
                     groupName="reservable"
@@ -163,20 +163,20 @@ const EditTicketModal: React.FC<EditTicketModal> = ({
               </div>
             </div>
             <div className="w-full px-5 pt-5 flex justify-start items-center">
-              <SDButton
-                color="primary2"
+              <KButton
+                color="primary"
                 type="submit"
                 className="w-full"
                 disabled={editPending}
               >
-                {editPending && <SDSpinner color="blue" />}
+                {editPending && <KSpinner color="blue" />}
                 ذخیره
-              </SDButton>
+              </KButton>
             </div>
           </form>
         </div>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

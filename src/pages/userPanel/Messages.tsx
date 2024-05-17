@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import SDCard from "../../components/shared/Card";
-import SDSpinner from "../../components/shared/Spinner";
-import MessagesItem from "../../components/userPanel/Messages/MessagesItem";
+import KCard from "../../components/shared/Card";
+import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { SelectPageEvent } from "../../models/shared.models";
 import { fetchMessages } from "../../store/messages";
@@ -25,22 +24,22 @@ const Messages: React.FC = () => {
 
   const loading = (
     <div className="flex justify-center pt-6 w-full">
-      <SDSpinner size={20} />
+      <KSpinner size={20} />
     </div>
   );
 
   const body = (
     <>
-      <div className="w-full lg:w-9/12">
+      {/* <div className="w-full lg:w-9/12">
         {messagesState.messages.map((item, index) => {
           return <MessagesItem key={index} {...item} />;
         })}
-      </div>
+      </div> */}
     </>
   );
 
   return (
-    <SDCard className="border flex flex-col mb-6 px-12 !border-red">
+    <KCard className="border flex flex-col mb-6 px-12 !border-red">
       <div className="flex justify-center flex-wrap">
         {messagesState.isLoading && loading}
         {messagesState.messages.length > 0 && !messagesState.isLoading && body}
@@ -86,16 +85,16 @@ const Messages: React.FC = () => {
             containerClassName="flex gap-5  justify-center w-full"
             nextClassName="flex items-center"
             previousClassName="flex items-center"
-            pageLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
-            nextLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
-            previousLinkClassName="p-1 block hover:text-primary2-400 transition-all ease-linear duration-75"
-            breakClassName="p-1 block hover:text-primary2-400"
-            activeClassName="text-primary2-500"
+            pageLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
+            nextLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
+            previousLinkClassName="p-1 block hover:text-primary-400 transition-all ease-linear duration-75"
+            breakClassName="p-1 block hover:text-primary-400"
+            activeClassName="text-primary-500"
             pageClassName="text-base "
           />
         )}
       </div>
-    </SDCard>
+    </KCard>
   );
 };
 

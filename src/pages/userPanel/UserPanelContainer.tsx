@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import UserHeader from "../../components/userPanel/UserHeader";
+import UserHeader from "../../components/userpanel/UserHeader";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchBasket } from "../../store/basket";
 import { fetchMessages } from "../../store/messages";
@@ -20,7 +20,7 @@ const UserPanelContainer: React.FC = () => {
     return () => clearInterval(interval);
   }, [dispatch, genralInfoSet]);
   return (
-    <div className="w-screen h-screen flex flex-col">
+    <div className="w-screen h-screen flex flex-col bg-gray-100">
       <UserHeader></UserHeader>
       <div className=" w-full flex flex-1 relative overflow-hidden">
         <div

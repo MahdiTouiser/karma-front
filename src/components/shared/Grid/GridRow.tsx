@@ -1,6 +1,6 @@
 import { Table } from "flowbite-react";
 import { useCallback, useState } from "react";
-import SDTooltip from "../Tooltip";
+import KTooltip from "../Tooltip";
 import GridRowOtherActionComponent from "./GridOtherRowActionComponent";
 import GridRowMoreActionComponent from "./GridRowMoreActionsComponent";
 import { GridRowActions, GridRowModel } from "./grid.types";
@@ -13,7 +13,7 @@ interface GridRowProps<T> {
   onRemoveRow?: (item: T) => void;
   selectable?: boolean;
   onSelectedChange?: (row: GridRowModel<T>, selected: boolean) => void;
-  theme?: "primary2" | "primary2";
+  theme?: "primary" | "primary";
 }
 
 function GridRow<T>({
@@ -24,7 +24,7 @@ function GridRow<T>({
   onRemoveRow,
   selectable = false,
   onSelectedChange,
-  theme = "primary2",
+  theme = "primary",
 }: GridRowProps<T>) {
   const [lastTouched, setLastTouched] = useState<number>(0);
   const handleTouchEnd = useCallback(
@@ -82,7 +82,7 @@ function GridRow<T>({
         <Table.Cell>
           <div className="flex items-center gap-4">
             {rowActions.edit && (
-              <SDTooltip content="ویرایش" trigger="hover" placement="bottom">
+              <KTooltip content="ویرایش" trigger="hover" placement="bottom">
                 <button
                   onClick={(event) => {
                     event.stopPropagation();
@@ -104,10 +104,10 @@ function GridRow<T>({
                     />
                   </svg>
                 </button>
-              </SDTooltip>
+              </KTooltip>
             )}
             {rowActions.remove && (
-              <SDTooltip
+              <KTooltip
                 content="حذف"
                 trigger="hover"
                 placement="bottom"
@@ -134,7 +134,7 @@ function GridRow<T>({
                     />
                   </svg>
                 </button>
-              </SDTooltip>
+              </KTooltip>
             )}
             {rowActions.otherActions &&
               rowActions.otherActions.map((action, index) => {

@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import useAPi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
 import { Regexes } from "../../../utils/shared";
-import SDButton from "../../shared/Button";
-import SDLabel from "../../shared/Label";
-import SDModal from "../../shared/Modal/Modal";
+import KButton from "../../shared/Button";
+import KLabel from "../../shared/Label";
+import KModal from "../../shared/Modal/Modal";
 import PasswordInput from "../../shared/PasswordInput";
-import SDSpinner from "../../shared/Spinner";
+import KSpinner from "../../shared/Spinner";
 
 interface ResetUserPasswordModalProps {
   showModal: boolean;
@@ -57,16 +57,16 @@ const ResetUserPasswordModal: React.FC<ResetUserPasswordModalProps> = ({
   }
 
   return (
-    <SDModal
+    <KModal
       show={showModal}
       onClose={() => resetModal()}
       containerClass="!w-[480px]"
     >
-      <SDModal.Header color="primary2">بازنشانی رمزعبور کاربر</SDModal.Header>
-      <SDModal.Body>
+      <KModal.Header color="primary">بازنشانی رمزعبور کاربر</KModal.Header>
+      <KModal.Body>
         <form className="px-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="px-6 py-8">
-            <SDLabel>رمز عبور:</SDLabel>
+            <KLabel>رمز عبور:</KLabel>
             <PasswordInput
               {...register("password", {
                 required: "فیلد اجباری است.",
@@ -84,19 +84,19 @@ const ResetUserPasswordModal: React.FC<ResetUserPasswordModalProps> = ({
             )}
           </div>
           <div className="w-full px-5 pb-6 flex justify-start items-center">
-            <SDButton
-              color="primary2"
+            <KButton
+              color="primary"
               type="submit"
               className="w-full"
               disabled={isPending}
             >
-              {isPending && <SDSpinner />}
+              {isPending && <KSpinner />}
               ذخیره
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

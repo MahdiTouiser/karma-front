@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useApi from "../../../hooks/useApi";
+import { UnAssignTicketTypes } from "../../../models/settings.models";
 import { BaseResponse } from "../../../models/shared.models";
+import { SkyDiveEventTicketType } from "../../../models/skyDiveEvents.models";
 import {
   AssignTicketTypes,
   userType as UserTypeModel,
 } from "../../../models/usermanagement.models";
-import SDSpinner from "../../shared/Spinner";
+import KSpinner from "../../shared/Spinner";
 import UserTypesList from "./UserTypesList";
-import { SkyDiveEventTicketType } from "../../../models/skyDiveEvents.models";
-import { UnAssignTicketTypes } from "../../../models/settings.models";
 
 const UserTypeSettings: React.FC = () => {
   const { sendRequest, isPending } = useApi<
@@ -117,7 +117,7 @@ const UserTypeSettings: React.FC = () => {
   if (isPending) {
     return (
       <div className="flex justify-center pt-6 w-full">
-        <SDSpinner size={20} color="blue" />
+        <KSpinner size={20} color="blue" />
       </div>
     );
   }

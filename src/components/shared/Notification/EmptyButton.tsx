@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { emptyBasket } from "../../../store/basket";
-import SDButton from "../Button";
+import KButton from "../Button";
 
 const EmptyButton: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -10,15 +10,15 @@ const EmptyButton: React.FC = () => {
   }
 
   return (
-    <SDButton
+    <KButton
       onClick={onEmpty}
-      color="primary2"
+      color="primary"
       outline
       className="w-full mt-1"
       type="button"
     >
       خالی کردن سبد خرید
-    </SDButton>
+    </KButton>
   );
 };
 

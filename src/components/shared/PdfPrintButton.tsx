@@ -4,17 +4,17 @@ import { ReactToPrint } from "react-to-print";
 import useApi from "../../hooks/useApi";
 import { TicketsReport } from "../../models/reports.models";
 import { printResponse } from "../../utils/shared";
-import SDButton from "./Button";
+import KButton from "./Button";
 import Grid from "./Grid/Grid";
 import { ColDef } from "./Grid/grid.types";
-import SDSpinner from "./Spinner";
+import KSpinner from "./Spinner";
 
 interface PdfPrintButtonProps {
   pdfUrl: string;
   method?: string;
   body?: string[];
   fileName?: string
-  useSDButton?: boolean;
+  useKButton?: boolean;
   inputText?: string;
 }
 
@@ -23,7 +23,7 @@ const PdfPrintButton: React.FC<PdfPrintButtonProps> = ({
   method = "get",
   body,
   fileName = "",
-  useSDButton = false,
+  useKButton = false,
   inputText = "چاپ",
 }) => {
   const { sendRequest, isPending } = useApi<string[], Blob>();
@@ -99,25 +99,25 @@ const PdfPrintButton: React.FC<PdfPrintButtonProps> = ({
         method: method,
         data: body,
       },
-      (response: any) => { if (useSDButton) { setGridData(response.content) } else { printResponse(fileName, response) } }
+      (response: any) => { if (useKButton) { setGridData(response.content) } else { printResponse(fileName, response) } }
     );
   };
 
   return (
     <>
-      {useSDButton ? (
+      {useKButton ? (
         <ReactToPrint
           trigger={() => (
             <div className="flex justify-center items-center text-center">
               {isPending ? (
-                <SDSpinner color="blue" />
+                <KSpinner color="blue" />
               ) : (
-                <SDButton onClick={handlePrint} color="primary2" className="py-1/2">
+                <KButton onClick={handlePrint} color="primary" className="py-1/2">
                   <span className="ml-2">
                     <AiOutlinePrinter size="1.5rem"></AiOutlinePrinter>
                   </span>
                   {inputText}
-                </SDButton>
+                </KButton>
               )}
             </div>
           )}

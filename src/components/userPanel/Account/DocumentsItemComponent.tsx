@@ -1,14 +1,14 @@
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import {
   DocumentStatus,
   DocumentTitleMap,
 } from "../../../models/account.models";
 import { UserDocumentsFieldType, accoutnActions } from "../../../store/account";
-import SDDatepicker from "../../shared/DatePicker";
-import SDLabel from "../../shared/Label";
+import KDatepicker from "../../shared/DatePicker";
+import KLabel from "../../shared/Label";
 import LabeledFileInput from "../../shared/LabeledFileInput";
 import UserDocumentStatusLabel from "../../shared/UserDocumentStatusLabel";
-import { useState } from "react";
 
 interface DocumentItemProps {
   field: UserDocumentsFieldType;
@@ -25,7 +25,7 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
 }) => {
   const documentData = useAppSelector((state) => state.account[field]);
   const required = documentData.required === undefined || documentData.required === true
-  console.log(title,documentData.required)
+  console.log(title, documentData.required)
   const maxFileSize = useAppSelector(
     (state) => state.generalSettings.generalSettings?.fileSizeLimitation
   );
@@ -56,17 +56,17 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
       <div className="w-full xs:w-1/2">
         <p className="text-slate-500 text-center text-lg font-semibold xs:text-base xs:text-right">
           {title}
-          { required && (!documentData?.fileId ||
+          {required && (!documentData?.fileId ||
             (documentData.withDate && !documentData?.expirationDate)) && (
-            <span className="text-red-600 mr-1">*</span>
-          )}
+              <span className="text-red-600 mr-1">*</span>
+            )}
         </p>
         {documentData.withDate && (
           <div className="relative pt-5 flex items-center w-[70%] m-auto xs:w-auto mb-4 xs:mb-0 xs:pl-20 sm:pl-28">
-            <SDLabel className="whitespace-nowrap ml-2  !mb-0 bg-white text-sm top-2 px-1 right-2  xs:absolute xs:ml-0">
+            <KLabel className="whitespace-nowrap ml-2  !mb-0 bg-white text-sm top-2 px-1 right-2  xs:absolute xs:ml-0">
               تاریخ انقضا
-            </SDLabel>
-            <SDDatepicker
+            </KLabel>
+            <KDatepicker
               inputClass=" text-center !bg-white border-slate-500"
               name="expireDate"
               onChange={onDateChange}
@@ -75,7 +75,7 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
                 validation && documentData?.validationMessage !== ""
               }
               value={documentData?.expirationDate || ""}
-            ></SDDatepicker>
+            ></KDatepicker>
           </div>
         )}
         {validation && documentData?.validationMessage && (
@@ -85,9 +85,8 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
         )}
       </div>
       <div
-        className={`w-full xs:w-1/2 flex whitespace-nowrap justify-center gap-8 text-center mt-4 xs:mt-0 xs:justify-around items-center ${
-          documentData.withDate ? "xs:pb-2" : ""
-        }`}
+        className={`w-full xs:w-1/2 flex whitespace-nowrap justify-center gap-8 text-center mt-4 xs:mt-0 xs:justify-around items-center ${documentData.withDate ? "xs:pb-2" : ""
+          }`}
       >
         <div>
           <LabeledFileInput

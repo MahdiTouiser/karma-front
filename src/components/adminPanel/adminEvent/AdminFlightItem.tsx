@@ -1,18 +1,18 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import useAPi from "../../../hooks/useApi";
+import useConfirm from "../../../hooks/useConfirm";
+import { BaseResponse, FlightStatuses } from "../../../models/shared.models";
 import {
   AdminFlightModel,
   AdminTicketModel,
   flightNameData,
   flightStatusData,
 } from "../../../models/skyDiveEvents.models";
-import useAPi from "../../../hooks/useApi";
-import { BaseResponse, FlightStatuses } from "../../../models/shared.models";
+import KSelect from "../../shared/Select";
+import KSpinner from "../../shared/Spinner";
+import KTextInput from "../../shared/TextInput";
 import AdminFlightTicketsGrid from "./AdminFlightTicketsGrid";
-import SDSpinner from "../../shared/Spinner";
-import useConfirm from "../../../hooks/useConfirm";
-import { toast } from "react-toastify";
-import SDSelect from "../../shared/Select";
-import SDTextInput from "../../shared/TextInput";
 
 interface AdminFlightItemProps extends AdminFlightModel {
   withHeader?: boolean;
@@ -199,53 +199,48 @@ const AdminFlightItem: React.FC<AdminFlightItemProps> = ({
           <div className={`group flex cursor-pointer `}>
             {isActive ? deActivateButton : activateButton}
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
               {flight.flightNumber}
             </p>
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-80 px-8 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-80 px-8 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
-              <SDTextInput
+              <KTextInput
                 onBlur={(event) => handleBlur(flight.id, event.target.value)}
                 id="name"
                 defaultValue={flight.name || ""}
-                // value={flight.name}
-                // invalid={!!formErrors.name}
-                // {...register("flightName", {
-                //   required: "فیلد اجباری است.",
-                //   valueAsNumber: true,
-                //   validate: (value) => {
-                //     return value >= 0 || "مقدار نمی‌تواند منفی باشد.";
-                //   },
-                // })}
+              // value={flight.name}
+              // invalid={!!formErrors.name}
+              // {...register("flightName", {
+              //   required: "فیلد اجباری است.",
+              //   valueAsNumber: true,
+              //   validate: (value) => {
+              //     return value >= 0 || "مقدار نمی‌تواند منفی باشد.";
+              //   },
+              // })}
               />
             </p>
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-60 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-60 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
               {flight.capacity}
             </p>
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
               {flight.voidableQty}
             </p>
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-40 px-3 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-40 px-3 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
               <div className="flex flex-col">
-                <SDSelect
+                <KSelect
                   id="eventStatus"
                   // invalid={!!formErrors.statusId}
                   // {...register("statusId", {
@@ -264,14 +259,13 @@ const AdminFlightItem: React.FC<AdminFlightItemProps> = ({
                       {title}
                     </option>
                   ))}
-                </SDSelect>
+                </KSelect>
               </div>
             </p>
 
             <p
-              className={`${
-                isActive && "!bg-gray-200"
-              } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
+              className={`${isActive && "!bg-gray-200"
+                } w-40 px-5 py-3  transition-all duration-75 ease-linear group-hover:bg-gray-100`}
             >
               <button onClick={() => handleDelete(flight.id)}>
                 <svg
@@ -296,7 +290,7 @@ const AdminFlightItem: React.FC<AdminFlightItemProps> = ({
           <div>
             {ticketsPending && (
               <div className="mr-28  mt-8 flex">
-                <SDSpinner color="blue" size={28} />
+                <KSpinner color="blue" size={28} />
               </div>
             )}
             {tickets && !ticketsPending && (
@@ -311,7 +305,7 @@ const AdminFlightItem: React.FC<AdminFlightItemProps> = ({
         )}
         {ticketsPending && (
           <div className="mr-28  mt-8 flex">
-            <SDSpinner color="blue" size={28} />
+            <KSpinner color="blue" size={28} />
           </div>
         )}
       </div>

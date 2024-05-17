@@ -4,8 +4,8 @@ import {
   AggregatedTicket,
   BasketTicketModel,
 } from "../../../models/shared.models";
-import SDButton from "../Button";
-import SDModal from "../Modal/Modal";
+import KButton from "../Button";
+import KModal from "../Modal/Modal";
 
 interface AddTicketModalProps {
   show: boolean;
@@ -67,9 +67,9 @@ const RemoveTicketModal: React.FC<AddTicketModalProps> = ({
   }
 
   return (
-    <SDModal show={showModal} containerClass="!pb-2" onClose={closeModal}>
-      <SDModal.Header>حذف بلیت از سبد</SDModal.Header>
-      <SDModal.Body>
+    <KModal show={showModal} containerClass="!pb-2" onClose={closeModal}>
+      <KModal.Header>حذف بلیت از سبد</KModal.Header>
+      <KModal.Body>
         <form onSubmit={onsubmit}>
           <div className="p-5 w-80">
             {aggregatedTicket.ticketMembers.map((item, index) => {
@@ -80,7 +80,7 @@ const RemoveTicketModal: React.FC<AddTicketModalProps> = ({
                     type="checkbox"
                     value={item.userCode}
                     onChange={onChangeCheckbox}
-                    className="ml-3 w-5 h-5 text-primary2-500 bg-gray-100 border-gray-300 rounded focus:ring-primary2-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="ml-3 w-5 h-5 text-primary-500 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
                     htmlFor={item.userCode.toString()}
@@ -96,17 +96,17 @@ const RemoveTicketModal: React.FC<AddTicketModalProps> = ({
             })}
           </div>
           <div className="flex justify-end px-3">
-            <SDButton
+            <KButton
               type="submit"
-              color="primary2"
+              color="primary"
               disabled={selectedTickets.length === 0}
             >
               حذف
-            </SDButton>
+            </KButton>
           </div>
         </form>
-      </SDModal.Body>
-    </SDModal>
+      </KModal.Body>
+    </KModal>
   );
 };
 

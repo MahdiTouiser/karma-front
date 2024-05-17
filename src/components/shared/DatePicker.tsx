@@ -1,23 +1,22 @@
-import { DatePickerProps, CalendarProps } from "react-multi-date-picker";
-import { Control, Controller } from "react-hook-form";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import persian_en from "react-date-object/locales/persian_en";
-import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useState } from "react";
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_en";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { Control, Controller } from "react-hook-form";
+import DatePicker, { CalendarProps, DateObject, DatePickerProps } from "react-multi-date-picker";
 type DatePickerFinalProps = CalendarProps & DatePickerProps;
 
-interface BaseNowBorder{
+interface BaseNowBorder {
   step: "years" | "months" | "days";
   value: number;
   message?: string;
-  direction:'after' | 'before';
+  direction: 'after' | 'before';
 }
 export interface BaseNowValidationOptions {
   from?: BaseNowBorder;
   to?: BaseNowBorder
 }
-interface SDDatePickerProps extends Omit<DatePickerFinalProps, "onChange"> {
+interface KDatePickerProps extends Omit<DatePickerFinalProps, "onChange"> {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: Control<any>;
@@ -27,7 +26,7 @@ interface SDDatePickerProps extends Omit<DatePickerFinalProps, "onChange"> {
   baseNowValidationOptions?: BaseNowValidationOptions// use only with control
 }
 
-const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
+const KDatepicker: React.FC<KDatePickerProps> = (props) => {
   const datePickerPropsTemp = { ...props };
   delete datePickerPropsTemp.control;
   delete datePickerPropsTemp.required;
@@ -54,28 +53,28 @@ const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
       locale: persian_en,
       calendar: persian,
     });
-    const choosedJSDate = choosedDateObejct.toDate();
+    const choosedJKate = choosedDateObejct.toDate();
     if (validationRage.from) {
-      const {value,message="تاریخ درست نیست",step,direction} = validationRage.from
+      const { value, message = "تاریخ درست نیست", step, direction } = validationRage.from
       const minDateObject = new DateObject().setHour(0).setMinute(0).setSecond(0).setMillisecond(0);
-      if(direction === 'before'){
-        minDateObject.subtract(value,step)
-      }else{
-        minDateObject.add(value,step)
+      if (direction === 'before') {
+        minDateObject.subtract(value, step)
+      } else {
+        minDateObject.add(value, step)
       }
-      if (minDateObject.toDate() > choosedJSDate) {
+      if (minDateObject.toDate() > choosedJKate) {
         return message;
       }
     }
     if (validationRage.to) {
-      const {value,message="تاریخ درست نیست",step,direction} = validationRage.to
+      const { value, message = "تاریخ درست نیست", step, direction } = validationRage.to
       const maxDateObject = new DateObject().setHour(0).setMinute(0).setSecond(0).setMillisecond(0);
-      if(direction === 'before'){
-        maxDateObject.subtract(value,step)
-      }else{
-        maxDateObject.add(value,step)
+      if (direction === 'before') {
+        maxDateObject.subtract(value, step)
+      } else {
+        maxDateObject.add(value, step)
       }
-      if (maxDateObject.toDate() < choosedJSDate) {
+      if (maxDateObject.toDate() < choosedJKate) {
         return message;
       }
     }
@@ -95,7 +94,7 @@ const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
       return message;
     }
     if (props.baseNowValidationOptions) {
-      return validateBasedOnRanges(value,props.baseNowValidationOptions)
+      return validateBasedOnRanges(value, props.baseNowValidationOptions)
     }
     return true;
   }
@@ -119,7 +118,7 @@ const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
           : { validate: validateDate }
       } //optional
       render={({
-        field: { onChange, value,onBlur },
+        field: { onChange, value, onBlur },
         formState: { errors }, //optional, but necessary if you want to show an error message
       }) => (
         <>
@@ -137,14 +136,12 @@ const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
             locale={persian_fa}
             calendarPosition="bottom-right"
             containerClassName={`w-full ${datePickerPropsTemp.containerClassName}`}
-            inputClass={`${
-              errors[props.name] ||
-              (props.required && manualIsTouched && !value)
+            inputClass={`${errors[props.name] ||
+                (props.required && manualIsTouched && !value)
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                 : "border-gray-300 focus:border-blue-500"
-            } ${
-              props.inputClass || ""
-            }  placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+              } ${props.inputClass || ""
+              }  placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
           />
         </>
       )}
@@ -161,15 +158,13 @@ const SDDatepicker: React.FC<SDDatePickerProps> = (props) => {
       locale={persian_fa}
       calendarPosition="bottom-right"
       containerClassName={`w-full ${datePickerPropsTemp.containerClassName}`}
-      inputClass={`${
-        props.manualInvalid
+      inputClass={`${props.manualInvalid
           ? "!border-red-500 focus:ring-red-500 focus:border-red-500"
           : "border-gray-300 focus:border-blue-500"
-      } ${
-        props.inputClass || ""
-      } placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+        } ${props.inputClass || ""
+        } placeholder:text-right w-full h-10 bg-gray-50 border  text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
     />
   );
 };
 
-export default SDDatepicker;
+export default KDatepicker;

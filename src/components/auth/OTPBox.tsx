@@ -61,7 +61,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
         <div className="text-sm">
           {canRefresh ? (
             <button
-              className="text-primary2"
+              className="text-primary"
               type="button"
               onClick={handleRefresh}
             >

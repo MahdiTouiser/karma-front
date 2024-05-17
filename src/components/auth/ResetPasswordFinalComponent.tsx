@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useAPi from "../../hooks/useApi";
 import { Regexes } from "../../utils/shared";
-import SDAlert from "../shared/Alert";
-import SDButton from "../shared/Button";
-import SDLabel from "../shared/Label";
+import KAlert from "../shared/Alert";
+import KButton from "../shared/Button";
+import KLabel from "../shared/Label";
 import PasswordInput from "../shared/PasswordInput";
-import SDSpinner from "../shared/Spinner";
+import KSpinner from "../shared/Spinner";
 
 interface ChangePasswordFormData {
   password: string;
@@ -55,14 +55,14 @@ const ResetPasswordFinalComponent: React.FC<
       onSubmit={handleSubmit(onSubmit)}
     >
       {apiErrors && (
-        <SDAlert color="red" className="my-3">
+        <KAlert color="red" className="my-3">
           {apiErrors.message}
-        </SDAlert>
+        </KAlert>
       )}
       <div>
-        <SDLabel htmlFor="password">
+        <KLabel htmlFor="password">
           رمز عبور مورد نظر خود را وارد کنید.
-        </SDLabel>
+        </KLabel>
         <PasswordInput
           {...register("password", {
             required: "لطفا رمزعبور خود را وارد کنید.",
@@ -82,9 +82,9 @@ const ResetPasswordFinalComponent: React.FC<
         )}
       </div>
       <div className="mt-6">
-        <SDLabel htmlFor="repeatPassword">
+        <KLabel htmlFor="repeatPassword">
           رمز عبور مورد نظر خود را مجدد وارد کنید.
-        </SDLabel>
+        </KLabel>
         <PasswordInput
           {...register("repeatPassword", {
             required: "لطفا رمزعبور خود را مجدد وارد کنید.",
@@ -101,15 +101,15 @@ const ResetPasswordFinalComponent: React.FC<
           </p>
         )}
       </div>
-      <SDButton
+      <KButton
         className="mt-4 w-full"
-        color="primary2"
+        color="primary"
         type="submit"
         disabled={isPending}
       >
-        {isPending && <SDSpinner />}
+        {isPending && <KSpinner />}
         تغییر رمزعبور
-      </SDButton>
+      </KButton>
     </form>
   );
 };
