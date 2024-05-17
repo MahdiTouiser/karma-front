@@ -1,7 +1,7 @@
-import KButton from "../../../components/shared/Button"
-import KCard from "../../../components/shared/Card"
-import KSelect from "../../../components/shared/Select"
-import KTextInput from "../../../components/shared/TextInput"
+import KButton from "../../../components/shared/Button";
+import KCard from "../../../components/shared/Card";
+import KSelect from "../../../components/shared/Select";
+import KTextInput from "../../../components/shared/TextInput";
 
 const JobSearch = () => {
     return (
@@ -11,7 +11,7 @@ const JobSearch = () => {
                     <p className="flex justify-start font-bold text-xl mr-4">
                         دنبال چه شغلی می گردید ؟
                     </p>
-                    <div className="flex ">
+                    <div className="flex">
                         <div className="m-4 w-1/2">
                             <KTextInput
                                 type="text"
@@ -21,16 +21,19 @@ const JobSearch = () => {
                         </div>
                         <div className="m-4 w-1/4">
                             <KSelect
-                                id='job-category'
+                                id="job-category"
                                 placeholder="گروه شغلی"
+                                defaultValue=""
                             >
                                 <option value="developer">برنامه نویسی</option>
+                                <option value="designer">طراحی</option>
+                                <option value="manager">مدیریت</option>
                             </KSelect>
                         </div>
                         <div className="m-4 w-1/4">
                             <KTextInput
                                 type="text"
-                                id="title"
+                                id="city"
                                 placeholder="شهر"
                             />
                         </div>
@@ -50,7 +53,8 @@ const JobSearch = () => {
                     </div>
                 </div>
             </main>
-        </KCard>)
+        </KCard>
+    );
 }
 
-export default JobSearch
+export default JobSearch;
