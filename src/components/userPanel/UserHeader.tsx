@@ -9,7 +9,8 @@ const UserHeader: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const dropdownItems = [
-    { label: "داشبورد", href: "dashboard" },
+    { label: "رزومه من", href: "my-resume" },
+    { label: "مشاغل نشان شده", href: "saved-jobs" },
     { label: "تنظیمات", href: "settings" },
     { isDivider: true },
     { label: "خروج" },
@@ -18,6 +19,8 @@ const UserHeader: React.FC = () => {
   const navLinks = [
     { label: "فرصت های شغلی", href: "job-opportunities" },
     { label: "رزومه من", href: "my-resume" },
+    { label: "رزومه ساز", href: "cv-builder" },
+
   ];
 
   const handleDropdownItemClick = (href: string) => {
@@ -31,7 +34,7 @@ const UserHeader: React.FC = () => {
 
   return (
     <>
-      <Navbar fluid className="bg-primary2">
+      <Navbar fluid className="bg-green-700">
         <Navbar.Brand href="/" className="mr-12">
           <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــــــــــــارما</span>
         </Navbar.Brand>
@@ -39,7 +42,6 @@ const UserHeader: React.FC = () => {
           <Dropdown
             arrowIcon={false}
             inline
-
             label={<Avatar alt="User settings" img='src/assets/profile-photo.jpg' rounded />}
             className="ml-12"
           >

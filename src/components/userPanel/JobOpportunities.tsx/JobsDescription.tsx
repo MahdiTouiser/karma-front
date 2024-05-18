@@ -77,7 +77,7 @@ const JobsDescription: React.FC<JobsDescriptionProps> = ({ jobData }) => {
                     </div>
                 </div>
                 <div>
-                    <KButton color='quaternary'>
+                    <KButton color='primary'>
                         ارسال رزومه
                     </KButton>
                 </div>

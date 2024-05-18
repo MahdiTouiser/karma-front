@@ -41,7 +41,7 @@ const JobsCards: React.FC<JobsCardsProps> = ({ setSelectedJob }) => {
             {JobsData.map((item, index) => (
                 <KCard
                     key={index}
-                    className={`mt-5 w-full border-r-4 border-sky-500 cursor-pointer ${selectedCardIndex === index ? 'border-2 border-blue-500' : ''
+                    className={`mt-5 w-full border-r-4 border-green-500 cursor-pointer ${selectedCardIndex === index ? 'border-2 border-blue-500' : ''
                         }`}
                     onClick={() => handleCardClick(index, item)}
                 >

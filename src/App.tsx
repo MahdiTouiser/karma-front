@@ -1,8 +1,11 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import CVBuilder from './components/userpanel/CVBuilder/CVBuilder';
+import CVCreation from './components/userpanel/CVBuilder/CVCreation';
 import JobOpportunities from './components/userpanel/JobOpportunities.tsx/JobOpportunities';
 import MyResume from './components/userpanel/MyResume/MyResume';
+import SavedJobs from './components/userpanel/MyResume/SavedJobs';
 import AuthContainer from './pages/Auth/AuthContainer';
 import EmployerPage from './pages/Auth/EmployerLoginPage';
 import OTPLoginPage from './pages/Auth/OTPLoginPage';
@@ -21,35 +24,38 @@ import MyTicketsPage from './pages/userPanel/MyTicketsPage';
 import MyTransactionsPage from './pages/userPanel/MyTransactionsPage';
 import UserPanelContainer from './pages/userPanel/UserPanelContainer';
 
-function App() {
+const App = () => {
   return (
     <>
       <ToastContainer rtl theme="colored" position="top-left" icon={false} closeButton={false} autoClose={2000} />
       <Router>
         <Routes>
-          <Route element={<AuthenticatedRoute component={UserPanelContainer} />} path="">
-            <Route Component={Home} path=""></Route>
-            <Route Component={Messages} path="messages"></Route>
-            <Route Component={MyResume} path="my-resume"></Route>
-            <Route Component={JobOpportunities} path="job-opportunities"></Route>
-            <Route Component={MyTicketsPage} path="tickets"></Route>
-            <Route Component={MyTransactionsPage} path="transactions"></Route>
+          <Route path="/" element={<AuthenticatedRoute component={UserPanelContainer} />}>
+            <Route index element={<Home />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="my-resume" element={<MyResume />} />
+            <Route path="cv-builder" element={<CVBuilder />} />
+            <Route path="cv-builder/create" element={<CVCreation />} />
+            <Route path="saved-jobs" element={<SavedJobs />} />
+            <Route path="job-opportunities" element={<JobOpportunities />} />
+            <Route path="tickets" element={<MyTicketsPage />} />
+            <Route path="transactions" element={<MyTransactionsPage />} />
           </Route>
-          <Route Component={AuthContainer} path="auth">
-            <Route Component={EmployerPage} path="employer"></Route>
-            <Route Component={UsernameLoginPage} path=""></Route>
-            <Route Component={PasswordLoginPage} path="password"></Route>
-            <Route Component={OTPLoginPage} path="otp"></Route>
-            <Route Component={() => <Outlet></Outlet>} path="forget-password">
-              <Route Component={ForgetPasswordFirstPage} path=""></Route>
-              <Route Component={ForgetPasswordOtpPage} path="otp"></Route>
-              <Route Component={ChangePasswordPage} path="change"></Route>
+          <Route path="auth" element={<AuthContainer />}>
+            <Route path="employer" element={<EmployerPage />} />
+            <Route index element={<UsernameLoginPage />} />
+            <Route path="password" element={<PasswordLoginPage />} />
+            <Route path="otp" element={<OTPLoginPage />} />
+            <Route path="forget-password" element={<Outlet />}>
+              <Route index element={<ForgetPasswordFirstPage />} />
+              <Route path="otp" element={<ForgetPasswordOtpPage />} />
+              <Route path="change" element={<ChangePasswordPage />} />
             </Route>
-            <Route Component={() => <Outlet></Outlet>} path="signup">
-              <Route Component={SignUpMobilePage} path=""></Route>
-              <Route Component={SignUpPasswordOtpPage} path="otp"></Route>
-              <Route Component={SignUpPersonaPage} path="personal"></Route>
-              <Route Component={SignUpUserInfoPage} path="user-info"></Route>
+            <Route path="signup" element={<Outlet />}>
+              <Route index element={<SignUpMobilePage />} />
+              <Route path="otp" element={<SignUpPasswordOtpPage />} />
+              <Route path="personal" element={<SignUpPersonaPage />} />
+              <Route path="user-info" element={<SignUpUserInfoPage />} />
             </Route>
           </Route>
         </Routes>

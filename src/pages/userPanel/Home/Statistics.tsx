@@ -42,10 +42,10 @@ const Statistics = () => {
     return (
         <div className="flex flex-col justify-start font-bold text-start">
             <h1 className="text-4xl">
-                <span style={{ color: '#5660f2' }}>{jobCount}</span>  فرصت شغلی
+                <span style={{ color: '#1abc9c' }}>{jobCount}</span>  فرصت شغلی
             </h1>
             <h1 className="text-4xl mt-6">
-                در <span style={{ color: '#5660f2' }}>{cityCount}</span>  شهر
+                در <span style={{ color: '#1abc9c' }}>{cityCount}</span>  شهر
             </h1>
         </div>
     );
