@@ -6,10 +6,9 @@ interface KButtonProps extends ButtonProps {
 
 const customTheme: DeepPartial<FlowbiteButtonTheme> = {
   color: {
-    primary: 'bg-primary2-800 hover:bg-primary2-900 text-white disabled:hover:bg-primary2-800',
+    primary: 'bg-green-500 hover:bg-green-800 text-white disabled:hover:bg-green-800',
     secondary: 'bg-gray-400 hover:bg-gray-900 text-white disabled:hover:bg-gray-800',
-    tertiary: 'bg-[#5660f2] hover:bg-[#3e47c0] text-white disabled:hover:bg-[#5660f2]',
-    quaternary: 'bg-green-500 hover:bg-green-700 text-white disabled:hover:bg-green-500',
+    tertiary: 'bg-[#17a589] hover:bg-gray-700 text-white disabled:hover:bg-[#17a589]',
   },
   pill: {
     off: 'rounded-sm'

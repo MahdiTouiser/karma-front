@@ -14,7 +14,7 @@ const KModalHeader: React.FC<ModalHeaderProps> = ({
 }) => {
   const { onClose } = useModalContext();
   const classNames = {
-    primary: "bg-primary2-800",
+    primary: "bg-green-800",
     warning: "bg-yellow-300",
   };
 
