@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import JobOpportunities from './components/userpanel/JobOpportunities.tsx/JobOpportunities';
 import MyResume from './components/userpanel/MyResume/MyResume';
+import SavedJobs from './components/userpanel/MyResume/SavedJobs';
 import AuthContainer from './pages/Auth/AuthContainer';
 import EmployerPage from './pages/Auth/EmployerLoginPage';
 import OTPLoginPage from './pages/Auth/OTPLoginPage';
@@ -31,6 +32,7 @@ function App() {
             <Route Component={Home} path=""></Route>
             <Route Component={Messages} path="messages"></Route>
             <Route Component={MyResume} path="my-resume"></Route>
+            <Route Component={SavedJobs} path="saved-jobs"></Route>
             <Route Component={JobOpportunities} path="job-opportunities"></Route>
             <Route Component={MyTicketsPage} path="tickets"></Route>
             <Route Component={MyTransactionsPage} path="transactions"></Route>
