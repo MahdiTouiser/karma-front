@@ -1,13 +1,19 @@
 import { Avatar } from 'flowbite-react';
-import React from 'react';
+import React, { useState } from 'react';
 import KCard from '../../shared/Card';
+import AboutMeModal from './Modals/AboutMeModal';
 
 const AboutMe: React.FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     return (
         <KCard className='flex flex-col justify-between'>
             <div className="flex items-center justify-between">
                 <h1 className='text-xl font-bold'>درباره من</h1>
-                <button className="text-sm text-blue-500 flex items-center">
+                <button onClick={openModal} className="text-sm text-blue-500 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 ml-1">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                     </svg>
@@ -25,6 +31,7 @@ const AboutMe: React.FC = () => {
                     I am a highly adaptable and enthusiastic Front-End Developer with a strong passion for web development. Eager to learn, I actively seek new knowledge and stay updated with the latest trends and technologies. With expertise in HTML, CSS, and JavaScript, I create visually appealing and responsive user interfaces. I thrive in collaborative environments, working closely with designers, back-end developers, and stakeholders to exceed expectations. My adaptability enables me to quickly adapt to new challenges and technologies. I embrace continuous learning and always strive to expand my skill set to deliver exceptional web experiences.
                 </p>
             </div>
+            <AboutMeModal show={isModalOpen} onClose={closeModal} />
         </KCard>
     );
 }

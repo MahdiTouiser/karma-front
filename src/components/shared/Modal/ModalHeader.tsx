@@ -1,8 +1,9 @@
+import React from "react";
 import { useModalContext } from "./ModalContext";
 
 interface ModalHeaderProps {
   children: React.ReactNode;
-  color?: "primary" | "primary" | "warning";
+  color?: "primary" | "warning";
   withClose?: boolean;
 }
 
@@ -13,12 +14,13 @@ const KModalHeader: React.FC<ModalHeaderProps> = ({
 }) => {
   const { onClose } = useModalContext();
   const classNames = {
-    primary: "bg-primary-500",
+    primary: "bg-primary2-800",
     warning: "bg-yellow-300",
   };
+
   return (
     <div
-      className={`border-b text-lg flex justify-between px-6 py-4  text-white rounded-t-md -m-[1px]  ${classNames[color]}`}
+      className={`border-b text-lg flex justify-between px-6 py-4 text-white rounded-t-md -m-[1px] ${classNames[color]}`}
     >
       <div>{children}</div>
       {withClose && (
