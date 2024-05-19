@@ -67,7 +67,7 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
               تاریخ انقضا
             </KLabel>
             <KDatepicker
-              inputClass=" text-center !bg-white border-slate-500"
+              inputClass="text-center !bg-white border-slate-500"
               name="expireDate"
               onChange={onDateChange}
               required={true}
