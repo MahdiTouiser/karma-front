@@ -6,8 +6,7 @@ declare global {
 }
 
 export interface LinkWithIcon {
-  icon: React.ReactNode;
-  path: string;
+  path?: string;
   title: string;
 }
 
