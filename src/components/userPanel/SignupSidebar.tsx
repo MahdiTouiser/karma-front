@@ -14,7 +14,7 @@ const SignupSidebar: React.FC<SignupSidebarProps> = ({ links, activeIndex }) => 
         <div
           key={index}
           className={`font-extrabold text-2xl p-10 m-5 cursor-pointer transition-colors duration-300 ease-in-out 
-          ${activeIndex === index ? "text-green-500 border-r-4 border-green-500" : "text-gray-200 border-r-2 border-transparent hover:border-green-500"}`}
+          ${activeIndex === index ? "text-green-500 border-r-4 border-green-500" : "text-gray-200 border-r-2 border-transparent"}`}
         >
           <span>{link.title}</span>
         </div>

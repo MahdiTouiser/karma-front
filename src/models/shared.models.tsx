@@ -11,6 +11,7 @@ export interface LinkWithIcon {
 }
 
 export interface BaseResponse<T> {
+  data(data: any): unknown;
   value(value: any): unknown;
   message: string;
   content: T;

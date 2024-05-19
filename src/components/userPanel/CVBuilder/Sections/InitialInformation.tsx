@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../hooks/useApi';
@@ -18,13 +18,34 @@ interface InitialInformationProps {
 
 const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess }) => {
 
-    const { register, handleSubmit, formState: { errors }, control,
+    const { register, handleSubmit, formState: { errors }, control, reset
     } = useForm();
 
     const { sendRequest, isPending } = useAPi<
         initialInformationFormData,
         BaseResponse<null>
     >();
+
+    const { sendRequest: getData } = useAPi<
+        initialInformationFormData,
+        BaseResponse<null>
+    >();
+
+    useEffect(() => {
+        getData(
+            {
+                url: "/Resumes/BasicInfo",
+            },
+            (response) => {
+                console.log(response);
+                reset(response);
+            },
+            (error) => {
+                toast.error(error?.message);
+            }
+        );
+    }, [getData, reset]);
+
 
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -64,14 +85,14 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                 </div>
                 <div className='flex justify-center mt-10'>
                     <div className="w-1/2 p-5">
-                        <KSelect defaultValue="" placeholder="جنسیت"  {...register('gender', { required: true })}>
+                        <KSelect id='gender' placeholder="جنسیت"  {...register('gender', { required: true })}>
                             <option value="male">مرد</option>
                             <option value="female">زن</option>
                         </KSelect>
                         {errors.gender && <span className="text-red-500 text-sm">جنسیت الزامی است</span>}
                     </div>
                     <div className="w-1/2 p-5">
-                        <KSelect defaultValue="" placeholder="وضعیت تاهل" {...register('maritalStatus', { required: true })}>
+                        <KSelect id='maritalStatus' placeholder="وضعیت تاهل" {...register('maritalStatus', { required: true })}>
                             <option value="married">متاهل</option>
                             <option value="single">مجرد</option>
                         </KSelect>
@@ -80,14 +101,14 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                 </div>
                 <div className='flex justify-center mt-10'>
                     <div className="w-1/2 p-5">
-                        <KSelect defaultValue="" placeholder="وضعیت نظام وظیفه" {...register('militaryStatus', { required: true })}>
+                        <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
                             <option value="done">انجام شده</option>
                             <option value="exemptPermanent">معاف دائم</option>
                             <option value="exemptEducational">معافیت تحصیلی</option>
                             <option value="inProgress">در حال انجام</option>
                             <option value="eligible">مشمول</option>
                         </KSelect>
-                        {errors.militaryStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
+                        {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
                     </div>
                     <div className="w-1/2 p-5">
                         <KTextInput placeholder='شهر محل سکونت' {...register('city', { required: true })} />
