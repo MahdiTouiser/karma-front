@@ -1,28 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { LinkWithIcon } from "../../models/shared.models";
 
-const SignupSidebar: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+interface SignupSidebarProps {
+  links: LinkWithIcon[];
+  activeIndex: number;
+  onLinkClick: (index: number) => void;
+}
 
-  const links: LinkWithIcon[] = [
-    { title: "اطلاعات اولیه" },
-    { title: "سوابق تحصیلی" },
-    { title: "سوابق شغلی" },
-    { title: "مهارت های تکمیلی" },
-  ];
-
-  const handleClick = (index: number) => {
-    setActiveIndex(index);
-  };
-
+const SignupSidebar: React.FC<SignupSidebarProps> = ({ links, activeIndex, onLinkClick }) => {
   return (
-    <div className="border-l-2">
+    <div>
       {links.map((link, index) => (
         <div
           key={index}
           className={`font-extrabold text-2xl p-10 m-5 cursor-pointer transition-colors duration-300 ease-in-out 
           ${activeIndex === index ? "text-green-500 border-r-4 border-green-500" : "text-gray-200 border-r-2 border-transparent hover:border-green-500"}`}
-          onClick={() => handleClick(index)}
+          onClick={() => onLinkClick(index)}
         >
           <span>{link.title}</span>
         </div>
