@@ -67,10 +67,31 @@ const UsernameLoginPage = () => {
     );
   };
 
+  const handlePreviousClick = () => {
+    setUsernameSubmitted(false);
+  };
+
   return (
     <form onSubmit={usernameSubmitted ? onSubmitPassword : onSubmitUsername} className="p-8">
-      <h1 className="mb-6 text-lg font-semibold flex justify-center">ورود کارجو</h1>
-      <div className="flex flex-col items-center">
+      <div className="flex justify-between items-center relative">
+        {usernameSubmitted && (
+          <span className="absolute right-0" onClick={handlePreviousClick}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 cursor-pointer"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </span>
+        )}
+        <h1 className="mx-auto text-lg font-semibold">ورود کارجو</h1>
+      </div>
+
+      <div className="flex flex-col items-center mt-2">
         {!usernameSubmitted ? (
           <>
             <div className="relative w-full mb-4">
