@@ -19,13 +19,16 @@ const OTPLoginPage: React.FC = () => {
   >();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!enteredPhone) {
       navigate("/auth");
     }
   }, [enteredPhone, navigate]);
 
-  function onFinish(code: string): void {
+  console.log('mahdi');
+
+  const onFinish = (code: string): void => {
     sendRequest(
       {
         url: "/Users/OtpLogin",
@@ -55,7 +58,7 @@ const OTPLoginPage: React.FC = () => {
     );
   }
 
-  function onOTPRefresh() {
+  const onOTPRefresh = () => {
     return axiosIntance.post("/Users/OtpRequest", {
       phone: enteredUsername,
     });

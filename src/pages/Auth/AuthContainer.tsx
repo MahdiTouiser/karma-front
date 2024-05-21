@@ -47,7 +47,6 @@ export default function AuthContainer() {
               </h6>
             </Link>
           </div>
-
         </div>
       </div>
     </div>

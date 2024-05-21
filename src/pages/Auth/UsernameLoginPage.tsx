@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BackButton from "../../components/shared/BackButton";
 import KButton from "../../components/shared/Button";
 import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
@@ -75,17 +76,8 @@ const UsernameLoginPage = () => {
     <form onSubmit={usernameSubmitted ? onSubmitPassword : onSubmitUsername} className="p-8">
       <div className="flex justify-between items-center relative">
         {usernameSubmitted && (
-          <span className="absolute right-0" onClick={handlePreviousClick}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
+          <span className="absolute right-0 bottom-0" onClick={handlePreviousClick}>
+            <BackButton />
           </span>
         )}
         <h1 className="mx-auto text-lg font-semibold">ورود کارجو</h1>
@@ -165,11 +157,12 @@ const UsernameLoginPage = () => {
                 لطفا رمز عبور خود را وارد کنید.
               </p>
             )}
-            <div>
-              <Link to="/auth/otp">
-                ورود با رمز یکبار مصرف
-              </Link>
-            </div>
+            <Link to="otp" className="text-blue-500 flex mb-4 items-center">
+              <p>ورود با رمز یکبار مصرف</p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </Link>
           </>
         )}
 
@@ -195,7 +188,7 @@ const UsernameLoginPage = () => {
           </KButton>
         </Link>
       </div>
-    </form>
+    </form >
   );
 }
 
