@@ -17,7 +17,7 @@ const OTPLoginPage: React.FC = () => {
     BaseResponse<AuthData>
   >();
 
-  const { sendRequest: sendOtpRequest, errors: otpError } = useAPi<
+  const { sendRequest: sendOtpRequest } = useAPi<
     { phone: string; },
     BaseResponse<AuthData>
   >();

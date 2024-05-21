@@ -86,7 +86,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                 <div className='flex justify-center mt-10'>
                     <div className="w-1/2 p-5">
                         <KSelect id='gender' placeholder="جنسیت"  {...register('gender', { required: true })}>
-                            <option value="male">مرد</option>
+                            <option value="Male">مرد</option>
                             <option value="female">زن</option>
                         </KSelect>
                         {errors.gender && <span className="text-red-500 text-sm">جنسیت الزامی است</span>}
@@ -94,7 +94,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                     <div className="w-1/2 p-5">
                         <KSelect id='maritalStatus' placeholder="وضعیت تاهل" {...register('maritalStatus', { required: true })}>
                             <option value="married">متاهل</option>
-                            <option value="single">مجرد</option>
+                            <option value="Single">مجرد</option>
                         </KSelect>
                         {errors.maritalStatus && <span className="text-red-500 text-sm">وضعیت تاهل الزامی است</span>}
                     </div>
@@ -106,7 +106,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                             <option value="exemptPermanent">معاف دائم</option>
                             <option value="exemptEducational">معافیت تحصیلی</option>
                             <option value="inProgress">در حال انجام</option>
-                            <option value="eligible">مشمول</option>
+                            <option value="SubjectToService">مشمول</option>
                         </KSelect>
                         {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
                     </div>

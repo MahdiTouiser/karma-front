@@ -1,7 +1,7 @@
 export interface initialInformationFormData {
     firstName: string;
     lastName: string;
-    gender: string;
+    Gender: string;
     maritalStatus: string;
     militaryStatus: string;
     city: string;
