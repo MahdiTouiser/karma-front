@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ResetPasswordOtpComponent from "../../../components/auth/ResetPasswordOtpComponet";
+import ResetPasswordOtpComponent from "../../../components/auth/ResetPasswordOtp";
 import BackButton from "../../../components/shared/BackButton";
 import { useAppSelector } from "../../../hooks/reduxHooks";
 

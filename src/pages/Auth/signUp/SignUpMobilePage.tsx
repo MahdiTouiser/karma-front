@@ -1,9 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import KButton from "../../../components/shared/Button";
 import KSpinner from "../../../components/shared/Spinner";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { useAppDispatch } from "../../../hooks/reduxHooks";
 import useAPi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";
@@ -14,7 +14,7 @@ import { phoneInputValidator } from "../../../utils/validations";
 const SignUpMobilePage: React.FC = () => {
   const {
     register,
-    formState: { errors, isSubmitted },
+    formState: { errors },
     handleSubmit,
   } = useForm<{ phone: string }>({
     mode: "onTouched",
@@ -30,28 +30,19 @@ const SignUpMobilePage: React.FC = () => {
     OTPResponse
   >();
 
-  const termsLink = useAppSelector(
-    (state) =>
-      state.generalSettings.generalSettings?.registrationTermsAndConditionsUrl
-  );
 
   const [finalPending, setFinalPending] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
-  const [acceptRules, setAcceptRules] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
-  function onChangeAcceptance(evenet: ChangeEvent<HTMLInputElement>) {
-    setAcceptRules(!!evenet.target.value);
-  }
 
-  function navigateToNextPage() {
+  const navigateToNextPage = () => {
     navigate("otp");
   }
 
-  function requestOtp(phone: string) {
+  const requestOtp = (phone: string) => {
     sendOtpRequest(
       {
         url: "/Users/OtpRequest",
@@ -65,10 +56,7 @@ const SignUpMobilePage: React.FC = () => {
     );
   }
 
-  function onSubmit(data: { phone: string }) {
-    if (!acceptRules) {
-      return;
-    }
+  const onSubmit = (data: { phone: string }) => {
     setFinalPending(true);
     sendRequest(
       {
@@ -139,36 +127,14 @@ const SignUpMobilePage: React.FC = () => {
         </div>
       </div>
       <div className="flex items-center mr-4 mt-2">
-        <input
-          id="red-radio"
-          type="radio"
-          value="accept"
-          checked={acceptRules}
-          onChange={onChangeAcceptance}
-          name="colored-radio"
-          className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
         <label
-          htmlFor="red-radio"
           className="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          <a
-            href={termsLink || ""}
-            target="_blank"
-            className="inline-block ml-1 text-blue-600"
-          >
-            قوانین
-          </a>
-          را مطالعه کرده‌ام و می‌پذیرم.
+          ورود شما به معنای پذیرش شرایط کارما و قوانین حریم‌ خصوصی است.
         </label>
       </div>
       {errors.phone?.message && (
         <p className="text-red-600 text-sm pr-2 mt-2">{errors.phone.message}</p>
-      )}
-      {isSubmitted && !acceptRules && (
-        <p className="text-red-600 text-sm pr-2 mt-2">
-          برای ایجاد حساب کاربری باید قوانین را بپذیرید.
-        </p>
       )}
 
       {apiErrors && (

@@ -21,7 +21,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
       navigate("/auth/signup");
     }
   }, [phone, navigate]);
-  function onFinish(code: string): void {
+  const onFinish = (code: string): void => {
     sendRequest(
       {
         url: "/Users/PhoneConfirmation",
@@ -39,7 +39,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
     );
   }
 
-  function onOTPRefresh() {
+  const onOTPRefresh = () => {
     return axiosIntance.post("/Users/OtpRequest", { phone: phone });
   }
 

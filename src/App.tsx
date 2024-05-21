@@ -17,9 +17,6 @@ import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtp
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage';
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage';
 import Home from './pages/userPanel/Home/Home';
-import Messages from './pages/userPanel/Messages';
-import MyTicketsPage from './pages/userPanel/MyTicketsPage';
-import MyTransactionsPage from './pages/userPanel/MyTransactionsPage';
 import UserPanelContainer from './pages/userPanel/UserPanelContainer';
 
 const App = () => {
@@ -30,14 +27,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<AuthenticatedRoute component={UserPanelContainer} />}>
             <Route index element={<Home />} />
-            <Route path="messages" element={<Messages />} />
             <Route path="my-resume" element={<MyResume />} />
             <Route path="cv-builder" element={<CVBuilder />} />
             <Route path="cv-builder/create" element={<CVCreation />} />
             <Route path="saved-jobs" element={<SavedJobs />} />
             <Route path="job-opportunities" element={<JobOpportunities />} />
-            <Route path="tickets" element={<MyTicketsPage />} />
-            <Route path="transactions" element={<MyTransactionsPage />} />
           </Route>
           <Route path="auth" element={<AuthContainer />}>
             <Route path="employer" element={<EmployerPage />} />

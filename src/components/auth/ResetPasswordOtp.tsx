@@ -6,12 +6,12 @@ import { authActions } from "../../store/auth";
 import { setAuthDataInLocal } from "../../utils/authUtils";
 import OTPBox from "./OTPBox";
 
-interface ResetPasswordOtpComponentProps {
+interface ResetPasswordOtpProps {
   phone: string;
   onOtpConfirm: () => void;
 }
 
-const ResetPasswordOtpComponent: React.FC<ResetPasswordOtpComponentProps> = ({
+const ResetPasswordOtp: React.FC<ResetPasswordOtpProps> = ({
   phone,
   onOtpConfirm,
 }) => {
@@ -61,4 +61,4 @@ const ResetPasswordOtpComponent: React.FC<ResetPasswordOtpComponentProps> = ({
   );
 };
 
-export default ResetPasswordOtpComponent;
+export default ResetPasswordOtp;

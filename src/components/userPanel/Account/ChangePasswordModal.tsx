@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ResetPasswordFinalComponent from "../../auth/ResetPasswordFinalComponent";
-import ResetPasswordOtpComponent from "../../auth/ResetPasswordOtpComponet";
+import ResetPasswordOtpComponent from "../../auth/ResetPasswordOtp";
 import KModal from "../../shared/Modal/Modal";
 
 const ChangePasswordModal: React.FC<{
