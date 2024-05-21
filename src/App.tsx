@@ -36,8 +36,8 @@ const App = () => {
           <Route path="auth" element={<AuthContainer />}>
             <Route path="employer" element={<EmployerPage />} />
             <Route index element={<UsernameLoginPage />} />
-            <Route path="password" element={<PasswordLoginPage />} />
             <Route path="otp" element={<OTPLoginPage />} />
+            <Route path="password" element={<PasswordLoginPage />} />
             <Route path="forget-password" element={<Outlet />}>
               <Route index element={<ForgetPasswordFirstPage />} />
               <Route path="otp" element={<ForgetPasswordOtpPage />} />

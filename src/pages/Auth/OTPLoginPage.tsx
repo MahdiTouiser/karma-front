@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import OTPBox from "../../components/auth/OTPBox";
 import BackButton from "../../components/shared/BackButton";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
@@ -11,22 +11,41 @@ import { authActions } from "../../store/auth";
 import { setAuthDataInLocal } from "../../utils/authUtils";
 
 const OTPLoginPage: React.FC = () => {
-  const enteredPhone = useAppSelector((state) => state.auth.enteredPhone);
   const enteredUsername = useAppSelector((state) => state.auth.enteredUsername);
   const { sendRequest, errors } = useAPi<
-    { username: string; code: string },
+    { phone: string; OtpCode: string },
+    BaseResponse<AuthData>
+  >();
+
+  const { sendRequest: sendOtpRequest, errors: otpError } = useAPi<
+    { phone: string; },
     BaseResponse<AuthData>
   >();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!enteredPhone) {
+    if (!enteredUsername) {
       navigate("/auth");
     }
-  }, [enteredPhone, navigate]);
+    sendOtpRequest(
+      {
+        url: "/Users/OtpRequest",
+        method: "post",
+        data: {
+          phone: enteredUsername,
+        },
+      },
+      (response) => {
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
+        navigate("/");
+      },
+      (error) => {
+        toast.error(error?.message);
+      });
 
-  console.log('mahdi');
+  }, [enteredUsername, navigate]);
 
   const onFinish = (code: string): void => {
     sendRequest(
@@ -34,13 +53,14 @@ const OTPLoginPage: React.FC = () => {
         url: "/Users/OtpLogin",
         method: "post",
         data: {
-          username: enteredUsername,
-          code: code,
+          phone: enteredUsername,
+          OtpCode: code,
         },
       },
       (response) => {
-        setAuthDataInLocal(response.content);
-        dispatch(authActions.setToken(response.content));
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
+        toast.success(response.message);
         // if (response.content.isAdmin) {
         //   navigate("/admin");
         //   return;
@@ -71,7 +91,7 @@ const OTPLoginPage: React.FC = () => {
         <OTPBox
           condLength={6}
           onFinish={onFinish}
-          phone={enteredPhone}
+          phone={enteredUsername}
           durationSeconds={60}
           onRefresh={onOTPRefresh}
         />
@@ -81,7 +101,7 @@ const OTPLoginPage: React.FC = () => {
           </p>
         )}
       </form>
-      <Link
+      {/* <Link
         to="../password"
         className="flex items-center w-full h-full px-8 py-4"
       >
@@ -99,7 +119,7 @@ const OTPLoginPage: React.FC = () => {
         </svg>
 
         <p>ورود با رمز عبور</p>
-      </Link>
+      </Link> */}
     </section>
   );
 };
