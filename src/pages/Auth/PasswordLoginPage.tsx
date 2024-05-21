@@ -37,18 +37,18 @@ const PasswordLoginPage: React.FC = () => {
     }
   }, [enteredUsername, navigate]);
 
-  function toggleShowPassword() {
+  const toggleShowPassword = () => {
     setShowPassword((showPassword) => !showPassword);
   }
 
-  function onPasswordChange(evenet: FormEvent) {
+  const onPasswordChange = (event: FormEvent) => {
     const input: string = replacePersianArabicsNumbers(
-      (evenet.target as HTMLInputElement).value
+      (event.target as HTMLInputElement).value
     );
     setPassword(input);
   }
 
-  function onSubmit(event: FormEvent) {
+  const onSubmit = (event: FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
     if (!password) {
@@ -61,8 +61,8 @@ const PasswordLoginPage: React.FC = () => {
         data: { username: enteredUsername, password: password },
       },
       (response) => {
-        setAuthDataInLocal(response.content);
-        dispatch(authActions.setToken(response.content));
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
         // if (response.content.isAdmin) {
         //   navigate("/admin");
         //   return;
@@ -72,7 +72,7 @@ const PasswordLoginPage: React.FC = () => {
     );
   }
 
-  function onOTPRequest() {
+  const onOTPRequest = () => {
     sendOtpRequest(
       {
         url: "/Users/OtpRequest",

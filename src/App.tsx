@@ -16,12 +16,7 @@ import ForgetPasswordFirstPage from './pages/Auth/forgetPassword/ForgetPasswordF
 import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtpPage';
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage';
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage';
-import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage';
-import SignUpUserInfoPage from './pages/Auth/signUp/SignUpUserInfoPage';
 import Home from './pages/userPanel/Home/Home';
-import Messages from './pages/userPanel/Messages';
-import MyTicketsPage from './pages/userPanel/MyTicketsPage';
-import MyTransactionsPage from './pages/userPanel/MyTransactionsPage';
 import UserPanelContainer from './pages/userPanel/UserPanelContainer';
 
 const App = () => {
@@ -32,20 +27,17 @@ const App = () => {
         <Routes>
           <Route path="/" element={<AuthenticatedRoute component={UserPanelContainer} />}>
             <Route index element={<Home />} />
-            <Route path="messages" element={<Messages />} />
             <Route path="my-resume" element={<MyResume />} />
             <Route path="cv-builder" element={<CVBuilder />} />
             <Route path="cv-builder/create" element={<CVCreation />} />
             <Route path="saved-jobs" element={<SavedJobs />} />
             <Route path="job-opportunities" element={<JobOpportunities />} />
-            <Route path="tickets" element={<MyTicketsPage />} />
-            <Route path="transactions" element={<MyTransactionsPage />} />
           </Route>
           <Route path="auth" element={<AuthContainer />}>
             <Route path="employer" element={<EmployerPage />} />
             <Route index element={<UsernameLoginPage />} />
-            <Route path="password" element={<PasswordLoginPage />} />
             <Route path="otp" element={<OTPLoginPage />} />
+            <Route path="password" element={<PasswordLoginPage />} />
             <Route path="forget-password" element={<Outlet />}>
               <Route index element={<ForgetPasswordFirstPage />} />
               <Route path="otp" element={<ForgetPasswordOtpPage />} />
@@ -54,8 +46,6 @@ const App = () => {
             <Route path="signup" element={<Outlet />}>
               <Route index element={<SignUpMobilePage />} />
               <Route path="otp" element={<SignUpPasswordOtpPage />} />
-              <Route path="personal" element={<SignUpPersonaPage />} />
-              <Route path="user-info" element={<SignUpUserInfoPage />} />
             </Route>
           </Route>
         </Routes>

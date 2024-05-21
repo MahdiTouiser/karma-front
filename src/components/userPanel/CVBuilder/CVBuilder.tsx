@@ -15,7 +15,7 @@ const CVBuilder: React.FC = () => {
                 </p>
                 <div>
                     <Link to='/cv-builder/create'>
-                        <KButton className='bg-white text-green-500 mt-4'>
+                        <KButton className='bg-white text-green-500 mt-4 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-green-500 hover:text-white'>
                             ساخت رزومه
                         </KButton>
                     </Link>

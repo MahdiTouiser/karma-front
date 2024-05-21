@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OTPBox from "../../../components/auth/OTPBox";
-import { useAppSelector, useAppDispatch } from "../../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import useAPi, { axiosIntance } from "../../../hooks/useApi";
 import { AuthData } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";
@@ -12,7 +12,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
   const phone = useAppSelector((state) => state.auth.enteredPhone);
   const dispatch = useAppDispatch();
   const { sendRequest, errors } = useAPi<
-    { phone: string; code: string },
+    { phone: string; otpCode: string },
     BaseResponse<AuthData>
   >();
   const navigate = useNavigate();
@@ -21,26 +21,26 @@ const SignUpPasswordOtpPage: React.FC = () => {
       navigate("/auth/signup");
     }
   }, [phone, navigate]);
-  function onFinish(code: string): void {
+  const onFinish = (code: string): void => {
     sendRequest(
       {
-        url: "/Users/OtpRegisterConfirmation",
+        url: "/Users/PhoneConfirmation",
         method: "post",
         data: {
           phone: phone,
-          code: code,
+          otpCode: code,
         },
       },
       (response) => {
-        setAuthDataInLocal(response.content);
-        dispatch(authActions.setToken(response.content));
-        navigate("/auth/signup/personal");
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
+        navigate("/");
       }
     );
   }
 
-  function onOTPRefresh() {
-    return axiosIntance.post("/Users/OtpRequest", { username: phone });
+  const onOTPRefresh = () => {
+    return axiosIntance.post("/Users/OtpRequest", { phone: phone });
   }
 
   return (
