@@ -57,7 +57,7 @@ const OTPLoginPage: React.FC = () => {
 
   function onOTPRefresh() {
     return axiosIntance.post("/Users/OtpRequest", {
-      username: enteredUsername,
+      phone: enteredUsername,
     });
   }
 

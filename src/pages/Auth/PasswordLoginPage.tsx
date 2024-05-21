@@ -61,8 +61,8 @@ const PasswordLoginPage: React.FC = () => {
         data: { username: enteredUsername, password: password },
       },
       (response) => {
-        setAuthDataInLocal(response.content);
-        dispatch(authActions.setToken(response.content));
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
         // if (response.content.isAdmin) {
         //   navigate("/admin");
         //   return;

@@ -1,6 +1,9 @@
 import { BaseResponse } from "./shared.models";
 
 export interface AuthData {
+  securityInformationCompleted: any;
+  personalInformationCompleted: any;
+  isAdmin: any;
   authToken: string
   refreshToken: string;
 }

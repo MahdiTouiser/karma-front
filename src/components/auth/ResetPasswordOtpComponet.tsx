@@ -32,15 +32,15 @@ const ResetPasswordOtpComponent: React.FC<ResetPasswordOtpComponentProps> = ({
         },
       },
       (response) => {
-        setAuthDataInLocal(response.content);
-        dispatch(authActions.setToken(response.content));
+        setAuthDataInLocal(response.value as unknown as AuthData);
+        dispatch(authActions.setToken(response.value as unknown as AuthData));
         onOtpConfirm();
       }
     );
   }
 
   function onOTPRefresh() {
-    return axiosIntance.post("/Users/OtpRequest", { username: phone });
+    return axiosIntance.post("/Users/OtpRequest", { phone: phone });
   }
 
   return (

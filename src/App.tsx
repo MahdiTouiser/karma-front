@@ -16,8 +16,6 @@ import ForgetPasswordFirstPage from './pages/Auth/forgetPassword/ForgetPasswordF
 import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtpPage';
 import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage';
 import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage';
-import SignUpPersonaPage from './pages/Auth/signUp/SignUpPersonalPage';
-import SignUpUserInfoPage from './pages/Auth/signUp/SignUpUserInfoPage';
 import Home from './pages/userPanel/Home/Home';
 import Messages from './pages/userPanel/Messages';
 import MyTicketsPage from './pages/userPanel/MyTicketsPage';
@@ -54,8 +52,6 @@ const App = () => {
             <Route path="signup" element={<Outlet />}>
               <Route index element={<SignUpMobilePage />} />
               <Route path="otp" element={<SignUpPasswordOtpPage />} />
-              <Route path="personal" element={<SignUpPersonaPage />} />
-              <Route path="user-info" element={<SignUpUserInfoPage />} />
             </Route>
           </Route>
         </Routes>
