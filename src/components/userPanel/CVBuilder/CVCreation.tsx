@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
 import AdditionalSkills from './Sections/AdditionalSkills';
-import EducationalBackground from './Sections/EducationalBackground';
+import EducationalBackground from './Sections/EducationalBackground/EducationalBackground';
 import InitialInformation from './Sections/InitialInformation';
 import WorkExperience from './Sections/WorkExperience';
 
@@ -14,6 +14,10 @@ const CVCreation: React.FC = () => {
         setActiveIndex(1);
     };
 
+    const handleLinkClick = (index: number) => {
+        setActiveIndex(index);
+    };
+
     const links = [
         { title: "اطلاعات اولیه", component: <InitialInformation onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "سوابق تحصیلی", component: <EducationalBackground /> },
@@ -23,11 +27,12 @@ const CVCreation: React.FC = () => {
 
     return (
         <div className="flex">
-            <KCard withPadding={false} className="w-1/4 h-screen m-5">
+            <KCard withPadding={false} className="w-1/6 h-screen m-2">
                 <InfoSidebar
                     links={links}
                     activeIndex={activeIndex}
                     progress={progressValues[activeIndex]}
+                    onLinkClick={handleLinkClick}
                 />
             </KCard>
             <div className="flex-1 p-10">

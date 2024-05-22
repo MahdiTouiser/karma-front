@@ -87,7 +87,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                     <div className="w-1/2 p-5">
                         <KSelect id='gender' placeholder="جنسیت"  {...register('gender', { required: true })}>
                             <option value="Male">مرد</option>
-                            <option value="female">زن</option>
+                            <option value="Female">زن</option>
                         </KSelect>
                         {errors.gender && <span className="text-red-500 text-sm">جنسیت الزامی است</span>}
                     </div>
