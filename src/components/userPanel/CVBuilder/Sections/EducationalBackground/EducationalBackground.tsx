@@ -10,8 +10,8 @@ import EducationalData from './EducationalData';
 
 type FormValues = {
     degreeLevel: string;
-    majorId: string;
-    universityId?: string;
+    studyField: string;
+    university?: string;
     gpa?: string;
     fromYear: string;
     toYear?: string;
@@ -19,7 +19,7 @@ type FormValues = {
 };
 
 const EducationalBackground: React.FC = () => {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, watch, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
 
@@ -36,13 +36,15 @@ const EducationalBackground: React.FC = () => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedLabel = degrees.find(degree => degree.value === event.target.value)?.value || null;
         setSelectedDegree(selectedLabel);
-        setValue('degreeLevel', selectedLabel || ''); // Set the value of degreeLevel
+        setValue('degreeLevel', selectedLabel || '');
     };
 
     const onSubmit = (data: FormValues) => {
+        const { stillEducating, ...rest } = data;
         const finalData = {
-            ...data,
-            selectedDegree
+            ...rest,
+            selectedDegree,
+            ...(stillEducating ? {} : { toYear: data.toYear })
         };
         console.log(finalData);
     };

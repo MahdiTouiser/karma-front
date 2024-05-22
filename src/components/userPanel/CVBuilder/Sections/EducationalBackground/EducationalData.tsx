@@ -12,6 +12,10 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
     const { register, formState: { errors }, watch, setValue } = useFormContext();
     const [stillEducating, setStillEducating] = useState(false);
 
+    useEffect(() => {
+        setValue('stillEducating', false);
+    }, [setValue]);
+
     const handleCheckboxChange = (checked: boolean) => {
         setStillEducating(checked);
         setValue('stillEducating', checked);
@@ -28,12 +32,12 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
             <div className='flex justify-start'>
                 <div className='w-1/2 p-5'>
                     <KLabel>رشته تحصیلی</KLabel>
-                    <KTextInput id='majorId' {...register('majorId')} />
+                    <KTextInput id='studyField' {...register('studyField')} />
                 </div>
                 {selectedDegree !== 'diploma' && (
                     <div className='w-1/2 p-5'>
                         <KLabel>دانشگاه</KLabel>
-                        <KTextInput id='universityId' {...register('universityId')} />
+                        <KTextInput id='university' {...register('university')} />
                     </div>
                 )}
             </div>
@@ -69,7 +73,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                                     numeric
                                     maxLength={4}
                                     id="toYear"
-                                    {...register('toYear', { required: true, maxLength: 4 })}
+                                    {...register('toYear', { required: !stillEducating, maxLength: 4 })}
                                 />
                                 {errors.toYear && (
                                     <p className="text-red-500 text-sm">
