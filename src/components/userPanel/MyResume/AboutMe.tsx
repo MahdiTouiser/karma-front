@@ -23,7 +23,7 @@ const AboutMe: React.FC = () => {
             </div>
             <div className="flex justify-between mt-5">
                 <div>
-                    <Avatar alt='profile-photo' img='src/assets/profile-photo.jpg' rounded size='lg' />
+                    <Avatar alt='profile-photo' img='/src/assets/profile-photo.jpg' rounded size='lg' />
                     <div className='flex flex-col mr-5 mt-5'>
                         <p className='text-sm'><span className='font-bold'>مهدی تویسرکانی</span> <br /> Front-end developer</p>
                     </div>

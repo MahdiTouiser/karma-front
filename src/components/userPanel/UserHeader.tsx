@@ -42,7 +42,7 @@ const UserHeader: React.FC = () => {
           <Dropdown
             arrowIcon={false}
             inline
-            label={<Avatar alt="User settings" img='src/assets/profile-photo.jpg' rounded />}
+            label={<Avatar alt="User settings" img='/src/assets/profile-photo.jpg' rounded />}
             className="ml-12"
           >
             <Dropdown.Header>
