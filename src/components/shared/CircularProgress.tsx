@@ -17,6 +17,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
 }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
+    // Adjusted offset calculation to start from the top (12 o'clock position)
     const offset = circumference - (progress / 100) * circumference;
 
     return (
@@ -45,6 +46,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
                 strokeDasharray={circumference}
                 strokeDashoffset={offset}
                 style={{ transition: 'stroke-dashoffset 0.35s' }}
+                transform={`rotate(-90 ${size / 2} ${size / 2})`} // Rotate the circle to start from the top
                 strokeLinecap="round"
             />
             <text
