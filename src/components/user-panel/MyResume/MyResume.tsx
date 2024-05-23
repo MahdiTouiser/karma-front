@@ -4,7 +4,7 @@ import KCard from '../../shared/Card';
 import KSelect from '../../shared/Select';
 import AboutMe from './AboutMe';
 import BasicInfo from './BasicInfo';
-import CareerHistory from './CareerHistory';
+import CareerHistory from './CareerBackground';
 import Contact from './Contact';
 import EducationalHistory from './EducationalHistory';
 import Languages from './Languages';

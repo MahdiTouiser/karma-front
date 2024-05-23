@@ -9,8 +9,13 @@ const KCheckbox = (props: { content: string, onChange: (checked: boolean) => voi
     return (
         <div className="flex max-w-md flex-col gap-4" id="checkbox">
             <div className="flex items-center gap-2">
-                <Checkbox id="accept" onChange={handleChange} checked={props.checked} />
-                <Label htmlFor="accept" className="flex">
+                <Checkbox
+                    id="accept"
+                    onChange={handleChange}
+                    checked={props.checked}
+                    className="focus:ring-0 focus:ring-offset-0 text-green-500"
+                />
+                <Label className="flex">
                     {props.content}
                 </Label>
             </div>

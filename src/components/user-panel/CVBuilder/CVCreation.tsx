@@ -27,7 +27,7 @@ const CVCreation: React.FC = () => {
 
     return (
         <div className="flex">
-            <KCard withPadding={false} className="w-1/6 h-screen m-2">
+            <KCard withPadding={false} className="w-1/6 min-h-screen m-2">
                 <InfoSidebar
                     links={links}
                     activeIndex={activeIndex}

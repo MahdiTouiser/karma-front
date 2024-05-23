@@ -1,7 +1,7 @@
 import React from 'react';
 import KCard from '../../shared/Card';
 
-const CareerHistory: React.FC = () => {
+const CareerBackground: React.FC = () => {
     const EducationalData = [
         { label: 'کارشناس برنامه نویس', company: 'فریلنسر', date: '۱۴۰۱-۱۳۹۷' },
         { label: 'برنامه نویس فرانت اند', company: 'رایانش ابری یکتا شیوه', date: '1402 تا کنون' },
@@ -45,4 +45,4 @@ const CareerHistory: React.FC = () => {
     );
 }
 
-export default CareerHistory
+export default CareerBackground
