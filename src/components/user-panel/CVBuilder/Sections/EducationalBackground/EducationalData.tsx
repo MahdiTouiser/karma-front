@@ -9,7 +9,7 @@ type EducationalDataProps = {
 };
 
 const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => {
-    const { register, formState: { errors }, watch, setValue } = useFormContext();
+    const { register, formState: { errors }, setValue } = useFormContext();
     const [stillEducating, setStillEducating] = useState(false);
 
     useEffect(() => {
@@ -20,12 +20,6 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
         setStillEducating(checked);
         setValue('stillEducating', checked);
     };
-
-    const watchAllFields = watch();
-
-    useEffect(() => {
-        console.log(watchAllFields);
-    }, [watchAllFields]);
 
     return (
         <>
@@ -47,7 +41,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                     <div className='flex justify-center'>
                         <div className="w-1/2 p-5">
                             <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput {...register('gpa')} numeric maxLength={2} />
+                            <KTextInput numeric {...register('gpa')} maxLength={2} />
                             {errors.gpa && <span className="text-red-500 text-sm">نام الزامی است</span>}
                         </div>
                         <div className="w-1/2 p-5">

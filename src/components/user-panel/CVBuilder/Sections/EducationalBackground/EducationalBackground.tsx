@@ -12,15 +12,15 @@ type FormValues = {
     degreeLevel: string;
     studyField: string;
     university?: string;
-    gpa?: string;
-    fromYear: string;
-    toYear?: string;
+    gpa?: number;
+    fromYear: number;
+    toYear?: number;
     stillEducating: boolean;
 };
 
 const EducationalBackground: React.FC = () => {
     const methods = useForm<FormValues>({ defaultValues: { stillEducating: false } });
-    const { register, handleSubmit, formState: { errors }, watch, setValue } = methods;
+    const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
 
     const { isPending } = useAPi<null, BaseResponse<null>>();
@@ -43,7 +43,6 @@ const EducationalBackground: React.FC = () => {
         const { stillEducating, ...rest } = data;
         const finalData = {
             ...rest,
-            selectedDegree,
             ...(stillEducating ? {} : { toYear: data.toYear })
         };
         console.log(finalData);
