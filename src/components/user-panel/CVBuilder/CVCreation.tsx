@@ -5,7 +5,7 @@ import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
 import KSpinner from '../../shared/Spinner';
 import InfoSidebar from '../InfoSidebar';
-import AdditionalSkills from './Sections/AdditionalSkills';
+import AdditionalSkills from './Sections/AdditionalSkills/AdditionalSkills';
 import EducationalBackground from './Sections/EducationalBackground/EducationalBackground';
 import InitialInformation from './Sections/InitialInformation';
 import WorkExperience from './Sections/WorkExperience';
