@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import useAPi from '../../../../../hooks/useApi';
 import { BaseResponse } from '../../../../../models/shared.models';
-import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
-import KSpinner from '../../../../shared/Spinner';
 import EducationalData from './EducationalData';
 
 type FormValues = {
@@ -75,7 +73,7 @@ const EducationalBackground: React.FC = () => {
                     )}
                 </div>
 
-                <div className='flex justify-end p-5'>
+                {/* <div className='flex justify-end p-5'>
                     <KButton color='secondary' className='ml-4'>
                         مرحله قبلی
                     </KButton>
@@ -84,7 +82,7 @@ const EducationalBackground: React.FC = () => {
                             ذخیره و مرحله بعد
                         </KButton>
                     }
-                </div>
+                </div> */}
             </form>
         </FormProvider>
     );

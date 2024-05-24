@@ -4,10 +4,8 @@ import { toast } from 'react-toastify';
 import useAPi from '../../../../hooks/useApi';
 import { initialInformationFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
-import KButton from '../../../shared/Button';
 import KDatepicker from '../../../shared/DatePicker';
 import KSelect from '../../../shared/Select';
-import KSpinner from '../../../shared/Spinner';
 import KTextInput from '../../../shared/TextInput';
 
 
@@ -137,7 +135,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                     </div>
                 </div>
             </div>
-            <div className='flex justify-end p-5'>
+            {/* <div className='flex justify-end p-5'>
                 <KButton color='secondary' className='ml-4'>
                     مرحله قبلی
                 </KButton>
@@ -146,7 +144,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                         ذخیره و مرحله بعد
                     </KButton>
                 }
-            </div>
+            </div> */}
         </form>
     );
 };
