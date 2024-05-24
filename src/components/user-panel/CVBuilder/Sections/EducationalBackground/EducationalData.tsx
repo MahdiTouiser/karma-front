@@ -28,7 +28,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                     <KLabel>رشته تحصیلی</KLabel>
                     <KTextInput id='studyField' {...register('studyField')} />
                 </div>
-                {selectedDegree !== 'diploma' && (
+                {selectedDegree !== 'Diploma' && (
                     <div className='w-1/2 p-5'>
                         <KLabel>دانشگاه</KLabel>
                         <KTextInput id='university' {...register('university')} />
@@ -36,7 +36,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                 )}
             </div>
 
-            {selectedDegree !== 'diploma' && (
+            {selectedDegree !== 'Diploma' && (
                 <>
                     <div className='flex justify-center'>
                         <div className="w-1/2 p-5">

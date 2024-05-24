@@ -1,5 +1,7 @@
 import { Button, ButtonProps, FlowbiteButtonTheme } from "flowbite-react";
+import React from 'react';
 import { DeepPartial } from "react-hook-form";
+
 interface KButtonProps extends ButtonProps {
   children?: React.ReactNode;
 }
@@ -11,19 +13,18 @@ const customTheme: DeepPartial<FlowbiteButtonTheme> = {
     tertiary: 'bg-[#17a589] hover:bg-gray-700 text-white disabled:hover:bg-[#17a589]',
   },
   pill: {
-    off: 'rounded-sm'
+    off: 'rounded-sm',
   },
   outline: {
     pill: {
-      off: 'rounded-sm [line-height:unset]'
-    }
-  }
-}
+      off: 'rounded-sm [line-height:unset]',
+    },
+  },
+};
 
 const KButton: React.FC<KButtonProps> = (props) => {
-
   return (
-    <Button theme={customTheme} {...props} className={`${props.className || ''} rounded`}>
+    <Button theme={customTheme} {...props} className={`${props.className || ''} border-0 outline-none shadow-none`}>
       {props.children}
     </Button>
   );
