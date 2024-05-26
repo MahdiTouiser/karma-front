@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useAPi from '../../../../hooks/useApi';
+import useApi from '../../../../hooks/useApi';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCheckbox from '../../../shared/Checkbox';
 import KLabel from '../../../shared/Label';
@@ -46,11 +46,73 @@ interface FormData {
     currentJob: boolean;
 }
 
+interface Country {
+    id: number;
+    title: string;
+}
+
+interface City {
+    id: number;
+    title: string;
+}
+
+
 const WorkExperience: React.FC = () => {
     const [hasWorkExperience, setHasWorkExperience] = useState(false);
     const [currentJob, setCurrentJob] = useState(false);
+    const [countries, setCountries] = useState<{ value: number; label: string }[]>([]);
+    const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
+
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm<FormData>();
-    const { isPending } = useAPi<null, BaseResponse<null>>();
+    const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
+    const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
+
+
+    const fetchCountries = async () => {
+        countrySendRequest(
+            {
+                url: "/Countries",
+            },
+            (response) => {
+                if (response) {
+                    const countryOptions: any = response.map((country: Country) => ({
+                        value: country.id,
+                        label: country.title,
+                    }));
+                    setCountries(countryOptions);
+
+                }
+            }
+        );
+    };
+
+    const fetchCities = async () => {
+        citySendRequest(
+            {
+                url: "/Cities",
+            },
+            (response) => {
+                if (response) {
+                    const cityOptions: any = response.map((city: City) => ({
+                        value: city.id,
+                        label: city.title,
+                    }));
+                    setCities(cityOptions);
+                }
+            }
+        );
+    };
+
+    useEffect(() => {
+        fetchCountries();
+        fetchCities()
+    }, []);
+
+    const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const countryId = parseInt(event.target.value);
+        setSelectedCountry(countryId);
+    };
 
     const handleWorkExperienceChange = (checked: boolean) => {
         setHasWorkExperience(checked);
@@ -59,8 +121,6 @@ const WorkExperience: React.FC = () => {
     const handleCurrentJobChange = (checked: boolean) => {
         setCurrentJob(checked);
     };
-
-
 
     const onSubmit = (data: FormData) => {
         const formData = {
@@ -105,15 +165,25 @@ const WorkExperience: React.FC = () => {
                                     ))}
                                 </KSelect>
                             </div>
-                            <div className="flex justify-center w-1/2">
+                            <div className="flex justify-start w-1/2">
                                 <div className='w-1/2 p-5'>
                                     <KLabel>کشور</KLabel>
-                                    <KTextInput type='number'  {...register('countryId')} />
+                                    <KSelect {...register('countryId')} onChange={handleCountryChange}>
+                                        {countries.map((country) => (
+                                            <option key={country.value} value={country.value}>{country.label}</option>
+                                        ))}
+                                    </KSelect>
                                 </div>
-                                <div className='w-1/2 p-5'>
-                                    <KLabel>شهر</KLabel>
-                                    <KTextInput {...register('cityId')} />
-                                </div>
+                                {selectedCountry === 1 && (
+                                    <div className='w-1/2 p-5'>
+                                        <KLabel>شهر</KLabel>
+                                        <KSelect {...register('cityId')}>
+                                            {cities.map((city) => (
+                                                <option key={city.value} value={city.value}>{city.label}</option>
+                                            ))}
+                                        </KSelect>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className='flex justify-start'>
@@ -154,17 +224,6 @@ const WorkExperience: React.FC = () => {
                         </div>
                     </>
                 )}
-
-                {/* <div className='flex justify-end p-5'>
-                    <KButton color='secondary' className='ml-4'>
-                        مرحله قبلی
-                    </KButton>
-                    {isPending ? <KSpinner color='primary' /> :
-                        <KButton color='primary' type="submit">
-                            ذخیره و مرحله بعد
-                        </KButton>
-                    }
-                </div> */}
             </form>
         </div>
     );

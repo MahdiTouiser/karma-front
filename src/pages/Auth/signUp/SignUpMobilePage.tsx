@@ -60,7 +60,7 @@ const SignUpMobilePage: React.FC = () => {
     setFinalPending(true);
     sendRequest(
       {
-        url: "/users/register",
+        url: "/Users/Register",
         method: "post",
         data: data,
       },
