@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useAPi from '../../../../hooks/useApi';
+import useApi from '../../../../hooks/useApi';
+import { City, Country, JobCategories, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCheckbox from '../../../shared/Checkbox';
 import KLabel from '../../../shared/Label';
@@ -32,25 +33,88 @@ const seniorityLevels = [
     { value: 'Manager', label: "مدیر" },
 ];
 
-interface FormData {
-    jobTitle: string;
-    jobcategoryId?: number;
-    seniorityLevel: string;
-    companyName: string;
-    countryId?: number;
-    cityId?: number;
-    fromYear: number;
-    fromMonth: number;
-    toYear?: number;
-    toMonth?: number;
-    currentJob: boolean;
-}
+
+
+
+
 
 const WorkExperience: React.FC = () => {
     const [hasWorkExperience, setHasWorkExperience] = useState(false);
     const [currentJob, setCurrentJob] = useState(false);
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<FormData>();
-    const { isPending } = useAPi<null, BaseResponse<null>>();
+    const [countries, setCountries] = useState<{ value: number; label: string }[]>([]);
+    const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
+    const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
+
+    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<WorkExperienceFormData>();
+    const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
+    const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
+    const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
+
+
+
+    const fetchCountries = async () => {
+        countrySendRequest(
+            {
+                url: "/Countries",
+            },
+            (response) => {
+                if (response) {
+                    const countryOptions: any = response.map((country: Country) => ({
+                        value: country.id,
+                        label: country.title,
+                    }));
+                    setCountries(countryOptions);
+
+                }
+            }
+        );
+    };
+
+    const fetchCities = async () => {
+        citySendRequest(
+            {
+                url: "/Cities",
+            },
+            (response) => {
+                if (response) {
+                    const cityOptions: any = response.map((city: City) => ({
+                        value: city.id,
+                        label: city.title,
+                    }));
+                    setCities(cityOptions);
+                }
+            }
+        );
+    };
+
+    const fetchJobCategories = async () => {
+        jobCategoriesSendRequest(
+            {
+                url: "/JobCategories",
+            },
+            (response) => {
+                if (response) {
+                    const jobCategoriesOptions: any = response.map((jobCategories: JobCategories) => ({
+                        value: jobCategories.id,
+                        label: jobCategories.title,
+                    }));
+                    setJobCategories(jobCategoriesOptions);
+                }
+            }
+        );
+    };
+
+    useEffect(() => {
+        fetchCountries()
+        fetchCities()
+        fetchJobCategories()
+    }, []);
+
+    const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const countryId = parseInt(event.target.value);
+        setSelectedCountry(countryId);
+    };
 
     const handleWorkExperienceChange = (checked: boolean) => {
         setHasWorkExperience(checked);
@@ -60,9 +124,7 @@ const WorkExperience: React.FC = () => {
         setCurrentJob(checked);
     };
 
-
-
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: WorkExperienceFormData) => {
         const formData = {
             ...data,
             currentJob: currentJob,
@@ -75,7 +137,7 @@ const WorkExperience: React.FC = () => {
     };
 
     return (
-        <div>
+        <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
             <div className='flex justify-start mt-10 border-b-2'>
                 <div className='p-5'>
@@ -105,19 +167,38 @@ const WorkExperience: React.FC = () => {
                                     ))}
                                 </KSelect>
                             </div>
-                            <div className="flex justify-center w-1/2">
-                                <div className='w-1/2 p-5'>
-                                    <KLabel>کشور</KLabel>
-                                    <KTextInput type='number'  {...register('countryId')} />
-                                </div>
-                                <div className='w-1/2 p-5'>
-                                    <KLabel>شهر</KLabel>
-                                    <KTextInput {...register('cityId')} />
-                                </div>
+                            <div className="w-1/2 p-5">
+                                <KLabel>زمینه کاری شما</KLabel>
+                                <KSelect {...register('jobcategoryId')}>
+                                    {jobCategories.map((level) => (
+                                        <option key={level.value} value={level.value}>{level.label}</option>
+                                    ))}
+                                </KSelect>
                             </div>
                         </div>
                         <div className='flex justify-start'>
                             <div className="flex justify-center w-1/2">
+                                <div className='w-1/2 p-5'>
+                                    <KLabel>کشور</KLabel>
+                                    <KSelect {...register('countryId')} onChange={handleCountryChange}>
+                                        {countries.map((country) => (
+                                            <option key={country.value} value={country.value}>{country.label}</option>
+                                        ))}
+                                    </KSelect>
+                                </div>
+                                {selectedCountry === 1 && (
+                                    <div className='w-1/2 p-5'>
+                                        <KLabel>شهر</KLabel>
+                                        <KSelect {...register('cityId')}>
+                                            {cities.map((city) => (
+                                                <option key={city.value} value={city.value}>{city.label}</option>
+                                            ))}
+                                        </KSelect>
+                                    </div>
+                                )}
+                            </div>
+                            <div className='flex justify-center w-1/2'>
+
                                 <div className='w-1/2 p-5'>
                                     <KLabel>ماه شروع</KLabel>
                                     <KSelect type='number' {...register('fromMonth')}>
@@ -131,6 +212,8 @@ const WorkExperience: React.FC = () => {
                                     <KTextInput numeric maxLength={4} {...register('fromYear')} />
                                 </div>
                             </div>
+                        </div>
+                        <div className='flex justify-start'>
                             {!currentJob && (
                                 <div className='flex justify-center w-1/2'>
                                     <div className='w-1/2 p-5'>
@@ -148,25 +231,13 @@ const WorkExperience: React.FC = () => {
                                 </div>
                             )}
                         </div>
-
                         <div className='p-5'>
                             <KCheckbox content={'هنوز در این شرکت مشغول به کار هستم .'} onChange={handleCurrentJobChange} checked={currentJob} />
                         </div>
                     </>
                 )}
-
-                {/* <div className='flex justify-end p-5'>
-                    <KButton color='secondary' className='ml-4'>
-                        مرحله قبلی
-                    </KButton>
-                    {isPending ? <KSpinner color='primary' /> :
-                        <KButton color='primary' type="submit">
-                            ذخیره و مرحله بعد
-                        </KButton>
-                    }
-                </div> */}
-            </form>
-        </div>
+            </form >
+        </>
     );
 };
 

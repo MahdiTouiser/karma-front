@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../hooks/useApi';
-import { initialInformationFormData } from '../../../../models/cvbuilder.models';
+import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
 import KDatepicker from '../../../shared/DatePicker';
 import KSelect from '../../../shared/Select';
@@ -20,12 +20,12 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
     } = useForm();
 
     const { sendRequest, isPending } = useAPi<
-        initialInformationFormData,
+        InitialInformationFormData,
         BaseResponse<null>
     >();
 
     const { sendRequest: getData } = useAPi<
-        initialInformationFormData,
+        InitialInformationFormData,
         BaseResponse<null>
     >();
 
@@ -47,7 +47,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
 
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        const formData: initialInformationFormData = data as initialInformationFormData;
+        const formData: InitialInformationFormData = data as InitialInformationFormData;
         console.log(formData);
 
         sendRequest(

@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { useCallback, useState, useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from './reduxHooks'
+import { useCallback, useEffect, useState } from 'react'
 import { BaseResponse } from '../models/shared.models'
 import { authActions } from '../store/auth'
 import { removeAuthDataFromLocal } from '../utils/authUtils'
+import { useAppDispatch, useAppSelector } from './reduxHooks'
 export const axiosIntance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
 })

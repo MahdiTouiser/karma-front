@@ -11,6 +11,7 @@ export interface LinkWithIcon {
 }
 
 export interface BaseResponse<T> {
+  map(arg0: (country: { id: number; title: string; }) => { value: number; label: string; }): unknown;
   data(data: any): unknown;
   value(value: any): unknown;
   message: string;
