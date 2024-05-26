@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useApi from '../../../../hooks/useApi';
+import { City, Country, JobCategories, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCheckbox from '../../../shared/Checkbox';
 import KLabel from '../../../shared/Label';
@@ -32,33 +33,9 @@ const seniorityLevels = [
     { value: 'Manager', label: "مدیر" },
 ];
 
-interface FormData {
-    jobTitle: string;
-    jobcategoryId?: number;
-    seniorityLevel: string;
-    companyName: string;
-    countryId?: number;
-    cityId?: number;
-    fromYear: number;
-    fromMonth: number;
-    toYear?: number;
-    toMonth?: number;
-    currentJob: boolean;
-}
 
-interface Country {
-    id: number;
-    title: string;
-}
 
-interface City {
-    id: number;
-    title: string;
-}
-interface JobCategories {
-    id: number;
-    title: string;
-}
+
 
 
 const WorkExperience: React.FC = () => {
@@ -69,7 +46,7 @@ const WorkExperience: React.FC = () => {
     const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
 
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
@@ -147,7 +124,7 @@ const WorkExperience: React.FC = () => {
         setCurrentJob(checked);
     };
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: WorkExperienceFormData) => {
         const formData = {
             ...data,
             currentJob: currentJob,

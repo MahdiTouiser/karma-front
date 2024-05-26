@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import useAPi from '../../../../../hooks/useApi';
-import { BaseResponse } from '../../../../../models/shared.models';
+import { EducationalBackgroundFormData } from '../../../../../models/cvbuilder.models';
 import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
 import EducationalData from './EducationalData';
 
-type FormValues = {
-    degreeLevel: string;
-    studyField: string;
-    university?: string;
-    gpa?: number;
-    fromYear: number;
-    toYear?: number;
-    stillEducating: boolean;
-};
 
 const EducationalBackground: React.FC = () => {
-    const methods = useForm<FormValues>({ defaultValues: { stillEducating: false } });
+    const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
 
-    const { isPending } = useAPi<null, BaseResponse<null>>();
+
 
     const degrees = [
         { label: 'دیپلم', value: 'Diploma' },
@@ -37,7 +27,7 @@ const EducationalBackground: React.FC = () => {
         setValue('degreeLevel', selectedLabel || '');
     };
 
-    const onSubmit = (data: FormValues) => {
+    const onSubmit = (data: EducationalBackgroundFormData) => {
         const { stillEducating, ...rest } = data;
         const finalData = {
             ...rest,
@@ -72,17 +62,6 @@ const EducationalBackground: React.FC = () => {
                         </div>
                     )}
                 </div>
-
-                {/* <div className='flex justify-end p-5'>
-                    <KButton color='secondary' className='ml-4'>
-                        مرحله قبلی
-                    </KButton>
-                    {isPending ? <KSpinner color='primary' /> :
-                        <KButton color='primary' type="submit">
-                            ذخیره و مرحله بعد
-                        </KButton>
-                    }
-                </div> */}
             </form>
         </FormProvider>
     );

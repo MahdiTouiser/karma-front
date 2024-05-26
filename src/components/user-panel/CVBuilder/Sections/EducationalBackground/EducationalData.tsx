@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import useAPi from '../../../../../hooks/useApi';
+import { Majors, Universities } from '../../../../../models/cvbuilder.models';
+import { BaseResponse } from '../../../../../models/shared.models';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
+import KSelect from '../../../../shared/Select';
 import KTextInput from '../../../../shared/TextInput';
 
 type EducationalDataProps = {
@@ -10,7 +14,54 @@ type EducationalDataProps = {
 
 const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => {
     const { register, formState: { errors }, setValue } = useFormContext();
+    const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
+    const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
+    const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
+    const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
+
     const [stillEducating, setStillEducating] = useState(false);
+
+
+    const fetchMajors = async () => {
+        majorsSendRequest(
+            {
+                url: "/Majors",
+            },
+            (response) => {
+                if (response) {
+                    const majorOptions: any = response.map((major: Majors) => ({
+                        value: major.id,
+                        label: major.title,
+                    }));
+                    setMajors(majorOptions);
+
+                }
+            }
+        );
+    };
+
+    const fetchUniversities = async () => {
+        universitiesSendRequest(
+            {
+                url: "/Universities",
+            },
+            (response) => {
+                if (response) {
+                    const universityOptions: any = response.map((university: Universities) => ({
+                        value: university.id,
+                        label: university.title,
+                    }));
+                    setUniversities(universityOptions);
+
+                }
+            }
+        );
+    };
+
+    useEffect(() => {
+        fetchMajors()
+        fetchUniversities()
+    }, []);
 
     useEffect(() => {
         setValue('stillEducating', false);
@@ -26,12 +77,20 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
             <div className='flex justify-start'>
                 <div className='w-1/2 p-5'>
                     <KLabel>رشته تحصیلی</KLabel>
-                    <KTextInput id='studyField' {...register('studyField')} />
+                    <KSelect {...register('majors')}>
+                        {majors.map((major) => (
+                            <option key={major.value} value={major.value}>{major.label}</option>
+                        ))}
+                    </KSelect>
                 </div>
                 {selectedDegree !== 'Diploma' && (
                     <div className='w-1/2 p-5'>
                         <KLabel>دانشگاه</KLabel>
-                        <KTextInput id='university' {...register('university')} />
+                        <KSelect {...register('university')}>
+                            {universities.map((university) => (
+                                <option key={university.value} value={university.value}>{university.label}</option>
+                            ))}
+                        </KSelect>
                     </div>
                 )}
             </div>
