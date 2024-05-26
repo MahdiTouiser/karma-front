@@ -55,6 +55,10 @@ interface City {
     id: number;
     title: string;
 }
+interface JobCategories {
+    id: number;
+    title: string;
+}
 
 
 const WorkExperience: React.FC = () => {
@@ -62,11 +66,14 @@ const WorkExperience: React.FC = () => {
     const [currentJob, setCurrentJob] = useState(false);
     const [countries, setCountries] = useState<{ value: number; label: string }[]>([]);
     const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
+    const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm<FormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
+    const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
+
 
 
     const fetchCountries = async () => {
@@ -104,9 +111,27 @@ const WorkExperience: React.FC = () => {
         );
     };
 
+    const fetchJobCategories = async () => {
+        jobCategoriesSendRequest(
+            {
+                url: "/JobCategories",
+            },
+            (response) => {
+                if (response) {
+                    const jobCategoriesOptions: any = response.map((jobCategories: JobCategories) => ({
+                        value: jobCategories.id,
+                        label: jobCategories.title,
+                    }));
+                    setJobCategories(jobCategoriesOptions);
+                }
+            }
+        );
+    };
+
     useEffect(() => {
-        fetchCountries();
+        fetchCountries()
         fetchCities()
+        fetchJobCategories()
     }, []);
 
     const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -135,7 +160,7 @@ const WorkExperience: React.FC = () => {
     };
 
     return (
-        <div>
+        <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
             <div className='flex justify-start mt-10 border-b-2'>
                 <div className='p-5'>
@@ -165,7 +190,17 @@ const WorkExperience: React.FC = () => {
                                     ))}
                                 </KSelect>
                             </div>
-                            <div className="flex justify-start w-1/2">
+                            <div className="w-1/2 p-5">
+                                <KLabel>زمینه کاری شما</KLabel>
+                                <KSelect {...register('jobcategoryId')}>
+                                    {jobCategories.map((level) => (
+                                        <option key={level.value} value={level.value}>{level.label}</option>
+                                    ))}
+                                </KSelect>
+                            </div>
+                        </div>
+                        <div className='flex justify-start'>
+                            <div className="flex justify-center w-1/2">
                                 <div className='w-1/2 p-5'>
                                     <KLabel>کشور</KLabel>
                                     <KSelect {...register('countryId')} onChange={handleCountryChange}>
@@ -185,9 +220,8 @@ const WorkExperience: React.FC = () => {
                                     </div>
                                 )}
                             </div>
-                        </div>
-                        <div className='flex justify-start'>
-                            <div className="flex justify-center w-1/2">
+                            <div className='flex justify-center w-1/2'>
+
                                 <div className='w-1/2 p-5'>
                                     <KLabel>ماه شروع</KLabel>
                                     <KSelect type='number' {...register('fromMonth')}>
@@ -201,6 +235,8 @@ const WorkExperience: React.FC = () => {
                                     <KTextInput numeric maxLength={4} {...register('fromYear')} />
                                 </div>
                             </div>
+                        </div>
+                        <div className='flex justify-start'>
                             {!currentJob && (
                                 <div className='flex justify-center w-1/2'>
                                     <div className='w-1/2 p-5'>
@@ -218,14 +254,13 @@ const WorkExperience: React.FC = () => {
                                 </div>
                             )}
                         </div>
-
                         <div className='p-5'>
                             <KCheckbox content={'هنوز در این شرکت مشغول به کار هستم .'} onChange={handleCurrentJobChange} checked={currentJob} />
                         </div>
                     </>
                 )}
-            </form>
-        </div>
+            </form >
+        </>
     );
 };
 
