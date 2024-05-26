@@ -77,7 +77,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
             <div className='flex justify-start'>
                 <div className='w-1/2 p-5'>
                     <KLabel>رشته تحصیلی</KLabel>
-                    <KSelect {...register('majors')}>
+                    <KSelect {...register('majorId')}>
                         {majors.map((major) => (
                             <option key={major.value} value={major.value}>{major.label}</option>
                         ))}
