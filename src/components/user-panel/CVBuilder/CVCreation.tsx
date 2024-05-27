@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import useAPi from '../../../hooks/useApi';
-import { BaseResponse } from '../../../models/shared.models';
-import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
-import KSpinner from '../../shared/Spinner';
 import InfoSidebar from '../InfoSidebar';
 import AdditionalSkills from './Sections/AdditionalSkills/AdditionalSkills';
 import EducationalBackground from './Sections/EducationalBackground/EducationalBackground';
@@ -22,15 +18,13 @@ const CVCreation: React.FC = () => {
         setActiveIndex(index);
     };
 
-    const handlePreviousClick = () => {
+    const goToPreviousStep = () => {
         setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
     };
 
-    const { isPending } = useAPi<null, BaseResponse<null>>();
-
     const links = [
         { title: "اطلاعات اولیه", component: <InitialInformation onSubmitSuccess={handleFormSubmitSuccess} /> },
-        { title: "سوابق تحصیلی", component: <EducationalBackground /> },
+        { title: "سوابق تحصیلی", component: <EducationalBackground goToPreviousStep={goToPreviousStep} /> },
         { title: "سوابق شغلی", component: <WorkExperience /> },
         { title: "مهارت های تکمیلی", component: <AdditionalSkills /> },
     ];
@@ -47,18 +41,6 @@ const CVCreation: React.FC = () => {
             </KCard>
             <div className="flex-1 p-10">
                 {links[activeIndex].component}
-                <div className='flex justify-end p-5'>
-                    {activeIndex > 0 && (
-                        <KButton color='secondary' className='ml-4' onClick={handlePreviousClick}>
-                            مرحله قبلی
-                        </KButton>
-                    )}
-                    {isPending ? <KSpinner color='primary' /> :
-                        <KButton color='primary' type="submit" onClick={handleFormSubmitSuccess}>
-                            {activeIndex === links.length - 1 ? "نهایی سازی رزومه" : "ذخیره و مرحله بعد"}
-                        </KButton>
-                    }
-                </div>
             </div>
         </div>
     );

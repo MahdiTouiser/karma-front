@@ -1,41 +1,28 @@
-import React, { useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../hooks/useApi';
 import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
+import KButton from '../../../shared/Button';
 import KDatepicker from '../../../shared/DatePicker';
 import KSelect from '../../../shared/Select';
+import KSpinner from '../../../shared/Spinner';
 import KTextInput from '../../../shared/TextInput';
-
 
 interface InitialInformationProps {
     onSubmitSuccess: () => void;
 }
 
-
-const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess }) => {
-
-    const { register, handleSubmit, formState: { errors }, control, reset
-    } = useForm();
-
-    const { sendRequest, isPending } = useAPi<
-        InitialInformationFormData,
-        BaseResponse<null>
-    >();
-
-    const { sendRequest: getData } = useAPi<
-        InitialInformationFormData,
-        BaseResponse<null>
-    >();
+const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(({ onSubmitSuccess }) => {
+    const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
+    const { sendRequest, isPending } = useAPi<InitialInformationFormData, BaseResponse<null>>();
+    const { sendRequest: getData } = useAPi<InitialInformationFormData, BaseResponse<null>>();
 
     useEffect(() => {
         getData(
-            {
-                url: "/Resumes/BasicInfo",
-            },
+            { url: "/Resumes/BasicInfo" },
             (response) => {
-                console.log(response);
                 reset(response);
             },
             (error) => {
@@ -44,18 +31,10 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
         );
     }, [getData, reset]);
 
-
-
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const formData: InitialInformationFormData = data as InitialInformationFormData;
-        console.log(formData);
-
         sendRequest(
-            {
-                url: "/Resumes/BasicInfo",
-                method: "put",
-                data: formData,
-            },
+            { url: "/Resumes/BasicInfo", method: "put", data: formData },
             (response) => {
                 toast.success(response.message);
                 onSubmitSuccess();
@@ -66,6 +45,9 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
         );
     };
 
+    const handleFormSubmit = () => {
+        handleSubmit(onSubmit)();
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -134,19 +116,16 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                         )}
                     </div>
                 </div>
+                <div className='flex justify-end p-5'>
+                    {isPending ? <KSpinner color='primary' /> :
+                        <KButton color='primary' type="button" onClick={handleFormSubmit}>
+                            ذخیره و مرحله بعد
+                        </KButton>
+                    }
+                </div>
             </div>
-            {/* <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4'>
-                    مرحله قبلی
-                </KButton>
-                {isPending ? <KSpinner color='primary' /> :
-                    <KButton color='primary' type="submit">
-                        ذخیره و مرحله بعد
-                    </KButton>
-                }
-            </div> */}
         </form>
     );
-};
+});
 
 export default InitialInformation;

@@ -33,11 +33,6 @@ const seniorityLevels = [
     { value: 'Manager', label: "مدیر" },
 ];
 
-
-
-
-
-
 const WorkExperience: React.FC = () => {
     const [hasWorkExperience, setHasWorkExperience] = useState(false);
     const [currentJob, setCurrentJob] = useState(false);

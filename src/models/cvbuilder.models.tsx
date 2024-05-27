@@ -24,13 +24,30 @@ export interface WorkExperienceFormData {
 }
 
 export interface EducationalBackgroundFormData {
-    degreeLevel: string;
-    studyField: string;
-    university?: string;
-    gpa?: number;
+    degreeLevel?: string | null;
+    majorId: number;
+    universityId: number;
     fromYear: number;
-    toYear?: number;
+    toYear: number;
+    gpa?: number;
     stillEducating: boolean;
+}
+
+export interface EducationalRecord {
+    id: string;
+    degreeLevel: string;
+    fromYear: number;
+    toYear: number;
+    gpa: number;
+    stillEducating: boolean;
+    major: {
+        id: number;
+        title: string;
+    };
+    university: {
+        id: number;
+        title: string;
+    };
 }
 
 export interface Country {
