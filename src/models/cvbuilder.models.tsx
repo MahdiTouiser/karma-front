@@ -25,8 +25,8 @@ export interface WorkExperienceFormData {
 
 export interface EducationalBackgroundFormData {
     degreeLevel: string;
-    studyField: string;
-    university?: string;
+    majorId: number;
+    universityId: number;
     gpa?: number;
     fromYear: number;
     toYear?: number;

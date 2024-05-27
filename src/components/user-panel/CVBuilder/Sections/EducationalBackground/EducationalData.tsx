@@ -22,6 +22,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
     const [stillEducating, setStillEducating] = useState(false);
 
 
+
     const fetchMajors = async () => {
         majorsSendRequest(
             {
@@ -86,7 +87,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                 {selectedDegree !== 'Diploma' && (
                     <div className='w-1/2 p-5'>
                         <KLabel>دانشگاه</KLabel>
-                        <KSelect {...register('university')}>
+                        <KSelect {...register('universityId')}>
                             {universities.map((university) => (
                                 <option key={university.value} value={university.value}>{university.label}</option>
                             ))}
@@ -100,7 +101,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                     <div className='flex justify-center'>
                         <div className="w-1/2 p-5">
                             <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput numeric {...register('gpa')} maxLength={2} />
+                            <KTextInput numeric allowDecimal  {...register('gpa')} maxLength={5} />
                             {errors.gpa && <span className="text-red-500 text-sm">نام الزامی است</span>}
                         </div>
                         <div className="w-1/2 p-5">
@@ -113,7 +114,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                             />
                             {errors.fromYear && (
                                 <p className="text-red-500 text-sm">
-                                    سال شروع الزامی می باشد .
+                                    سال شروع الزامی می باشد.
                                 </p>
                             )}
                         </div>

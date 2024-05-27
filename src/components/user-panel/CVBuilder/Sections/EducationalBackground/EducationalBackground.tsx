@@ -9,7 +9,6 @@ import KSelect from '../../../../shared/Select';
 import KSpinner from '../../../../shared/Spinner';
 import EducationalData from './EducationalData';
 
-
 const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props) => {
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
@@ -31,24 +30,46 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
         setValue('degreeLevel', selectedLabel || '');
     };
 
+    const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
+        switch (key) {
+            case 'majorId':
+            case 'universityId':
+            case 'fromYear':
+            case 'toYear':
+                return value ? parseInt(value, 10) : undefined;
+            case 'gpa':
+                return value ? parseFloat(value) : undefined;
+            case 'stillEducating':
+                return value === 'true';
+            default:
+                return value || '';
+        }
+    };
+
     const onSubmit = (data: EducationalBackgroundFormData) => {
-        const { stillEducating, ...rest } = data;
-        const finalData = {
-            ...rest,
-            ...(stillEducating ? {} : { toYear: data.toYear })
-        };
+        const finalData: Partial<EducationalBackgroundFormData> = {};
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                finalData[key as keyof EducationalBackgroundFormData] = convertToType(
+                    key as keyof EducationalBackgroundFormData,
+                    data[key as keyof EducationalBackgroundFormData] as unknown as string
+                );
+            }
+        }
         console.log(finalData);
+        setIsRecordCreated(true);
     };
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
-        setIsRecordCreated(true)
     };
 
     return (
         <>
-            {isRecordCreated ? (
-                <><p>Mahdi</p></>
+            {!Object.keys(errors).length && isRecordCreated ? (
+                <>
+                    <p>Mahdi</p>
+                </>
             ) : (
                 <FormProvider {...methods}>
                     <form onSubmit={handleSubmit(onSubmit)}>
