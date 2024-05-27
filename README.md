@@ -30,7 +30,7 @@ To get started with Karma, follow these steps:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/MahdiTouiser/karma.git
+    git clone https://github.com/MahdiTouiser/karma-front.git
     cd karma
     ```
 
