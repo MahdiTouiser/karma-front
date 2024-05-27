@@ -101,19 +101,22 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                     <div className='flex justify-center'>
                         <div className="w-1/2 p-5">
                             <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput numeric allowDecimal  {...register('gpa')} maxLength={5} />
-                            {errors.gpa && <span className="text-red-500 text-sm">نام الزامی است</span>}
+                            <KTextInput placeholder='مثلا ۱۷.۳۶'
+                                numeric allowDecimal  {...register('gpa')} maxLength={5} />
+                            {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
                         </div>
                         <div className="w-1/2 p-5">
                             <KLabel>سال شروع</KLabel>
                             <KTextInput
                                 numeric
+                                placeholder='مثلا ۱۳۹۵'
                                 maxLength={4}
                                 id="fromYear"
                                 {...register('fromYear', { required: true, maxLength: 4 })}
                             />
+
                             {errors.fromYear && (
-                                <p className="text-red-500 text-sm">
+                                <p className="text-red-500 text-xs">
                                     سال شروع الزامی می باشد.
                                 </p>
                             )}
@@ -125,12 +128,13 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                                 <KLabel>سال پایان</KLabel>
                                 <KTextInput
                                     numeric
+                                    placeholder='مثلا ۱۴۰۰'
                                     maxLength={4}
                                     id="toYear"
                                     {...register('toYear', { required: !stillEducating, maxLength: 4 })}
                                 />
                                 {errors.toYear && (
-                                    <p className="text-red-500 text-sm">
+                                    <p className="text-red-500 text-xs">
                                         سال پایان الزامی می باشد .
                                     </p>
                                 )}
