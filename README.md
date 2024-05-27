@@ -68,24 +68,6 @@ To get started with Karma, follow these steps:
 - **TailwindCSS**: A utility-first CSS framework for rapid UI development.
 - **Flowbite React**: A collection of accessible and customizable React components built with TailwindCSS.
 
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute to Karma, please follow these steps:
-
-1. **Fork the repository**.
-2. **Create a new branch** for your feature or bugfix:
-    ```bash
-    git checkout -b feature-name
-    ```
-3. **Make your changes** and commit them with clear and descriptive messages.
-4. **Push your changes** to your forked repository:
-    ```bash
-    git push origin feature-name
-    ```
-5. **Open a pull request** to the `main` branch of the original repository.
-
-Please ensure your code follows the project's coding standards and includes appropriate tests.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
