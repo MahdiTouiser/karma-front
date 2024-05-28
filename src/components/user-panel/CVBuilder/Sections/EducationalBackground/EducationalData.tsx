@@ -8,8 +8,8 @@ import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
 import KTextInput from '../../../../shared/TextInput';
 
-type EducationalDataProps = {
-    selectedDegree: string;
+interface EducationalDataProps {
+    selectedDegree?: string;
 };
 
 const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => {

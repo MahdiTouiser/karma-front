@@ -1,6 +1,4 @@
-import { Radio } from "flowbite-react";
 import React from "react";
-import KLabel from "./Label";
 
 interface Option {
   value: string;
@@ -14,30 +12,44 @@ interface RadioButtonProps {
   onOptionChange: (value: string) => void;
 }
 
-const RadioButton: React.FC<RadioButtonProps> = ({
+const KRadioButton: React.FC<RadioButtonProps> = ({
   groupName,
   options,
   selectedOption,
   onOptionChange,
 }) => {
   return (
-    <div className="flex">
-      {options.map((option) => (
-        <div key={option.value} className="flex items-center mr-5">
-          <Radio
-            id={groupName + option.value}
-            name={groupName}
-            value={option.value}
-            checked={selectedOption === option.value}
-            onChange={() => onOptionChange(option.value)}
-          />
-          <KLabel htmlFor={groupName + option.value} className="mr-3">
+    <div className="flow-root border-b border-gray-200 mb-8">
+      <nav className="-mb-px flex">
+        {options.map((option, index) => (
+          <label
+            key={option.value}
+            className={`${index === 0 ? "" : "ml-2"
+              } cursor-pointer py-2 px-4 inline-flex items-center text-md font-medium text-black  focus:outline-none relative ${selectedOption === option.value
+                ? "text-green-600 border-b-2 border-green-600"
+                : ""
+              }`}
+          >
+            <input
+              type="radio"
+              name={groupName}
+              value={option.value}
+              checked={selectedOption === option.value}
+              onChange={() => onOptionChange(option.value)}
+              className="sr-only"
+            />
             {option.label}
-          </KLabel>
-        </div>
-      ))}
+            {selectedOption === option.value && (
+              <span
+                className="absolute bottom-0 left-0 w-full h-0.5 bg-green-600"
+                aria-hidden="true"
+              ></span>
+            )}
+          </label>
+        ))}
+      </nav>
     </div>
   );
 };
 
-export default RadioButton;
+export default KRadioButton;

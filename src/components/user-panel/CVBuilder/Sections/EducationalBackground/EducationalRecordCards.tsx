@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Add from '../../../../../assets/icons/Add';
 import Delete from '../../../../../assets/icons/Delete';
 import Edit from '../../../../../assets/icons/Edit';
 import { EducationalRecord } from '../../../../../models/cvbuilder.models';
 import { DegreeLevelDescriptions } from '../../../../../models/enums';
 import KCard from '../../../../shared/Card';
+import NewEducationalRecord from './NewEducationalRecord';
 
 interface EducationalRecordCardsProps {
     records: EducationalRecord[];
@@ -12,9 +13,7 @@ interface EducationalRecordCardsProps {
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
     const { records } = props;
-    console.log(records);
-
-    // const { sendRequest: AddEducationalData, isPending } = useAPi<EducationalBackgroundFormData, BaseResponse<null>>();
+    const [isNewRecordVisible, setNewRecordVisible] = useState(false);
 
     const getDegreeLabel = (value: string) => {
         return DegreeLevelDescriptions[value as keyof typeof DegreeLevelDescriptions] || value;
@@ -52,15 +51,19 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                     </div>
                 </KCard>
             ))}
-            <div className='p-4'>
-                <button onClick={() => { console.log('mahdi'); }}>
-                    <span className='flex'>
-                        <Add />
-                        <p className='mr-2 text-blue-500 text-sm'>
-                            افزودن سابقه تحصیلی جدید
-                        </p>
-                    </span>
-                </button>
+            <div className='mt-4'>
+                {isNewRecordVisible ? (
+                    <NewEducationalRecord />
+                ) : (
+                    <button onClick={() => setNewRecordVisible(true)}>
+                        <span className='flex'>
+                            <Add />
+                            <p className='mr-2 text-blue-500 text-sm'>
+                                افزودن سابقه تحصیلی جدید
+                            </p>
+                        </span>
+                    </button>
+                )}
             </div>
         </div>
     );
