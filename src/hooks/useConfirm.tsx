@@ -42,7 +42,7 @@ function useConfirm(
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 stroke-yellow-600"
+                className="w-6 h-6 stroke-black"
               >
                 <path
                   strokeLinecap="round"
@@ -50,7 +50,7 @@ function useConfirm(
                   d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
                 />
               </svg>
-              <div className="text-yellow-600 font-semibold">{title}</div>
+              <div className="text-black font-semibold">{title}</div>
             </div>
           </KModal.Header>
         )}
@@ -60,14 +60,14 @@ function useConfirm(
             <KButton
               onClick={handleReject}
               outline
-              color="primary"
+              color="secondary"
               className="!rounded-md"
             >
               {rejectButton}
             </KButton>
             <KButton
               onClick={handleConfirm}
-              color="primary"
+              color="warning"
               className="!rounded-md"
             >
               {confirmButton}

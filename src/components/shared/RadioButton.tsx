@@ -10,7 +10,7 @@ interface RadioButtonProps {
   options: Option[];
   selectedOption: string;
   onOptionChange: (value: string) => void;
-  register: any; // Add the register prop
+  register: any;
 }
 
 const KRadioButton: React.FC<RadioButtonProps> = ({
@@ -18,7 +18,7 @@ const KRadioButton: React.FC<RadioButtonProps> = ({
   options,
   selectedOption,
   onOptionChange,
-  register, // Destructure register
+  register,
 }) => {
   return (
     <div className="flow-root border-gray-200 bg-gray-50 rounded">

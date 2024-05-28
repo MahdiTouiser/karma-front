@@ -1,26 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { toast } from 'react-toastify';
 import Add from '../../../../../assets/icons/Add';
 import Delete from '../../../../../assets/icons/Delete';
 import Edit from '../../../../../assets/icons/Edit';
+import useAPi from '../../../../../hooks/useApi';
+import useConfirm from '../../../../../hooks/useConfirm';
 import { EducationalRecord } from '../../../../../models/cvbuilder.models';
 import { DegreeLevelDescriptions } from '../../../../../models/enums';
+import { BaseResponse } from '../../../../../models/shared.models';
 import KCard from '../../../../shared/Card';
 import NewEducationalRecord from './NewEducationalRecord';
 
 interface EducationalRecordCardsProps {
     records: EducationalRecord[];
+    refreshRecords: () => void;
+    setIsNewRecordVisible: (value: boolean) => void;
+    isNewRecordVisible: boolean;
 }
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
-    const { records } = props;
-    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
+    const { records, refreshRecords, setIsNewRecordVisible, isNewRecordVisible } = props;
+    const { sendRequest: deleteRequest } = useAPi<null, BaseResponse<null>>();
+    const [ConfirmModal, confirmation] = useConfirm(
+        "آیا از حذف این آیتم مطمئنید؟",
+        "حذف سابقه تحصیلی"
+    );
 
     const getDegreeLabel = (value: string) => {
         return DegreeLevelDescriptions[value as keyof typeof DegreeLevelDescriptions] || value;
     };
 
-    const handleDeleteRecord = (id: string) => {
-        console.log('Deleting record with ID:', id);
+    const handleDeleteRecord = async (id: string) => {
+        const confirm = await confirmation();
+        if (confirm) {
+            deleteRequest(
+                {
+                    url: `/Resumes/RemoveEducationalRecord/${id}`,
+                    method: 'delete'
+                },
+                (response) => {
+                    toast.success(response?.message);
+                    refreshRecords();
+                },
+                (error) => {
+                    toast.error(error?.message);
+                }
+            );
+        }
     };
 
     const handleEditRecord = (id: string) => {
@@ -31,6 +57,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
 
     return (
         <div>
+            <ConfirmModal />
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
                     <div className='flex align-middle items-center'>

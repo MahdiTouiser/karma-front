@@ -12,8 +12,8 @@ import KSpinner from '../../../../shared/Spinner';
 import EducationalData from './EducationalData';
 import EducationalRecordCards from './EducationalRecordCards';
 
-const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props) => {
-    const { goToPreviousStep } = props
+const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: () => void }> = (props) => {
+    const { goToPreviousStep, onSubmitSuccess } = props;
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
@@ -21,10 +21,11 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
     const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
+    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setValue('degreeLevel', event.target.value, { shouldValidate: true });
-        setSelectedDegree(event.target.value)
+        setSelectedDegree(event.target.value);
     };
 
     const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
@@ -45,22 +46,28 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
         }
     };
 
-    useEffect(() => {
+    const fetchEducationalRecords = () => {
         sendRequest(
             {
                 url: "/Resumes/EducationalRecords",
             },
             (response) => {
-                setIsRecordCreated(true)
-                setEducationalRecords(response)
+                if (response.length === 0) {
+                    setIsRecordCreated(false);
+                } else {
+                    setIsRecordCreated(true);
+                    setEducationalRecords(response);
+                }
             },
             (error) => {
-                toast.error(error?.message)
+                toast.error(error?.message);
             }
         );
+    };
 
+    useEffect(() => {
+        fetchEducationalRecords();
     }, []);
-
 
     const onSubmit = async (data: EducationalBackgroundFormData) => {
         const finalData: Partial<EducationalBackgroundFormData> = {};
@@ -81,23 +88,33 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
             (response) => {
                 toast.success(response?.message);
                 setIsRecordCreated(true);
+                fetchEducationalRecords();
             },
             (error) => {
-                toast.error(error?.message)
+                toast.error(error?.message);
             }
         );
-        console.log(finalData);
     };
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
     };
 
+    const handleButtonClick = () => {
+        isNewRecordVisible ? onSubmitSuccess() : handleFormSubmit();
+    };
+
+
     return (
         <>
             {!Object.keys(errors).length && isRecordCreated ? (
                 <>
-                    <EducationalRecordCards records={educationalRecords} />
+                    <EducationalRecordCards
+                        records={educationalRecords}
+                        refreshRecords={fetchEducationalRecords}
+                        setIsNewRecordVisible={setIsNewRecordVisible}
+                        isNewRecordVisible={isNewRecordVisible}
+                    />
                 </>
             ) : (
                 <FormProvider {...methods}>
@@ -127,20 +144,21 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
                                 </div>
                             )}
                         </div>
-
                     </form>
                 </FormProvider>
             )}
-            <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
-                    مرحله قبلی
-                </KButton>
-                {isPending ? <KSpinner color='primary' /> :
-                    <KButton color='primary' type="button" onClick={handleFormSubmit}>
-                        ذخیره و مرحله بعد
+            {!isNewRecordVisible && (
+                <div className='flex justify-end p-5'>
+                    <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
+                        مرحله قبلی
                     </KButton>
-                }
-            </div>
+                    {isPending ? <KSpinner color='primary' /> :
+                        <KButton color='primary' type="button" onClick={handleButtonClick}>
+                            ذخیره و مرحله بعد
+                        </KButton>
+                    }
+                </div>
+            )}
         </>
     );
 };

@@ -118,7 +118,6 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                 toast.error(error?.message)
             }
         );
-        console.log(finalData);
     };
 
     return (
@@ -129,7 +128,8 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                         <div className='inline-block w-full'>
                             <KLabel>مقطع تحصیلی</KLabel>
                             <KRadioButton
-                                register={register} groupName='degreeLevel'
+                                register={register}
+                                groupName='degreeLevel'
                                 options={options}
                                 selectedOption={selectedOption}
                                 onOptionChange={(value) => {
