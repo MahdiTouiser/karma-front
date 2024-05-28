@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, EducationalRecord } from '../../../../../models/cvbuilder.models';
+import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
@@ -12,28 +13,20 @@ import EducationalData from './EducationalData';
 import EducationalRecordCards from './EducationalRecordCards';
 
 const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props) => {
+    const { goToPreviousStep } = props
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
     const { sendRequest } = useAPi<EducationalBackgroundFormData, EducationalRecord[]>();
     const { sendRequest: AddEducationalData, isPending } = useAPi<EducationalBackgroundFormData, BaseResponse<null>>();
-
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
 
-    const degrees = [
-        { label: 'دیپلم', value: 'Diploma' },
-        { label: 'فوق دیپلم', value: 'Associate' },
-        { label: 'کارشناسی', value: 'Bachelor' },
-        { label: 'کارشناسی ارشد', value: 'Master' },
-        { label: 'دکترا', value: 'Phd' }
-    ];
-
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedLabel = degrees.find(degree => degree.value === event.target.value)?.value || null;
-        setSelectedDegree(selectedLabel);
-        setValue('degreeLevel', selectedLabel || '');
+        setValue('degreeLevel', event.target.value, { shouldValidate: true });
+        setSelectedDegree(event.target.value)
     };
+
     const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
         switch (key) {
             case 'majorId':
@@ -61,8 +54,9 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
                 setIsRecordCreated(true)
                 setEducationalRecords(response)
             },
-            // (error) => {
-            // }
+            (error) => {
+                toast.error(error?.message)
+            }
         );
 
     }, []);
@@ -81,7 +75,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
         AddEducationalData(
             {
                 url: "/Resumes/AddEducationalRecord",
-                method: "put",
+                method: "post",
                 data: finalData,
             },
             (response) => {
@@ -119,8 +113,10 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
                                     {...register('degreeLevel', { required: true })}
                                     onChange={handleSelectChange}
                                 >
-                                    {degrees.map((degree, index) => (
-                                        <option key={index} value={degree.value}>{degree.label}</option>
+                                    {Object.values(DegreeLevel).map((degree) => (
+                                        <option key={degree} value={degree}>
+                                            {DegreeLevelDescriptions[degree]}
+                                        </option>
                                     ))}
                                 </KSelect>
                                 {errors.degreeLevel && <span className="text-red-500">این فیلد الزامی است</span>}
@@ -136,7 +132,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
                 </FormProvider>
             )}
             <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={props.goToPreviousStep}>
+                <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                     مرحله قبلی
                 </KButton>
                 {isPending ? <KSpinner color='primary' /> :
