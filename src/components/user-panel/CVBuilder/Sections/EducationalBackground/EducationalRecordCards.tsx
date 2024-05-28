@@ -13,7 +13,7 @@ interface EducationalRecordCardsProps {
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
     const { records } = props;
-    const [isNewRecordVisible, setNewRecordVisible] = useState(false);
+    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
 
     const getDegreeLabel = (value: string) => {
         return DegreeLevelDescriptions[value as keyof typeof DegreeLevelDescriptions] || value;
@@ -53,9 +53,11 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
             ))}
             <div className='mt-4'>
                 {isNewRecordVisible ? (
-                    <NewEducationalRecord />
+                    <NewEducationalRecord
+                        setIsNewRecordVisible={setIsNewRecordVisible}
+                    />
                 ) : (
-                    <button onClick={() => setNewRecordVisible(true)}>
+                    <button onClick={() => setIsNewRecordVisible(true)}>
                         <span className='flex'>
                             <Add />
                             <p className='mr-2 text-blue-500 text-sm'>

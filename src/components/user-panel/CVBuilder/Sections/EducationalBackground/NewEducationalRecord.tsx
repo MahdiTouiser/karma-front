@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, Majors, Universities } from '../../../../../models/cvbuilder.models';
@@ -9,21 +9,31 @@ import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
 import KSelect from '../../../../shared/Select';
+import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
-const NewEducationalRecord = () => {
+interface NewEducationalRecordProps {
+    setIsNewRecordVisible: (visible: boolean) => void;
+}
+
+const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRecordVisible }) => {
     const options = Object.keys(DegreeLevelDescriptions).map((key) => ({
         label: DegreeLevelDescriptions[key as DegreeLevel],
         value: key,
     }));
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<EducationalBackgroundFormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<EducationalBackgroundFormData>();
+    const [selectedOption, setSelectedOption] = useState<string>('')
     const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
     const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
     const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
-    const { sendRequest: AddEducationalData } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
+    const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
 
-    const handleFormSubmit = handleSubmit((data) => onSubmit(data));
+
+    const handleFormSubmit = () => {
+        handleSubmit(onSubmit)();
+    };
+
 
     const fetchMajors = async () => {
         majorsSendRequest(
@@ -37,6 +47,7 @@ const NewEducationalRecord = () => {
                         label: major.title,
                     }));
                     setMajors(majorOptions);
+
                 }
             }
         );
@@ -54,14 +65,15 @@ const NewEducationalRecord = () => {
                         label: university.title,
                     }));
                     setUniversities(universityOptions);
+
                 }
             }
         );
     };
 
     useEffect(() => {
-        fetchMajors();
-        fetchUniversities();
+        fetchMajors()
+        fetchUniversities()
     }, []);
 
     const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
@@ -82,7 +94,7 @@ const NewEducationalRecord = () => {
         }
     };
 
-    const onSubmit: SubmitHandler<EducationalBackgroundFormData> = async (data) => {
+    const onSubmit = async (data: EducationalBackgroundFormData) => {
         const finalData: Partial<EducationalBackgroundFormData> = {};
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
@@ -100,32 +112,31 @@ const NewEducationalRecord = () => {
             },
             (response) => {
                 toast.success(response?.message);
+                setIsNewRecordVisible(false);
             },
             (error) => {
-                toast.error(error?.message);
+                toast.error(error?.message)
             }
         );
         console.log(finalData);
     };
 
-    const selectedOption = watch('degreeLevel') || '';
-
     return (
         <>
-            <form className='mt-8 w-full flex' onSubmit={handleFormSubmit}>
+            <form className='mt-8 w-full flex' onSubmit={handleSubmit(onSubmit)}>
                 <div className='w-1/2 pr-4 mt-4'>
                     <div>
                         <div className='inline-block w-full'>
                             <KLabel>مقطع تحصیلی</KLabel>
                             <KRadioButton
-                                groupName='degreeLevel'
+                                register={register} groupName='degreeLevel'
                                 options={options}
                                 selectedOption={selectedOption}
                                 onOptionChange={(value) => {
+                                    setSelectedOption(value);
                                     console.log('Selected degree level:', value);
                                 }}
-                                register={register}
-                            />
+                                {...register('degreeLevel')} />
                         </div>
                     </div>
                     <div className='mt-4'>
@@ -157,7 +168,7 @@ const NewEducationalRecord = () => {
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
                             <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput placeholder='۱۷.۳۶'
+                            <KTextInput placeholder=' ۱۷.۳۶'
                                 numeric allowDecimal  {...register('gpa')} maxLength={5} />
                             {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
                         </div>
@@ -170,12 +181,14 @@ const NewEducationalRecord = () => {
                 </div>
             </form>
             <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4'>
+                <KButton color='secondary' className='ml-4' onClick={() => setIsNewRecordVisible(false)}>
                     انصراف
                 </KButton>
-                <KButton color='primary' type="submit" onClick={handleFormSubmit}>
-                    ذخیره
-                </KButton>
+                {isPending ? <KSpinner color='primary' /> :
+                    <KButton color='primary' type="button" onClick={handleFormSubmit}>
+                        ذخیره
+                    </KButton>
+                }
             </div>
         </>
     );
