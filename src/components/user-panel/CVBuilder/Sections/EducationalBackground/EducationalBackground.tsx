@@ -18,7 +18,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void }> = (props
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
     const { sendRequest } = useAPi<EducationalBackgroundFormData, EducationalRecord[]>();
-    const { sendRequest: AddEducationalData, isPending } = useAPi<EducationalBackgroundFormData, BaseResponse<null>>();
+    const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
 

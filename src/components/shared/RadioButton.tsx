@@ -10,6 +10,7 @@ interface RadioButtonProps {
   options: Option[];
   selectedOption: string;
   onOptionChange: (value: string) => void;
+  register: any; // Add the register prop
 }
 
 const KRadioButton: React.FC<RadioButtonProps> = ({
@@ -17,18 +18,19 @@ const KRadioButton: React.FC<RadioButtonProps> = ({
   options,
   selectedOption,
   onOptionChange,
+  register, // Destructure register
 }) => {
   return (
-    <div className="flow-root border-b border-gray-200 mb-8">
-      <nav className="-mb-px flex">
-        {options.map((option, index) => (
+    <div className="flow-root border-gray-200 bg-gray-50 rounded">
+      <nav className="flex">
+        {options.map((option) => (
           <label
             key={option.value}
-            className={`${index === 0 ? "" : "ml-2"
-              } cursor-pointer py-2 px-4 inline-flex items-center text-md font-medium text-black  focus:outline-none relative ${selectedOption === option.value
-                ? "text-green-600 border-b-2 border-green-600"
-                : ""
+            className={`cursor-pointer p-2 inline-flex items-center justify-center text-md font-medium text-black w-full focus:outline-none relative ${selectedOption === option.value
+              ? "text-green-600 border-b-2 border-green-600 bg-green-100"
+              : ""
               }`}
+            style={{ minHeight: "3rem" }}
           >
             <input
               type="radio"
@@ -37,6 +39,7 @@ const KRadioButton: React.FC<RadioButtonProps> = ({
               checked={selectedOption === option.value}
               onChange={() => onOptionChange(option.value)}
               className="sr-only"
+              {...register(groupName)}
             />
             {option.label}
             {selectedOption === option.value && (

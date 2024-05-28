@@ -18,10 +18,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
     const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
     const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
     const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
-
     const [stillEducating, setStillEducating] = useState(false);
-
-
 
     const fetchMajors = async () => {
         majorsSendRequest(
@@ -101,7 +98,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                     <div className='flex justify-center'>
                         <div className="w-1/2 p-5">
                             <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput placeholder='مثلا ۱۷.۳۶'
+                            <KTextInput placeholder=' ۱۷.۳۶'
                                 numeric allowDecimal  {...register('gpa')} maxLength={5} />
                             {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
                         </div>
@@ -109,7 +106,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                             <KLabel>سال شروع</KLabel>
                             <KTextInput
                                 numeric
-                                placeholder='مثلا ۱۳۹۵'
+                                placeholder=' ۱۳۹۵'
                                 maxLength={4}
                                 id="fromYear"
                                 {...register('fromYear', { required: true, maxLength: 4 })}
@@ -128,7 +125,7 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                                 <KLabel>سال پایان</KLabel>
                                 <KTextInput
                                     numeric
-                                    placeholder='مثلا ۱۴۰۰'
+                                    placeholder=' ۱۴۰۰'
                                     maxLength={4}
                                     id="toYear"
                                     {...register('toYear', { required: !stillEducating, maxLength: 4 })}
