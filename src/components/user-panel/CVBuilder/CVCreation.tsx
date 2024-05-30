@@ -24,7 +24,7 @@ const CVCreation: React.FC = () => {
 
     const links = [
         { title: "اطلاعات اولیه", component: <InitialInformation onSubmitSuccess={handleFormSubmitSuccess} /> },
-        { title: "سوابق تحصیلی", component: <EducationalBackground goToPreviousStep={goToPreviousStep} /> },
+        { title: "سوابق تحصیلی", component: <EducationalBackground goToPreviousStep={goToPreviousStep} onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "سوابق شغلی", component: <WorkExperience /> },
         { title: "مهارت های تکمیلی", component: <AdditionalSkills /> },
     ];

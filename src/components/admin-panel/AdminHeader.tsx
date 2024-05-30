@@ -3,7 +3,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { authActions } from "../../store/auth";
 import { removeAuthDataFromLocal } from "../../utils/authUtils";
 import KDropdown, { DropDownItem } from "../shared/Dropdown";
-import HumbergerButton from "../shared/HumbergerButtom";
+import HamburgerButton from "../shared/HumbergerButtom";
 import { ShellElement } from "../shared/PanelShell";
 
 const AdminHeader: React.FC<ShellElement> = (props) => {
@@ -39,7 +39,7 @@ const AdminHeader: React.FC<ShellElement> = (props) => {
   }
   return (
     <div className="bg-blue-900 h-[50px] flex items-center">
-      <HumbergerButton {...props} className="stroke-white"></HumbergerButton>
+      <HamburgerButton {...props} className="stroke-white"></HamburgerButton>
       <div className="mr-auto md:ml-12">
         <KDropdown items={dropdownItems} chevronClassName="stroke-white">
           <span className="text-white">{name}</span>

@@ -1,6 +1,5 @@
-import { Radio } from "flowbite-react";
-import React from "react";
-import KLabel from "./Label";
+import { ChangeEvent, Ref, forwardRef } from "react";
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface Option {
   value: string;
@@ -8,36 +7,53 @@ interface Option {
 }
 
 interface RadioButtonProps {
-  groupName: string;
   options: Option[];
   selectedOption: string;
   onOptionChange: (value: string) => void;
+  register: UseFormRegisterReturn;
 }
 
-const RadioButton: React.FC<RadioButtonProps> = ({
-  groupName,
-  options,
-  selectedOption,
-  onOptionChange,
-}) => {
-  return (
-    <div className="flex">
-      {options.map((option) => (
-        <div key={option.value} className="flex items-center mr-5">
-          <Radio
-            id={groupName + option.value}
-            name={groupName}
-            value={option.value}
-            checked={selectedOption === option.value}
-            onChange={() => onOptionChange(option.value)}
-          />
-          <KLabel htmlFor={groupName + option.value} className="mr-3">
-            {option.label}
-          </KLabel>
-        </div>
-      ))}
-    </div>
-  );
-};
+const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
+  (
+    { options, selectedOption, onOptionChange, register },
+    ref: Ref<HTMLInputElement>
+  ) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onOptionChange(e.target.value);
+    };
 
-export default RadioButton;
+    return (
+      <div className="flow-root border-gray-200 bg-gray-50 rounded">
+        <div className="flex">
+          {options.map((option) => (
+            <label
+              key={option.value}
+              className={`cursor-pointer p-2 inline-flex items-center justify-center text-md font-medium text-black w-full focus:outline-none relative ${selectedOption === option.value
+                ? "text-green-600 border-b-2 border-green-600 bg-green-100"
+                : ""
+                }`}
+            >
+              <input
+                type="radio"
+                value={option.value}
+                checked={selectedOption === option.value}
+                onChange={(e) => {
+                  handleChange(e);
+                  register.onChange(e);
+                }}
+                className="sr-only"
+                ref={ref}
+              />
+              {option.label}
+              {selectedOption === option.value && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-green-600"></span>
+              )}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  }
+);
+
+export default KRadioButton;

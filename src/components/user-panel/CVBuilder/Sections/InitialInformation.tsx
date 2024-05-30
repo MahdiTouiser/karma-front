@@ -3,6 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAPi from '../../../../hooks/useApi';
 import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
+import { MilitaryServiceStatus } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
 import KDatepicker from '../../../shared/DatePicker';
@@ -13,6 +14,8 @@ import KTextInput from '../../../shared/TextInput';
 interface InitialInformationProps {
     onSubmitSuccess: () => void;
 }
+
+
 
 const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(({ onSubmitSuccess }) => {
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
@@ -82,11 +85,15 @@ const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(
                 <div className='flex justify-center mt-10'>
                     <div className="w-1/2 p-5">
                         <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
-                            <option value="done">انجام شده</option>
-                            <option value="exemptPermanent">معاف دائم</option>
-                            <option value="exemptEducational">معافیت تحصیلی</option>
-                            <option value="inProgress">در حال انجام</option>
-                            <option value="SubjectToService">مشمول</option>
+                            {Object.values(MilitaryServiceStatus).map(status => (
+                                <option key={status} value={status}>
+                                    {status === MilitaryServiceStatus.Done ? 'انجام شده' :
+                                        status === MilitaryServiceStatus.PermanentExemption ? 'معاف دائم' :
+                                            status === MilitaryServiceStatus.AcademicExemption ? 'معافیت تحصیلی' :
+                                                status === MilitaryServiceStatus.InProgress ? 'در حال انجام' :
+                                                    'مشمول'}
+                                </option>
+                            ))}
                         </KSelect>
                         {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
                     </div>

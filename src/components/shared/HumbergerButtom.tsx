@@ -1,11 +1,11 @@
 import { ShellElement } from "./PanelShell";
 
-interface HumbergerButtonProps extends ShellElement{
+interface HamburgerButtonProps extends ShellElement {
   className?: string;
 }
 
 
-const HumbergerButton: React.FC<HumbergerButtonProps> = (props) => {
+const HamburgerButton: React.FC<HamburgerButtonProps> = (props) => {
   return (
     <button onClick={props.toggleMenu} className="mr-5">
       {
@@ -27,4 +27,4 @@ const HumbergerButton: React.FC<HumbergerButtonProps> = (props) => {
     </button>
   );
 };
-export default HumbergerButton;
+export default HamburgerButton;
