@@ -14,31 +14,34 @@ import KTextInput from '../../../../shared/TextInput';
 
 interface NewEducationalRecordProps {
     setIsNewRecordVisible: (visible: boolean) => void;
+    refresh: () => void;
 }
 
-const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRecordVisible }) => {
+const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRecordVisible, refresh }) => {
     const options = Object.keys(DegreeLevelDescriptions).map((key) => ({
         label: DegreeLevelDescriptions[key as DegreeLevel],
         value: key,
     }));
-    const { register, handleSubmit, formState: { errors } } = useForm<EducationalBackgroundFormData>();
-    const [selectedOption, setSelectedOption] = useState<string>('')
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<EducationalBackgroundFormData>();
+    const [selectedOption, setSelectedOption] = useState<string>('');
     const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
     const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
     const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
     const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
 
-
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
     };
-
 
     const fetchMajors = async () => {
         majorsSendRequest(
             {
                 url: "/Majors",
+                params: {
+                    pageSize: 10000,
+                    pageIndex: 1,
+                },
             },
             (response) => {
                 if (response) {
@@ -47,7 +50,6 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                         label: major.title,
                     }));
                     setMajors(majorOptions);
-
                 }
             }
         );
@@ -57,6 +59,10 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
         universitiesSendRequest(
             {
                 url: "/Universities",
+                params: {
+                    pageSize: 10000,
+                    pageIndex: 1,
+                },
             },
             (response) => {
                 if (response) {
@@ -65,15 +71,14 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                         label: university.title,
                     }));
                     setUniversities(universityOptions);
-
                 }
             }
         );
     };
 
     useEffect(() => {
-        fetchMajors()
-        fetchUniversities()
+        fetchMajors();
+        fetchUniversities();
     }, []);
 
     const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
@@ -113,70 +118,72 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
             (response) => {
                 toast.success(response?.message);
                 setIsNewRecordVisible(false);
+                refresh();
             },
             (error) => {
-                toast.error(error?.message)
+                toast.error(error?.message);
             }
         );
+    };
+    const handleOptionChange = (value: string) => {
+        setSelectedOption(value);
+        setValue('degreeLevel', value);
     };
 
     return (
         <>
             <form className='mt-8 w-full flex' onSubmit={handleSubmit(onSubmit)}>
                 <div className='w-1/2 pr-4 mt-4'>
-                    <div>
-                        <div className='inline-block w-full'>
-                            <KLabel>مقطع تحصیلی</KLabel>
-                            <KRadioButton
-                                register={register}
-                                groupName='degreeLevel'
-                                options={options}
-                                selectedOption={selectedOption}
-                                onOptionChange={(value) => {
-                                    setSelectedOption(value);
-                                    console.log('Selected degree level:', value);
-                                }}
-                                {...register('degreeLevel')} />
-                        </div>
+                    <div className='inline-block w-full'>
+                        <KLabel>مقطع تحصیلی</KLabel>
+                        <KRadioButton
+                            options={options}
+                            onOptionChange={handleOptionChange}
+                            selectedOption={selectedOption}
+                            register={register('degreeLevel', { required: true })}
+                        />
+                        {errors.degreeLevel && <span className="text-red-500 text-xs">مقطع تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
                             <KLabel>دانشگاه</KLabel>
-                            <KSelect {...register('universityId')}>
+                            <KSelect {...register('universityId', { required: true })}>
                                 {universities.map((university) => (
                                     <option key={university.value} value={university.value}>{university.label}</option>
                                 ))}
                             </KSelect>
+                            {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
                         </div>
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال شروع</KLabel>
-                        <KTextInput numeric maxLength={4} {...register('fromYear')} placeholder='۱۳۹۶' />
+                        <KTextInput numeric maxLength={4} {...register('fromYear', { required: true })} placeholder='۱۳۹۶' />
+                        {errors.fromYear && <span className="text-red-500 text-xs">سال شروع الزامی است .</span>}
                     </div>
                 </div>
                 <div className='w-1/2 pr-4 mt-4'>
-                    <div>
-                        <div className='inline-block w-full'>
-                            <KLabel>رشته تحصیلی</KLabel>
-                            <KSelect {...register('majorId')}>
-                                {majors.map((major) => (
-                                    <option key={major.value} value={major.value}>{major.label}</option>
-                                ))}
-                            </KSelect>
-                        </div>
+                    <div className='inline-block w-full'>
+                        <KLabel>رشته تحصیلی</KLabel>
+                        <KSelect {...register('majorId', { required: true })}>
+                            {majors.map((major) => (
+                                <option key={major.value} value={major.value}>{major.label}</option>
+                            ))}
+                        </KSelect>
+                        {errors.majorId && <span className="text-red-500 text-xs">رشته تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
-                            <KLabel>معدل (اختیاری)</KLabel>
+                            <KLabel>معدل</KLabel>
                             <KTextInput placeholder=' ۱۷.۳۶'
-                                numeric allowDecimal  {...register('gpa')} maxLength={5} />
-                            {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
+                                numeric allowDecimal  {...register('gpa', { required: true })} maxLength={5} />
+                            {errors.gpa && <span className="text-red-500 text-xs">معدل الزامی است .</span>}
                         </div>
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال پایان</KLabel>
-                        <KTextInput numeric maxLength={4} {...register('toYear')} placeholder='۱۴۰۰'
+                        <KTextInput numeric maxLength={4} {...register('toYear', { required: true })} placeholder='۱۴۰۰'
                         />
+                        {errors.toYear && <span className="text-red-500 text-xs">سال پایان الزامی است .</span>}
                     </div>
                 </div>
             </form>

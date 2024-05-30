@@ -24,6 +24,10 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
         majorsSendRequest(
             {
                 url: "/Majors",
+                params: {
+                    pageSize: 10000,
+                    pageIndex: 1,
+                },
             },
             (response) => {
                 if (response) {
@@ -42,6 +46,10 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
         universitiesSendRequest(
             {
                 url: "/Universities",
+                params: {
+                    pageSize: 10000,
+                    pageIndex: 1,
+                },
             },
             (response) => {
                 if (response) {

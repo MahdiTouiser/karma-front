@@ -13,13 +13,13 @@ import NewEducationalRecord from './NewEducationalRecord';
 
 interface EducationalRecordCardsProps {
     records: EducationalRecord[];
-    refreshRecords: () => void;
+    refresh: () => void;
     setIsNewRecordVisible: (value: boolean) => void;
     isNewRecordVisible: boolean;
 }
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
-    const { records, refreshRecords, setIsNewRecordVisible, isNewRecordVisible } = props;
+    const { records, refresh, setIsNewRecordVisible, isNewRecordVisible } = props;
     const { sendRequest: deleteRequest } = useAPi<null, BaseResponse<null>>();
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
@@ -40,7 +40,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                 },
                 (response) => {
                     toast.success(response?.message);
-                    refreshRecords();
+                    refresh();
                 },
                 (error) => {
                     toast.error(error?.message);
@@ -70,7 +70,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                             </button>
                         </div>
                         <div>
-                            <p className='font-extrabold m-2 text-lg'>{getDegreeLabel(record.degreeLevel)}</p>
+                            <p className='font-extrabold m-2 text-lg'>{getDegreeLabel(record.degreeLevel)} - {record.major.title}</p>
                             <p className='m-2'>{record.university.title}</p>
                             <p className='m-2'>{record.fromYear} - {record.toYear}</p>
                             <p className='m-2'>معدل : {record.gpa}</p>
@@ -82,6 +82,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                 {isNewRecordVisible ? (
                     <NewEducationalRecord
                         setIsNewRecordVisible={setIsNewRecordVisible}
+                        refresh={refresh}
                     />
                 ) : (
                     <button onClick={() => setIsNewRecordVisible(true)}>

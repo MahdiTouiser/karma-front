@@ -5,7 +5,7 @@ import KCard from '../../shared/Card';
 
 const CVBuilder: React.FC = () => {
     return (
-        <KCard className='flex items-center justify-center m-20 p-36 !bg-green-500 rounded-2xl'>
+        <KCard className='flex items-center justify-center m-20 !p-36 !bg-green-500 rounded-2xl'>
             <div className='text-white'>
                 <p className='text-4xl'>
                     ساخت رزومه استاندارد و حرفه‌ای

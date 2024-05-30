@@ -17,7 +17,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
-    const { sendRequest } = useAPi<EducationalBackgroundFormData, EducationalRecord[]>();
+    const { sendRequest: fetch, isPending: fetchIsPending } = useAPi<EducationalBackgroundFormData, EducationalRecord[]>();
     const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
@@ -47,7 +47,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     };
 
     const fetchEducationalRecords = () => {
-        sendRequest(
+        fetch(
             {
                 url: "/Resumes/EducationalRecords",
             },
@@ -59,9 +59,6 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                     setEducationalRecords(response);
                 }
             },
-            (error) => {
-                toast.error(error?.message);
-            }
         );
     };
 
@@ -101,63 +98,68 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     };
 
     const handleButtonClick = () => {
-        isNewRecordVisible ? onSubmitSuccess() : handleFormSubmit();
+        isNewRecordVisible ? handleFormSubmit() : onSubmitSuccess();
     };
-
 
     return (
         <>
-            {!Object.keys(errors).length && isRecordCreated ? (
-                <>
-                    <EducationalRecordCards
-                        records={educationalRecords}
-                        refreshRecords={fetchEducationalRecords}
-                        setIsNewRecordVisible={setIsNewRecordVisible}
-                        isNewRecordVisible={isNewRecordVisible}
-                    />
-                </>
+            {fetchIsPending ? (
+                <span className='flex justify-center items-center h-screen'>
+                    <KSpinner color='primary' size={20} />
+                </span>
             ) : (
-                <FormProvider {...methods}>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <h1 className="text-2xl font-bold">سوابق تحصیلی</h1>
-                            <div className='mt-10 p-5'>
-                                <KLabel>آخرین مدرک تحصیلی</KLabel>
-                                <KSelect
-                                    defaultValue=''
-                                    id='degreeLevel'
-                                    placeholder="انتخاب کنید"
-                                    {...register('degreeLevel', { required: true })}
-                                    onChange={handleSelectChange}
-                                >
-                                    {Object.values(DegreeLevel).map((degree) => (
-                                        <option key={degree} value={degree}>
-                                            {DegreeLevelDescriptions[degree]}
-                                        </option>
-                                    ))}
-                                </KSelect>
-                                {errors.degreeLevel && <span className="text-red-500">این فیلد الزامی است</span>}
-                            </div>
-                            {selectedDegree && (
-                                <div className='mt-10'>
-                                    <EducationalData selectedDegree={selectedDegree} />
+                <>
+                    {!Object.keys(errors).length && isRecordCreated ? (
+                        <EducationalRecordCards
+                            records={educationalRecords}
+                            refresh={fetchEducationalRecords}
+                            setIsNewRecordVisible={setIsNewRecordVisible}
+                            isNewRecordVisible={isNewRecordVisible}
+                        />
+                    ) : (
+                        <FormProvider {...methods}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div>
+                                    <h1 className="text-2xl font-bold">سوابق تحصیلی</h1>
+                                    <div className='mt-10 p-5'>
+                                        <KLabel>آخرین مدرک تحصیلی</KLabel>
+                                        <KSelect
+                                            defaultValue=''
+                                            id='degreeLevel'
+                                            placeholder="انتخاب کنید"
+                                            {...register('degreeLevel', { required: true })}
+                                            onChange={handleSelectChange}
+                                        >
+                                            {Object.values(DegreeLevel).map((degree) => (
+                                                <option key={degree} value={degree}>
+                                                    {DegreeLevelDescriptions[degree]}
+                                                </option>
+                                            ))}
+                                        </KSelect>
+                                        {errors.degreeLevel && <span className="text-red-500">این فیلد الزامی است</span>}
+                                    </div>
+                                    {selectedDegree && (
+                                        <div className='mt-10'>
+                                            <EducationalData selectedDegree={selectedDegree} />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                            </form>
+                        </FormProvider>
+                    )}
+                    {!isNewRecordVisible && (
+                        <div className='flex justify-end p-5'>
+                            <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
+                                مرحله قبلی
+                            </KButton>
+                            {isPending ? <KSpinner color='primary' /> :
+                                <KButton color='primary' type="button" onClick={handleButtonClick}>
+                                    ذخیره و مرحله بعد
+                                </KButton>
+                            }
                         </div>
-                    </form>
-                </FormProvider>
-            )}
-            {!isNewRecordVisible && (
-                <div className='flex justify-end p-5'>
-                    <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
-                        مرحله قبلی
-                    </KButton>
-                    {isPending ? <KSpinner color='primary' /> :
-                        <KButton color='primary' type="button" onClick={handleButtonClick}>
-                            ذخیره و مرحله بعد
-                        </KButton>
-                    }
-                </div>
+                    )}
+                </>
             )}
         </>
     );
