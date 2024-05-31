@@ -7,6 +7,7 @@ export enum MilitaryServiceStatus {
 }
 
 export enum DegreeLevel {
+  Diplopma = 'Diplopma',
   Associate = 'Associate',
   Bachelor = 'Bachelor',
   Master = 'Master',
@@ -14,6 +15,7 @@ export enum DegreeLevel {
 }
 
 export const DegreeLevelDescriptions: { [key in DegreeLevel]: string } = {
+  [DegreeLevel.Diplopma]: 'دیپلم',
   [DegreeLevel.Associate]: 'کاردانی',
   [DegreeLevel.Bachelor]: 'کارشناسی',
   [DegreeLevel.Master]: 'کارشناسی ارشد',
