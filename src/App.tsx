@@ -6,18 +6,18 @@ import SavedJobs from './components/user-panel/my-resume/SavedJobs';
 import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
 import CVCreation from './components/user-panel/cv-builder/CVCreation';
 import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
-import AuthContainer from './pages/Auth/AuthContainer';
-import EmployerPage from './pages/Auth/EmployerLoginPage';
-import OTPLoginPage from './pages/Auth/OTPLoginPage';
-import PasswordLoginPage from './pages/Auth/PasswordLoginPage';
-import UsernameLoginPage from './pages/Auth/UsernameLoginPage';
-import ChangePasswordPage from './pages/Auth/forgetPassword/ChangePasswordPage';
-import ForgetPasswordFirstPage from './pages/Auth/forgetPassword/ForgetPasswordFirstPage';
-import ForgetPasswordOtpPage from './pages/Auth/forgetPassword/ForgetPasswordOtpPage';
-import SignUpMobilePage from './pages/Auth/signUp/SignUpMobilePage';
-import SignUpPasswordOtpPage from './pages/Auth/signUp/SignUpOtpPage';
-import Home from './pages/userPanel/Home/Home';
-import UserPanelContainer from './pages/userPanel/UserPanelContainer';
+import AuthContainer from './pages/auth/AuthContainer';
+import EmployerPage from './pages/auth/EmployerLoginPage';
+import OTPLoginPage from './pages/auth/OTPLoginPage';
+import PasswordLoginPage from './pages/auth/PasswordLoginPage';
+import UsernameLoginPage from './pages/auth/UsernameLoginPage';
+import ChangePasswordPage from './pages/auth/forget-password/ChangePasswordPage';
+import ForgetPasswordFirstPage from './pages/auth/forget-password/ForgetPasswordFirstPage';
+import ForgetPasswordOtpPage from './pages/auth/forget-password/ForgetPasswordOtpPage';
+import SignUpMobilePage from './pages/auth/sign-up/SignUpMobilePage';
+import SignUpPasswordOtpPage from './pages/auth/sign-up/SignUpOtpPage';
+import Home from './pages/user-panel/home/Home';
+import UserPanelContainer from './pages/user-panel/UserPanelContainer';
 
 const App = () => {
   return (
