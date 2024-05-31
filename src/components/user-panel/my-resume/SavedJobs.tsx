@@ -1,6 +1,6 @@
 import React from 'react'
 import KCard from '../../shared/Card'
-import JobsCards from '../JobOpportunities.tsx/JobsCards'
+import JobsCards from '../job-opportunities/JobsCards'
 
 const SavedJobs: React.FC = () => {
     return (

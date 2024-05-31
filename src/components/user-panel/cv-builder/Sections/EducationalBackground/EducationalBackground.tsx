@@ -98,7 +98,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     };
 
     const handleButtonClick = () => {
-        isNewRecordVisible ? handleFormSubmit() : onSubmitSuccess();
+        (isNewRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
     };
 
     return (
@@ -136,7 +136,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                                                 </option>
                                             ))}
                                         </KSelect>
-                                        {errors.degreeLevel && <span className="text-red-500">این فیلد الزامی است</span>}
+                                        {errors.degreeLevel && <span className="text-red-500 text-sm">این فیلد الزامی است</span>}
                                     </div>
                                     {selectedDegree && (
                                         <div className='mt-10'>

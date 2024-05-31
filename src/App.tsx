@@ -1,11 +1,11 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
-import CVBuilder from './components/user-panel/CVBuilder/CVBuilder';
-import CVCreation from './components/user-panel/CVBuilder/CVCreation';
-import JobOpportunities from './components/user-panel/JobOpportunities.tsx/JobOpportunities';
-import MyResume from './components/user-panel/MyResume/MyResume';
-import SavedJobs from './components/user-panel/MyResume/SavedJobs';
+import MyResume from './components/user-panel/my-resume/MyResume';
+import SavedJobs from './components/user-panel/my-resume/SavedJobs';
+import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
+import CVCreation from './components/user-panel/cv-builder/CVCreation';
+import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
 import AuthContainer from './pages/Auth/AuthContainer';
 import EmployerPage from './pages/Auth/EmployerLoginPage';
 import OTPLoginPage from './pages/Auth/OTPLoginPage';
