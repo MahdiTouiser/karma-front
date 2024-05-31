@@ -1,37 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useApi from '../../../../hooks/useApi';
+import { default as useAPi, default as useApi } from '../../../../hooks/useApi';
 import { City, Country, JobCategories, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
+import { HijriMonths, SeniorityLevels, hijriMonthLabels, seniorityLevelLabels } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
+import KButton from '../../../shared/Button';
 import KCheckbox from '../../../shared/Checkbox';
 import KLabel from '../../../shared/Label';
 import KSelect from '../../../shared/Select';
+import KSpinner from '../../../shared/Spinner';
 import KTextInput from '../../../shared/TextInput';
-
-const hijriMonths = [
-    { value: "", label: "انتخاب ماه" },
-    { value: 1, label: "فروردین" },
-    { value: 2, label: "اردیبهشت" },
-    { value: 3, label: "خرداد" },
-    { value: 4, label: "تیر" },
-    { value: 5, label: "مرداد" },
-    { value: 6, label: "شهریور" },
-    { value: 7, label: "مهر" },
-    { value: 8, label: "آبان" },
-    { value: 9, label: "آذر" },
-    { value: 10, label: "دی" },
-    { value: 11, label: "بهمن" },
-    { value: 12, label: "اسفند" },
-];
-
-const seniorityLevels = [
-    { value: '', label: "انتخاب سطح" },
-    { value: 'Beginner', label: "مبتدی" },
-    { value: 'Intermediate', label: "متوسط" },
-    { value: 'Advanced', label: "پیشرفته" },
-    { value: 'Specialist', label: "کارشناس" },
-    { value: 'Manager', label: "مدیر" },
-];
 
 const WorkExperience: React.FC = () => {
     const [hasWorkExperience, setHasWorkExperience] = useState(false);
@@ -41,12 +19,11 @@ const WorkExperience: React.FC = () => {
     const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
 
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<WorkExperienceFormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
-
-
+    const { sendRequest: AddWorkExperience, isPending } = useAPi<WorkExperienceFormData, BaseResponse<null>>();
 
     const fetchCountries = async () => {
         countrySendRequest(
@@ -60,7 +37,6 @@ const WorkExperience: React.FC = () => {
                         label: country.title,
                     }));
                     setCountries(countryOptions);
-
                 }
             }
         );
@@ -123,12 +99,23 @@ const WorkExperience: React.FC = () => {
         const formData = {
             ...data,
             currentJob: currentJob,
+            countryId: Number(data.countryId),
+            cityId: data.cityId ? Number(data.cityId) : undefined,
+            jobcategoryId: Number(data.jobcategoryId),
+            fromYear: data.fromYear ? Number(data.fromYear) : undefined,
+            toYear: data.toYear ? Number(data.toYear) : undefined,
         };
+
         if (currentJob) {
             delete formData.toYear;
             delete formData.toMonth;
         }
+
         console.log(formData);
+    };
+
+    const handleFormSubmit = () => {
+        handleSubmit(onSubmit)();
     };
 
     return (
@@ -146,40 +133,67 @@ const WorkExperience: React.FC = () => {
                         <div className='flex justify-center mt-10'>
                             <div className="w-1/2 p-5">
                                 <KLabel>عنوان شغلی</KLabel>
-                                <KTextInput {...register('jobTitle')} />
+                                <KTextInput {...register('jobTitle', { required: true })} />
+                                {errors.jobTitle && (
+                                    <p className="text-red-500 text-xs">
+                                        عنوان شغلی الزامی می باشد.
+                                    </p>
+                                )}
                             </div>
                             <div className="w-1/2 p-5">
                                 <KLabel>نام سازمان</KLabel>
-                                <KTextInput {...register('companyName')} />
+                                <KTextInput {...register('companyName', { required: true })} />
+                                {errors.companyName && (
+                                    <p className="text-red-500 text-xs">
+                                        نام سازمان الزامی می باشد.
+                                    </p>
+                                )}
                             </div>
                         </div>
                         <div className='flex justify-center'>
                             <div className="w-1/2 p-5">
                                 <KLabel>سطح ارشدیت</KLabel>
-                                <KSelect {...register('seniorityLevel')}>
-                                    {seniorityLevels.map((level) => (
-                                        <option key={level.value} value={level.value}>{level.label}</option>
+                                <KSelect {...register('seniorityLevel', { required: true })}>
+                                    {Object.values(SeniorityLevels).map((seniorityValue) => (
+                                        <option key={seniorityValue} value={seniorityValue}>
+                                            {seniorityLevelLabels[seniorityValue as SeniorityLevels]}
+                                        </option>
                                     ))}
                                 </KSelect>
+                                {errors.seniorityLevel && (
+                                    <p className="text-red-500 text-xs">
+                                        سطح ارشدیت الزامی می باشد.
+                                    </p>
+                                )}
                             </div>
                             <div className="w-1/2 p-5">
                                 <KLabel>زمینه کاری شما</KLabel>
-                                <KSelect {...register('jobcategoryId')}>
+                                <KSelect {...register('jobcategoryId', { required: true })}>
                                     {jobCategories.map((level) => (
                                         <option key={level.value} value={level.value}>{level.label}</option>
                                     ))}
                                 </KSelect>
+                                {errors.jobcategoryId && (
+                                    <p className="text-red-500 text-xs">
+                                        زمینه کاری الزامی می باشد.
+                                    </p>
+                                )}
                             </div>
                         </div>
                         <div className='flex justify-start'>
-                            <div className="flex justify-center w-1/2">
+                            <div className="flex justify-start w-1/2">
                                 <div className='w-1/2 p-5'>
                                     <KLabel>کشور</KLabel>
-                                    <KSelect {...register('countryId')} onChange={handleCountryChange}>
+                                    <KSelect {...register('countryId', { required: true })} onChange={handleCountryChange}>
                                         {countries.map((country) => (
                                             <option key={country.value} value={country.value}>{country.label}</option>
                                         ))}
                                     </KSelect>
+                                    {errors.countryId && (
+                                        <p className="text-red-500 text-xs">
+                                            انتخاب کشور الزامی می باشد.
+                                        </p>
+                                    )}
                                 </div>
                                 {selectedCountry === 1 && (
                                     <div className='w-1/2 p-5'>
@@ -191,14 +205,16 @@ const WorkExperience: React.FC = () => {
                                         </KSelect>
                                     </div>
                                 )}
+
                             </div>
                             <div className='flex justify-center w-1/2'>
-
                                 <div className='w-1/2 p-5'>
                                     <KLabel>ماه شروع</KLabel>
                                     <KSelect type='number' {...register('fromMonth')}>
-                                        {hijriMonths.map((month) => (
-                                            <option key={month.value} value={month.value}>{month.label}</option>
+                                        {Object.values(HijriMonths).map((monthValue) => (
+                                            <option key={monthValue} value={monthValue}>
+                                                {hijriMonthLabels[monthValue as HijriMonths]}
+                                            </option>
                                         ))}
                                     </KSelect>
                                 </div>
@@ -214,8 +230,10 @@ const WorkExperience: React.FC = () => {
                                     <div className='w-1/2 p-5'>
                                         <KLabel>ماه پایان</KLabel>
                                         <KSelect {...register('toMonth')}>
-                                            {hijriMonths.map((month) => (
-                                                <option key={month.value} value={month.value}>{month.label}</option>
+                                            {Object.values(HijriMonths).map((monthValue) => (
+                                                <option key={monthValue} value={monthValue}>
+                                                    {hijriMonthLabels[monthValue as HijriMonths]}
+                                                </option>
                                             ))}
                                         </KSelect>
                                     </div>
@@ -232,6 +250,18 @@ const WorkExperience: React.FC = () => {
                     </>
                 )}
             </form >
+
+            <div className='flex justify-end p-5'>
+                <KButton color='secondary' className='ml-4' onClick={() => console.log("hello")}>
+                    مرحله قبلی
+                </KButton>
+                {isPending ? <KSpinner color='primary' /> :
+                    <KButton color='primary' type="button" onClick={handleFormSubmit}>
+                        ذخیره و مرحله بعد
+                    </KButton>
+                }
+            </div >
+
         </>
     );
 };
