@@ -11,7 +11,7 @@ export interface InitialInformationFormData {
 
 export interface WorkExperienceFormData {
     jobTitle: string;
-    jobcategoryId?: number;
+    jobcategoryId: number;
     seniorityLevel: string;
     companyName: string;
     countryId?: number;
