@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
-import AdditionalSkills from './Sections/AdditionalSkills/AdditionalSkills';
-import EducationalBackground from './Sections/EducationalBackground/EducationalBackground';
 import InitialInformation from './Sections/InitialInformation';
-import WorkExperience from './Sections/WorkExperience';
+import AdditionalSkills from './Sections/additional-skills/AdditionalSkills';
+import EducationalBackground from './Sections/educational-background/EducationalBackground';
+import WorkExperience from './Sections/work-experience/WorkExperience';
 
 const CVCreation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -25,7 +25,7 @@ const CVCreation: React.FC = () => {
     const links = [
         { title: "اطلاعات اولیه", component: <InitialInformation onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "سوابق تحصیلی", component: <EducationalBackground goToPreviousStep={goToPreviousStep} onSubmitSuccess={handleFormSubmitSuccess} /> },
-        { title: "سوابق شغلی", component: <WorkExperience /> },
+        { title: "سوابق شغلی", component: <WorkExperience goToPreviousStep={goToPreviousStep} onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "مهارت های تکمیلی", component: <AdditionalSkills /> },
     ];
 

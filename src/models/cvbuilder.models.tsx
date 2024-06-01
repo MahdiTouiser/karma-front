@@ -49,7 +49,30 @@ export interface EducationalRecord {
         title: string;
     };
 }
+export interface CareerRecord {
+    id: string,
+    jobTitle: string,
+    jobCategory: {
+        id: number,
+        title: string
+    },
+    seniorityLevel: string,
+    companyName: string,
+    country: {
+        id: number,
+        title: string
+    },
+    city: {
+        id: number,
+        title: string
+    },
+    fromMonth: number,
+    fromYear: number,
+    toMonth: number | null,
+    toYear: number,
+    currentJob: boolean
 
+}
 export interface Country {
     id: number;
     title: string;
