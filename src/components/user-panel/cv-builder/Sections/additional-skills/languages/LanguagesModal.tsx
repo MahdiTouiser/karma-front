@@ -10,12 +10,11 @@ import KLabel from '../../../../../shared/Label';
 import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
 
-const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, onClose }) => {
+const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<AddLanguageFormData>();
     const { sendRequest: fetchLangs } = useApi<null, BaseResponse<null>>();
     const [languages, setLanguages] = useState<OptionType[]>([]);
     const { sendRequest: AddLanguageData, isPending } = useApi<AddLanguageFormData, BaseResponse<null>>();
-
 
     const fetchLanguages = async () => {
         fetchLangs(
@@ -33,7 +32,6 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
                         label: language.title,
                     }));
                     setLanguages(languagesOptions);
-
                 }
             }
         );
@@ -47,9 +45,8 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
         handleSubmit(onSubmit)();
     };
 
-
     const onSubmit = async (data: AddLanguageFormData) => {
-        data.languageId = + data.languageId
+        data.languageId = +data.languageId;
         AddLanguageData(
             {
                 url: '/Resumes/AddLanguage',
@@ -58,14 +55,14 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
             },
             (response) => {
                 toast.success(response?.message);
-                onClose()
+                onClose();
+                onSuccess();
             },
             (error) => {
                 toast.error(error?.message);
             }
         );
     };
-
 
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
