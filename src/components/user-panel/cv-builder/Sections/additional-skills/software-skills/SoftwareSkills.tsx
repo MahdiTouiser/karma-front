@@ -70,55 +70,65 @@ const SoftwareSkills: React.FC = () => {
         <>
             <ConfirmModal />
             <SoftwareSkillsModal show={isModalOpen} onClose={closeModal} onSuccess={fetchSkills} />
-            {isPending ? (
-                <KSpinner color='primary' />
-            ) : (
-                <KCard>
-                    <h1 className="text-2xl font-extrabold">مهارت های نرم افزاری</h1>
-                    {skills.length > 0 ? (
-                        <>
-                            <div className="grid grid-cols-6 gap-2 mt-5">
-                                {skills.map((info, index) => (
-                                    <div key={index} className="flex justify-evenly items-center p-2 bg-gray-200 rounded">
-                                        <button onClick={() => handleDeleteItem(info.id)}>
-                                            <Delete />
-                                        </button>
-                                        <p className='text-black text-sm'>{info.SoftwareSkill.title} | {skillLevelLabels[info.skillLevel as SkillLevels]}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='mt-4'>
-                                <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
-                                    <Add />
-                                    افزودن
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            {isChecked ? (
-                                <div className='flex mt-4'>
-                                    <p className='text-sm'>مهارت نرم افزاری ندارم.</p>
-                                    <button className='text-blue-500 text-sm mr-2' onClick={() => setIsChecked(!isChecked)}>تغییر</button>
-                                </div>
-                            ) : (
+            <KCard>
+                <h1 className="text-2xl font-extrabold">مهارت های نرم افزاری</h1>
+                {isPending ? (
+                    <div className='flex justify-center'>
+                        <KSpinner color='primary' size={10} />
+                    </div>
+                ) : (
+                    <>
+                        {
+                            skills.length > 0 ? (
                                 <>
-                                    <div className='mt-6'>
-                                        <KCheckbox content={'مهارت زبان خارجی ندارم .'} onChange={handleOnChange} checked={isChecked} />
-                                        <div className='border-b-2 mt-4'></div>
-                                        <div className='mt-4'>
-                                            <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
-                                                <Add />
-                                                افزودن
-                                            </button>
-                                        </div>
+                                    <div className="grid grid-cols-4 gap-2 mt-5">
+                                        {skills.map((info, index) => (
+                                            <div key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
+                                                <button onClick={() => handleDeleteItem(info.id)} className="ml-4">
+                                                    <Delete />
+                                                </button>
+                                                <div className="flex-grow">
+                                                    <p className='text-black text-sm text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className='mt-4'>
+                                        <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
+                                            <Add />
+                                            افزودن
+                                        </button>
                                     </div>
                                 </>
-                            )}
-                        </>
-                    )}
-                </KCard>
-            )}
+                            ) : (
+                                <>
+                                    {isChecked ? (
+                                        <div className='flex mt-4'>
+                                            <p className='text-sm'>مهارت نرم افزاری ندارم.</p>
+                                            <button className='text-blue-500 text-sm mr-2' onClick={() => setIsChecked(!isChecked)}>تغییر</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className='mt-6'>
+                                                <KCheckbox content={'مهارت زبان خارجی ندارم .'} onChange={handleOnChange} checked={isChecked} />
+                                                <div className='border-b-2 mt-4'></div>
+                                                <div className='mt-4'>
+                                                    <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
+                                                        <Add />
+                                                        افزودن
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </>
+                            )
+                        }
+                    </>
+                )
+                }
+            </KCard>
+
         </>
     );
 };

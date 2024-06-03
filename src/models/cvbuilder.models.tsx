@@ -100,7 +100,7 @@ export interface SoftwareSkillsData {
         title: string
     },
     id: number,
-    skillLevel: string
+    softwareSkillLevel: string
 }
 
 
