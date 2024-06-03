@@ -24,7 +24,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
     const { records, refresh, setIsNewRecordVisible, isNewRecordVisible, cities, countries, jobCategories } = props;
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
-        "حذف سابقه تحصیلی"
+        "حذف سابقه شغلی"
     );
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
 

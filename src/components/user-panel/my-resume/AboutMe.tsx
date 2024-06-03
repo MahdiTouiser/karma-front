@@ -2,7 +2,7 @@ import { Avatar } from 'flowbite-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import KCard from '../../shared/Card';
-import AboutMeModal from './Modals/AboutMeModal';
+import AboutMeModal from './modals/AboutMeModal';
 
 const AboutMe: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);

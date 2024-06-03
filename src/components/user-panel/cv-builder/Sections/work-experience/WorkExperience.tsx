@@ -11,7 +11,7 @@ import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
-import WorkExperienceRecordData from './WorkExperienceRecordCards';
+import WorkExperienceRecordCards from './WorkExperienceRecordCards';
 
 const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: () => void }> = (props) => {
     const { goToPreviousStep, onSubmitSuccess } = props;
@@ -169,7 +169,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     <KSpinner color='primary' size={20} />
                 </span>
             ) : isRecordCreated ? (
-                <WorkExperienceRecordData
+                <WorkExperienceRecordCards
                     records={careerRecords}
                     refresh={fetchCareerRecords}
                     setIsNewRecordVisible={setIsNewRecordVisible}
