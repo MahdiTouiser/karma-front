@@ -141,9 +141,8 @@ export interface UserId {
   fullName: string;
 }
 
-export const FlightStatuses = {
-  "انجام نشده": 0,
-  "معلق شده": 1,
-  "کنسل شده": 2,
-  "انجام شده": 3,
-};
+
+export interface OptionType {
+  value: number;
+  label: string;
+}

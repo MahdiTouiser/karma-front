@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
 import { CareerRecord, City, Country, JobCategories, WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
-import { HijriMonths, SeniorityLevels, hijriMonthLabels, seniorityLevelLabels } from '../../../../../models/enums';
-import { BaseResponse } from '../../../../../models/shared.models';
+import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from '../../../../../models/enums';
+import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
@@ -18,9 +18,9 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [hasWorkExperience, setHasWorkExperience] = useState(false);
     const [currentJob, setCurrentJob] = useState(false);
     const [isRecordCreated, setIsRecordCreated] = useState(false);
-    const [countries, setCountries] = useState<{ value: number; label: string }[]>([]);
-    const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
-    const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
+    const [countries, setCountries] = useState<OptionType[]>([]);
+    const [cities, setCities] = useState<OptionType[]>([]);
+    const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
     const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
     const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
@@ -174,6 +174,9 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     refresh={fetchCareerRecords}
                     setIsNewRecordVisible={setIsNewRecordVisible}
                     isNewRecordVisible={isNewRecordVisible}
+                    countries={countries}
+                    cities={cities}
+                    jobCategories={jobCategories}
                 />
             ) : (
                 <>
@@ -264,10 +267,10 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                     <div className='flex justify-center w-1/2'>
                                         <div className='w-1/2 p-5'>
                                             <KLabel>ماه شروع</KLabel>
-                                            <KSelect type='number' {...register('fromMonth', { required: true })}>
-                                                {Object.values(HijriMonths).map((monthValue) => (
-                                                    <option key={monthValue} value={monthValue}>
-                                                        {hijriMonthLabels[monthValue as HijriMonths]}
+                                            <KSelect {...register('fromMonth', { required: true })}>
+                                                {hijriMonthOptions.map(option => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
                                                     </option>
                                                 ))}
                                             </KSelect>
@@ -294,9 +297,9 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                             <div className='w-1/2 p-5'>
                                                 <KLabel>ماه پایان</KLabel>
                                                 <KSelect {...register('toMonth')}>
-                                                    {Object.values(HijriMonths).map((monthValue) => (
-                                                        <option key={monthValue} value={monthValue}>
-                                                            {hijriMonthLabels[monthValue as HijriMonths]}
+                                                    {hijriMonthOptions.map(option => (
+                                                        <option key={option.value} value={option.value}>
+                                                            {option.label}
                                                         </option>
                                                     ))}
                                                 </KSelect>

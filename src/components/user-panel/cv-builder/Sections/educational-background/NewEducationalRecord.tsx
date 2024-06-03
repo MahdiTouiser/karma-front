@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, Majors, Universities } from '../../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
-import { BaseResponse } from '../../../../../models/shared.models';
+import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
@@ -23,8 +23,8 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
         value: key,
     }));
     const [selectedOption, setSelectedOption] = useState<string>('');
-    const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
-    const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
+    const [majors, setMajors] = useState<OptionType[]>([]);
+    const [universities, setUniversities] = useState<OptionType[]>([]);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<EducationalBackgroundFormData>();
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
