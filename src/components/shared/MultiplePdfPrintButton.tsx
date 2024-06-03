@@ -1,5 +1,5 @@
 import { AiFillPrinter } from "react-icons/ai";
-import useAPi from "../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import { printResponse } from "../../utils/shared";
 import KButton from "./Button";
 import KSpinner from "./Spinner";
@@ -21,7 +21,7 @@ const MultiplePdfPrintButton: React.FC<MultiplePdfPrintButtonProps> = ({
   disable = false,
   className = "",
 }) => {
-  const { sendRequest, isPending } = useAPi<string[], Blob>();
+  const { sendRequest, isPending } = useApi<string[], Blob>();
   const handlePrint = () => {
     sendRequest(
       {

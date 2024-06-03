@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import OTPBox from "../../components/auth/OTPBox";
 import BackButton from "../../components/shared/BackButton";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import useAPi, { axiosIntance } from "../../hooks/useApi";
+import useApi, { axiosIntance } from "../../hooks/useApi";
 import { AuthData } from "../../models/auth.models";
 import { BaseResponse } from "../../models/shared.models";
 import { authActions } from "../../store/auth";
@@ -12,12 +12,12 @@ import { setAuthDataInLocal } from "../../utils/authUtils";
 
 const OTPLoginPage: React.FC = () => {
   const enteredUsername = useAppSelector((state) => state.auth.enteredUsername);
-  const { sendRequest, errors } = useAPi<
+  const { sendRequest, errors } = useApi<
     { phone: string; OtpCode: string },
     BaseResponse<AuthData>
   >();
 
-  const { sendRequest: sendOtpRequest } = useAPi<
+  const { sendRequest: sendOtpRequest } = useApi<
     { phone: string; },
     BaseResponse<AuthData>
   >();

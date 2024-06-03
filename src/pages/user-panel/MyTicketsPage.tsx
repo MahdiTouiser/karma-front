@@ -5,12 +5,12 @@ import Grid from "../../components/shared/Grid/Grid";
 import { ColDef, GridGetData } from "../../components/shared/Grid/grid.types";
 import MultiplePdfPrintButton from "../../components/shared/MultiplePdfPrintButton";
 import PdfPrintButton from "../../components/shared/PdfPrintButton";
-import useAPi from "../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import { BaseResponse } from "../../models/shared.models";
 import { UserTicket } from "../../models/tickets.models";
 
 const MyTicketsPage: React.FC = () => {
-  const { sendRequest } = useAPi<null, BaseResponse<UserTicket[]>>();
+  const { sendRequest } = useApi<null, BaseResponse<UserTicket[]>>();
   const [selectedTicketsIds, setSelectedTicketsIds] = useState<string[]>();
   const [colDefs] = useState<ColDef<UserTicket>[]>([
     {

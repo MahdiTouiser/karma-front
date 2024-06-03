@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../hooks/reduxHooks";
-import useAPi, { axiosIntance } from "../../hooks/useApi";
+import useApi, { axiosIntance } from "../../hooks/useApi";
 import { AuthData } from "../../models/auth.models";
 import { BaseResponse } from "../../models/shared.models";
 import { authActions } from "../../store/auth";
@@ -16,7 +16,7 @@ const ResetPasswordOtp: React.FC<ResetPasswordOtpProps> = ({
   onOtpConfirm,
 }) => {
   const dispatch = useAppDispatch();
-  const { sendRequest, errors } = useAPi<
+  const { sendRequest, errors } = useApi<
     { phone: string; code: string },
     BaseResponse<AuthData>
   >();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../../hooks/reduxHooks";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import {
   DocumentItemModel,
   DocumentsUplodModel,
@@ -52,7 +52,7 @@ const AdminUploadDocumentModal: React.FC<AdminUploadDocumentModalProps> = ({
       withDate: true,
     });
 
-  const { sendRequest, isPending } = useAPi<
+  const { sendRequest, isPending } = useApi<
     DocumentsUplodModel,
     BaseResponse<string>
   >();

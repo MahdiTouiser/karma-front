@@ -1,7 +1,7 @@
 import { forwardRef, useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import useAPi from '../../../../hooks/useApi';
+import useApi from '../../../../hooks/useApi';
 import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
 import { MilitaryServiceStatus } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
@@ -19,8 +19,8 @@ interface InitialInformationProps {
 
 const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(({ onSubmitSuccess }) => {
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
-    const { sendRequest, isPending } = useAPi<InitialInformationFormData, BaseResponse<null>>();
-    const { sendRequest: getData } = useAPi<InitialInformationFormData, BaseResponse<null>>();
+    const { sendRequest, isPending } = useApi<InitialInformationFormData, BaseResponse<null>>();
+    const { sendRequest: getData } = useApi<InitialInformationFormData, BaseResponse<null>>();
 
     useEffect(() => {
         getData(

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Add from '../../../../../assets/icons/Add';
 import Delete from '../../../../../assets/icons/Delete';
 import Edit from '../../../../../assets/icons/Edit';
-import useAPi from '../../../../../hooks/useApi';
+import useApi from '../../../../../hooks/useApi';
 import useConfirm from '../../../../../hooks/useConfirm';
 import { EducationalRecord } from '../../../../../models/cvbuilder.models';
 import { DegreeLevelDescriptions } from '../../../../../models/enums';
@@ -20,7 +20,7 @@ interface EducationalRecordCardsProps {
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
     const { records, refresh, setIsNewRecordVisible, isNewRecordVisible } = props;
-    const { sendRequest: deleteRequest } = useAPi<null, BaseResponse<null>>();
+    const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه تحصیلی"

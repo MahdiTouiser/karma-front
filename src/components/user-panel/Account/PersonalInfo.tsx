@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'
-import useAPi from '../../../hooks/useApi'
+import useApi from '../../../hooks/useApi'
 import { PersonalInfoEditableFormData } from '../../../models/account.models'
 import { BaseResponse, UserPersonalInfo } from '../../../models/shared.models'
 import { accoutnActions } from '../../../store/account'
@@ -27,7 +27,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = props => {
     setValue,
   } = props.formHook
 
-  const { sendRequest: getInfo, data: personalInfo } = useAPi<null, BaseResponse<UserPersonalInfo>>()
+  const { sendRequest: getInfo, data: personalInfo } = useApi<null, BaseResponse<UserPersonalInfo>>()
 
   const userMobile = useAppSelector(state => state.auth.mobile)
 

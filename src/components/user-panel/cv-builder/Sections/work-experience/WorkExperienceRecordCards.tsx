@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import Add from '../../../../../assets/icons/Add'
 import Delete from '../../../../../assets/icons/Delete'
 import Edit from '../../../../../assets/icons/Edit'
-import useAPi from '../../../../../hooks/useApi'
+import useApi from '../../../../../hooks/useApi'
 import useConfirm from '../../../../../hooks/useConfirm'
 import { CareerRecord } from '../../../../../models/cvbuilder.models'
 import { BaseResponse } from '../../../../../models/shared.models'
@@ -23,7 +23,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه تحصیلی"
     );
-    const { sendRequest: deleteRequest } = useAPi<null, BaseResponse<null>>();
+    const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
 
 
     const handleDeleteRecord = async (id: string) => {
@@ -83,13 +83,14 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                         <span className='flex'>
                             <Add />
                             <p className='mr-2 text-blue-500 text-sm'>
-                                افزودن سابقه تحصیلی جدید
+                                افزودن سابقه شغلی جدید
                             </p>
                         </span>
                     </button>
                 )}
             </div>
-        </div>)
+        </div>
+    )
 }
 
 export default WorkExperienceRecordCards

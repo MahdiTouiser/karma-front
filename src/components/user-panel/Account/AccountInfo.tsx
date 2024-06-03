@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import useConfirm from "../../../hooks/useConfirm";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";
@@ -40,10 +40,10 @@ const AccountInfo: React.FC = () => {
     "غیرفعال کردن حساب کاربری"
   );
 
-  const { sendRequest: sendInactivate } = useAPi<null, BaseResponse<string>>();
+  const { sendRequest: sendInactivate } = useApi<null, BaseResponse<string>>();
   const [startChangePassword, setStartChangePassword] =
     useState<boolean>(false);
-  const { sendRequest: sendOtpRequest, isPending: otpPending } = useAPi<
+  const { sendRequest: sendOtpRequest, isPending: otpPending } = useApi<
     OTPRequest,
     OTPResponse
   >();

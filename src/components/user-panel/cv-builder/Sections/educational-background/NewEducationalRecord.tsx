@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import useAPi from '../../../../../hooks/useApi';
+import useApi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, Majors, Universities } from '../../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
@@ -22,13 +22,13 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
         label: DegreeLevelDescriptions[key as DegreeLevel],
         value: key,
     }));
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<EducationalBackgroundFormData>();
     const [selectedOption, setSelectedOption] = useState<string>('');
     const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
     const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
-    const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
-    const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
-    const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<EducationalBackgroundFormData>();
+    const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
+    const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
+    const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();

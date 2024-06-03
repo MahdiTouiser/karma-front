@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OTPBox from "../../../components/auth/OTPBox";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import useAPi, { axiosIntance } from "../../../hooks/useApi";
+import useApi, { axiosIntance } from "../../../hooks/useApi";
 import { AuthData } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";
 import { authActions } from "../../../store/auth";
@@ -11,7 +11,7 @@ import { setAuthDataInLocal } from "../../../utils/authUtils";
 const SignUpPasswordOtpPage: React.FC = () => {
   const phone = useAppSelector((state) => state.auth.enteredPhone);
   const dispatch = useAppDispatch();
-  const { sendRequest, errors } = useAPi<
+  const { sendRequest, errors } = useApi<
     { phone: string; otpCode: string },
     BaseResponse<AuthData>
   >();

@@ -22,14 +22,14 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
     const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
+    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
+    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
-    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
     const { sendRequest: fetch, isPending: fetchIsPending } = useApi<WorkExperienceFormData, CareerRecord[]>();
-    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
 
 
     const fetchCountries = async () => {
@@ -164,7 +164,11 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     return (
         <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
-            {isRecordCreated ? (
+            {fetchIsPending ? (
+                <span className='flex justify-center items-center h-screen'>
+                    <KSpinner color='primary' size={20} />
+                </span>
+            ) : isRecordCreated ? (
                 <WorkExperienceRecordData
                     records={careerRecords}
                     refresh={fetchCareerRecords}
@@ -312,17 +316,20 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     </form>
                 </>
             )}
-            <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
-                    مرحله قبلی
-                </KButton>
-                {isPending ? <KSpinner color='primary' /> :
-                    <KButton color='primary' type="button" onClick={handleButtonClick}>
-                        ذخیره و مرحله بعد
+            {!isNewRecordVisible && (
+                <div className='flex justify-end p-5'>
+                    <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
+                        مرحله قبلی
                     </KButton>
-                }
-            </div>
+                    {isPending ? <KSpinner color='primary' /> :
+                        <KButton color='primary' type="button" onClick={handleButtonClick}>
+                            ذخیره و مرحله بعد
+                        </KButton>
+                    }
+                </div>
+            )}
         </>
+
     );
 };
 

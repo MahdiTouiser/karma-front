@@ -4,7 +4,7 @@ import BackButton from "../../../components/shared/BackButton";
 import KButton from "../../../components/shared/Button";
 import KSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
 import { authActions } from "../../../store/auth";
 import { Regexes } from "../../../utils/shared";
@@ -16,7 +16,7 @@ const ForgetPasswordFirstPage: React.FC = () => {
     sendRequest,
     isPending,
     errors: apiErrors,
-  } = useAPi<OTPRequest, OTPResponse>();
+  } = useApi<OTPRequest, OTPResponse>();
   const {
     register,
     formState: { errors },

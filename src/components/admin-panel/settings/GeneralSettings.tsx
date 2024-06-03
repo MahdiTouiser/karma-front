@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { GeneralSettings } from "../../../models/settings.models";
 import {
   BaseResponse,
@@ -32,7 +32,7 @@ const GeneralSettingsComponent: React.FC = () => {
 
   const generalSettingsState = useAppSelector((state) => state.generalSettings);
   const dispatch = useAppDispatch();
-  const { sendRequest: saveSettingsRequest, isPending: isSaving } = useAPi<
+  const { sendRequest: saveSettingsRequest, isPending: isSaving } = useApi<
     GeneralSettings,
     BaseResponse<null>
   >();

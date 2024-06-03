@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import useAPi from '../../../../../hooks/useApi';
+import useApi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, EducationalRecord } from '../../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
@@ -17,8 +17,8 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
-    const { sendRequest: fetch, isPending: fetchIsPending } = useAPi<EducationalBackgroundFormData, EducationalRecord[]>();
-    const { sendRequest: AddEducationalData, isPending } = useAPi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
+    const { sendRequest: fetch, isPending: fetchIsPending } = useApi<EducationalBackgroundFormData, EducationalRecord[]>();
+    const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
     const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);

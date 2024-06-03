@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import useAPi from "../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import KSpinner from "./Spinner";
 
 interface LabeledFileInputProps {
@@ -22,7 +22,7 @@ const LabeledFileInput: React.FC<LabeledFileInputProps> = ({
   disabled = false,
   maxSize,
 }) => {
-  const { sendRequest, isPending } = useAPi<FormData, string>();
+  const { sendRequest, isPending } = useApi<FormData, string>();
   const [uploadedFile, setUploadedFile] = useState<File | null>();
   const [error, setError] = useState<string>("");
   function onChange(event: FormEvent) {

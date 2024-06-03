@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DocumentImagePlacholder from "../../../assets/document.png";
 import noImage from "../../../assets/no-image.png";
-import useAPi, { axiosIntance } from "../../../hooks/useApi";
+import useApi, { axiosIntance } from "../../../hooks/useApi";
 import { DocumentItem, DocumentStatus } from "../../../models/account.models";
 import { BaseResponse } from "../../../models/shared.models";
 import KButton from "../../shared/Button";
@@ -26,7 +26,7 @@ const AdminUserDocumentItem: React.FC<AdminUserDocumentItemProp> = ({
     ? `${import.meta.env.VITE_BASE_API_URL}/file/${documentData.fileId}`
     : "";
 
-  const { sendRequest, isPending } = useAPi<null, BaseResponse<null>>();
+  const { sendRequest, isPending } = useApi<null, BaseResponse<null>>();
 
   const checkDocument = useCallback(
     (id: string, approve: boolean) => {
