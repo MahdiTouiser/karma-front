@@ -6,7 +6,7 @@ import Edit from '../../../../../assets/icons/Edit'
 import useApi from '../../../../../hooks/useApi'
 import useConfirm from '../../../../../hooks/useConfirm'
 import { CareerRecord } from '../../../../../models/cvbuilder.models'
-import { BaseResponse } from '../../../../../models/shared.models'
+import { BaseResponse, OptionType } from '../../../../../models/shared.models'
 import KCard from '../../../../shared/Card'
 import NewCareerRecord from './NewCareerRecord'
 
@@ -15,10 +15,13 @@ interface WorkExperienceRecordCardsProps {
     refresh: () => void;
     setIsNewRecordVisible: (value: boolean) => void;
     isNewRecordVisible: boolean;
+    countries: OptionType[],
+    cities: OptionType[],
+    jobCategories: OptionType[]
 }
 
 const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (props) => {
-    const { records, refresh, setIsNewRecordVisible, isNewRecordVisible } = props;
+    const { records, refresh, setIsNewRecordVisible, isNewRecordVisible, cities, countries, jobCategories } = props;
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه تحصیلی"
@@ -77,6 +80,9 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                     <NewCareerRecord
                         setIsNewRecordVisible={setIsNewRecordVisible}
                         refresh={refresh}
+                        cities={cities}
+                        countries={countries}
+                        jobCategories={jobCategories}
                     />
                 ) : (
                     <button onClick={() => setIsNewRecordVisible(true)}>

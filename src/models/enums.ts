@@ -38,21 +38,21 @@ export enum HijriMonths {
   Esfand,
 }
 
-export const hijriMonthLabels = {
-  [HijriMonths.None]: 'انتخاب ماه',
-  [HijriMonths.Farvardin]: 'فروردین',
-  [HijriMonths.Ordibehesht]: 'اردیبهشت',
-  [HijriMonths.Khordad]: 'خرداد',
-  [HijriMonths.Tir]: 'تیر',
-  [HijriMonths.Mordad]: 'مرداد',
-  [HijriMonths.Shahrivar]: 'شهریور',
-  [HijriMonths.Mehr]: 'مهر',
-  [HijriMonths.Aban]: 'آبان',
-  [HijriMonths.Azar]: 'آذر',
-  [HijriMonths.Dey]: 'دی',
-  [HijriMonths.Bahman]: 'بهمن',
-  [HijriMonths.Esfand]: 'اسفند',
-}
+export const hijriMonthOptions = [
+  { value: HijriMonths.None, label: 'انتخاب ماه' },
+  { value: HijriMonths.Farvardin, label: 'فروردین' },
+  { value: HijriMonths.Ordibehesht, label: 'اردیبهشت' },
+  { value: HijriMonths.Khordad, label: 'خرداد' },
+  { value: HijriMonths.Tir, label: 'تیر' },
+  { value: HijriMonths.Mordad, label: 'مرداد' },
+  { value: HijriMonths.Shahrivar, label: 'شهریور' },
+  { value: HijriMonths.Mehr, label: 'مهر' },
+  { value: HijriMonths.Aban, label: 'آبان' },
+  { value: HijriMonths.Azar, label: 'آذر' },
+  { value: HijriMonths.Dey, label: 'دی' },
+  { value: HijriMonths.Bahman, label: 'بهمن' },
+  { value: HijriMonths.Esfand, label: 'اسفند' },
+]
 
 export enum SeniorityLevels {
   None = '',

@@ -14,8 +14,8 @@ interface EducationalDataProps {
 
 const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => {
     const { register, formState: { errors }, setValue } = useFormContext();
-    const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
-    const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
+    const [majors, setMajors] = useState<OptionType[]>([]);
+    const [universities, setUniversities] = useState<OptionType[]>([]);
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const [stillEducating, setStillEducating] = useState(false);
