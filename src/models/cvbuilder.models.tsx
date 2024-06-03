@@ -88,6 +88,23 @@ export interface LanguagesData {
     id: number,
     languageLevel: string
 }
+
+export interface AddSofwareSkillFormData {
+    softwareSkillId: number,
+    level: string
+}
+
+export interface SoftwareSkillsData {
+    SoftwareSkill: {
+        id: number,
+        title: string
+    },
+    id: number,
+    skillLevel: string
+}
+
+
+
 export interface Country {
     id: number;
     title: string;
@@ -112,6 +129,10 @@ export interface Universities {
 }
 
 export interface Languages {
+    id: number;
+    title: string;
+}
+export interface SoftwareSkills {
     id: number;
     title: string;
 }

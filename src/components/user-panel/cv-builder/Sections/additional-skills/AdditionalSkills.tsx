@@ -1,7 +1,7 @@
 import React from 'react';
 import OtherSkills from './OtherSkills';
-import SoftwareSkills from './SoftwareSkills';
 import Languages from './languages/Languages';
+import SoftwareSkills from './software-skills/SoftwareSkills';
 
 const AdditionalSkills: React.FC = () => {
 
