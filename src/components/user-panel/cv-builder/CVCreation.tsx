@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
-import InitialInformation from './Sections/InitialInformation';
-import AdditionalSkills from './Sections/additional-skills/AdditionalSkills';
-import EducationalBackground from './Sections/educational-background/EducationalBackground';
-import WorkExperience from './Sections/work-experience/WorkExperience';
+import InitialInformation from './sections/InitialInformation';
+import AdditionalSkills from './sections/additional-skills/AdditionalSkills';
+import EducationalBackground from './sections/educational-background/EducationalBackground';
+import WorkExperience from './sections/work-experience/WorkExperience';
 
 const CVCreation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);

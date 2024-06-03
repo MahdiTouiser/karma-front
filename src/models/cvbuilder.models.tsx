@@ -95,3 +95,8 @@ export interface Universities {
     id: number;
     title: string;
 }
+
+export interface Languages {
+    id: number;
+    title: string;
+}

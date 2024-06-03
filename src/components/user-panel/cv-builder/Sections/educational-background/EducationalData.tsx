@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import useApi from '../../../../../hooks/useApi';
 import { Majors, Universities } from '../../../../../models/cvbuilder.models';
-import { BaseResponse } from '../../../../../models/shared.models';
+import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';

@@ -1,9 +1,11 @@
 import React from 'react';
-import Languages from './Languages';
 import OtherSkills from './OtherSkills';
 import SoftwareSkills from './SoftwareSkills';
+import Languages from './languages/Languages';
 
 const AdditionalSkills: React.FC = () => {
+
+
     return (
         <div>
             <h1 className="text-2xl font-bold">مهارت های تکمیلی</h1>
