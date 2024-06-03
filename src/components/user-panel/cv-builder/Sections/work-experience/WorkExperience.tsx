@@ -11,7 +11,7 @@ import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
-import WorkExperienceRecordData from './WorkExperienceRecordData';
+import WorkExperienceRecordData from './WorkExperienceRecordCards';
 
 const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: () => void }> = (props) => {
     const { goToPreviousStep, onSubmitSuccess } = props;
@@ -22,13 +22,15 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [cities, setCities] = useState<{ value: number; label: string }[]>([]);
     const [jobCategories, setJobCategories] = useState<{ value: number; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
+    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
+    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
-    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
     const { sendRequest: fetch, isPending: fetchIsPending } = useApi<WorkExperienceFormData, CareerRecord[]>();
+
 
     const fetchCountries = async () => {
         countrySendRequest(
@@ -85,7 +87,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         fetchCities();
         fetchCountries();
         fetchJobCategories();
-        fetchEducationalRecords()
+        fetchCareerRecords()
     }, []);
 
     const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -93,16 +95,17 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         setSelectedCountry(countryId);
     };
 
-    const fetchEducationalRecords = () => {
+    const fetchCareerRecords = () => {
         fetch(
             {
-                url: "/Resumes/EducationalRecords",
+                url: "/Resumes/CareerRecords",
             },
             (response) => {
                 if (response.length === 0) {
                     setIsRecordCreated(false);
                 } else {
                     setCareerRecords(response);
+                    setIsRecordCreated(true)
                 }
             },
         );
@@ -125,6 +128,8 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
             jobcategoryId: Number(data.jobcategoryId),
             fromYear: data.fromYear ? Number(data.fromYear) : undefined,
             toYear: data.toYear ? Number(data.toYear) : undefined,
+            toMonth: data.toMonth ? Number(data.toMonth) : undefined,
+            fromMonth: data.fromMonth ? Number(data.fromMonth) : undefined,
         };
 
         if (currentJob) {
@@ -140,7 +145,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
             (response) => {
                 toast.success(response?.message);
                 setIsRecordCreated(true);
-                fetchEducationalRecords();
+                fetchCareerRecords();
             },
             (error) => {
                 toast.error(error?.message);
@@ -159,8 +164,17 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     return (
         <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
-            {isRecordCreated ? (
-                <WorkExperienceRecordData />
+            {fetchIsPending ? (
+                <span className='flex justify-center items-center h-screen'>
+                    <KSpinner color='primary' size={20} />
+                </span>
+            ) : isRecordCreated ? (
+                <WorkExperienceRecordData
+                    records={careerRecords}
+                    refresh={fetchCareerRecords}
+                    setIsNewRecordVisible={setIsNewRecordVisible}
+                    isNewRecordVisible={isNewRecordVisible}
+                />
             ) : (
                 <>
                     <div className='flex justify-start mt-10 border-b-2'>
@@ -250,17 +264,27 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                     <div className='flex justify-center w-1/2'>
                                         <div className='w-1/2 p-5'>
                                             <KLabel>ماه شروع</KLabel>
-                                            <KSelect type='number' {...register('fromMonth')}>
+                                            <KSelect type='number' {...register('fromMonth', { required: true })}>
                                                 {Object.values(HijriMonths).map((monthValue) => (
                                                     <option key={monthValue} value={monthValue}>
                                                         {hijriMonthLabels[monthValue as HijriMonths]}
                                                     </option>
                                                 ))}
                                             </KSelect>
+                                            {errors.fromMonth && (
+                                                <p className="text-red-500 text-xs">
+                                                    ماه شروع الزامی می باشد.
+                                                </p>
+                                            )}
                                         </div>
                                         <div className='w-1/2 p-5'>
                                             <KLabel>سال شروع</KLabel>
-                                            <KTextInput numeric maxLength={4} {...register('fromYear')} />
+                                            <KTextInput numeric maxLength={4} {...register('fromYear', { required: true })} />
+                                            {errors.fromYear && (
+                                                <p className="text-red-500 text-xs">
+                                                    سال شروع الزامی می باشد.
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -292,17 +316,20 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     </form>
                 </>
             )}
-            <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
-                    مرحله قبلی
-                </KButton>
-                {isPending ? <KSpinner color='primary' /> :
-                    <KButton color='primary' type="button" onClick={handleButtonClick}>
-                        ذخیره و مرحله بعد
+            {!isNewRecordVisible && (
+                <div className='flex justify-end p-5'>
+                    <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
+                        مرحله قبلی
                     </KButton>
-                }
-            </div>
+                    {isPending ? <KSpinner color='primary' /> :
+                        <KButton color='primary' type="button" onClick={handleButtonClick}>
+                            ذخیره و مرحله بعد
+                        </KButton>
+                    }
+                </div>
+            )}
         </>
+
     );
 };
 

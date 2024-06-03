@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAPi from "../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import { Regexes } from "../../utils/shared";
 import KAlert from "../shared/Alert";
 import KButton from "../shared/Button";
@@ -30,7 +30,7 @@ const ResetPasswordFinalComponent: React.FC<
     sendRequest,
     errors: apiErrors,
     isPending,
-  } = useAPi<{ password: string }>();
+  } = useApi<{ password: string }>();
 
   const passwordRef = useRef<string | undefined>();
   passwordRef.current = watch("password", "");

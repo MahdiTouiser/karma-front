@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import KButton from "../../../components/shared/Button";
 import KSpinner from "../../../components/shared/Spinner";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { OTPRequest, OTPResponse } from "../../../models/auth.models";
 import { BaseResponse } from "../../../models/shared.models";
 import { authActions } from "../../../store/auth";
@@ -20,12 +20,12 @@ const SignUpMobilePage: React.FC = () => {
     mode: "onTouched",
   });
 
-  const { sendRequest, errors: apiErrors } = useAPi<
+  const { sendRequest, errors: apiErrors } = useApi<
     { phone: string },
     BaseResponse<string>
   >();
 
-  const { sendRequest: sendOtpRequest, errors: otpErrors } = useAPi<
+  const { sendRequest: sendOtpRequest, errors: otpErrors } = useApi<
     OTPRequest,
     OTPResponse
   >();

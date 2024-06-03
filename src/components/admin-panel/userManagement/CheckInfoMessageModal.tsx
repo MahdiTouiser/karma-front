@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
 import { CheckUserInfoRequest } from "../../../models/usermanagement.models";
 import KButton from "../../shared/Button";
@@ -22,7 +22,7 @@ const CheckInfoMessageModal: React.FC<CheckInfoMessageModalProps> = ({
 }) => {
   const title = confirm ? "پیام تأیید اطلاعات" : "پیام عدم تأیید اطلاعات";
   const [message, setMessage] = useState<string>("");
-  const { sendRequest: sendCheckRequest, isPending } = useAPi<
+  const { sendRequest: sendCheckRequest, isPending } = useApi<
     CheckUserInfoRequest,
     BaseResponse<null>
   >();

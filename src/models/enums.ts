@@ -56,18 +56,22 @@ export const hijriMonthLabels = {
 
 export enum SeniorityLevels {
   None = '',
-  Beginner = 'Beginner',
-  Intermediate = 'Intermediate',
-  Advanced = 'Advanced',
+  Worker = 'Worker',
+  Employee = 'Employee',
   Specialist = 'Specialist',
+  SeniorSpecialist = 'SeniorSpecialist',
   Manager = 'Manager',
+  Director = 'Director',
+  Business_Head_CEO = 'Business_Head_CEO',
 }
 
 export const seniorityLevelLabels = {
   [SeniorityLevels.None]: 'انتخاب سطح',
-  [SeniorityLevels.Beginner]: 'مبتدی',
-  [SeniorityLevels.Intermediate]: 'متوسط',
-  [SeniorityLevels.Advanced]: 'پیشرفته',
+  [SeniorityLevels.Worker]: 'کارگر',
+  [SeniorityLevels.Employee]: 'کارمند',
   [SeniorityLevels.Specialist]: 'کارشناس',
+  [SeniorityLevels.SeniorSpecialist]: 'کارشناس ارشد',
   [SeniorityLevels.Manager]: 'مدیر',
+  [SeniorityLevels.Director]: 'معاونت',
+  [SeniorityLevels.Business_Head_CEO]: 'مدیر ارشد',
 }

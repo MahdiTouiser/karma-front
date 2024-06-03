@@ -5,7 +5,7 @@ import BackButton from "../../components/shared/BackButton";
 import KButton from "../../components/shared/Button";
 import KSpinner from "../../components/shared/Spinner";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import useAPi from "../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import { AuthData, UserSecurityInformation } from "../../models/auth.models";
 import { authActions } from "../../store/auth";
 import { setAuthDataInLocal } from "../../utils/authUtils";
@@ -19,7 +19,7 @@ const UsernameLoginPage = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [usernameSubmitted, setUsernameSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { sendRequest, errors, isPending } = useAPi();
+  const { sendRequest, errors, isPending } = useApi();
 
   const onChangeUsername = (event: FormEvent<HTMLInputElement>) => {
     const input: string = replacePersianArabicsNumbers(event.currentTarget.value);

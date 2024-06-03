@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from './hooks/reduxHooks'
-import useAPi from './hooks/useApi'
+import useApi from './hooks/useApi'
 import { BaseResponse, UserGeneralInfo } from './models/shared.models'
 import { authActions } from './store/auth'
 import { getAuthDataFromLocal, setAuthDataInLocal } from './utils/authUtils'
@@ -13,7 +13,7 @@ const AuthenticatedRoute: React.FC<AutenticateGuardProps> = props => {
   const headerSet = useAppSelector(state => state.auth.httpHeaderSet)
   const generalInfoSet = useAppSelector(state => state.auth.genralInfoSet)
   const dispatch = useAppDispatch()
-  const { sendRequest } = useAPi<null, BaseResponse<UserGeneralInfo>>()
+  const { sendRequest } = useApi<null, BaseResponse<UserGeneralInfo>>()
 
   useEffect(() => {
     if (!headerSet) {

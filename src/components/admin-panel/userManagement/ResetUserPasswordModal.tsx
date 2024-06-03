@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { BaseResponse } from "../../../models/shared.models";
 import { Regexes } from "../../../utils/shared";
 import KButton from "../../shared/Button";
@@ -29,7 +29,7 @@ const ResetUserPasswordModal: React.FC<ResetUserPasswordModalProps> = ({
     mode: "onTouched",
   });
 
-  const { sendRequest, isPending } = useAPi<
+  const { sendRequest, isPending } = useApi<
     { password: string },
     BaseResponse<null>
   >();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import useAPi from '../../../../../hooks/useApi';
+import useApi from '../../../../../hooks/useApi';
 import { Majors, Universities } from '../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KCheckbox from '../../../../shared/Checkbox';
@@ -16,8 +16,8 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
     const { register, formState: { errors }, setValue } = useFormContext();
     const [majors, setMajors] = useState<{ value: number; label: string }[]>([]);
     const [universities, setUniversities] = useState<{ value: number; label: string }[]>([]);
-    const { sendRequest: majorsSendRequest } = useAPi<null, BaseResponse<Majors[]>>();
-    const { sendRequest: universitiesSendRequest } = useAPi<null, BaseResponse<Universities[]>>();
+    const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
+    const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const [stillEducating, setStillEducating] = useState(false);
 
     const fetchMajors = async () => {

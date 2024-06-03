@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import useAPi from '../../../hooks/useApi'
+import useApi from '../../../hooks/useApi'
 import { BaseResponse } from '../../../models/shared.models'
 import { UserDatail, UserRequest, userType } from '../../../models/usermanagement.models'
 import { Regexes } from '../../../utils/shared'
@@ -30,7 +30,7 @@ const UserForm: React.FC<UserFormProps> = props => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [showPasswordModal, setShowPasswordModal] = useState<boolean>(false)
   const mobileRef = useRef<string | undefined>()
-  const { sendRequest: sendUserTypesRequest, data: userTypes } = useAPi<null, BaseResponse<userType[]>>()
+  const { sendRequest: sendUserTypesRequest, data: userTypes } = useApi<null, BaseResponse<userType[]>>()
 
   mobileRef.current = watch('phone', '')
 

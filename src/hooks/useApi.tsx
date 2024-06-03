@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from './reduxHooks'
 export const axiosIntance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
 })
-export default function useAPi<T, R = BaseResponse<T>, ErrorType = { message: string }>() {
+export default function useApi<T, R = BaseResponse<T>, ErrorType = { message: string }>() {
   const [isPending, setIsPending] = useState<boolean>(false)
   const [errors, setErrors] = useState<ErrorType | undefined>(undefined)
   const [data, setData] = useState<R | null>(null)

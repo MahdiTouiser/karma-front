@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAPi from "../../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
 import { BaseResponse, UserId } from "../../../models/shared.models";
 import KButton from "../Button";
 import KLabel from "../Label";
@@ -21,7 +21,7 @@ const AddTicketModal: React.FC<AddTicketModalProps> = ({
   const [fullNameFetched, setFullNameFetched] = useState(false);
   const [usernameError, setUsernameError] = useState<string | null>(null);
 
-  const { sendRequest, isPending } = useAPi<UserId, BaseResponse<UserId>>();
+  const { sendRequest, isPending } = useApi<UserId, BaseResponse<UserId>>();
 
   const {
     register,
