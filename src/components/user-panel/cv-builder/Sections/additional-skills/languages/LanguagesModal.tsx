@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import useApi from '../../../../../../hooks/useApi';
-import { Languages } from '../../../../../../models/cvbuilder.models';
-import { SeniorityLevels, seniorityLevelLabels } from '../../../../../../models/enums';
+import { AddLanguageFormData, Languages } from '../../../../../../models/cvbuilder.models';
+import { SkillLevels, skillLevelLabels } from '../../../../../../models/enums';
 import { BaseResponse, OptionType } from '../../../../../../models/shared.models';
 import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
@@ -10,9 +11,10 @@ import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
 
 const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, onClose }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<AddLanguageFormData>();
     const { sendRequest: fetchLangs } = useApi<null, BaseResponse<null>>();
     const [languages, setLanguages] = useState<OptionType[]>([]);
+    const { sendRequest: AddLanguageData, isPending } = useApi<AddLanguageFormData, BaseResponse<null>>();
 
 
     const fetchLanguages = async () => {
@@ -26,9 +28,9 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
             },
             (response) => {
                 if (response) {
-                    const languagesOptions: any = response.map((Languages: Languages) => ({
-                        value: Languages.id,
-                        label: Languages.title,
+                    const languagesOptions: any = response.map((language: Languages) => ({
+                        value: language.id,
+                        label: language.title,
                     }));
                     setLanguages(languagesOptions);
 
@@ -41,13 +43,37 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
         fetchLanguages()
     }, []);
 
+    const handleFormSubmit = () => {
+        handleSubmit(onSubmit)();
+    };
+
+
+    const onSubmit = async (data: AddLanguageFormData) => {
+        data.languageId = + data.languageId
+        AddLanguageData(
+            {
+                url: '/Resumes/AddLanguage',
+                method: 'post',
+                data: data,
+            },
+            (response) => {
+                toast.success(response?.message);
+                onClose()
+            },
+            (error) => {
+                toast.error(error?.message);
+            }
+        );
+    };
+
+
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
                 <h2>زبان ها</h2>
             </KModal.Header>
-            <div className='p-4'>
-                <KModal.Body>
+            <KModal.Body>
+                <form action="submit" onSubmit={handleSubmit(onSubmit)}>
                     <div className='m-5'>
                         <KLabel>زبان</KLabel>
                         <KSelect {...register('languageId', { required: true })}>
@@ -58,18 +84,18 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show
                     </div>
                     <div className='m-5'>
                         <KLabel>سطح مهارت</KLabel>
-                        <KSelect {...register('seniorityLevel', { required: true })}>
-                            {Object.values(SeniorityLevels).map((seniorityValue) => (
-                                <option key={seniorityValue} value={seniorityValue}>
-                                    {seniorityLevelLabels[seniorityValue as SeniorityLevels]}
+                        <KSelect {...register('level', { required: true })}>
+                            {Object.values(SkillLevels).map((skillValue) => (
+                                <option key={skillValue} value={skillValue}>
+                                    {skillLevelLabels[skillValue as SkillLevels]}
                                 </option>
                             ))}
                         </KSelect>
                     </div>
-                </KModal.Body>
-            </div>
+                </form>
+            </KModal.Body>
             <div className='flex justify-end mx-4'>
-                <KButton color="primary">
+                <KButton color="primary" onClick={handleFormSubmit}>
                     ذخیره
                 </KButton>
             </div>

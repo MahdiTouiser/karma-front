@@ -73,6 +73,21 @@ export interface CareerRecord {
     currentJob: boolean
 
 }
+
+export interface AddLanguageFormData {
+    languageId: number,
+    level: string
+}
+
+export interface LanguagesData {
+
+    Language: {
+        id: number,
+        title: string
+    },
+    id: number,
+    languageLevel: string
+}
 export interface Country {
     id: number;
     title: string;

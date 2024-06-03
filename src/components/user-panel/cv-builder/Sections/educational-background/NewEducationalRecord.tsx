@@ -125,6 +125,8 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
             }
         );
     };
+
+    
     const handleOptionChange = (value: string) => {
         setSelectedOption(value);
         setValue('degreeLevel', value);
