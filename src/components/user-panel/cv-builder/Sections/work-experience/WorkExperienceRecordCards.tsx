@@ -51,6 +51,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
     const handleEditRecord = (id: string) => {
         console.log('Editing record with ID:', id);
     };
+
     const sortedRecords = [...records].sort((a, b) => a.fromYear - b.fromYear);
 
     return (

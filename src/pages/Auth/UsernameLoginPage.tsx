@@ -35,7 +35,6 @@ const UsernameLoginPage = () => {
     event.preventDefault();
     setSubmitted(true);
     if (username) {
-      console.log("Username submitted:", username);
       setUsernameSubmitted(true);
     }
   };

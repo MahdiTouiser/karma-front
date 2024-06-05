@@ -126,7 +126,6 @@ const SoftwareSkills: React.FC = () => {
                 )
                 }
             </KCard>
-
         </>
     );
 };
