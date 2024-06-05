@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
 import InitialInformation from './sections/InitialInformation';
@@ -9,10 +10,16 @@ import WorkExperience from './sections/work-experience/WorkExperience';
 const CVCreation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const progressValues = [0, 30, 60, 90];
+    const navigate = useNavigate();
+
 
     const handleFormSubmitSuccess = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, links.length - 1));
     };
+
+    const finalizeForm = () => {
+        navigate('/cv-builder/finalize');
+    }
 
     const handleLinkClick = (index: number) => {
         setActiveIndex(index);
@@ -26,7 +33,7 @@ const CVCreation: React.FC = () => {
         { title: "اطلاعات اولیه", component: <InitialInformation onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "سوابق تحصیلی", component: <EducationalBackground goToPreviousStep={goToPreviousStep} onSubmitSuccess={handleFormSubmitSuccess} /> },
         { title: "سوابق شغلی", component: <WorkExperience goToPreviousStep={goToPreviousStep} onSubmitSuccess={handleFormSubmitSuccess} /> },
-        { title: "مهارت های تکمیلی", component: <AdditionalSkills /> },
+        { title: "مهارت های تکمیلی", component: <AdditionalSkills goToPreviousStep={goToPreviousStep} onSubmitSuccess={finalizeForm} /> },
     ];
 
     return (

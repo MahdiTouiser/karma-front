@@ -25,7 +25,6 @@ const DocumentItemComponent: React.FC<DocumentItemProps> = ({
 }) => {
   const documentData = useAppSelector((state) => state.account[field]);
   const required = documentData.required === undefined || documentData.required === true
-  console.log(title, documentData.required)
   const maxFileSize = useAppSelector(
     (state) => state.generalSettings.generalSettings?.fileSizeLimitation
   );

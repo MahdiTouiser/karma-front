@@ -1,11 +1,12 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
-import MyResume from './components/user-panel/my-resume/MyResume';
-import SavedJobs from './components/user-panel/my-resume/SavedJobs';
 import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
 import CVCreation from './components/user-panel/cv-builder/CVCreation';
+import FinalizeResume from './components/user-panel/cv-builder/FinalizeResume';
 import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
+import MyResume from './components/user-panel/my-resume/MyResume';
+import SavedJobs from './components/user-panel/my-resume/SavedJobs';
 import AuthContainer from './pages/auth/AuthContainer';
 import EmployerPage from './pages/auth/EmployerLoginPage';
 import OTPLoginPage from './pages/auth/OTPLoginPage';
@@ -16,8 +17,8 @@ import ForgetPasswordFirstPage from './pages/auth/forget-password/ForgetPassword
 import ForgetPasswordOtpPage from './pages/auth/forget-password/ForgetPasswordOtpPage';
 import SignUpMobilePage from './pages/auth/sign-up/SignUpMobilePage';
 import SignUpPasswordOtpPage from './pages/auth/sign-up/SignUpOtpPage';
-import Home from './pages/user-panel/home/Home';
 import UserPanelContainer from './pages/user-panel/UserPanelContainer';
+import Home from './pages/user-panel/home/Home';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="my-resume" element={<MyResume />} />
             <Route path="cv-builder" element={<CVBuilder />} />
             <Route path="cv-builder/create" element={<CVCreation />} />
+            <Route path="cv-builder/finalize" element={<FinalizeResume />} />
             <Route path="saved-jobs" element={<SavedJobs />} />
             <Route path="job-opportunities" element={<JobOpportunities />} />
           </Route>

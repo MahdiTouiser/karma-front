@@ -65,7 +65,6 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                 toast.error(error?.message);
             }
         );
-        console.log(finalData);
     };
 
     const handleFormSubmit = () => {

@@ -266,7 +266,7 @@ function MainGrid<T = any>(
                       colSpan={colDefs.length + Number(Boolean(rowActions))}
                     >
                       <div className="flex justify-center py-12">
-                        <KSpinner color="blue" size={28} />
+                        <KSpinner color="green" size={28} />
                       </div>
                     </Table.Cell>
                   </Table.Row>
