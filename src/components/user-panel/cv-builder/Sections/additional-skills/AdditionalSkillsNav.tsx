@@ -1,10 +1,9 @@
 import React from 'react';
-import OtherSkills from './OtherSkills';
-import SoftwareSkills from './SoftwareSkills';
+import AdditionalSkills from './additional-skills/AdditionalSkills';
 import Languages from './languages/Languages';
+import SoftwareSkills from './software-skills/SoftwareSkills';
 
-const AdditionalSkills: React.FC = () => {
-
+const AdditionalSkillsNav: React.FC = () => {
 
     return (
         <div>
@@ -17,11 +16,11 @@ const AdditionalSkills: React.FC = () => {
                     <SoftwareSkills />
                 </div>
                 <div className='mt-5'>
-                    <OtherSkills />
+                    <AdditionalSkills />
                 </div>
             </div>
         </div>
     );
 };
 
-export default AdditionalSkills;
+export default AdditionalSkillsNav;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
 import InitialInformation from './sections/InitialInformation';
-import AdditionalSkills from './sections/additional-skills/AdditionalSkills';
+import AdditionalSkills from './sections/additional-skills/AdditionalSkillsNav';
 import EducationalBackground from './sections/educational-background/EducationalBackground';
 import WorkExperience from './sections/work-experience/WorkExperience';
 
