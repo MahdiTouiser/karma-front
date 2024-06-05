@@ -19,7 +19,7 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
     const fetchSkills = async () => {
         fetch(
             {
-                url: "/SoftwareSkills",
+                url: '/SoftwareSkills',
                 params: {
                     pageSize: 10000,
                     pageIndex: 1,
@@ -89,7 +89,7 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
                                 </option>
                             ))}
                         </KSelect>
-                        {errors.level && <span className="text-red-500 text-xs"> انتخاب سطح مهارت الزامی است .</span>}
+                        {errors.level && <span className='text-red-500 text-xs'> انتخاب سطح مهارت الزامی است .</span>}
                     </div>
                 </form>
             </KModal.Body>

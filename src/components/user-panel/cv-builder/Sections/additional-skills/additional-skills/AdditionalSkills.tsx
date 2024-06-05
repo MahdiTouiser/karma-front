@@ -4,30 +4,30 @@ import Add from '../../../../../../assets/icons/Add';
 import Delete from '../../../../../../assets/icons/Delete';
 import useApi from '../../../../../../hooks/useApi';
 import useConfirm from '../../../../../../hooks/useConfirm';
-import { SoftwareSkillsData } from '../../../../../../models/cvbuilder.models';
-import { SkillLevels, skillLevelLabels } from '../../../../../../models/enums';
+import { AdditionalSkillsData } from '../../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../../models/shared.models';
 import KCard from '../../../../../shared/Card';
 import KCheckbox from '../../../../../shared/Checkbox';
 import KSpinner from '../../../../../shared/Spinner';
-import SoftwareSkillsModal from './SoftwareSkillsModal';
+import AdditionalSkillsModal from './AdditionalSkillsModal';
 
-const SoftwareSkills: React.FC = () => {
+const AdditionalSkills: React.FC = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [skills, setSkills] = useState<SoftwareSkillsData[]>([]);
+    const [skills, setSkills] = useState<AdditionalSkillsData[]>([]);
     const closeModal = () => setIsModalOpen(false);
     const openModal = () => setIsModalOpen(true);
-    const { sendRequest: fetch, isPending } = useApi<null, SoftwareSkillsData[]>();
+
+    const { sendRequest: fetch, isPending } = useApi<null, AdditionalSkillsData[]>();
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
 
     const fetchSkills = () => {
         fetch(
             {
-                url: "/Resumes/SoftwareSkills",
+                url: '/Resumes/AdditionalSkills',
             },
             (response) => {
-                setSkills(response);
+                setSkills(response)
             },
         );
     };
@@ -50,7 +50,7 @@ const SoftwareSkills: React.FC = () => {
         if (confirm) {
             deleteRequest(
                 {
-                    url: `/Resumes/RemoveSoftwareSkill/${id}`,
+                    url: `/Resumes/RemoveAdditionalSkill/${id}`,
                     method: 'delete'
                 },
                 (response) => {
@@ -67,9 +67,9 @@ const SoftwareSkills: React.FC = () => {
     return (
         <>
             <ConfirmModal />
-            <SoftwareSkillsModal show={isModalOpen} onClose={closeModal} onSuccess={fetchSkills} />
             <KCard>
-                <h1 className="text-2xl font-extrabold">مهارت های نرم افزاری</h1>
+                <AdditionalSkillsModal show={isModalOpen} onClose={closeModal} onSuccess={fetchSkills} />
+                <h1 className="text-2xl font-extrabold">مهارت های تکمیلی</h1>
                 {isPending ? (
                     <div className='flex justify-center'>
                         <KSpinner color='primary' size={10} />
@@ -86,7 +86,7 @@ const SoftwareSkills: React.FC = () => {
                                                     <Delete />
                                                 </button>
                                                 <div className="flex-grow">
-                                                    <p className='text-black text-sm text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
+                                                    <p className='text-black text-sm text-center'>{info.title}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -102,13 +102,13 @@ const SoftwareSkills: React.FC = () => {
                                 <>
                                     {isChecked ? (
                                         <div className='flex mt-4'>
-                                            <p className='text-sm'>مهارت نرم افزاری ندارم.</p>
+                                            <p className='text-sm'>مهارت تکمیلی ندارم.</p>
                                             <button className='text-blue-500 text-sm mr-2' onClick={() => setIsChecked(!isChecked)}>تغییر</button>
                                         </div>
                                     ) : (
                                         <>
                                             <div className='mt-6'>
-                                                <KCheckbox content={'مهارت نرم افزاری ندارم .'} onChange={handleOnChange} checked={isChecked} />
+                                                <KCheckbox content={'مهارت تکمیلی ندارم .'} onChange={handleOnChange} checked={isChecked} />
                                                 <div className='border-b-2 mt-4'></div>
                                                 <div className='mt-4'>
                                                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
@@ -126,9 +126,8 @@ const SoftwareSkills: React.FC = () => {
                 )
                 }
             </KCard>
-
         </>
-    );
-};
+    )
+}
 
-export default SoftwareSkills;
+export default AdditionalSkills

@@ -25,10 +25,9 @@ const Languages: React.FC = () => {
     const fetchLanguages = () => {
         fetch(
             {
-                url: "/Resumes/Languages",
+                url: '/Resumes/Languages',
             },
             (response) => {
-                console.log(response);
                 setLanguages(response);
             },
         );
@@ -75,7 +74,9 @@ const Languages: React.FC = () => {
                 <h1 className="text-2xl font-extrabold">زبان ها</h1>
 
                 {isPending ? (
-                    <KSpinner color='primary' />
+                    <div className='flex justify-center'>
+                        <KSpinner color='primary' size={10} />
+                    </div>
                 ) : (
                     <>
                         {
