@@ -103,7 +103,7 @@ export interface SoftwareSkillsData {
     softwareSkillLevel: string
 }
 
-export interface AddOtherSkillsFormData {
+export interface AddAdditionalSkillsFormData {
     title: string,
 }
 

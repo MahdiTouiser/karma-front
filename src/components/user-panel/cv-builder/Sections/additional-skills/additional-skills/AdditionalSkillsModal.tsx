@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../../hooks/useApi';
-import { AddOtherSkillsFormData } from '../../../../../../models/cvbuilder.models';
+import { AddAdditionalSkillsFormData } from '../../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../../models/shared.models';
 import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
@@ -10,8 +10,8 @@ import KModal from '../../../../../shared/Modal/Modal';
 import KTextInput from '../../../../../shared/TextInput';
 
 const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<AddOtherSkillsFormData>();
-    const { sendRequest: AddSkillsData } = useApi<AddOtherSkillsFormData, BaseResponse<null>>();
+    const { register, handleSubmit, formState: { errors } } = useForm<AddAdditionalSkillsFormData>();
+    const { sendRequest: AddSkillsData } = useApi<AddAdditionalSkillsFormData, BaseResponse<null>>();
 
 
 
@@ -19,7 +19,7 @@ const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSu
         handleSubmit(onSubmit)();
     };
 
-    const onSubmit = async (data: AddOtherSkillsFormData) => {
+    const onSubmit = async (data: AddAdditionalSkillsFormData) => {
         AddSkillsData(
             {
                 url: '/Resumes/AddAdditionalSkill',
