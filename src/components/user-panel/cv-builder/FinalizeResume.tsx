@@ -1,12 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CheckBadge from '../../../assets/icons/CheckBadge';
 import Eye from '../../../assets/icons/Eye';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
 
 const FinalizeResume: React.FC = () => {
+    const navigate = useNavigate()
+
     const handleButtonClick = () => {
-        console.log('mahdi');
+        navigate('/my-resume')
     }
 
     return (

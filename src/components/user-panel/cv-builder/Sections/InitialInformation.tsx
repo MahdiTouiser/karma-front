@@ -3,7 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../hooks/useApi';
 import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
-import { MilitaryServiceStatus } from '../../../../models/enums';
+import { militaryServiceStatusMapping } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
 import KDatepicker from '../../../shared/DatePicker';
@@ -85,12 +85,12 @@ const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(
                 <div className='flex justify-center mt-10'>
                     <div className="w-1/2 p-5">
                         <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
-                            {Object.values(MilitaryServiceStatus).map(status => (
+                            {Object.values(militaryServiceStatusMapping).map(status => (
                                 <option key={status} value={status}>
-                                    {status === MilitaryServiceStatus.Done ? 'انجام شده' :
-                                        status === MilitaryServiceStatus.PermanentExemption ? 'معاف دائم' :
-                                            status === MilitaryServiceStatus.AcademicExemption ? 'معافیت تحصیلی' :
-                                                status === MilitaryServiceStatus.InProgress ? 'در حال انجام' :
+                                    {status === militaryServiceStatusMapping.Done ? 'انجام شده' :
+                                        status === militaryServiceStatusMapping.PermanentExemption ? 'معاف دائم' :
+                                            status === militaryServiceStatusMapping.AcademicExemption ? 'معافیت تحصیلی' :
+                                                status === militaryServiceStatusMapping.InProgress ? 'در حال انجام' :
                                                     'مشمول'}
                                 </option>
                             ))}

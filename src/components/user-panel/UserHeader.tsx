@@ -9,28 +9,27 @@ const UserHeader: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const dropdownItems = [
-    { label: "رزومه من", href: "my-resume" },
-    { label: "مشاغل نشان شده", href: "saved-jobs" },
-    { label: "تنظیمات", href: "settings" },
+    { label: "رزومه من", href: "/my-resume" },
+    { label: "مشاغل نشان شده", href: "/saved-jobs" },
+    { label: "تنظیمات", href: "/settings" },
     { isDivider: true },
     { label: "خروج" },
   ];
 
   const navLinks = [
-    { label: "فرصت های شغلی", href: "job-opportunities" },
-    { label: "رزومه من", href: "my-resume" },
-    { label: "رزومه ساز", href: "cv-builder" },
-
+    { label: "فرصت های شغلی", href: "/job-opportunities" },
+    { label: "رزومه من", href: "/my-resume" },
+    { label: "رزومه ساز", href: "/cv-builder" },
   ];
 
   const handleDropdownItemClick = (href: string) => {
-    navigate(`/${href}`);
+    navigate(href);
   };
 
   const logOut = () => {
     removeAuthDataFromLocal();
     dispatch(authActions.logOut());
-  }
+  };
 
   return (
     <>
@@ -72,7 +71,7 @@ const UserHeader: React.FC = () => {
             </Navbar.Link>
           ))}
         </Navbar.Collapse>
-      </Navbar >
+      </Navbar>
     </>
   );
 };

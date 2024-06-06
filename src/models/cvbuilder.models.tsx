@@ -29,8 +29,8 @@ export interface EducationalBackgroundFormData {
     universityId: number;
     fromYear: number;
     toYear: number;
-    gpa?: number;
-    stillEducating: boolean;
+    gpa: number;
+    stillEducating?: boolean;
 }
 
 export interface EducationalRecord {
@@ -103,7 +103,7 @@ export interface SoftwareSkillsData {
     softwareSkillLevel: string
 }
 
-export interface AddOtherSkillsFormData {
+export interface AddAdditionalSkillsFormData {
     title: string,
 }
 

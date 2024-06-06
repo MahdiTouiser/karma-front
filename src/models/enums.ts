@@ -1,9 +1,37 @@
-export enum MilitaryServiceStatus {
-  Done = 'Done',
-  PermanentExemption = 'PermanentExemption',
-  AcademicExemption = 'AcademicExemption',
-  InProgress = 'InProgress',
-  SubjectToService = 'SubjectToService',
+export interface GenderMapping {
+  Male: string
+  Female: string
+}
+
+export interface MaritalStatusMapping {
+  Single: string
+  Married: string
+}
+
+export interface MilitaryServiceStatusMapping {
+  Done: string
+  PermanentExemption: string
+  AcademicExemption: string
+  InProgress: string
+  SubjectToService: string
+}
+
+export const genderMapping: GenderMapping = {
+  Male: 'مرد',
+  Female: 'زن',
+}
+
+export const maritalStatusMapping: MaritalStatusMapping = {
+  Single: 'مجرد',
+  Married: 'متاهل',
+}
+
+export const militaryServiceStatusMapping: MilitaryServiceStatusMapping = {
+  Done: 'پایان خدمت',
+  PermanentExemption: 'معافیت دائم',
+  AcademicExemption: 'معافیت تحصیلی',
+  InProgress: 'در حال خدمت',
+  SubjectToService: 'مشمول',
 }
 
 export enum DegreeLevel {
