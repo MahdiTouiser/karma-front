@@ -7,12 +7,12 @@ import KSelect from '../../shared/Select';
 import BasicInfo from './BasicInfo';
 import CareerHistory from './CareerBackground';
 import Contact from './Contact';
-import EducationalHistory from './EducationalHistory';
 import Languages from './Languages';
 import PersonalResume from './PersonalResume';
 import Samples from './Samples';
 import SoftwareSkills from './SoftwareSkills';
 import AboutMe from './about-me/AboutMe';
+import EducationalHistory from './educational-history.tsx/EducationalHistory';
 
 const MyResume: React.FC = () => {
     return (

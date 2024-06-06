@@ -29,8 +29,8 @@ export interface EducationalBackgroundFormData {
     universityId: number;
     fromYear: number;
     toYear: number;
-    gpa?: number;
-    stillEducating: boolean;
+    gpa: number;
+    stillEducating?: boolean;
 }
 
 export interface EducationalRecord {
