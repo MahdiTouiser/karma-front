@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "../../../../hooks/useApi";
-import { City, Country, JobCategories, WorkExperienceFormData } from "../../../../models/cvbuilder.models";
+import { CareerRecord, City, Country, JobCategories, WorkExperienceFormData } from "../../../../models/cvbuilder.models";
 import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from "../../../../models/enums";
 import { BaseResponse, OptionType } from "../../../../models/shared.models";
 import KButton from "../../../shared/Button";
@@ -12,15 +12,40 @@ import KSelect from "../../../shared/Select";
 import KSpinner from "../../../shared/Spinner";
 import KTextInput from "../../../shared/TextInput";
 
-const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetch: () => void }> = ({ show, onClose, fetch }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<WorkExperienceFormData>();
-    const { sendRequest: AddCareerData, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
+interface CareerBackgroundModalProps {
+    show: boolean;
+    onClose: () => void;
+    fetch: () => void;
+    editMode: boolean;
+    record: CareerRecord | null;
+}
+
+const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
+    const { show, onClose, fetch, editMode, record } = props
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<WorkExperienceFormData>();
+    const { sendRequest: saveCareerData, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const [countries, setCountries] = useState<OptionType[]>([]);
     const [cities, setCities] = useState<OptionType[]>([]);
     const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
+
+    useEffect(() => {
+        fetchCities();
+        fetchCountries();
+        fetchJobCategories();
+    }, []);
+
+    useEffect(() => {
+        if (editMode && record) {
+            for (const [key, value] of Object.entries(record)) {
+                setValue(key as keyof WorkExperienceFormData, value);
+            }
+        } else {
+            reset();
+        }
+    }, [editMode, record, reset, setValue]);
 
     const fetchCountries = async () => {
         countrySendRequest(
@@ -73,14 +98,6 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
         );
     };
 
-
-
-    useEffect(() => {
-        fetchCities();
-        fetchCountries();
-        fetchJobCategories();
-    }, []);
-
     const onSubmit: SubmitHandler<WorkExperienceFormData> = async (data) => {
         const fieldsToConvert = ['cityId', 'countryId', 'fromMonth', 'toYear', 'fromYear', 'toMonth', 'jobcategoryId'] as const;
         fieldsToConvert.forEach((field) => {
@@ -88,10 +105,14 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
                 data[field] = +data[field];
             }
         });
-        AddCareerData(
+
+        const url = editMode && record ? `/Resumes/UpdateCareerRecord/${record.id}` : '/Resumes/AddCareerRecord';
+        const method = editMode && record ? "put" : "post";
+
+        saveCareerData(
             {
-                url: '/Resumes/AddCareerRecord',
-                method: 'post',
+                url: url,
+                method: method,
                 data: data,
             },
             (response) => {
@@ -113,7 +134,7 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
-                <h2>افزودن سابقه شغلی جدید</h2>
+                <h2>{editMode ? 'ویرایش سابقه شغلی' : 'افزودن سابقه شغلی جدید'}</h2>
             </KModal.Header>
             <div className='p-4'>
                 <KModal.Body>
@@ -242,13 +263,12 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
                             </div>
                         </form>
 
-
                         <div className="flex justify-end px-5">
                             {isPending ? (
                                 <KSpinner />
                             ) : (
                                 <KButton color='primary' type="button" onClick={handleFormSubmit}>
-                                    ذخیره
+                                    {editMode ? 'ذخیره تغییرات' : 'ذخیره'}
                                 </KButton>
                             )}
                         </div>
@@ -256,7 +276,7 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
                 </KModal.Body>
             </div>
         </KModal>
-    )
+    );
 }
 
 export default CareerBackgroundModal;

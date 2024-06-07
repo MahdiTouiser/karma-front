@@ -102,7 +102,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
 
         const apiCall = editMode && record ? UpdateEducationalData : AddEducationalData;
         const url = editMode && record ? `/Resumes/UpdateEducationalRecord/${record.id}` : '/Resumes/AddEducationalRecord';
-        const method = editMode && record ? "put" : "post";
+        const method = editMode && record ? 'put' : 'post';
 
         apiCall(
             {
@@ -112,7 +112,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
             },
             (response) => {
                 toast.success(response?.message);
-                reset(); // Reset the form fields to their default state
+                reset();
                 onClose();
                 fetch();
             },
