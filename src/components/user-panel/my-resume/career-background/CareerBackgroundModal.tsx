@@ -88,7 +88,6 @@ const CareerBackgroundModal: React.FC<{ show: boolean; onClose: () => void; fetc
                 data[field] = +data[field];
             }
         });
-        console.log(data);
         AddCareerData(
             {
                 url: '/Resumes/AddCareerRecord',

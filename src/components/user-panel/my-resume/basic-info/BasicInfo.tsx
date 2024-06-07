@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Edit from '../../../assets/icons/Edit';
-import useApi from '../../../hooks/useApi';
-import { GenderMapping, MaritalStatusMapping, MilitaryServiceStatusMapping, genderMapping, maritalStatusMapping, militaryServiceStatusMapping } from '../../../models/enums';
-import { BasicInfoData, InfoType } from '../../../models/myresume.model';
-import KCard from '../../shared/Card';
+import Edit from '../../../../assets/icons/Edit';
+import useApi from '../../../../hooks/useApi';
+import { GenderMapping, MaritalStatusMapping, MilitaryServiceStatusMapping, genderMapping, maritalStatusMapping, militaryServiceStatusMapping } from '../../../../models/enums';
+import { BasicInfoData, InfoType } from '../../../../models/myresume.model';
+import KCard from '../../../shared/Card';
+import BasicInfoEditModal from './BasicInfoEditModal';
 
 const BasicInfo: React.FC = () => {
     const [infoData, setInfoData] = useState<InfoType[]>([]);
     const { sendRequest: fetch } = useApi<null, BasicInfoData>();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     const fetchData = async () => {
         fetch(
@@ -38,21 +42,24 @@ const BasicInfo: React.FC = () => {
     }, []);
 
     return (
-        <KCard className='flex flex-col justify-between w-full'>
-            <div className="flex items-center justify-between">
-                <h1 className='text-xl font-bold'>اطلاعات اولیه</h1>
-                <button className="text-sm text-blue-500 flex items-center">
-                    <Edit strokeColor='#3b82f6' />
-                    ویرایش
-                </button>
-            </div>
-            {infoData.map((info, index) => (
-                <div key={index} className='flex justify-between'>
-                    <p className='text-gray-600 mt-5'>{info.label}</p>
-                    <p className='text-black mt-5 font-extrabold'>{info.value}</p>
+        <>
+            <BasicInfoEditModal show={isModalOpen} onClose={closeModal} fetch={fetchData} />
+            <KCard className='flex flex-col justify-between w-full'>
+                <div className="flex items-center justify-between">
+                    <h1 className='text-xl font-bold'>اطلاعات اولیه</h1>
+                    <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
+                        <Edit strokeColor='#3b82f6' />
+                        ویرایش
+                    </button>
                 </div>
-            ))}
-        </KCard>
+                {infoData.map((info, index) => (
+                    <div key={index} className='flex justify-between'>
+                        <p className='text-gray-600 mt-5'>{info.label}</p>
+                        <p className='text-black mt-5 font-extrabold'>{info.value}</p>
+                    </div>
+                ))}
+            </KCard>
+        </>
     );
 }
 

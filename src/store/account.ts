@@ -51,7 +51,6 @@ function getLastDocument(documents: DocumentItem[] | null, withDate?: boolean, r
 }
 
 function getValidationMessage(documentItemModel: DocumentItemModel, timeStamp?: number): string {
-  console.log(documentItemModel.required)
   // if (documentItemModel.required === false){
   //   return ''
   // }

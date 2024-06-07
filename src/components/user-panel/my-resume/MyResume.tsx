@@ -4,13 +4,13 @@ import Share from '../../../assets/icons/Share';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
 import KSelect from '../../shared/Select';
-import BasicInfo from './BasicInfo';
 import Contact from './Contact';
 import Languages from './Languages';
 import PersonalResume from './PersonalResume';
 import Samples from './Samples';
 import SoftwareSkills from './SoftwareSkills';
 import AboutMe from './about-me/AboutMe';
+import BasicInfo from './basic-info/BasicInfo';
 import CareerHistory from './career-background/CareerBackground';
 import EducationalHistory from './educational-history.tsx/EducationalHistory';
 
