@@ -27,7 +27,7 @@ export default function AuthContainer() {
     !authState.enteredPhone ? (
     <Navigate to="/" />
   ) : (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="bg-gray-200 min-h-screen flex justify-center items-center">
       <div className="container px-1 m-auto py-1 flex justify-center items-center">
         <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border shadow-lg bg-white">
           <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">
@@ -36,7 +36,7 @@ export default function AuthContainer() {
             </h1>
           </div>
           <Outlet />
-          <div className="bg-gray-100 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
+          <div className="bg-gray-200 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
             <Link
               to={isJobseekerMode ? "/auth/employer" : "/auth"}
               onClick={handleModeToggle}

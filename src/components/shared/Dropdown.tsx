@@ -153,8 +153,8 @@ export const KDropDownItem: React.FC<KDropdownItemProps> = ({
     <li
       onClick={handleLiClick}
       className={`${!disabled
-          ? " hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          : "opacity-70"
+        ? " hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+        : "opacity-70"
         } block  `}
     >
       {mode === "Link" ? (

@@ -45,8 +45,8 @@ const Languages: React.FC = () => {
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف مهارت زبان خارجی"
     );
-    const handleDeleteItem = async (id: number) => {
 
+    const handleDeleteItem = async (id: number) => {
         const confirm = await confirmation();
         if (confirm) {
             deleteRequest(

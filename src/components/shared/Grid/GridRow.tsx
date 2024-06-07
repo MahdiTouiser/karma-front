@@ -62,7 +62,7 @@ function GridRow<T>({
         <Table.Cell className="w-5 px-3 pl-0">
           <input
             type="checkbox"
-            className={`ml-3 h-5 w-5 text-${theme}-500 rounded border-gray-300 bg-gray-100 focus:ring-${theme}-500 focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600`}
+            className={`ml-3 h-5 w-5 text-${theme}-500 rounded border-gray-300 bg-gray-200 focus:ring-${theme}-500 focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600`}
             checked={row.isSelected}
             onChange={(event) => {
               onSelectedChange && onSelectedChange(row, event.target.checked);

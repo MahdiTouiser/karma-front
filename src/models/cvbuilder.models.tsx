@@ -14,12 +14,12 @@ export interface WorkExperienceFormData {
     jobcategoryId: number;
     seniorityLevel: string;
     companyName: string;
-    countryId?: number;
-    cityId?: number;
+    countryId: number;
+    cityId: number;
     fromYear: number;
     fromMonth: number;
-    toYear?: number;
-    toMonth?: number;
+    toYear: number;
+    toMonth: number;
     currentJob: boolean;
 }
 

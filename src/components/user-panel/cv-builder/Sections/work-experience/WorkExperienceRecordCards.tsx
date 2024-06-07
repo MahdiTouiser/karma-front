@@ -60,7 +60,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
                     <div className='flex align-middle items-center'>
-                        <div className='flex flex-col ml-4 bg-gray-100 p-3 rounded'>
+                        <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
                             <button onClick={() => handleEditRecord(record.id)}>
                                 <Edit />
                             </button>
