@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "../../../../hooks/useApi";
-import { EducationalBackgroundFormData, Majors, Universities } from "../../../../models/cvbuilder.models";
+import { EducationalBackgroundFormData, EducationalRecord, Majors, Universities } from "../../../../models/cvbuilder.models";
 import { DegreeLevel, DegreeLevelDescriptions } from "../../../../models/enums";
 import { BaseResponse, OptionType } from "../../../../models/shared.models";
 import KButton from "../../../shared/Button";
@@ -12,13 +12,24 @@ import KSelect from "../../../shared/Select";
 import KSpinner from "../../../shared/Spinner";
 import KTextInput from "../../../shared/TextInput";
 
-const EducationalHistoryModal: React.FC<{ show: boolean; onClose: () => void; fetch: () => void }> = ({ show, onClose, fetch }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<EducationalBackgroundFormData>();
+interface EducationalHistoryModalProps {
+    show: boolean;
+    onClose: () => void;
+    fetch: () => void;
+    editMode: boolean,
+    record: EducationalRecord | null
+}
+
+
+const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) => {
+    const { show, onClose, fetch, editMode, record } = props
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<EducationalBackgroundFormData>();
     const [majors, setMajors] = useState<OptionType[]>([]);
     const [universities, setUniversities] = useState<OptionType[]>([]);
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
+    const { sendRequest: UpdateEducationalData } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
 
     const fetchMajors = async () => {
         majorsSendRequest(
@@ -67,6 +78,19 @@ const EducationalHistoryModal: React.FC<{ show: boolean; onClose: () => void; fe
         fetchUniversities();
     }, []);
 
+    useEffect(() => {
+        if (editMode && record) {
+            setValue("degreeLevel", record.degreeLevel);
+            setValue("majorId", record.major.id);
+            setValue("universityId", record.university.id);
+            setValue("gpa", record.gpa);
+            setValue("fromYear", record.fromYear);
+            setValue("toYear", record.toYear);
+        } else {
+            reset();
+        }
+    }, [editMode, record, reset, setValue]);
+
     const onSubmit: SubmitHandler<EducationalBackgroundFormData> = async (data) => {
         const fieldsToConvert = ['fromYear', 'gpa', 'majorId', 'toYear', 'universityId'] as const;
 
@@ -76,10 +100,14 @@ const EducationalHistoryModal: React.FC<{ show: boolean; onClose: () => void; fe
             }
         });
 
-        AddEducationalData(
+        const apiCall = editMode && record ? UpdateEducationalData : AddEducationalData;
+        const url = editMode && record ? `/Resumes/UpdateEducationalRecord/${record.id}` : '/Resumes/AddEducationalRecord';
+        const method = editMode && record ? "put" : "post";
+
+        apiCall(
             {
-                url: '/Resumes/AddEducationalRecord',
-                method: "post",
+                url: url,
+                method: method,
                 data: data,
             },
             (response) => {
@@ -101,7 +129,7 @@ const EducationalHistoryModal: React.FC<{ show: boolean; onClose: () => void; fe
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
-                <h2>افزودن سابقه تحصیلی جدید</h2>
+                <h2>{editMode ? "ویرایش سابقه تحصیلی" : "افزودن سابقه تحصیلی جدید"}</h2>
             </KModal.Header>
             <div className='p-4'>
                 <KModal.Body>
