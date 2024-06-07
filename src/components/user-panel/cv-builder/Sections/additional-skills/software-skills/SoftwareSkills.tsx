@@ -113,7 +113,7 @@ const SoftwareSkills: React.FC = () => {
                                                 <div className='mt-4'>
                                                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
                                                         <Add />
-                                                        افزودن
+                                                            افزودن
                                                     </button>
                                                 </div>
                                             </div>

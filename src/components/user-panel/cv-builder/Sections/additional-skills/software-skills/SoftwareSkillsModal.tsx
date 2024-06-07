@@ -67,7 +67,7 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
-                <h2>مهارت های نرم افزاری</h2>
+                <h2> افزودن مهارت نرم افزاری جدید</h2>
             </KModal.Header>
             <KModal.Body>
                 <form action="submit" onSubmit={handleSubmit(onSubmit)}>

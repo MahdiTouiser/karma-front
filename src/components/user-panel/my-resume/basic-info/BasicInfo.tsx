@@ -4,11 +4,12 @@ import useApi from '../../../../hooks/useApi';
 import { GenderMapping, MaritalStatusMapping, MilitaryServiceStatusMapping, genderMapping, maritalStatusMapping, militaryServiceStatusMapping } from '../../../../models/enums';
 import { BasicInfoData, InfoType } from '../../../../models/myresume.model';
 import KCard from '../../../shared/Card';
+import KSpinner from '../../../shared/Spinner';
 import BasicInfoEditModal from './BasicInfoEditModal';
 
 const BasicInfo: React.FC = () => {
     const [infoData, setInfoData] = useState<InfoType[]>([]);
-    const { sendRequest: fetch } = useApi<null, BasicInfoData>();
+    const { sendRequest: fetch, isPending } = useApi<null, BasicInfoData>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -52,12 +53,22 @@ const BasicInfo: React.FC = () => {
                         ویرایش
                     </button>
                 </div>
-                {infoData.map((info, index) => (
-                    <div key={index} className='flex justify-between'>
-                        <p className='text-gray-600 mt-5'>{info.label}</p>
-                        <p className='text-black mt-5 font-extrabold'>{info.value}</p>
-                    </div>
-                ))}
+                {isPending ? (
+                    <span className='flex justify-center items-center'>
+                        <KSpinner color='primary' size={20} />
+                    </span>
+                ) : (
+                    <>
+                        {
+                            infoData.map((info, index) => (
+                                <div key={index} className='flex justify-between'>
+                                    <p className='text-gray-600 mt-5'>{info.label}</p>
+                                    <p className='text-black mt-5 font-extrabold'>{info.value}</p>
+                                </div>
+                            ))
+                        }
+                    </>
+                )}
             </KCard>
         </>
     );

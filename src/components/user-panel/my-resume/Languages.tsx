@@ -67,7 +67,9 @@ const Languages: React.FC = () => {
                     <h1 className='text-xl font-extrabold'>زبان ها</h1>
                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
                         <Add />
-                        افزودن
+                        <span className='mr-1'>
+                            افزودن
+                        </span>
                     </button>
                 </div>
                 {isPending ? (
