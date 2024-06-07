@@ -66,7 +66,9 @@ const SoftwareSkills: React.FC = () => {
                     <h1 className='text-xl font-extrabold'>مهارت های نرم افزاری</h1>
                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
                         <Add />
-                        افزودن
+                        <span className='mr-1'>
+                            افزودن
+                        </span>
                     </button>
                 </div>
                 {isPending ? (

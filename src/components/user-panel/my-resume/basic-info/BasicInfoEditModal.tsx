@@ -56,7 +56,7 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
-                <h2 className="text-2xl font-bold"> ویرایش اطلاعات اولیه</h2>
+                <h2>ویرایش اطلاعات اولیه</h2>
             </KModal.Header>
             <KModal.Body>
                 <form onSubmit={handleSubmit(onSubmit)}>

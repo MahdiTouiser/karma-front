@@ -16,8 +16,24 @@ const CareerBackground: React.FC = () => {
     const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const [editMode, setEditMode] = useState(false);
+    const [editingRecord, setEditingRecord] = useState<CareerRecord | null>(null);
+
+    const openModal = (record?: CareerRecord) => {
+        if (record) {
+            setEditMode(true);
+            setEditingRecord(record);
+        } else {
+            setEditMode(false);
+            setEditingRecord(null);
+        }
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setEditingRecord(null);
+    };
 
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
@@ -30,15 +46,14 @@ const CareerBackground: React.FC = () => {
                 url: "/Resumes/CareerRecords",
             },
             (response) => {
-                setCareerRecords(response)
-
+                setCareerRecords(response);
             },
         );
     };
-    useEffect(() => {
-        fetchCareerRecords()
-    }, []);
 
+    useEffect(() => {
+        fetchCareerRecords();
+    }, []);
 
     const handleDeleteRecord = async (id: string) => {
         const confirm = await confirmation();
@@ -50,7 +65,7 @@ const CareerBackground: React.FC = () => {
                 },
                 (response) => {
                     toast.success(response?.message);
-                    fetchCareerRecords()
+                    fetchCareerRecords();
                 },
                 (error) => {
                     toast.error(error?.message);
@@ -59,21 +74,27 @@ const CareerBackground: React.FC = () => {
         }
     };
 
-
     const sortedRecords = [...careerRecords].sort((a, b) => a.fromYear - b.fromYear);
-
 
     return (
         <>
             <ConfirmModal />
-            <CareerBackgroundModal show={isModalOpen} onClose={closeModal} fetch={fetchCareerRecords} />
+            <CareerBackgroundModal
+                show={isModalOpen}
+                onClose={closeModal}
+                fetch={fetchCareerRecords}
+                editMode={editMode}
+                record={editingRecord}
+            />
 
             <KCard className='flex flex-col justify-between w-full'>
                 <div className="flex items-center justify-between">
                     <h1 className='text-xl font-extrabold'>سوابق شغلی</h1>
-                    <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
+                    <button className="text-sm text-blue-500 flex items-center" onClick={() => openModal()}>
                         <Add />
-                        افزودن
+                        <span className='mr-1'>
+                            افزودن
+                        </span>
                     </button>
                 </div>
                 {isPending ? (
@@ -85,9 +106,9 @@ const CareerBackground: React.FC = () => {
                         {sortedRecords.map((info, index) => (
                             <div key={index} className="flex items-center mr-4 mt-6 text-gray-600 border-l-2 border-blue-500 bg-gray-50 p-5">
                                 <div className='flex flex-col' id='icons'>
-                                    <div className="mr-2">
+                                    <button className="mr-2" onClick={() => openModal(info)}>
                                         <Edit />
-                                    </div>
+                                    </button>
                                     <button className="mr-2 mt-4" onClick={() => handleDeleteRecord(info.id)}>
                                         <Delete />
                                     </button>
@@ -106,4 +127,4 @@ const CareerBackground: React.FC = () => {
     );
 }
 
-export default CareerBackground
+export default CareerBackground;
