@@ -1,16 +1,19 @@
-import React from 'react';
+import { PDFViewer } from '@react-pdf/renderer';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckBadge from '../../../assets/icons/CheckBadge';
 import Eye from '../../../assets/icons/Eye';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
+import ResumePreview from './ResumePreview';
 
 const FinalizeResume: React.FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [showPreview, setShowPreview] = useState(false);
 
     const handleButtonClick = () => {
-        navigate('/my-resume')
-    }
+        navigate('/my-resume');
+    };
 
     return (
         <KCard className='m-20 flex flex-col justify-center items-center text-3xl'>
@@ -20,10 +23,10 @@ const FinalizeResume: React.FC = () => {
             <span className='flex items-center mt-4'>
                 <button
                     className='flex items-center'
-                    onClick={() => { console.log('Mahdi'); }}
+                    onClick={() => setShowPreview(true)}
                 >
                     <Eye />
-                    <p className='text-sm mr-2' style={{ color: '#3b82f6' }}>پیش نمایش رزومه</p>
+                    <p className='text-sm mr-2 text-blue-500'>پیش نمایش رزومه</p>
                 </button>
             </span>
 
@@ -34,6 +37,19 @@ const FinalizeResume: React.FC = () => {
                     رزومه من
                 </KButton>
             </div>
+
+            {showPreview && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                    <div className='bg-white p-4 rounded-lg'>
+                        <button onClick={() => setShowPreview(false)} className='text-sm mb-4'>
+                            بستن
+                        </button>
+                        <PDFViewer style={{ width: '1000px', height: '600px' }}>
+                            <ResumePreview />
+                        </PDFViewer>
+                    </div>
+                </div>
+            )}
         </KCard>
     );
 };
