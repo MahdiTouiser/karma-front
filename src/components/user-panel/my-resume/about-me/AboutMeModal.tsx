@@ -17,7 +17,8 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { register, handleSubmit, formState: { errors }, getValues } = useForm<AboutMeFormData>();
-    const { sendRequest: AddImage, isPending } = useApi<File, BaseResponse<null>>();
+    const { sendRequest: AddImage, isPending } = useApi<FormData, BaseResponse<null>>();
+    const [imageId, setImageId] = useState('');
 
 
     const handleButtonClick = () => {
@@ -28,7 +29,8 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        console.log(file);
+        const formData = new FormData();
+        formData.append('File', file);
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -40,9 +42,12 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
             fileInputRef.current.value = '';
         }
         AddImage(
-            { url: "/Files", method: 'post', data: file },
+            { url: "/Files", method: 'post', data: formData },
             (response) => {
                 console.log(response);
+                toast.success(response.message);
+                setImageId(response.value as unknown as string);
+                console.log(imageId);
             },
             (error) => {
                 toast.error(error?.message);
@@ -56,7 +61,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
 
     const onSubmit = (data: AboutMeFormData) => {
         const formattedData = {
-            imageid: "662b4b7c-2b6b-4d11-a41f-5fa8a05584dc",
+            imageid: imageId,
             mainJobTitle: data.mainJobTitle,
             description: data.description,
             socialMedias: data.socialMedias.map((socialMedia: SocialMedia) => ({

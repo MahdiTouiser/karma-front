@@ -1,6 +1,6 @@
 const CheckBadge = () => {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='green' className='h-32 w-32'>
+    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='green' className='h-20 w-20'>
       <path
         strokeLinecap='round'
         strokeLinejoin='round'

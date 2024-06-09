@@ -91,11 +91,12 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
                             <div className="w-1/2 p-5">
                                 <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
                                     {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
-                                        <option key={key} value={key}>
-                                            {value}
+                                        <option key={key} value={value.value}>
+                                            {value.label}
                                         </option>
                                     ))}
                                 </KSelect>
+
                                 {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
                             </div>
                             <div className="w-1/2 p-5">

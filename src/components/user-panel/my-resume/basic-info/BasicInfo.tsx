@@ -28,10 +28,10 @@ const BasicInfo: React.FC = () => {
                     { label: 'نام و نام خانوادگی', value: `${response.firstName} ${response.lastName}` },
                     { label: 'جنسیت', value: genderMapping[response.gender as keyof GenderMapping] || response.gender },
                     { label: 'وضعیت تاهل', value: maritalStatusMapping[response.maritalStatus as keyof MaritalStatusMapping] || response.maritalStatus },
-                    { label: 'وضعیت نظام وظیفه', value: militaryServiceStatusMapping[response.militaryServiceStatus as keyof MilitaryServiceStatusMapping] || response.militaryServiceStatus },
+                    { label: 'وضعیت نظام وظیفه', value: militaryServiceStatusMapping[response.militaryServiceStatus as keyof MilitaryServiceStatusMapping]?.label || response.militaryServiceStatus },
                     { label: 'شهر محل سکونت', value: response.city },
                     { label: 'تاریخ تولد', value: response.birthDate },
-                    { label: 'شماره موبایل', value: response.telephone },
+                    { label: 'شماره موبایل', value: response.telephone.toString() },
                 ];
                 setInfoData(mappedData);
             }
