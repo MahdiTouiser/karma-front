@@ -18,8 +18,8 @@ export interface WorkExperienceFormData {
     cityId: number;
     fromYear: number;
     fromMonth: number;
-    toYear: number;
-    toMonth: number;
+    toYear?: number;
+    toMonth?: number;
     currentJob: boolean;
 }
 

@@ -48,8 +48,8 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
         handleSubmit(onSubmit)();
     };
 
-    const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const countryId = Number(event.target.value);
+    const handleCountryChange = (event: number) => {
+        const countryId = event
         setSelectedCountry(countryId);
         handleItemChange('countryId', countryId);
     };
@@ -57,6 +57,12 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
     const handleItemChange = (item: 'jobcategoryId' | 'countryId' | 'cityId', value: number) => {
         setValue(item, value);
     };
+
+    const handleItemAndCountryChange = (value: number) => {
+        handleItemChange('countryId', value);
+        handleCountryChange(value);
+    };
+
 
     return (
         <>
@@ -97,7 +103,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                                     options={countries}
                                     register={register('countryId', { required: true })}
                                     errors={errors.countryId}
-                                    onChange={handleCountryChange}
+                                    onChange={handleItemAndCountryChange}
                                 />
                                 {errors.countryId && (
                                     <p className="text-red-500 text-xs">
