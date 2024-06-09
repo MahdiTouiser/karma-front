@@ -11,7 +11,7 @@ import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
 
 const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<AddSofwareSkillFormData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddSofwareSkillFormData>();
     const [skills, setSkills] = useState<OptionType[]>([]);
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
     const { sendRequest: AddSkillsData } = useApi<AddSofwareSkillFormData, BaseResponse<null>>();
@@ -57,6 +57,7 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
                 toast.success(response?.message);
                 onClose();
                 onSuccess();
+                reset()
             },
             (error) => {
                 toast.error(error?.message);

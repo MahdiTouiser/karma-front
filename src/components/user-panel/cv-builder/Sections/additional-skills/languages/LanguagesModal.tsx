@@ -11,7 +11,7 @@ import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
 
 const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<AddLanguageFormData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddLanguageFormData>();
     const [languages, setLanguages] = useState<OptionType[]>([]);
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
     const { sendRequest: AddLanguageData } = useApi<AddLanguageFormData, BaseResponse<null>>();
@@ -38,7 +38,7 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: 
     };
 
     useEffect(() => {
-        fetchLanguages()
+        fetchLanguages();
     }, []);
 
     const handleFormSubmit = () => {
@@ -57,6 +57,7 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: 
                 toast.success(response?.message);
                 onClose();
                 onSuccess();
+                reset();
             },
             (error) => {
                 toast.error(error?.message);

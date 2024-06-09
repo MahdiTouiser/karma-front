@@ -10,7 +10,7 @@ import KModal from '../../../../../shared/Modal/Modal';
 import KTextInput from '../../../../../shared/TextInput';
 
 const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<AddAdditionalSkillsFormData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddAdditionalSkillsFormData>();
     const { sendRequest: AddSkillsData } = useApi<AddAdditionalSkillsFormData, BaseResponse<null>>();
 
 
@@ -30,6 +30,7 @@ const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSu
                 toast.success(response?.message);
                 onClose();
                 onSuccess();
+                reset()
             },
             (error) => {
                 toast.error(error?.message);
@@ -40,7 +41,7 @@ const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSu
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
-                <h2>مهارت های تکمیلی</h2>
+                <h2>افزودن مهارت تکمیلی جدید</h2>
             </KModal.Header>
             <KModal.Body>
                 <form action="submit" onSubmit={handleSubmit(onSubmit)}>
