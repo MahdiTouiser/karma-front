@@ -20,7 +20,7 @@ const UserPanelContainer: React.FC = () => {
     return () => clearInterval(interval);
   }, [dispatch, genralInfoSet]);
   return (
-    <div className="w-screen h-screen flex flex-col bg-gray-200">
+    <div className="w-screen h-screen flex flex-col bg-gray-100">
       <UserHeader></UserHeader>
       <div className=" w-full flex flex-1 relative overflow-hidden">
         <div

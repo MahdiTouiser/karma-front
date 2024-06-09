@@ -8,6 +8,7 @@ import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
+import KSelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
@@ -21,40 +22,16 @@ interface NewCareerRecordProps {
 
 const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
     const { setIsNewRecordVisible, refresh, countries, cities, jobCategories } = props;
-    const { register, handleSubmit, formState: { errors } } = useForm<WorkExperienceFormData>();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
 
-    const convertToType = (key: keyof WorkExperienceFormData, value: string | undefined): any => {
-        switch (key) {
-            case 'jobcategoryId':
-            case 'fromYear':
-            case 'toYear':
-            case 'cityId':
-            case 'countryId':
-            case 'fromMonth':
-            case 'toMonth':
-                return value ? parseInt(value, 10) : undefined;
-            default:
-                return value || '';
-        }
-    };
-
     const onSubmit = async (data: WorkExperienceFormData) => {
-        const finalData: Partial<WorkExperienceFormData> = {};
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                finalData[key as keyof WorkExperienceFormData] = convertToType(
-                    key as keyof WorkExperienceFormData,
-                    data[key as keyof WorkExperienceFormData] as unknown as string
-                );
-            }
-        }
         AddWorkExperience(
             {
-                url: "/Resumes/AddCareerRecord",
-                method: "post",
-                data: finalData,
+                url: '/Resumes/AddCareerRecord',
+                method: 'post',
+                data: data,
             },
             (response) => {
                 toast.success(response?.message);
@@ -72,8 +49,13 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
     };
 
     const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const countryId = parseInt(event.target.value);
+        const countryId = Number(event.target.value);
         setSelectedCountry(countryId);
+        handleItemChange('countryId', countryId);
+    };
+
+    const handleItemChange = (item: 'jobcategoryId' | 'countryId' | 'cityId', value: number) => {
+        setValue(item, value);
     };
 
     return (
@@ -110,11 +92,13 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                         <div className='flex mt-4'>
                             <div className='w-1/2 ml-2'>
                                 <KLabel>کشور</KLabel>
-                                <KSelect {...register('countryId', { required: true })} onChange={handleCountryChange}>
-                                    {countries.map((country) => (
-                                        <option key={country.value} value={country.value}>{country.label}</option>
-                                    ))}
-                                </KSelect>
+                                <KSelectboxWithSearch
+                                    id='countryId'
+                                    options={countries}
+                                    register={register('countryId', { required: true })}
+                                    errors={errors.countryId}
+                                    onChange={handleCountryChange}
+                                />
                                 {errors.countryId && (
                                     <p className="text-red-500 text-xs">
                                         انتخاب کشور الزامی می باشد.
@@ -124,18 +108,24 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                             {selectedCountry === 1 && (
                                 <div className='w-1/2'>
                                     <KLabel>شهر</KLabel>
-                                    <KSelect {...register('cityId')}>
-                                        {cities.map((city) => (
-                                            <option key={city.value} value={city.value}>{city.label}</option>
-                                        ))}
-                                    </KSelect>
+                                    <KSelectboxWithSearch
+                                        id='cityId'
+                                        options={cities}
+                                        register={register('cityId', { required: true })}
+                                        errors={errors.cityId}
+                                        onChange={(value: number) => handleItemChange('cityId', value)}
+                                    />
                                 </div>
                             )}
                         </div>
                         <div className='flex justify-start w-full mt-4'>
                             <div className='w-1/2 ml-2'>
                                 <KLabel>ماه پایان</KLabel>
-                                <KSelect {...register('toMonth')}>
+                                <KSelect
+                                    {...register('toMonth', {
+                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                    })}
+                                >
                                     {hijriMonthOptions.map(option => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -145,7 +135,11 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                             </div>
                             <div className='w-1/2'>
                                 <KLabel>سال پایان</KLabel>
-                                <KTextInput numeric maxLength={4} {...register('toYear')} />
+                                <KTextInput numeric maxLength={4}
+                                    {...register('toYear', {
+                                        required: true,
+                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                    })} />
                             </div>
                         </div>
                     </div>
@@ -162,11 +156,13 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                         <div className='mt-4'>
                             <div className='inline-block w-full'>
                                 <KLabel>زمینه کاری شما</KLabel>
-                                <KSelect {...register('jobcategoryId', { required: true })}>
-                                    {jobCategories.map((level) => (
-                                        <option key={level.value} value={level.value}>{level.label}</option>
-                                    ))}
-                                </KSelect>
+                                <KSelectboxWithSearch
+                                    id='jobcategoryId'
+                                    options={jobCategories}
+                                    register={register('jobcategoryId', { required: true })}
+                                    errors={errors.jobcategoryId}
+                                    onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                />
                                 {errors.jobcategoryId && (
                                     <p className="text-red-500 text-xs">
                                         زمینه کاری الزامی می باشد.
@@ -177,7 +173,12 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                         <div className='flex mt-4'>
                             <div className='w-1/2 ml-2'>
                                 <KLabel>ماه شروع</KLabel>
-                                <KSelect {...register('fromMonth', { required: true })}>
+                                <KSelect
+                                    {...register('fromMonth', {
+                                        required: true,
+                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                    })}
+                                >
                                     {hijriMonthOptions.map(option => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -192,7 +193,11 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                             </div>
                             <div className='w-1/2'>
                                 <KLabel>سال شروع</KLabel>
-                                <KTextInput numeric maxLength={4} {...register('fromYear', { required: true })} />
+                                <KTextInput numeric maxLength={4}
+                                    {...register('fromYear', {
+                                        required: true,
+                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                    })} />
                                 {errors.fromYear && (
                                     <p className="text-red-500 text-xs">
                                         سال شروع الزامی می باشد.

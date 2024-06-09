@@ -23,12 +23,12 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
     };
 
     return (
-      <div className="flow-root border-gray-200 bg-gray-50 rounded">
+      <div className="flow-root border-gray-300 bg-white border rounded ">
         <div className="flex">
           {options.map((option) => (
             <label
               key={option.value}
-              className={`cursor-pointer p-2 inline-flex items-center justify-center text-md font-medium text-black w-full focus:outline-none relative ${selectedOption === option.value
+              className={`cursor-pointer p-2 inline-flex items-center justify-center text-sm font-medium text-black w-full focus:outline-none relative ${selectedOption === option.value
                 ? "text-green-600 border-b-2 border-green-600 bg-green-100"
                 : ""
                 }`}

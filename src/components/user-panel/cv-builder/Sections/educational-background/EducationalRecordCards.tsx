@@ -63,10 +63,10 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                     <div className='flex align-middle items-center'>
                         <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
                             <button onClick={() => handleEditRecord(record.id)}>
-                                <Edit />
+                                <Edit className='w-5 h-5 mb-4' />
                             </button>
                             <button onClick={() => handleDeleteRecord(record.id)}>
-                                <Delete />
+                                <Delete className='w-5 h-5' strokeColor='red' />
                             </button>
                         </div>
                         <div>
