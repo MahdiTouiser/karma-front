@@ -8,7 +8,7 @@ import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
-import KSelect from '../../../../shared/Select';
+import SelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
@@ -126,10 +126,13 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
         );
     };
 
-    
     const handleOptionChange = (value: string) => {
         setSelectedOption(value);
         setValue('degreeLevel', value);
+    };
+
+    const handleItemChange = (item: 'majorId' | 'universityId', value: number) => {
+        setValue(item, value);
     };
 
     return (
@@ -144,16 +147,18 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                             selectedOption={selectedOption}
                             register={register('degreeLevel', { required: true })}
                         />
-                        {errors.degreeLevel && <span className="text-red-500 text-xs">مقطع تحصیلی الزامی است .</span>}
+                        {errors.degreeLevel && <span className='text-red-500 text-xs'>مقطع تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
                             <KLabel>دانشگاه</KLabel>
-                            <KSelect {...register('universityId', { required: true })}>
-                                {universities.map((university) => (
-                                    <option key={university.value} value={university.value}>{university.label}</option>
-                                ))}
-                            </KSelect>
+                            <SelectboxWithSearch
+                                id='universityId'
+                                options={universities}
+                                register={register('universityId', { required: true })}
+                                errors={errors.universityId}
+                                onChange={(value: number) => handleItemChange('universityId', value)}
+                            />
                             {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
                         </div>
                     </div>
@@ -166,11 +171,13 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                 <div className='w-1/2 pr-4 mt-4'>
                     <div className='inline-block w-full'>
                         <KLabel>رشته تحصیلی</KLabel>
-                        <KSelect {...register('majorId', { required: true })}>
-                            {majors.map((major) => (
-                                <option key={major.value} value={major.value}>{major.label}</option>
-                            ))}
-                        </KSelect>
+                        <SelectboxWithSearch
+                            id='majorId'
+                            options={majors}
+                            register={register('majorId', { required: true })}
+                            errors={errors.majorId}
+                            onChange={(value: number) => handleItemChange('majorId', value)}
+                        />
                         {errors.majorId && <span className="text-red-500 text-xs">رشته تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>

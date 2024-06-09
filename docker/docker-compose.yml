@@ -12,6 +12,8 @@ services:
       SA_PASSWORD: 'M0h@mm@d'
     ports:
       - '1434:1433'
+    volumes:
+      - ./data:/var/opt/mssql/data
     networks:
       - karma-network
 
@@ -20,6 +22,8 @@ services:
     container_name: karma-api
     ports:
       - '4030:80'
+    volumes:
+      - ./files:/app/FileStorage
     environment:
       SQL_Host: 'mssql'
       SQL_Username: 'sa'

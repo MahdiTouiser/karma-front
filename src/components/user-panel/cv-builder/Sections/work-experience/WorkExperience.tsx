@@ -9,6 +9,7 @@ import KButton from '../../../../shared/Button';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
 import KSelect from '../../../../shared/Select';
+import KSelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 import WorkExperienceRecordCards from './WorkExperienceRecordCards';
@@ -24,7 +25,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
     const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
     const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm<WorkExperienceFormData>();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
@@ -161,6 +162,10 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         (hasWorkExperience || isRecordCreated) ? onSubmitSuccess() : handleFormSubmit();
     };
 
+    const handleItemChange = (item: 'jobcategoryId' | 'cityId', value: number) => {
+        setValue(item, value);
+    };
+
     return (
         <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
@@ -226,11 +231,13 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                     </div>
                                     <div className="w-1/2 p-5">
                                         <KLabel>زمینه کاری شما</KLabel>
-                                        <KSelect {...register('jobcategoryId', { required: true })}>
-                                            {jobCategories.map((level) => (
-                                                <option key={level.value} value={level.value}>{level.label}</option>
-                                            ))}
-                                        </KSelect>
+                                        <KSelectboxWithSearch
+                                            id='jobcategoryId'
+                                            options={jobCategories}
+                                            register={register('jobcategoryId', { required: true })}
+                                            errors={errors.jobcategoryId}
+                                            onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                        />
                                         {errors.jobcategoryId && (
                                             <p className="text-red-500 text-xs">
                                                 زمینه کاری الزامی می باشد.
@@ -242,11 +249,13 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                     <div className="flex justify-start w-1/2">
                                         <div className='w-1/2 p-5'>
                                             <KLabel>کشور</KLabel>
-                                            <KSelect {...register('countryId', { required: true })} onChange={handleCountryChange}>
-                                                {countries.map((country) => (
-                                                    <option key={country.value} value={country.value}>{country.label}</option>
-                                                ))}
-                                            </KSelect>
+                                            <KSelectboxWithSearch
+                                                id='countryId'
+                                                options={countries}
+                                                register={register('countryId', { required: true })}
+                                                errors={errors.countryId}
+                                                onChange={handleCountryChange}
+                                            />
                                             {errors.countryId && (
                                                 <p className="text-red-500 text-xs">
                                                     انتخاب کشور الزامی می باشد.
@@ -256,11 +265,13 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                         {selectedCountry === 1 && (
                                             <div className='w-1/2 p-5'>
                                                 <KLabel>شهر</KLabel>
-                                                <KSelect {...register('cityId')}>
-                                                    {cities.map((city) => (
-                                                        <option key={city.value} value={city.value}>{city.label}</option>
-                                                    ))}
-                                                </KSelect>
+                                                <KSelectboxWithSearch
+                                                    id='cityId'
+                                                    options={cities}
+                                                    register={register('cityId', { required: true })}
+                                                    errors={errors.cityId}
+                                                    onChange={(value: number) => handleItemChange('cityId', value)}
+                                                />
                                             </div>
                                         )}
                                     </div>

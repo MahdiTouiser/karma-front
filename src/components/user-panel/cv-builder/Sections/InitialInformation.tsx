@@ -66,7 +66,7 @@ const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(
                         {errors.lastName && <span className="text-red-500 text-sm">نام خانوادگی الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center mt-10'>
+                <div className='flex justify-center'>
                     <div className="w-1/2 p-5">
                         <KSelect id='gender' placeholder="جنسیت"  {...register('gender', { required: true })}>
                             <option value="Male">مرد</option>
@@ -82,16 +82,16 @@ const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(
                         {errors.maritalStatus && <span className="text-red-500 text-sm">وضعیت تاهل الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center mt-10'>
+                <div className='flex justify-center'>
                     <div className="w-1/2 p-5">
-                        <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
+                        <KSelect
+                            id='militaryServiceStatus'
+                            placeholder="وضعیت نظام وظیفه"
+                            {...register('militaryServiceStatus', { required: true })}
+                        >
                             {Object.values(militaryServiceStatusMapping).map(status => (
-                                <option key={status} value={status}>
-                                    {status === militaryServiceStatusMapping.Done ? 'انجام شده' :
-                                        status === militaryServiceStatusMapping.PermanentExemption ? 'معاف دائم' :
-                                            status === militaryServiceStatusMapping.AcademicExemption ? 'معافیت تحصیلی' :
-                                                status === militaryServiceStatusMapping.InProgress ? 'در حال انجام' :
-                                                    'مشمول'}
+                                <option key={status.value} value={status.value}>
+                                    {status.label}
                                 </option>
                             ))}
                         </KSelect>
@@ -102,7 +102,7 @@ const InitialInformation = forwardRef<HTMLFormElement, InitialInformationProps>(
                         {errors.city && <span className="text-red-500 text-sm">شهر محل سکونت الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center mt-10'>
+                <div className='flex justify-center'>
                     <div className="w-1/2 p-5">
                         <KTextInput placeholder='شماره تلفن ثابت'
                             {...register('telephone', { required: true })} maxLength={11} />

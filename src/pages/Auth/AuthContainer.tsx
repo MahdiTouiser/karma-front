@@ -27,7 +27,7 @@ export default function AuthContainer() {
     !authState.enteredPhone ? (
     <Navigate to="/" />
   ) : (
-    <div className="bg-gray-200 min-h-screen flex justify-center items-center">
+    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="container px-1 m-auto py-1 flex justify-center items-center">
         <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border shadow-lg bg-white">
           <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">

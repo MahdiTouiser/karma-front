@@ -1,25 +1,25 @@
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { authActions } from "../../store/auth";
-import { removeAuthDataFromLocal } from "../../utils/authUtils";
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/reduxHooks';
+import { authActions } from '../../store/auth';
+import { removeAuthDataFromLocal } from '../../utils/authUtils';
 
 const UserHeader: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const dropdownItems = [
-    { label: "رزومه من", href: "/my-resume" },
-    { label: "مشاغل نشان شده", href: "/saved-jobs" },
-    { label: "تنظیمات", href: "/settings" },
+    { label: 'رزومه من', href: '/my-resume' },
+    { label: 'مشاغل نشان شده', href: '/saved-jobs' },
+    { label: 'تنظیمات', href: '/settings' },
     { isDivider: true },
-    { label: "خروج" },
+    { label: 'خروج' },
   ];
 
   const navLinks = [
-    { label: "فرصت های شغلی", href: "/job-opportunities" },
-    { label: "رزومه من", href: "/my-resume" },
-    { label: "رزومه ساز", href: "/cv-builder" },
+    { label: 'فرصت های شغلی', href: '/job-opportunities' },
+    { label: 'رزومه من', href: '/my-resume' },
+    { label: 'رزومه ساز', href: '/cv-builder' },
   ];
 
   const handleDropdownItemClick = (href: string) => {
@@ -33,19 +33,19 @@ const UserHeader: React.FC = () => {
 
   return (
     <>
-      <Navbar fluid className="bg-green-700">
-        <Navbar.Brand href="/" className="mr-12">
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">کـــــــــــــــــارما</span>
+      <Navbar fluid className='bg-green-700'>
+        <Navbar.Brand href='/' className='mr-12'>
+          <span className='self-center whitespace-nowrap text-xl font-semibold text-white'>کـــــــــــــــــارما</span>
         </Navbar.Brand>
-        <div className="flex ml-12 md:order-2">
+        <div className='flex items-center ml-12 md:order-2'>
           <Dropdown
             arrowIcon={false}
             inline
-            label={<Avatar alt="User settings" img='/src/assets/profile-photo.jpg' rounded />}
-            className="ml-12"
+            label={<Avatar alt='User settings' img='/src/assets/profile-photo.jpg' rounded />}
+            className='ml-12'
           >
             <Dropdown.Header>
-              <span className="block text-sm">مهدی تویسرکانی</span>
+              <span className='block text-sm'>مهدی تویسرکانی</span>
             </Dropdown.Header>
             {dropdownItems.map((item, index) => {
               if (item.isDivider) {
@@ -54,7 +54,7 @@ const UserHeader: React.FC = () => {
                 return (
                   <Dropdown.Item
                     key={index}
-                    onClick={item.label === "خروج" ? logOut : () => handleDropdownItemClick(item.href as string)}
+                    onClick={item.label === 'خروج' ? logOut : () => handleDropdownItemClick(item.href as string)}
                   >
                     {item.label}
                   </Dropdown.Item>
@@ -64,9 +64,13 @@ const UserHeader: React.FC = () => {
           </Dropdown>
           <Navbar.Toggle />
         </div>
-        <Navbar.Collapse className="justify-center">
+        <Navbar.Collapse className='justify-center flex items-center'>
           {navLinks.map((link, index) => (
-            <Navbar.Link key={index} href={link.href} className="text-white mr-4">
+            <Navbar.Link
+              key={index}
+              href={link.href}
+              className='text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
+            >
               {link.label}
             </Navbar.Link>
           ))}

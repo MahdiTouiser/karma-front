@@ -9,6 +9,7 @@ import KButton from "../../../shared/Button";
 import KLabel from "../../../shared/Label";
 import KModal from "../../../shared/Modal/Modal";
 import KSelect from "../../../shared/Select";
+import KSelectboxWithSearch from "../../../shared/SelectboxWithSearch";
 import KSpinner from "../../../shared/Spinner";
 import KTextInput from "../../../shared/TextInput";
 
@@ -131,6 +132,12 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
         handleSubmit(onSubmit)();
     };
 
+    const handleItemChange = (item: 'jobcategoryId', value: number) => {
+        setValue(item, value);
+    };
+
+
+
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
@@ -171,11 +178,12 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                     <div className='flex mt-4'>
                                         <div className='w-1/2 ml-2'>
                                             <KLabel>کشور</KLabel>
-                                            <KSelect {...register('countryId', { required: true })}>
-                                                {countries.map((country) => (
-                                                    <option key={country.value} value={country.value}>{country.label}</option>
-                                                ))}
-                                            </KSelect>
+                                            <KSelectboxWithSearch
+                                                id='countryId'
+                                                options={countries}
+                                                register={register('countryId', { required: true })}
+                                                errors={errors.countryId}
+                                            />
                                             {errors.countryId && (
                                                 <p className="text-red-500 text-xs">
                                                     انتخاب کشور الزامی می باشد.
@@ -184,11 +192,12 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                         </div>
                                         <div className='w-1/2'>
                                             <KLabel>شهر</KLabel>
-                                            <KSelect {...register('cityId')}>
-                                                {cities.map((city) => (
-                                                    <option key={city.value} value={city.value}>{city.label}</option>
-                                                ))}
-                                            </KSelect>
+                                            <KSelectboxWithSearch
+                                                id='cityId'
+                                                options={cities}
+                                                register={register('cityId', { required: true })}
+                                                errors={errors.cityId}
+                                            />
                                         </div>
                                     </div>
                                     <div className='flex justify-start w-full mt-4'>
@@ -221,11 +230,13 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                     <div className='mt-4'>
                                         <div className='inline-block w-full'>
                                             <KLabel>زمینه کاری شما</KLabel>
-                                            <KSelect {...register('jobcategoryId', { required: true })}>
-                                                {jobCategories.map((level) => (
-                                                    <option key={level.value} value={level.value}>{level.label}</option>
-                                                ))}
-                                            </KSelect>
+                                            <KSelectboxWithSearch
+                                                id='jobcategoryId'
+                                                options={jobCategories}
+                                                register={register('jobcategoryId', { required: true })}
+                                                errors={errors.jobcategoryId}
+                                                onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                            />
                                             {errors.jobcategoryId && (
                                                 <p className="text-red-500 text-xs">
                                                     زمینه کاری الزامی می باشد.
