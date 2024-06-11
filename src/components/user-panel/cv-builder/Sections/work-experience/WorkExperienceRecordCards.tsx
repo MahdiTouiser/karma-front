@@ -13,15 +13,15 @@ import NewCareerRecord from './NewCareerRecord'
 interface WorkExperienceRecordCardsProps {
     records: CareerRecord[];
     refresh: () => void;
-    setIsNewRecordVisible: (value: boolean) => void;
-    isNewRecordVisible: boolean;
+    setIsRecordVisible: (value: boolean) => void;
+    isRecordVisible: boolean;
     countries: OptionType[],
     cities: OptionType[],
     jobCategories: OptionType[]
 }
 
 const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (props) => {
-    const { records, refresh, setIsNewRecordVisible, isNewRecordVisible, cities, countries, jobCategories } = props;
+    const { records, refresh, setIsRecordVisible, isRecordVisible, cities, countries, jobCategories } = props;
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه شغلی"
@@ -77,16 +77,16 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                 </KCard>
             ))}
             <div className='mt-4'>
-                {isNewRecordVisible ? (
+                {isRecordVisible ? (
                     <NewCareerRecord
-                        setIsNewRecordVisible={setIsNewRecordVisible}
+                        setIsRecordVisible={setIsRecordVisible}
                         refresh={refresh}
                         cities={cities}
                         countries={countries}
                         jobCategories={jobCategories}
                     />
                 ) : (
-                    <button onClick={() => setIsNewRecordVisible(true)}>
+                    <button onClick={() => setIsRecordVisible(true)}>
                         <span className='flex'>
                             <Add />
                             <p className='mr-2 text-blue-500 text-sm'>

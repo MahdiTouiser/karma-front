@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "../../../../hooks/useApi";
-import { EducationalBackgroundFormData, EducationalRecord, Majors, Universities } from "../../../../models/cvbuilder.models";
+import { EducationalBackgroundFormData, EducationalRecordModel, Majors, Universities } from "../../../../models/cvbuilder.models";
 import { DegreeLevel, DegreeLevelDescriptions } from "../../../../models/enums";
 import { BaseResponse, OptionType } from "../../../../models/shared.models";
 import KButton from "../../../shared/Button";
@@ -18,7 +18,7 @@ interface EducationalHistoryModalProps {
     onClose: () => void;
     fetch: () => void;
     editMode: boolean,
-    record: EducationalRecord | null
+    record: EducationalRecordModel | null
 }
 
 

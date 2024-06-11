@@ -1,30 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Add from '../../../../../assets/icons/Add';
 import Delete from '../../../../../assets/icons/Delete';
 import Edit from '../../../../../assets/icons/Edit';
 import useApi from '../../../../../hooks/useApi';
 import useConfirm from '../../../../../hooks/useConfirm';
-import { EducationalRecord } from '../../../../../models/cvbuilder.models';
+import { EducationalRecordModel } from '../../../../../models/cvbuilder.models';
 import { DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KCard from '../../../../shared/Card';
-import NewEducationalRecord from './NewEducationalRecord';
+import NewEducationalRecord from './EducationalRecord';
 
 interface EducationalRecordCardsProps {
-    records: EducationalRecord[];
+    records: EducationalRecordModel[];
     refresh: () => void;
-    setIsNewRecordVisible: (value: boolean) => void;
-    isNewRecordVisible: boolean;
+    setIsRecordVisible: (visible: boolean) => void;
+    isRecordVisible: boolean
 }
 
 const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) => {
-    const { records, refresh, setIsNewRecordVisible, isNewRecordVisible } = props;
+    const { records, refresh, setIsRecordVisible, isRecordVisible } = props
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه تحصیلی"
     );
+
+    const [selectedRecord, setSelectedRecord] = useState<EducationalRecordModel | null>(null);
+    const [formKey, setFormKey] = useState(0);
 
     const getDegreeLabel = (value: string) => {
         return DegreeLevelDescriptions[value as keyof typeof DegreeLevelDescriptions] || value;
@@ -49,8 +52,15 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
         }
     };
 
-    const handleEditRecord = (id: string) => {
-        console.log('Editing record with ID:', id);
+    const handleEditRecord = (record: EducationalRecordModel) => {
+        setSelectedRecord(record);
+        setIsRecordVisible(true);
+    };
+
+    const handleAddNewRecord = () => {
+        setSelectedRecord(null);
+        setIsRecordVisible(true);
+        setFormKey(prevKey => prevKey + 1);
     };
 
     const sortedRecords = [...records].sort((a, b) => a.fromYear - b.fromYear);
@@ -62,7 +72,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                 <KCard key={record.id} className='mt-4'>
                     <div className='flex align-middle items-center'>
                         <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
-                            <button onClick={() => handleEditRecord(record.id)}>
+                            <button onClick={() => handleEditRecord(record)}>
                                 <Edit className='w-5 h-5 mb-4' />
                             </button>
                             <button onClick={() => handleDeleteRecord(record.id)}>
@@ -79,13 +89,15 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                 </KCard>
             ))}
             <div className='mt-4'>
-                {isNewRecordVisible ? (
+                {isRecordVisible ? (
                     <NewEducationalRecord
-                        setIsNewRecordVisible={setIsNewRecordVisible}
+                        key={formKey}
+                        setIsRecordVisible={setIsRecordVisible}
                         refresh={refresh}
+                        record={selectedRecord}
                     />
                 ) : (
-                    <button onClick={() => setIsNewRecordVisible(true)}>
+                    <button onClick={handleAddNewRecord}>
                         <span className='flex'>
                             <Add />
                             <p className='mr-2 text-blue-500 text-sm'>

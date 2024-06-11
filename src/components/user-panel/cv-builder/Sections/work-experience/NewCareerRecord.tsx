@@ -13,7 +13,7 @@ import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
 interface NewCareerRecordProps {
-    setIsNewRecordVisible: (visible: boolean) => void;
+    setIsRecordVisible: (visible: boolean) => void;
     refresh: () => void;
     countries: OptionType[],
     cities: OptionType[],
@@ -21,7 +21,7 @@ interface NewCareerRecordProps {
 }
 
 const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
-    const { setIsNewRecordVisible, refresh, countries, cities, jobCategories } = props;
+    const { setIsRecordVisible, refresh, countries, cities, jobCategories } = props;
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
@@ -35,7 +35,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
             },
             (response) => {
                 toast.success(response?.message);
-                setIsNewRecordVisible(false);
+                setIsRecordVisible(false);
                 refresh();
             },
             (error) => {
@@ -215,7 +215,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                 </div>
             </form>
             <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={() => setIsNewRecordVisible(false)}>
+                <KButton color='secondary' className='ml-4' onClick={() => setIsRecordVisible(false)}>
                     انصراف
                 </KButton>
                 {isPending ? <KSpinner color='primary' /> :

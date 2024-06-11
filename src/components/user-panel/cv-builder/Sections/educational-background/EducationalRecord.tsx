@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
-import { EducationalBackgroundFormData, Majors, Universities } from '../../../../../models/cvbuilder.models';
+import { EducationalBackgroundFormData, EducationalRecordModel, Majors, Universities } from '../../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
-import { default as KSelectboxWithSearch } from '../../../../shared/SelectboxWithSearch';
+import KSelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
-interface NewEducationalRecordProps {
-    setIsNewRecordVisible: (visible: boolean) => void;
+interface EducationalRecordProps {
+    setIsRecordVisible: (visible: boolean) => void;
     refresh: () => void;
+    record?: EducationalRecordModel | null;
 }
 
-const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRecordVisible, refresh }) => {
+const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
+    const { setIsRecordVisible, refresh, record } = props;
     const options = Object.keys(DegreeLevelDescriptions).map((key) => ({
         label: DegreeLevelDescriptions[key as DegreeLevel],
         value: key,
@@ -25,14 +27,13 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
     const [selectedOption, setSelectedOption] = useState<string>('');
     const [majors, setMajors] = useState<OptionType[]>([]);
     const [universities, setUniversities] = useState<OptionType[]>([]);
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<EducationalBackgroundFormData>();
+    const [selectedMajor, setSelectedMajor] = useState<OptionType | null>(null);
+    const [selectedUniversity, setSelectedUniversity] = useState<OptionType | null>(null);
+    const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<EducationalBackgroundFormData>();
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
-
-    const handleFormSubmit = () => {
-        handleSubmit(onSubmit)();
-    };
+    const { sendRequest: UpdateEducationalData, isPending: UpdateEducationalIsPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
 
     const fetchMajors = async () => {
         majorsSendRequest(
@@ -81,44 +82,41 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
         fetchUniversities();
     }, []);
 
-    const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
-        switch (key) {
-            case 'majorId':
-            case 'universityId':
-            case 'fromYear':
-            case 'toYear':
-                return value ? parseInt(value, 10) : undefined;
-            case 'gpa':
-                return value ? parseFloat(value) : undefined;
-            case 'stillEducating':
-                return value === 'true';
-            case 'degreeLevel':
-                return value || null;
-            default:
-                return value || '';
+    useEffect(() => {
+        if (record) {
+            Object.keys(record).forEach((key) => {
+                if (key === 'major') {
+                    setValue('majorId', record.major.id);
+                    setSelectedMajor({ value: record.major.id, label: record.major.title });
+                } else if (key === 'university') {
+                    setValue('universityId', record.university.id);
+                    setSelectedUniversity({ value: record.university.id, label: record.university.title });
+                } else {
+                    setValue(key as keyof EducationalBackgroundFormData, (record as any)[key]);
+                }
+            });
+            setSelectedOption(record.degreeLevel);
+        } else {
+            reset();  // Reset form if no record is selected
         }
-    };
+    }, [record, setValue, reset]);
 
     const onSubmit = async (data: EducationalBackgroundFormData) => {
-        const finalData: Partial<EducationalBackgroundFormData> = {};
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                finalData[key as keyof EducationalBackgroundFormData] = convertToType(
-                    key as keyof EducationalBackgroundFormData,
-                    data[key as keyof EducationalBackgroundFormData] as unknown as string
-                );
-            }
-        }
-        AddEducationalData(
+        const apiCall = record ? UpdateEducationalData : AddEducationalData;
+        const url = record ? `/Resumes/UpdateEducationalRecord/${record.id}` : '/Resumes/AddEducationalRecord';
+        const method = record ? 'put' : 'post';
+
+        apiCall(
             {
-                url: "/Resumes/AddEducationalRecord",
-                method: "post",
-                data: finalData,
+                url: url,
+                method: method,
+                data: data,
             },
             (response) => {
                 toast.success(response?.message);
-                setIsNewRecordVisible(false);
+                reset();
                 refresh();
+                setIsRecordVisible(false);
             },
             (error) => {
                 toast.error(error?.message);
@@ -133,6 +131,15 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
 
     const handleItemChange = (item: 'majorId' | 'universityId', value: number) => {
         setValue(item, value);
+    };
+
+    const handleCancel = () => {
+        reset();
+        setIsRecordVisible(false);
+    };
+
+    const handleFormSubmit = () => {
+        handleSubmit(onSubmit)();
     };
 
     return (
@@ -158,6 +165,7 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                                 register={register('universityId', { required: true })}
                                 errors={errors.universityId}
                                 onChange={(value: number) => handleItemChange('universityId', value)}
+                                defaultValue={selectedUniversity}  // Set default value
                             />
                             {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
                         </div>
@@ -177,6 +185,7 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                             register={register('majorId', { required: true })}
                             errors={errors.majorId}
                             onChange={(value: number) => handleItemChange('majorId', value)}
+                            defaultValue={selectedMajor}
                         />
                         {errors.majorId && <span className="text-red-500 text-xs">رشته تحصیلی الزامی است .</span>}
                     </div>
@@ -197,10 +206,10 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                 </div>
             </form>
             <div className='flex justify-end p-5'>
-                <KButton color='secondary' className='ml-4' onClick={() => setIsNewRecordVisible(false)}>
+                <KButton color='secondary' className='ml-4' onClick={handleCancel}>
                     انصراف
                 </KButton>
-                {isPending ? <KSpinner color='primary' /> :
+                {(isPending || UpdateEducationalIsPending) ? <KSpinner color='primary' /> :
                     <KButton color='primary' type="button" onClick={handleFormSubmit}>
                         ذخیره
                     </KButton>
@@ -210,4 +219,4 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
     );
 };
 
-export default NewEducationalRecord;
+export default EducationalRecord;

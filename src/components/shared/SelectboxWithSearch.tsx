@@ -10,6 +10,7 @@ interface KSelectboxWithSearchProps {
     register: any;
     errors: any;
     onChange?: any;
+    defaultValue?: OptionType | null;
 }
 
 const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
@@ -18,10 +19,11 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
     register,
     errors,
     onChange,
+    defaultValue,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
+    const [selectedOption, setSelectedOption] = useState<OptionType | null>(defaultValue || null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -48,6 +50,12 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        if (defaultValue) {
+            setSelectedOption(defaultValue);
+        }
+    }, [defaultValue]);
 
     const filteredOptions = options.filter(option =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
