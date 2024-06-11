@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
-import { EducationalBackgroundFormData, EducationalRecord } from '../../../../../models/cvbuilder.models';
+import { EducationalBackgroundFormData, EducationalRecordModel } from '../../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
@@ -17,11 +17,11 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
     const { register, handleSubmit, formState: { errors }, setValue } = methods;
     const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
-    const { sendRequest: fetch, isPending: fetchIsPending } = useApi<EducationalBackgroundFormData, EducationalRecord[]>();
+    const { sendRequest: fetch, isPending: fetchIsPending } = useApi<EducationalBackgroundFormData, EducationalRecordModel[]>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
-    const [educationalRecords, setEducationalRecords] = useState<EducationalRecord[]>([]);
-    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
+    const [educationalRecords, setEducationalRecords] = useState<EducationalRecordModel[]>([]);
+    const [isRecordVisible, setIsRecordVisible] = useState(false);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setValue('degreeLevel', event.target.value, { shouldValidate: true });
@@ -98,7 +98,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     };
 
     const handleButtonClick = () => {
-        (isNewRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
+        (isRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
     };
 
     return (
@@ -113,8 +113,8 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                         <EducationalRecordCards
                             records={educationalRecords}
                             refresh={fetchEducationalRecords}
-                            setIsNewRecordVisible={setIsNewRecordVisible}
-                            isNewRecordVisible={isNewRecordVisible}
+                            setIsRecordVisible={setIsRecordVisible}
+                            isRecordVisible={isRecordVisible}
                         />
                     ) : (
                         <FormProvider {...methods}>
@@ -147,7 +147,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                             </form>
                         </FormProvider>
                     )}
-                    {!isNewRecordVisible && (
+                    {!isRecordVisible && (
                         <div className='flex justify-end p-5'>
                             <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                                 مرحله قبلی

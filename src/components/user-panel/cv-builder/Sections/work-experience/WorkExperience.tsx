@@ -24,7 +24,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
     const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
-    const [isNewRecordVisible, setIsNewRecordVisible] = useState(false);
+    const [isRecordVisible, setIsRecordVisible] = useState(false);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
@@ -171,8 +171,8 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                 <WorkExperienceRecordCards
                     records={careerRecords}
                     refresh={fetchCareerRecords}
-                    setIsNewRecordVisible={setIsNewRecordVisible}
-                    isNewRecordVisible={isNewRecordVisible}
+                    setIsRecordVisible={setIsRecordVisible}
+                    isRecordVisible={isRecordVisible}
                     countries={countries}
                     cities={cities}
                     jobCategories={jobCategories}
@@ -339,7 +339,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     </form>
                 </>
             )}
-            {!isNewRecordVisible && (
+            {!isRecordVisible && (
                 <div className='flex justify-end p-5'>
                     <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                         مرحله قبلی

@@ -33,7 +33,7 @@ export interface EducationalBackgroundFormData {
     stillEducating?: boolean;
 }
 
-export interface EducationalRecord {
+export interface EducationalRecordModel {
     id: string;
     degreeLevel: string;
     fromYear: number;
