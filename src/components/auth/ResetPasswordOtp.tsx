@@ -46,7 +46,7 @@ const ResetPasswordOtp: React.FC<ResetPasswordOtpProps> = ({
   return (
     <form className="p-8 pt-4">
       <OTPBox
-        condLength={6}
+        codeLength={6}
         onFinish={onFinish}
         phone={phone}
         durationSeconds={60}

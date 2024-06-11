@@ -144,3 +144,13 @@ export interface SoftwareSkills {
     id: number;
     title: string;
 }
+
+export interface AboutMeData {
+    imageId: string;
+    mainJobTitle: string;
+    description: string;
+    socialMedias: {
+        type: string;
+        link: string;
+    }[];
+}

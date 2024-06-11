@@ -9,6 +9,7 @@ import KButton from "../../../shared/Button";
 import KLabel from "../../../shared/Label";
 import KModal from "../../../shared/Modal/Modal";
 import KSelect from "../../../shared/Select";
+import KSelectboxWithSearch from "../../../shared/SelectboxWithSearch";
 import KSpinner from "../../../shared/Spinner";
 import KTextInput from "../../../shared/TextInput";
 
@@ -126,6 +127,10 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
         handleSubmit(onSubmit)();
     };
 
+    const handleItemChange = (item: 'majorId' | 'universityId', value: number) => {
+        setValue(item, value);
+    };
+
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
@@ -153,19 +158,23 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                             </div>
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>رشته تحصیلی</KLabel>
-                                <KSelect {...register('majorId')}>
-                                    {majors.map((major) => (
-                                        <option key={major.value} value={major.value}>{major.label}</option>
-                                    ))}
-                                </KSelect>
+                                <KSelectboxWithSearch
+                                    id='majorId'
+                                    options={majors}
+                                    register={register('majorId', { required: true })}
+                                    errors={errors.majorId}
+                                    onChange={(value: number) => handleItemChange('majorId', value)}
+                                />
                             </div>
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>دانشگاه</KLabel>
-                                <KSelect {...register('universityId')}>
-                                    {universities.map((university) => (
-                                        <option key={university.value} value={university.value}>{university.label}</option>
-                                    ))}
-                                </KSelect>
+                                <KSelectboxWithSearch
+                                    id='universityId'
+                                    options={universities}
+                                    register={register('universityId', { required: true })}
+                                    errors={errors.universityId}
+                                    onChange={(value: number) => handleItemChange('universityId', value)}
+                                />
                             </div>
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>معدل (اختیاری)</KLabel>
