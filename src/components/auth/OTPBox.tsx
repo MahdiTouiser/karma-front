@@ -2,7 +2,7 @@ import { useState } from "react";
 import OtpInput from "react-otp-input";
 import Timer from "../shared/Timer";
 interface OTPInputProp {
-  condLength: number;
+  codeLength: number;
   durationSeconds: number;
   phone: string;
   onFinish(code: string): void;
@@ -26,7 +26,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
 
   function handleChange(value: string) {
     setCode(value);
-    if (value.length === props.condLength) {
+    if (value.length === props.codeLength) {
       props.onFinish(value);
     }
   }
@@ -51,7 +51,7 @@ const OTPBox: React.FC<OTPInputProp> = (props) => {
         <OtpInput
           value={code}
           onChange={handleChange}
-          numInputs={props.condLength}
+          numInputs={props.codeLength}
           renderSeparator={<span className="p-1"></span>}
           renderInput={renderInput}
           containerStyle="ltr justify-center w-full mb-3"

@@ -47,7 +47,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
     <section className="w-full">
       <form className="p-8 pt-4 border-b">
         <OTPBox
-          condLength={6}
+          codeLength={6}
           onFinish={onFinish}
           phone={phone}
           durationSeconds={60}

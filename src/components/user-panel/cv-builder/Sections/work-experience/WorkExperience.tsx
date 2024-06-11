@@ -91,10 +91,6 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         fetchCareerRecords()
     }, []);
 
-    const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const countryId = parseInt(event.target.value);
-        setSelectedCountry(countryId);
-    };
 
     const fetchCareerRecords = () => {
         fetch(
@@ -112,6 +108,11 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         );
     };
 
+    const handleCountryChange = (event: number) => {
+        const countryId = event;
+        setSelectedCountry(countryId);
+    };
+
     const handleWorkExperienceChange = (checked: boolean) => {
         setHasWorkExperience(checked);
     };
@@ -121,27 +122,15 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     };
 
     const onSubmit = (data: WorkExperienceFormData) => {
-        const formData = {
-            ...data,
-            currentJob: currentJob,
-            countryId: Number(data.countryId),
-            cityId: data.cityId ? Number(data.cityId) : undefined,
-            jobcategoryId: Number(data.jobcategoryId),
-            fromYear: data.fromYear ? Number(data.fromYear) : undefined,
-            toYear: data.toYear ? Number(data.toYear) : undefined,
-            toMonth: data.toMonth ? Number(data.toMonth) : undefined,
-            fromMonth: data.fromMonth ? Number(data.fromMonth) : undefined,
-        };
-
         if (currentJob) {
-            delete formData.toYear;
-            delete formData.toMonth;
+            delete data.toYear;
+            delete data.toMonth;
         }
         AddWorkExperience(
             {
-                url: "/Resumes/AddCareerRecord",
-                method: "post",
-                data: formData,
+                url: '/Resumes/AddCareerRecord',
+                method: 'post',
+                data: data,
             },
             (response) => {
                 toast.success(response?.message);
@@ -162,8 +151,13 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         (hasWorkExperience || isRecordCreated) ? onSubmitSuccess() : handleFormSubmit();
     };
 
-    const handleItemChange = (item: 'jobcategoryId' | 'cityId', value: number) => {
+    const handleItemChange = (item: 'jobcategoryId' | 'cityId' | 'countryId', value: number) => {
         setValue(item, value);
+    };
+
+    const handleItemAndCountryChange = (value: number) => {
+        handleItemChange('countryId', value);
+        handleCountryChange(value);
     };
 
     return (
@@ -254,7 +248,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                                 options={countries}
                                                 register={register('countryId', { required: true })}
                                                 errors={errors.countryId}
-                                                onChange={handleCountryChange}
+                                                onChange={handleItemAndCountryChange}
                                             />
                                             {errors.countryId && (
                                                 <p className="text-red-500 text-xs">
@@ -278,7 +272,11 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                     <div className='flex justify-center w-1/2'>
                                         <div className='w-1/2 p-5'>
                                             <KLabel>ماه شروع</KLabel>
-                                            <KSelect {...register('fromMonth', { required: true })}>
+                                            <KSelect
+                                                {...register('fromMonth', {
+                                                    setValueAs: value => value === "" ? undefined : Number(value)
+                                                })}
+                                            >
                                                 {hijriMonthOptions.map(option => (
                                                     <option key={option.value} value={option.value}>
                                                         {option.label}
@@ -293,7 +291,11 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                         </div>
                                         <div className='w-1/2 p-5'>
                                             <KLabel>سال شروع</KLabel>
-                                            <KTextInput numeric maxLength={4} {...register('fromYear', { required: true })} />
+                                            <KTextInput numeric maxLength={4}
+                                                {...register('fromYear', {
+                                                    required: true,
+                                                    setValueAs: value => value === "" ? undefined : Number(value)
+                                                })} />
                                             {errors.fromYear && (
                                                 <p className="text-red-500 text-xs">
                                                     سال شروع الزامی می باشد.
@@ -307,17 +309,24 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                         <div className='flex justify-center w-1/2'>
                                             <div className='w-1/2 p-5'>
                                                 <KLabel>ماه پایان</KLabel>
-                                                <KSelect {...register('toMonth')}>
-                                                    {hijriMonthOptions.map(option => (
-                                                        <option key={option.value} value={option.value}>
-                                                            {option.label}
-                                                        </option>
-                                                    ))}
+                                                <KSelect
+                                                    {...register('toMonth', {
+                                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                                    })}
+                                                >                                                    {hijriMonthOptions.map(option => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
                                                 </KSelect>
                                             </div>
                                             <div className='w-1/2 p-5'>
                                                 <KLabel>سال پایان</KLabel>
-                                                <KTextInput numeric maxLength={4} {...register('toYear')} />
+                                                <KTextInput numeric maxLength={4}
+                                                    {...register('toYear', {
+                                                        required: true,
+                                                        setValueAs: value => value === "" ? undefined : Number(value)
+                                                    })} />
                                             </div>
                                         </div>
                                     )}

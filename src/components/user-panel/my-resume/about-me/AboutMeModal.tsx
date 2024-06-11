@@ -1,24 +1,44 @@
 import { Avatar } from 'flowbite-react';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Delete from '../../../../assets/icons/Delete';
 import Upload from '../../../../assets/icons/Upload';
 import useApi from '../../../../hooks/useApi';
+import { AboutMeData } from '../../../../models/cvbuilder.models';
 import { AboutMeFormData, SocialMedia } from '../../../../models/myresume.model';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
-import KLabel from '../../../shared/Label';
 import KModal from '../../../shared/Modal/Modal';
+import KSpinner from '../../../shared/Spinner';
 import KTextArea from '../../../shared/TextArea';
 import KTextInput from '../../../shared/TextInput';
 
-const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, onClose }) => {
+const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: AboutMeData | null; onSubmitSuccess: () => void }> = ({ show, onClose, aboutMeData, onSubmitSuccess }) => {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { register, handleSubmit, formState: { errors }, getValues } = useForm<AboutMeFormData>();
-    const { sendRequest: AddImage, isPending } = useApi<File, BaseResponse<null>>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AboutMeFormData>();
+    const { sendRequest: AddImage, isPending } = useApi<FormData, BaseResponse<null>>();
+    const { sendRequest, isPending: editIsPending } = useApi<AboutMeFormData, BaseResponse<null>>();
+    const [imageId, setImageId] = useState('');
 
+    useEffect(() => {
+        if (imageId) {
+            console.log(imageId);
+        }
+    }, [imageId]);
+
+    useEffect(() => {
+        if (aboutMeData) {
+            setImageSrc(aboutMeData.imageId ? `/path/to/images/${aboutMeData.imageId}` : null);
+            setImageId(aboutMeData.imageId);
+            reset({
+                mainJobTitle: aboutMeData.mainJobTitle,
+                description: aboutMeData.description,
+                socialMedias: aboutMeData.socialMedias,
+            });
+        }
+    }, [aboutMeData, reset]);
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
@@ -28,26 +48,29 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        console.log(file);
         if (file) {
+            const formData = new FormData();
+            formData.append('File', file);
+
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImageSrc(reader.result as string);
             };
             reader.readAsDataURL(file);
+            AddImage(
+                { url: "/Files", method: 'post', data: formData },
+                (response) => {
+                    toast.success(response.message);
+                    setImageId(response.value as unknown as string);
+                },
+                (error) => {
+                    toast.error(error?.message);
+                }
+            );
         }
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
-        AddImage(
-            { url: "/Files", method: 'post', data: file },
-            (response) => {
-                console.log(response);
-            },
-            (error) => {
-                toast.error(error?.message);
-            }
-        );
     };
 
     const handleDeleteImage = () => {
@@ -56,7 +79,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
 
     const onSubmit = (data: AboutMeFormData) => {
         const formattedData = {
-            imageid: "662b4b7c-2b6b-4d11-a41f-5fa8a05584dc",
+            imageid: imageId,
             mainJobTitle: data.mainJobTitle,
             description: data.description,
             socialMedias: data.socialMedias.map((socialMedia: SocialMedia) => ({
@@ -65,6 +88,21 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
             }))
         };
         console.log(formattedData);
+        sendRequest(
+            {
+                url: '/Resumes/AboutMe',
+                method: 'put',
+                data: formattedData,
+            },
+            (response) => {
+                toast.success(response.message);
+                onSubmitSuccess();
+                onClose();
+            },
+            (error) => {
+                toast.error(error?.message);
+            }
+        );
     };
 
     const handleFormSubmit = () => {
@@ -81,55 +119,33 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void }> = ({ show, 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='flex justify-between items-center'>
                             <div className='flex items-center'>
-                                <Avatar rounded img={imageSrc || ''} size='lg' />
+                                {isPending ? (<KSpinner size={10} color='primary' />) : (<Avatar rounded img={imageSrc || ''} size='lg' />)}
                                 <p className='text-sm mr-4'>تصویر پروفایل <br /> فرمت‌های JPG, PNG, SVG, JPEG</p>
                             </div>
-                            <div className='text-blue-500 flex ml-3 items-center text-center justify-center'>
-                                <button onClick={handleButtonClick}>
-                                    <span className='flex'>
-                                        <Upload />
-                                        <p className='mr-2 text-sm'>اپلود تصویر پروفایل</p>
-                                    </span>
-                                </button>
-                                <input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    style={{ display: 'none' }}
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                />
-                                {imageSrc && (
-                                    <button onClick={handleDeleteImage} className='mr-2'>
-                                        <span className='flex'>
-                                            <Delete />
-                                            <p className='mr-2 text-sm !text-red-500'>حذف تصویر پروفایل</p>
-                                        </span>
-                                    </button>
-                                )}
+                            <div className='text-xs flex justify-between'>
+                                <KButton onClick={handleButtonClick} size="sm" type="button" className='!p-0'>
+                                    <Upload />
+                                    بارگذاری تصویر
+                                </KButton>
+                                <KButton onClick={handleDeleteImage} size="sm" type="button" className='!p-0'>
+                                    <Delete />
+                                    حذف
+                                </KButton>
+                                <input ref={fileInputRef} type="file" style={{ display: 'none' }} onChange={handleFileChange} />
                             </div>
                         </div>
-                        <div className='m-5'>
-                            <KLabel>عنوان شغلی نمایشی</KLabel>
-                            <KTextInput {...register("mainJobTitle")} />
-                        </div>
-                        <div className='m-5'>
-                            <KLabel>آدرس پروفایل لینکدین شما</KLabel>
-                            <KTextInput {...register("socialMedias.0.link")} className='!text-left' placeholder='www.linkedin.com/in/your-username' />
-                        </div>
-                        <div className='m-5'>
-                            <KLabel>چند جمله راجع به خودتان بنویسید</KLabel>
-                            <KTextArea {...register("description")} />
-                        </div>
-                        <div className='flex justify-end mx-4'>
-                            <KButton color="primary" onClick={handleFormSubmit}>
-                                ذخیره
-                            </KButton>
+                        <div className='flex flex-col gap-5 mt-5'>
+                            <KTextInput  {...register('mainJobTitle', { required: 'این فیلد اجباری است' })} />
+                            <KTextArea {...register('description', { required: 'این فیلد اجباری است' })} />
+                            <KTextInput {...register('socialMedias.0.link', { required: 'این فیلد اجباری است' })} />
                         </div>
                     </form>
                 </KModal.Body>
+                <KButton color='primary' onClick={handleFormSubmit} >ثبت</KButton>
+                <KButton color='secondary' onClick={onClose}>لغو</KButton>
             </div>
-        </KModal>
+        </KModal >
     );
-};
+}
 
 export default AboutMeModal;

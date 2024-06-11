@@ -1,12 +1,21 @@
-import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import React from 'react';
+import Vazir from '../../../assets/Vazirmatn-Bold.ttf';
 
+// Register the custom font
+Font.register({
+    family: 'Vazir',
+    src: Vazir,
+});
 
 const styles = StyleSheet.create({
     page: {
         backgroundColor: '#f8fafc',
         padding: 20,
         color: '#1f2937',
+        fontFamily: 'Vazir',
+        direction: 'rtl', // Set text direction to right-to-left
+        textAlign: 'right', // Align text to the right
     },
     section: {
         marginBottom: 20,
@@ -14,6 +23,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 8,
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        textAlign: 'right', // Align text to the right
     },
     header: {
         fontSize: 36,
@@ -25,15 +35,18 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 12,
         color: '#4b5563',
+        textAlign: 'right', // Align text to the right
     },
     title: {
         fontSize: 28,
         marginBottom: 16,
         fontWeight: 'bold',
         color: '#1f2937', // Tailwind's 'text-gray-800'
+        textAlign: 'right', // Align text to the right
     },
     item: {
         marginBottom: 12,
+        textAlign: 'right', // Align text to the right
     },
 });
 
@@ -42,19 +55,19 @@ const ResumePreview: React.FC = () => (
         <Page size="A4" style={styles.page}>
             <View style={styles.section}>
                 <Text style={styles.header}>رزومه</Text>
-                <Text style={styles.title}>John Doe</Text>
-                <Text style={styles.text}>Email: john.doe@example.com</Text>
-                <Text style={styles.text}>Phone: 123-456-7890</Text>
+                <Text style={styles.title}>جان دو</Text>
+                <Text style={styles.text}>ایمیل: john.doe@example.com</Text>
+                <Text style={styles.text}>تلفن: 123-456-7890</Text>
             </View>
             <View style={styles.section}>
-                <Text style={styles.title}>Experience</Text>
+                <Text style={styles.title}>تجربه کاری</Text>
                 <View style={styles.item}>
-                    <Text style={styles.text}>- Job Title at Company A</Text>
-                    <Text style={styles.text}>Description of responsibilities and achievements.</Text>
+                    <Text style={styles.text}>- عنوان شغلی در شرکت A</Text>
+                    <Text style={styles.text}>توضیحات مسئولیت‌ها و دستاوردها.</Text>
                 </View>
                 <View style={styles.item}>
-                    <Text style={styles.text}>- Job Title at Company B</Text>
-                    <Text style={styles.text}>Description of responsibilities and achievements.</Text>
+                    <Text style={styles.text}>- عنوان شغلی در شرکت B</Text>
+                    <Text style={styles.text}>توضیحات مسئولیت‌ها و دستاوردها.</Text>
                 </View>
             </View>
         </Page>

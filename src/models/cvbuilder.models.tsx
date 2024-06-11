@@ -18,8 +18,8 @@ export interface WorkExperienceFormData {
     cityId: number;
     fromYear: number;
     fromMonth: number;
-    toYear: number;
-    toMonth: number;
+    toYear?: number;
+    toMonth?: number;
     currentJob: boolean;
 }
 
@@ -143,4 +143,14 @@ export interface Languages {
 export interface SoftwareSkills {
     id: number;
     title: string;
+}
+
+export interface AboutMeData {
+    imageId: string;
+    mainJobTitle: string;
+    description: string;
+    socialMedias: {
+        type: string;
+        link: string;
+    }[];
 }

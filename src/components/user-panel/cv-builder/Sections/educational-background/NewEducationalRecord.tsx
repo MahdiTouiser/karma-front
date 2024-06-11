@@ -8,7 +8,7 @@ import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
-import SelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
+import { default as KSelectboxWithSearch } from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
@@ -152,7 +152,7 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
                             <KLabel>دانشگاه</KLabel>
-                            <SelectboxWithSearch
+                            <KSelectboxWithSearch
                                 id='universityId'
                                 options={universities}
                                 register={register('universityId', { required: true })}
@@ -171,7 +171,7 @@ const NewEducationalRecord: React.FC<NewEducationalRecordProps> = ({ setIsNewRec
                 <div className='w-1/2 pr-4 mt-4'>
                     <div className='inline-block w-full'>
                         <KLabel>رشته تحصیلی</KLabel>
-                        <SelectboxWithSearch
+                        <KSelectboxWithSearch
                             id='majorId'
                             options={majors}
                             register={register('majorId', { required: true })}

@@ -11,7 +11,7 @@ import Samples from './Samples';
 import SoftwareSkills from './SoftwareSkills';
 import AboutMe from './about-me/AboutMe';
 import BasicInfo from './basic-info/BasicInfo';
-import CareerHistory from './career-background/CareerBackground';
+import CareerBackground from './career-background/CareerBackground';
 import EducationalHistory from './educational-history.tsx/EducationalHistory';
 
 const MyResume: React.FC = () => {
@@ -52,7 +52,7 @@ const MyResume: React.FC = () => {
                         <EducationalHistory />
                     </div>
                     <div className='mt-6'>
-                        <CareerHistory />
+                        <CareerBackground />
                     </div>
                     <div className='mt-6'>
                         <Languages />

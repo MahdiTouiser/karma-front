@@ -83,7 +83,7 @@ const SoftwareSkills: React.FC = () => {
                                         {skills.map((info, index) => (
                                             <div key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
                                                 <button onClick={() => handleDeleteItem(info.id)} className="ml-4">
-                                                    <Delete />
+                                                    <Delete strokeColor='red' />
                                                 </button>
                                                 <div className="flex-grow">
                                                     <p className='text-black text-sm text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
@@ -113,7 +113,7 @@ const SoftwareSkills: React.FC = () => {
                                                 <div className='mt-4'>
                                                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
                                                         <Add />
-                                                            افزودن
+                                                        افزودن
                                                     </button>
                                                 </div>
                                             </div>

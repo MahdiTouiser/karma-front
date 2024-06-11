@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ChevronDown from '../../assets/icons/ChevronDown';
+import ChevronLeft from '../../assets/icons/ChevronLeft';
 import { OptionType } from '../../models/shared.models';
 
 interface KSelectboxWithSearchProps {
@@ -21,9 +23,13 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleToggleDropdown = () => {
         setIsOpen(!isOpen);
+        if (!isOpen && inputRef.current) {
+            inputRef.current.focus();
+        }
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,20 +57,29 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
         setSelectedOption(option);
         setSearchTerm('');
         setIsOpen(false);
-        onChange(option.value)
+        onChange(option.value);
     };
 
     return (
         <div className='relative w-full' ref={dropdownRef}>
             <input
                 type='text'
-                className='w-full px-4 py-2 border border-gray-300 text-sm'
+                className='w-full px-4 py-2 border border-gray-300 text-sm relative pr-10'
                 onClick={handleToggleDropdown}
                 readOnly
                 placeholder={placeholder}
                 value={selectedOption ? selectedOption.label : ''}
+                onChange={() => { }}
+                ref={inputRef}
                 {...register}
             />
+            <div className='absolute top-1/2 right-0 transform -translate-y-1/2'>
+                {isOpen ? (
+                    <ChevronDown onClick={handleToggleDropdown} />
+                ) : (
+                    <ChevronLeft onClick={handleToggleDropdown} />
+                )}
+            </div>
             {isOpen && (
                 <div className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-10'>
                     <input
@@ -74,11 +89,11 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <ul className="max-h-48 overflow-y-auto">
+                    <ul className='max-h-48 overflow-y-auto'>
                         {filteredOptions.map(option => (
                             <li
                                 key={option.value}
-                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                                className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
                                 onClick={() => handleOptionClick(option)}
                             >
                                 {option.label}
@@ -87,9 +102,9 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                     </ul>
                 </div>
             )}
-            {errors && <span className="text-red-500 text-xs">{errors.message}</span>}
+            {errors && <span className='text-red-500 text-xs'>{errors.message}</span>}
         </div>
     );
-}
+};
 
 export default KSelectboxWithSearch;
