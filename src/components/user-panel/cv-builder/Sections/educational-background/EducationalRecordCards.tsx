@@ -9,7 +9,7 @@ import { EducationalRecordModel } from '../../../../../models/cvbuilder.models';
 import { DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KCard from '../../../../shared/Card';
-import NewEducationalRecord from './EducationalRecord';
+import EducationalRecord from './EducationalRecord';
 
 interface EducationalRecordCardsProps {
     records: EducationalRecordModel[];
@@ -90,7 +90,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
             ))}
             <div className='mt-4'>
                 {isRecordVisible ? (
-                    <NewEducationalRecord
+                    <EducationalRecord
                         key={formKey}
                         setIsRecordVisible={setIsRecordVisible}
                         refresh={refresh}

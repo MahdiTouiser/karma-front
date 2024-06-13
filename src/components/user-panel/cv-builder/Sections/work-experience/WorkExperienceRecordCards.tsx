@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import Add from '../../../../../assets/icons/Add'
 import Delete from '../../../../../assets/icons/Delete'
 import Edit from '../../../../../assets/icons/Edit'
 import useApi from '../../../../../hooks/useApi'
 import useConfirm from '../../../../../hooks/useConfirm'
-import { CareerRecord } from '../../../../../models/cvbuilder.models'
+import { CareerRecordModel } from '../../../../../models/cvbuilder.models'
 import { BaseResponse, OptionType } from '../../../../../models/shared.models'
 import KCard from '../../../../shared/Card'
-import NewCareerRecord from './NewCareerRecord'
+import CareerRecord from './CareerRecord'
 
 interface WorkExperienceRecordCardsProps {
-    records: CareerRecord[];
+    records: CareerRecordModel[];
     refresh: () => void;
     setIsRecordVisible: (value: boolean) => void;
     isRecordVisible: boolean;
@@ -22,10 +22,12 @@ interface WorkExperienceRecordCardsProps {
 
 const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (props) => {
     const { records, refresh, setIsRecordVisible, isRecordVisible, cities, countries, jobCategories } = props;
+    const [selectedRecord, setSelectedRecord] = useState<CareerRecordModel | null>(null);
     const [ConfirmModal, confirmation] = useConfirm(
         "آیا از حذف این آیتم مطمئنید؟",
         "حذف سابقه شغلی"
     );
+    const [formKey, setFormKey] = useState(0);
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
 
 
@@ -48,8 +50,15 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
         }
     };
 
-    const handleEditRecord = (id: string) => {
-        console.log('Editing record with ID:', id);
+    const handleEditRecord = (record: CareerRecordModel) => {
+        setSelectedRecord(record);
+        setIsRecordVisible(true);
+    };
+
+    const handleAddNewRecord = () => {
+        setSelectedRecord(null);
+        setIsRecordVisible(true);
+        setFormKey(prevKey => prevKey + 1);
     };
 
     const sortedRecords = [...records].sort((a, b) => a.fromYear - b.fromYear);
@@ -61,7 +70,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                 <KCard key={record.id} className='mt-4'>
                     <div className='flex align-middle items-center'>
                         <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
-                            <button onClick={() => handleEditRecord(record.id)}>
+                            <button onClick={() => handleEditRecord(record)}>
                                 <Edit className='w-5 h-5 mb-4' />
                             </button>
                             <button onClick={() => handleDeleteRecord(record.id)}>
@@ -78,15 +87,17 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
             ))}
             <div className='mt-4'>
                 {isRecordVisible ? (
-                    <NewCareerRecord
+                    <CareerRecord
+                        key={formKey}
                         setIsRecordVisible={setIsRecordVisible}
                         refresh={refresh}
                         cities={cities}
                         countries={countries}
                         jobCategories={jobCategories}
+                        record={selectedRecord}
                     />
                 ) : (
-                    <button onClick={() => setIsRecordVisible(true)}>
+                    <button onClick={handleAddNewRecord}>
                         <span className='flex'>
                             <Add />
                             <p className='mr-2 text-blue-500 text-sm'>

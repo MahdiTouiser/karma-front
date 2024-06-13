@@ -9,8 +9,8 @@ import { AboutMeData } from '../../../../models/cvbuilder.models';
 import { AboutMeFormData, SocialMedia } from '../../../../models/myresume.model';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
+import KLabel from '../../../shared/Label';
 import KModal from '../../../shared/Modal/Modal';
-import KSpinner from '../../../shared/Spinner';
 import KTextArea from '../../../shared/TextArea';
 import KTextInput from '../../../shared/TextInput';
 
@@ -58,7 +58,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
             };
             reader.readAsDataURL(file);
             AddImage(
-                { url: "/Files", method: 'post', data: formData },
+                { url: '/Files', method: 'post', data: formData },
                 (response) => {
                     toast.success(response.message);
                     setImageId(response.value as unknown as string);
@@ -109,6 +109,8 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
         handleSubmit(onSubmit)();
     };
 
+
+
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
@@ -119,30 +121,52 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='flex justify-between items-center'>
                             <div className='flex items-center'>
-                                {isPending ? (<KSpinner size={10} color='primary' />) : (<Avatar rounded img={imageSrc || ''} size='lg' />)}
+                                <Avatar rounded img={imageSrc || ''} size='lg' />
                                 <p className='text-sm mr-4'>تصویر پروفایل <br /> فرمت‌های JPG, PNG, SVG, JPEG</p>
                             </div>
-                            <div className='text-xs flex justify-between'>
-                                <KButton onClick={handleButtonClick} size="sm" type="button" className='!p-0'>
-                                    <Upload />
-                                    بارگذاری تصویر
-                                </KButton>
-                                <KButton onClick={handleDeleteImage} size="sm" type="button" className='!p-0'>
-                                    <Delete />
-                                    حذف
-                                </KButton>
-                                <input ref={fileInputRef} type="file" style={{ display: 'none' }} onChange={handleFileChange} />
+                            <div className='text-blue-500 flex ml-3 items-center text-center justify-center'>
+                                <button onClick={handleButtonClick}>
+                                    <span className='flex'>
+                                        <Upload />
+                                        <p className='mr-2 text-sm'>اپلود تصویر پروفایل</p>
+                                    </span>
+                                </button>
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                />
+                                {imageSrc && (
+                                    <button onClick={handleDeleteImage} className='mr-2'>
+                                        <span className='flex'>
+                                            <Delete />
+                                            <p className='mr-2 text-sm !text-red-500'>حذف تصویر پروفایل</p>
+                                        </span>
+                                    </button>
+                                )}
                             </div>
                         </div>
-                        <div className='flex flex-col gap-5 mt-5'>
-                            <KTextInput  {...register('mainJobTitle', { required: 'این فیلد اجباری است' })} />
-                            <KTextArea {...register('description', { required: 'این فیلد اجباری است' })} />
-                            <KTextInput {...register('socialMedias.0.link', { required: 'این فیلد اجباری است' })} />
+                        <div className='m-5'>
+                            <KLabel>عنوان شغلی نمایشی</KLabel>
+                            <KTextInput {...register("mainJobTitle")} />
+                        </div>
+                        <div className='m-5'>
+                            <KLabel>آدرس پروفایل لینکدین شما</KLabel>
+                            <KTextInput {...register("socialMedias.0.link")} className='!text-left' placeholder='www.linkedin.com/in/your-username' />
+                        </div>
+                        <div className='m-5'>
+                            <KLabel>چند جمله راجع به خودتان بنویسید</KLabel>
+                            <KTextArea {...register("description")} />
+                        </div>
+                        <div className='flex justify-end mx-4'>
+                            <KButton color="primary" onClick={handleFormSubmit}>
+                                ذخیره
+                            </KButton>
                         </div>
                     </form>
                 </KModal.Body>
-                <KButton color='primary' onClick={handleFormSubmit} >ثبت</KButton>
-                <KButton color='secondary' onClick={onClose}>لغو</KButton>
             </div>
         </KModal >
     );

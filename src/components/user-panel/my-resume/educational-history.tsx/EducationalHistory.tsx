@@ -5,7 +5,7 @@ import Delete from '../../../../assets/icons/Delete';
 import Edit from '../../../../assets/icons/Edit';
 import useApi from '../../../../hooks/useApi';
 import useConfirm from '../../../../hooks/useConfirm';
-import { EducationalRecord } from '../../../../models/cvbuilder.models';
+import { EducationalRecordModel } from '../../../../models/cvbuilder.models';
 import { DegreeLevel, DegreeLevelDescriptions } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCard from '../../../shared/Card';
@@ -13,14 +13,14 @@ import KSpinner from '../../../shared/Spinner';
 import EducationalHistoryModal from './EducationalHistoryModal';
 
 const EducationalHistory: React.FC = () => {
-    const [educationalData, setEducationalData] = useState<EducationalRecord[]>([]);
+    const [educationalData, setEducationalData] = useState<EducationalRecordModel[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
-    const [editingRecord, setEditingRecord] = useState<EducationalRecord | null>(null);
+    const [editingRecord, setEditingRecord] = useState<EducationalRecordModel | null>(null);
 
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
-    const { sendRequest: fetch, isPending } = useApi<null, EducationalRecord[]>();
-    const openModal = (record?: EducationalRecord) => {
+    const { sendRequest: fetch, isPending } = useApi<null, EducationalRecordModel[]>();
+    const openModal = (record?: EducationalRecordModel) => {
         setEditMode(!!record);
         setEditingRecord(record || null);
         setIsModalOpen(true);
