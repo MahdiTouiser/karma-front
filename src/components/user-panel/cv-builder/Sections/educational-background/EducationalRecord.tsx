@@ -96,8 +96,6 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                 }
             });
             setSelectedOption(record.degreeLevel);
-        } else {
-            reset();  // Reset form if no record is selected
         }
     }, [record, setValue, reset]);
 

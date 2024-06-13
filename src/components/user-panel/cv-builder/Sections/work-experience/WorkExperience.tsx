@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
-import { CareerRecord, City, Country, JobCategories, WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
+import { CareerRecordModel, City, Country, JobCategories, WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
 import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from '../../../../../models/enums';
 import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
@@ -23,14 +23,14 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const [cities, setCities] = useState<OptionType[]>([]);
     const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
-    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
+    const [careerRecords, setCareerRecords] = useState<CareerRecordModel[]>([]);
     const [isRecordVisible, setIsRecordVisible] = useState(false);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
     const { sendRequest: countrySendRequest } = useApi<null, BaseResponse<Country[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
-    const { sendRequest: fetch, isPending: fetchIsPending } = useApi<WorkExperienceFormData, CareerRecord[]>();
+    const { sendRequest: fetch, isPending: fetchIsPending } = useApi<WorkExperienceFormData, CareerRecordModel[]>();
 
 
     const fetchCountries = async () => {

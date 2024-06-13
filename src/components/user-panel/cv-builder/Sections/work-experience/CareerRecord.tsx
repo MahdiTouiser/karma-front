@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
-import { WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
+import { CareerRecordModel, WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
 import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from '../../../../../models/enums';
 import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
@@ -12,25 +12,55 @@ import KSelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KSpinner from '../../../../shared/Spinner';
 import KTextInput from '../../../../shared/TextInput';
 
-interface NewCareerRecordProps {
+interface CareerRecordProps {
     setIsRecordVisible: (visible: boolean) => void;
     refresh: () => void;
     countries: OptionType[],
     cities: OptionType[],
-    jobCategories: OptionType[]
+    jobCategories: OptionType[],
+    record?: CareerRecordModel | null;
 }
 
-const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
-    const { setIsRecordVisible, refresh, countries, cities, jobCategories } = props;
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<WorkExperienceFormData>();
-    const [selectedCountry, setSelectedCountry] = useState<number | undefined>(1);
+const CareerRecord: React.FC<CareerRecordProps> = (props) => {
+    const { setIsRecordVisible, refresh, countries, cities, jobCategories, record } = props;
+    console.log(record);
+    const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<WorkExperienceFormData>();
+    const [selectedCountry, setSelectedCountry] = useState<number | null>(1);
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
+    const { sendRequest: UpdateWorkExperience, isPending: UpdateIsPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
+    const [selectedCountryLabel, setSelectedCountryLabel] = useState<OptionType | null>(null);
+    const [selectedCity, setSelectedCity] = useState<OptionType | null>(null);
+    const [selectedJobCategroyId, setSelectedJobCategroyId] = useState<OptionType | null>(null);
+
+
+    useEffect(() => {
+        if (record) {
+            Object.keys(record).forEach((key) => {
+                if (key === 'country') {
+                    setValue('countryId', record.country.id);
+                    setSelectedCountryLabel({ value: record.country.id, label: record.country.title });
+                } else if (key === 'city') {
+                    setValue('cityId', record.city.id);
+                    setSelectedCity({ value: record.city.id, label: record.city.title });
+                } else if (key === 'cate') {
+                    setValue('jobcategoryId', record.jobCategory.id);
+                    setSelectedJobCategroyId({ value: record.jobCategory.id, label: record.jobCategory.title });
+                } else {
+                    setValue(key as keyof WorkExperienceFormData, (record as any)[key]);
+                }
+            });
+        }
+
+    }, [record, setValue, reset]);
 
     const onSubmit = async (data: WorkExperienceFormData) => {
-        AddWorkExperience(
+        const apiCall = record ? UpdateWorkExperience : AddWorkExperience;
+        const url = record ? `/Resumes/UpdateCareerRecord/${record.id}` : '/Resumes/AddCareerRecord';
+        const method = record ? 'put' : 'post';
+        apiCall(
             {
-                url: '/Resumes/AddCareerRecord',
-                method: 'post',
+                url: url,
+                method: method,
                 data: data,
             },
             (response) => {
@@ -49,7 +79,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
     };
 
     const handleCountryChange = (event: number) => {
-        const countryId = event
+        const countryId = event;
         setSelectedCountry(countryId);
         handleItemChange('countryId', countryId);
     };
@@ -62,7 +92,6 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
         handleItemChange('countryId', value);
         handleCountryChange(value);
     };
-
 
     return (
         <>
@@ -104,6 +133,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                                     register={register('countryId', { required: true })}
                                     errors={errors.countryId}
                                     onChange={handleItemAndCountryChange}
+                                    defaultValue={selectedCountryLabel}
                                 />
                                 {errors.countryId && (
                                     <p className="text-red-500 text-xs">
@@ -120,6 +150,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                                         register={register('cityId', { required: true })}
                                         errors={errors.cityId}
                                         onChange={(value: number) => handleItemChange('cityId', value)}
+                                        defaultValue={selectedCity}
                                     />
                                 </div>
                             )}
@@ -168,6 +199,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                                     register={register('jobcategoryId', { required: true })}
                                     errors={errors.jobcategoryId}
                                     onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                    defaultValue={selectedJobCategroyId}
                                 />
                                 {errors.jobcategoryId && (
                                     <p className="text-red-500 text-xs">
@@ -218,7 +250,7 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
                 <KButton color='secondary' className='ml-4' onClick={() => setIsRecordVisible(false)}>
                     انصراف
                 </KButton>
-                {isPending ? <KSpinner color='primary' /> :
+                {(isPending || UpdateIsPending) ? <KSpinner color='primary' /> :
                     <KButton color='primary' type="button" onClick={handleFormSubmit}>
                         ذخیره
                     </KButton>
@@ -228,4 +260,4 @@ const NewCareerRecord: React.FC<NewCareerRecordProps> = (props) => {
     );
 };
 
-export default NewCareerRecord;
+export default CareerRecord;

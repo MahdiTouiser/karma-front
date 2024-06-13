@@ -49,7 +49,7 @@ export interface EducationalRecordModel {
         title: string;
     };
 }
-export interface CareerRecord {
+export interface CareerRecordModel {
     id: string,
     jobTitle: string,
     jobCategory: {
@@ -68,10 +68,9 @@ export interface CareerRecord {
     },
     fromMonth: number,
     fromYear: number,
-    toMonth: number | null,
+    toMonth: number,
     toYear: number,
     currentJob: boolean
-
 }
 
 export interface AddLanguageFormData {

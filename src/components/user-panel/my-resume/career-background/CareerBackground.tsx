@@ -5,21 +5,21 @@ import Delete from '../../../../assets/icons/Delete';
 import Edit from '../../../../assets/icons/Edit';
 import useApi from '../../../../hooks/useApi';
 import useConfirm from '../../../../hooks/useConfirm';
-import { CareerRecord, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
+import { CareerRecordModel, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCard from '../../../shared/Card';
 import KSpinner from '../../../shared/Spinner';
 import CareerBackgroundModal from './CareerBackgroundModal';
 
 const CareerBackground: React.FC = () => {
-    const { sendRequest: fetch, isPending } = useApi<WorkExperienceFormData, CareerRecord[]>();
-    const [careerRecords, setCareerRecords] = useState<CareerRecord[]>([]);
+    const { sendRequest: fetch, isPending } = useApi<WorkExperienceFormData, CareerRecordModel[]>();
+    const [careerRecords, setCareerRecords] = useState<CareerRecordModel[]>([]);
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
-    const [editingRecord, setEditingRecord] = useState<CareerRecord | null>(null);
+    const [editingRecord, setEditingRecord] = useState<CareerRecordModel | null>(null);
 
-    const openModal = (record?: CareerRecord) => {
+    const openModal = (record?: CareerRecordModel) => {
         if (record) {
             setEditMode(true);
             setEditingRecord(record);

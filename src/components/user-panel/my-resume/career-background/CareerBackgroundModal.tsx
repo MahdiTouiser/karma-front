@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "../../../../hooks/useApi";
-import { CareerRecord, City, Country, JobCategories, WorkExperienceFormData } from "../../../../models/cvbuilder.models";
+import { CareerRecordModel, City, Country, JobCategories, WorkExperienceFormData } from "../../../../models/cvbuilder.models";
 import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from "../../../../models/enums";
 import { BaseResponse, OptionType } from "../../../../models/shared.models";
 import KButton from "../../../shared/Button";
@@ -18,7 +18,7 @@ interface CareerBackgroundModalProps {
     onClose: () => void;
     fetch: () => void;
     editMode: boolean;
-    record: CareerRecord | null;
+    record: CareerRecordModel | null;
 }
 
 const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {

@@ -10,7 +10,7 @@ interface KSelectboxWithSearchProps {
     register: any;
     errors: any;
     onChange?: any;
-    defaultValue?: OptionType | null;
+    defaultValue?: any;
 }
 
 const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
