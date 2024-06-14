@@ -3,11 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useApi from '../../../../../hooks/useApi';
 import { EducationalBackgroundFormData, EducationalRecordModel } from '../../../../../models/cvbuilder.models';
-import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
-import KLabel from '../../../../shared/Label';
-import KSelect from '../../../../shared/Select';
 import KSpinner from '../../../../shared/Spinner';
 import EducationalData from './EducationalData';
 import EducationalRecordCards from './EducationalRecordCards';
@@ -15,18 +12,12 @@ import EducationalRecordCards from './EducationalRecordCards';
 const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: () => void }> = (props) => {
     const { goToPreviousStep, onSubmitSuccess } = props;
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
-    const { register, handleSubmit, formState: { errors }, setValue } = methods;
-    const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
+    const { handleSubmit, formState: { errors } } = methods;
     const { sendRequest: fetch, isPending: fetchIsPending } = useApi<EducationalBackgroundFormData, EducationalRecordModel[]>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecordModel[]>([]);
     const [isRecordVisible, setIsRecordVisible] = useState(false);
-
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setValue('degreeLevel', event.target.value, { shouldValidate: true });
-        setSelectedDegree(event.target.value);
-    };
 
     const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
         switch (key) {
@@ -101,6 +92,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
         (isRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
     };
 
+
     return (
         <>
             {fetchIsPending ? (
@@ -119,30 +111,9 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                     ) : (
                         <FormProvider {...methods}>
                             <form onSubmit={handleSubmit(onSubmit)}>
-                                <div>
-                                    <h1 className="text-2xl font-bold">سوابق تحصیلی</h1>
-                                    <div className='mt-10 p-5'>
-                                        <KLabel>آخرین مدرک تحصیلی</KLabel>
-                                        <KSelect
-                                            defaultValue=''
-                                            id='degreeLevel'
-                                            placeholder="انتخاب کنید"
-                                            {...register('degreeLevel', { required: true })}
-                                            onChange={handleSelectChange}
-                                        >
-                                            {Object.values(DegreeLevel).map((degree) => (
-                                                <option key={degree} value={degree}>
-                                                    {DegreeLevelDescriptions[degree]}
-                                                </option>
-                                            ))}
-                                        </KSelect>
-                                        {errors.degreeLevel && <span className="text-red-500 text-sm">این فیلد الزامی است</span>}
-                                    </div>
-                                    {selectedDegree && (
-                                        <div className='mt-10'>
-                                            <EducationalData selectedDegree={selectedDegree} />
-                                        </div>
-                                    )}
+                                <h1 className="text-2xl font-bold">سوابق تحصیلی</h1>
+                                <div className='mt-10'>
+                                    <EducationalData />
                                 </div>
                             </form>
                         </FormProvider>
@@ -160,7 +131,8 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                         </div>
                     )}
                 </>
-            )}
+            )
+            }
         </>
     );
 };
