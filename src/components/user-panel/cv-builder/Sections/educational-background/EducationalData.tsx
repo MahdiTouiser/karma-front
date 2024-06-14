@@ -2,23 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import useApi from '../../../../../hooks/useApi';
 import { Majors, Universities } from '../../../../../models/cvbuilder.models';
+import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
 import { BaseResponse, OptionType } from '../../../../../models/shared.models';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
+import KRadioButton from '../../../../shared/RadioButton';
 import KSelectboxWithSearch from '../../../../shared/SelectboxWithSearch';
 import KTextInput from '../../../../shared/TextInput';
 
-interface EducationalDataProps {
-    selectedDegree?: string;
-};
-
-const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => {
+const EducationalData: React.FC = () => {
     const { register, formState: { errors }, setValue } = useFormContext();
     const [majors, setMajors] = useState<OptionType[]>([]);
     const [universities, setUniversities] = useState<OptionType[]>([]);
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const [stillEducating, setStillEducating] = useState(false);
+    const [selectedDegree, setSelectedDegree] = useState<string>('');
+    const options = Object.keys(DegreeLevelDescriptions).map((key) => ({
+        label: DegreeLevelDescriptions[key as DegreeLevel],
+        value: key,
+    }));
 
     const fetchMajors = async () => {
         majorsSendRequest(
@@ -82,10 +85,25 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
         setValue(item, value);
     };
 
+    const handleOptionChange = (value: string) => {
+        setSelectedDegree(value);
+        setValue('degreeLevel', value);
+    };
+
 
     return (
         <>
             <div className='flex justify-start'>
+                <div className='w-1/2 p-5'>
+                    <KLabel>آخرین مدرک تحصیلی</KLabel>
+                    <KRadioButton
+                        options={options}
+                        onOptionChange={handleOptionChange}
+                        selectedOption={selectedDegree}
+                        register={register('degreeLevel', { required: true })}
+                    />
+                    {errors.degreeLevel && <span className="text-red-500 text-sm">این فیلد الزامی است</span>}
+                </div>
                 <div className='w-1/2 p-5'>
                     <KLabel>رشته تحصیلی</KLabel>
                     <KSelectboxWithSearch
@@ -95,71 +113,65 @@ const EducationalData: React.FC<EducationalDataProps> = ({ selectedDegree }) => 
                         errors={errors.majorId}
                         onChange={(value: number) => handleItemChange('majorId', value)}
                     />
+                    {errors.majorId && <span className="text-red-500 text-xs">رشته تحصیلی الزامی است .</span>}
                 </div>
-                {selectedDegree !== 'Diploma' && (
-                    <div className='w-1/2 p-5'>
-                        <KLabel>دانشگاه</KLabel>
-                        <KSelectboxWithSearch
-                            id='universityId'
-                            options={universities}
-                            register={register('universityId', { required: true })}
-                            errors={errors.universityId}
-                            onChange={(value: number) => handleItemChange('universityId', value)}
+            </div>
+            <div className='flex justify-center'>
+                <div className="w-1/2 p-5">
+                    <KLabel>دانشگاه</KLabel>
+                    <KSelectboxWithSearch
+                        id='universityId'
+                        options={universities}
+                        register={register('universityId', { required: true })}
+                        errors={errors.universityId}
+                        onChange={(value: number) => handleItemChange('universityId', value)}
+                    />
+                    {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
+                </div>
+                <div className="w-1/2 p-5">
+                    <KLabel>معدل (اختیاری)</KLabel>
+                    <KTextInput placeholder=' ۱۷.۳۶'
+                        numeric allowDecimal  {...register('gpa')} maxLength={5} />
+                    {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
+                </div>
+            </div>
+            <div className='flex justify-start'>
+                <div className="w-1/2 p-5">
+                    <KLabel>سال شروع</KLabel>
+                    <KTextInput
+                        numeric
+                        placeholder=' ۱۳۹۵'
+                        maxLength={4}
+                        id="fromYear"
+                        {...register('fromYear', { required: true, maxLength: 4 })}
+                    />
+                    {errors.fromYear && (
+                        <p className="text-red-500 text-xs">
+                            سال شروع الزامی می باشد.
+                        </p>
+                    )}
+                </div>
+                {!stillEducating && (
+                    <div className="w-1/2 p-5">
+                        <KLabel>سال پایان</KLabel>
+                        <KTextInput
+                            numeric
+                            placeholder=' ۱۴۰۰'
+                            maxLength={4}
+                            id="toYear"
+                            {...register('toYear', { required: !stillEducating, maxLength: 4 })}
                         />
+                        {errors.toYear && (
+                            <p className="text-red-500 text-xs">
+                                سال پایان الزامی می باشد .
+                            </p>
+                        )}
                     </div>
                 )}
             </div>
-
-            {selectedDegree !== 'Diploma' && (
-                <>
-                    <div className='flex justify-center'>
-                        <div className="w-1/2 p-5">
-                            <KLabel>معدل (اختیاری)</KLabel>
-                            <KTextInput placeholder=' ۱۷.۳۶'
-                                numeric allowDecimal  {...register('gpa')} maxLength={5} />
-                            {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
-                        </div>
-                        <div className="w-1/2 p-5">
-                            <KLabel>سال شروع</KLabel>
-                            <KTextInput
-                                numeric
-                                placeholder=' ۱۳۹۵'
-                                maxLength={4}
-                                id="fromYear"
-                                {...register('fromYear', { required: true, maxLength: 4 })}
-                            />
-
-                            {errors.fromYear && (
-                                <p className="text-red-500 text-xs">
-                                    سال شروع الزامی می باشد.
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                    {!stillEducating && (
-                        <div className='flex justify-start'>
-                            <div className="w-1/2 p-5">
-                                <KLabel>سال پایان</KLabel>
-                                <KTextInput
-                                    numeric
-                                    placeholder=' ۱۴۰۰'
-                                    maxLength={4}
-                                    id="toYear"
-                                    {...register('toYear', { required: !stillEducating, maxLength: 4 })}
-                                />
-                                {errors.toYear && (
-                                    <p className="text-red-500 text-xs">
-                                        سال پایان الزامی می باشد .
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                    <div className='p-5'>
-                        <KCheckbox content={'هنوز مشغول به تحصیل هستم .'} onChange={handleCheckboxChange} checked={stillEducating} />
-                    </div>
-                </>
-            )}
+            <div className='p-5'>
+                <KCheckbox content={'هنوز مشغول به تحصیل هستم .'} onChange={handleCheckboxChange} checked={stillEducating} />
+            </div>
         </>
     );
 };
