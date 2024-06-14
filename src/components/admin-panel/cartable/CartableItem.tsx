@@ -46,7 +46,7 @@ const CartableItem: React.FC<CartableItemProps> = (props) => {
           <button className="font-bold text-lg ml-6" onClick={onClickTitle}>
             {props.requestTypeDisplay}
           </button>
-          <p className="text-green-400 text-sm">
+          <p className="text-cyan-400 text-sm">
             در
             <span>{props.createdAt}</span>
             <span className="mx-2">{timeString}</span>

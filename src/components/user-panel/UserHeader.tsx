@@ -33,7 +33,7 @@ const UserHeader: React.FC = () => {
 
   return (
     <>
-      <Navbar fluid className='bg-green-700'>
+      <Navbar fluid className='bg-cyan-700'>
         <Navbar.Brand href='/cv-builder' className='mr-12'>
           <span className='self-center whitespace-nowrap text-xl font-semibold text-white'>کـــــــــــــــــارما</span>
         </Navbar.Brand>
@@ -65,15 +65,18 @@ const UserHeader: React.FC = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse className='justify-center flex items-center'>
-          {navLinks.map((link, index) => (
-            <Navbar.Link
-              key={index}
-              href={link.href}
-              className='text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
-            >
-              {link.label}
-            </Navbar.Link>
-          ))}
+          <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm md:font-medium'>
+            {navLinks.map((link, index) => (
+              <li key={index}>
+                <a
+                  href={link.href}
+                  className='block py-2 pr-4 pl-3 md:p-0 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </Navbar.Collapse>
       </Navbar>
     </>

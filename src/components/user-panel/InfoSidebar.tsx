@@ -28,8 +28,8 @@ const InfoSidebar: React.FC<InfoSidebarProps> = ({
         <div
           key={index}
           className={`font-extrabold text-xl mt-5 p-5 m-1 cursor-pointer transition-colors duration-300 ease-in-out ${activeIndex === index
-            ? "text-green-500 border-r-4 border-green-500"
-            : "text-gray-500 border-r-2 border-transparent hover:text-green-500"
+            ? "text-cyan-500 border-r-4 border-cyan-500"
+            : "text-gray-500 border-r-2 border-transparent hover:text-cyan-500"
             }`}
           onClick={() => handleLinkClick(index)}
         >

@@ -107,19 +107,13 @@ export const seniorityLevelLabels = {
 export enum SkillLevels {
   None = '',
   Basic = 'Basic',
-  PreIntermediate = 'PreIntermediate',
   Intermediate = 'Intermediate',
-  UpperIntermediate = 'UpperIntermediate',
   Advanced = 'Advanced',
-  Native = 'Native',
 }
 
 export const skillLevelLabels = {
   [SkillLevels.None]: 'انتخاب سطح',
   [SkillLevels.Basic]: 'مقدماتی',
-  [SkillLevels.PreIntermediate]: 'پایین تر از متوسط',
   [SkillLevels.Intermediate]: 'متوسط',
-  [SkillLevels.UpperIntermediate]: 'بالاتر از متوسط',
   [SkillLevels.Advanced]: 'پیشرفته',
-  [SkillLevels.Native]: 'مثل زبان مادری',
 }

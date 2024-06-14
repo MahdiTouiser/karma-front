@@ -13,7 +13,7 @@ const KCheckbox = (props: { content: string, onChange: (checked: boolean) => voi
                     id="accept"
                     onChange={handleChange}
                     checked={props.checked}
-                    className="focus:ring-0 focus:ring-offset-0 text-green-500"
+                    className="focus:ring-0 focus:ring-offset-0 text-cyan-500"
                 />
                 <Label className="flex">
                     {props.content}

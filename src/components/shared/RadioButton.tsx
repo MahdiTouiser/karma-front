@@ -29,7 +29,7 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
             <label
               key={option.value}
               className={`cursor-pointer p-2 inline-flex items-center justify-center text-sm font-medium text-black w-full focus:outline-none relative ${selectedOption === option.value
-                ? "text-green-600 border-b-2 border-green-600 bg-green-100"
+                ? "text-cyan-600 border-b-2 border-cyan-600 bg-cyan-100"
                 : ""
                 }`}
             >
@@ -46,7 +46,7 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
               />
               {option.label}
               {selectedOption === option.value && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-green-600"></span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-600"></span>
               )}
             </label>
           ))}

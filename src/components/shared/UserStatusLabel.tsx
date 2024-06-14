@@ -8,7 +8,7 @@ const UserStatusLabel: React.FC<UserStatusLabelProps> = (props) => {
   const statusColorMap = new Map([
     [UserStatuses.PENDING, "text-orange-500"],
     [UserStatuses.AWAITING_COMPLETION, "text-orange-500"],
-    [UserStatuses.ACTIVE, "text-green-500"],
+    [UserStatuses.ACTIVE, "text-cyan-500"],
     [UserStatuses.INACTIVE, "text-red-600"],
   ]);
   return (

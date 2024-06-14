@@ -1,9 +1,4 @@
 import React from 'react';
-import Download from '../../../assets/icons/Download';
-import Share from '../../../assets/icons/Share';
-import KButton from '../../shared/Button';
-import KCard from '../../shared/Card';
-import KSelect from '../../shared/Select';
 import Contact from './Contact';
 import Languages from './Languages';
 import PersonalResume from './PersonalResume';
@@ -17,7 +12,7 @@ import EducationalHistory from './educational-history.tsx/EducationalHistory';
 const MyResume: React.FC = () => {
     return (
         <>
-            <div className='px-8'>
+            {/* <div className='px-8'>
                 <KCard className='flex justify-between'>
                     <div className='flex items-center'>
                         <p className='ml-2'>نحوه نمایش رزومه به</p>
@@ -39,7 +34,7 @@ const MyResume: React.FC = () => {
                         </KButton>
                     </div>
                 </KCard>
-            </div>
+            </div> */}
             <div className='flex py-16'>
                 <div className='flex flex-col w-3/5 px-8'>
                     <div>
