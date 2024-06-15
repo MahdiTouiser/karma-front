@@ -13,7 +13,6 @@ const AboutMe: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [aboutMeData, setAboutMeData] = useState<AboutMeData | null>(null);
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
     const { sendRequest: fetch, isPending } = useApi<null, AboutMeData>();
@@ -26,7 +25,10 @@ const AboutMe: React.FC = () => {
             },
             (response) => {
                 setAboutMeData(response);
-                fetchUploadedImage(response.imageId);
+                if (response.imageId) {
+                    fetchUploadedImage(response.imageId);
+                }
+                console.log(response);
             },
         );
     };
@@ -35,7 +37,7 @@ const AboutMe: React.FC = () => {
         fetchImage(
             {
                 url: `/Files/Image/${id}`,
-                responseType: 'blob' // Ensure we get the response as a Blob
+                responseType: 'blob'
             },
             (response) => {
                 const imageURL = URL.createObjectURL(response);
@@ -83,14 +85,14 @@ const AboutMe: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <p className='text-gray-600 text-justify ltr mt-10'>
+                            <p className='text-gray-600 text-justify rtl mt-10'>
                                 {aboutMeData.description}
                             </p>
                         </div>
                     </>
                 )
             )}
-            <AboutMeModal show={isModalOpen} onClose={closeModal} aboutMeData={aboutMeData} onSubmitSuccess={fetchAboutMeData} />
+            <AboutMeModal show={isModalOpen} onClose={closeModal} aboutMeData={aboutMeData} onSubmitSuccess={fetchAboutMeData} imageSrc={imageSrc} />
         </KCard>
     );
 }

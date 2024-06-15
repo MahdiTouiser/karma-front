@@ -11,11 +11,12 @@ import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
 import KLabel from '../../../shared/Label';
 import KModal from '../../../shared/Modal/Modal';
+import KSpinner from '../../../shared/Spinner';
 import KTextArea from '../../../shared/TextArea';
 import KTextInput from '../../../shared/TextInput';
 
-const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: AboutMeData | null; onSubmitSuccess: () => void }> = ({ show, onClose, aboutMeData, onSubmitSuccess }) => {
-    const [imageSrc, setImageSrc] = useState<string | null>(null);
+const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: AboutMeData | null; onSubmitSuccess: () => void; imageSrc: string | null }> = ({ show, onClose, aboutMeData, onSubmitSuccess, imageSrc: initialImageSrc }) => {
+    const [imageSrc, setImageSrc] = useState<string | null>(initialImageSrc);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<AboutMeFormData>();
     const { sendRequest: AddImage, isPending } = useApi<FormData, BaseResponse<null>>();
@@ -30,7 +31,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
 
     useEffect(() => {
         if (aboutMeData) {
-            setImageSrc(aboutMeData.imageId ? `/path/to/images/${aboutMeData.imageId}` : null);
+            setImageSrc(initialImageSrc);
             setImageId(aboutMeData.imageId);
             reset({
                 mainJobTitle: aboutMeData.mainJobTitle,
@@ -38,7 +39,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
                 socialMedias: aboutMeData.socialMedias,
             });
         }
-    }, [aboutMeData, reset]);
+    }, [aboutMeData, initialImageSrc, reset]);
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
@@ -109,8 +110,6 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
         handleSubmit(onSubmit)();
     };
 
-
-
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
             <KModal.Header>
@@ -125,7 +124,7 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
                                 <p className='text-sm mr-4'>تصویر پروفایل <br /> فرمت‌های JPG, PNG, SVG, JPEG</p>
                             </div>
                             <div className='text-blue-500 flex ml-3 items-center text-center justify-center'>
-                                <button onClick={handleButtonClick}>
+                                <button type="button" onClick={handleButtonClick}>
                                     <span className='flex'>
                                         <Upload />
                                         <p className='mr-2 text-sm'>اپلود تصویر پروفایل</p>
@@ -139,10 +138,10 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
                                     onChange={handleFileChange}
                                 />
                                 {imageSrc && (
-                                    <button onClick={handleDeleteImage} className='mr-2'>
+                                    <button type="button" onClick={handleDeleteImage} className='mr-2'>
                                         <span className='flex'>
                                             <Delete />
-                                            <p className='mr-2 text-sm !text-red-500'>حذف تصویر پروفایل</p>
+                                            <p className='text-sm !text-red-500'>حذف تصویر پروفایل</p>
                                         </span>
                                     </button>
                                 )}
@@ -161,14 +160,15 @@ const AboutMeModal: React.FC<{ show: boolean; onClose: () => void; aboutMeData: 
                             <KTextArea {...register("description")} />
                         </div>
                         <div className='flex justify-end mx-4'>
-                            <KButton color="primary" onClick={handleFormSubmit}>
+                            {isPending ? <KSpinner /> : <KButton color="primary" onClick={handleFormSubmit}>
                                 ذخیره
                             </KButton>
+                            }
                         </div>
                     </form>
                 </KModal.Body>
             </div>
-        </KModal >
+        </KModal>
     );
 }
 
