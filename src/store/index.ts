@@ -1,20 +1,20 @@
-import {configureStore} from '@reduxjs/toolkit'
-import authReducer from './auth';
-import accountReducer from './account';
-import basketReducer  from './basket';
-import userManagementReducer from './usermanagement';
-import messages from './messages';
-import generalSettings from './generalSettings';
+import { configureStore } from '@reduxjs/toolkit'
+import accountReducer from './account'
+import authReducer from './auth'
+import generalSettings from './generalSettings'
+import messages from './messages'
+import profileSlice from './profileSlice'
+import userManagementReducer from './usermanagement'
 
 const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        account: accountReducer,
-        basket: basketReducer,
-        userManagement: userManagementReducer,
-        messages: messages,
-        generalSettings: generalSettings
-    }
+  reducer: {
+    auth: authReducer,
+    account: accountReducer,
+    userManagement: userManagementReducer,
+    messages: messages,
+    generalSettings: generalSettings,
+    profile: profileSlice,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -28,7 +28,6 @@ const AboutMe: React.FC = () => {
                 if (response.imageId) {
                     fetchUploadedImage(response.imageId);
                 }
-                console.log(response);
             },
         );
     };
@@ -71,7 +70,9 @@ const AboutMe: React.FC = () => {
                     <>
                         <div className="flex justify-between mt-5">
                             <div className='flex'>
-                                <Avatar alt='profile-photo' img={imageSrc || ''} rounded size='lg' />
+                                {imageIsPending ? <KSpinner size={10} /> :
+                                    <Avatar alt='profile-photo' img={imageSrc || ''} rounded size='lg' />
+                                }
                                 <div className='flex flex-col mr-5 justify-center items-center text-center'>
                                     <p className='text-sm'><span className='font-bold'>مهدی تویسرکانی</span> <br /> {aboutMeData.mainJobTitle}</p>
                                 </div>

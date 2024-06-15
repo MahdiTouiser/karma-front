@@ -5,5 +5,4 @@ const Linkedin = () => {
     </svg>
   )
 }
-
 export default Linkedin
