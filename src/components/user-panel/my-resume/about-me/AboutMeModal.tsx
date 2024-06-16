@@ -97,7 +97,6 @@ const AboutMeModal: React.FC<{
             description: data.description,
             socialMedias: data.socialMedias
         };
-        console.log(formattedData);
         sendRequest(
             {
                 url: '/Resumes/AboutMe',

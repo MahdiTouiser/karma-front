@@ -1,4 +1,4 @@
-const KSpinner: React.FC<{ size?: number | string; color?: "primary" | "green" }> = ({
+const KSpinner: React.FC<{ size?: number | string; color?: "primary" | "blue" }> = ({
   size,
   color = "cyan-500",
 }) => {
