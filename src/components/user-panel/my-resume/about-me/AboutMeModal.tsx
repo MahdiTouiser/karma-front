@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import Delete from '../../../../assets/icons/Delete';
 import Instagram from '../../../../assets/icons/Instagram';
 import Linkedin from '../../../../assets/icons/Linkedin';
-import Twitter from '../../../../assets/icons/Twitter';
 import Upload from '../../../../assets/icons/Upload';
+import Twitter from '../../../../assets/icons/X';
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
-import { AboutMeFormData, SocialMedia } from '../../../../models/myresume.model';
+import { AboutMeFormData } from '../../../../models/myresume.model';
 import { BaseResponse } from '../../../../models/shared.models';
 import { setProfilePicture } from '../../../../store/profileSlice';
 import KButton from '../../../shared/Button';
@@ -30,7 +30,7 @@ const AboutMeModal: React.FC<{
     const [imageSrc, setImageSrc] = useState<string | null>(initialImageSrc);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { register, handleSubmit, reset, control } = useForm<AboutMeFormData>();
-    const { fields } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: 'socialMedias'
     });
@@ -95,10 +95,7 @@ const AboutMeModal: React.FC<{
             imageid: imageId,
             mainJobTitle: data.mainJobTitle,
             description: data.description,
-            socialMedias: data.socialMedias.map((socialMedia: SocialMedia) => ({
-                type: socialMedia.type,
-                link: socialMedia.link
-            }))
+            socialMedias: data.socialMedias
         };
         console.log(formattedData);
         sendRequest(
@@ -120,6 +117,16 @@ const AboutMeModal: React.FC<{
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
+    };
+
+    const addSocialMedia = (type: string) => {
+        if (!fields.find((item: any) => item.type === type)) {
+            append({ type, link: '' });
+        }
+    };
+
+    const removeSocialMedia = (index: number) => {
+        remove(index);
     };
 
     return (
@@ -167,40 +174,54 @@ const AboutMeModal: React.FC<{
                             <KLabel>آدرس شبکه های اجتماعی شما</KLabel>
                             {fields.map((item, index) => (
                                 <div key={item.id} className='mb-2'>
-                                    <div className='flex flex-col items-center'>
+                                    <div className='flex items-center'>
                                         <div className='relative w-full'>
-                                            <span className='absolute left-3 top-1/2 transform -translate-y-1/2'>
-                                                <Linkedin />
+                                            <span className='absolute left-3 top-1/2 transform -translate-y-1/2 space-x-2'>
+                                                {item.type === 'LinkedIn' && <Linkedin />}
+                                                {item.type === 'X' && <Twitter />}
+                                                {item.type === 'Instagram' && <Instagram />}
                                             </span>
                                             <KTextInput
                                                 {...register(`socialMedias.${index}.link` as const)}
                                                 className='pl-10 w-full !text-left'
-                                                placeholder='لینکدین'
+                                                placeholder={`لینک ${item.type}`}
                                             />
-                                        </div>
-                                        <div className='relative w-full mt-2'>
-                                            <span className='absolute left-3 top-1/2 transform -translate-y-1/2'>
-                                                <Twitter />
-                                            </span>
-                                            <KTextInput
+                                            <input
+                                                type="hidden"
                                                 {...register(`socialMedias.${index}.type` as const)}
-                                                className='pl-10 w-full !text-left'
-                                                placeholder='توییتر'
+                                                value={item.type}
                                             />
                                         </div>
-                                        <div className='relative w-full mt-2'>
-                                            <span className='absolute left-3 top-1/2 transform -translate-y-1/2'>
-                                                <Instagram />
-                                            </span>
-                                            <KTextInput
-                                                {...register(`socialMedias.${index}.type` as const)}
-                                                className='pl-10 w-full !text-left'
-                                                placeholder='اینستاگرام'
-                                            />
-                                        </div>
+                                        <button type="button" onClick={() => removeSocialMedia(index)} className='mr-2'>
+                                            <Delete />
+                                        </button>
                                     </div>
                                 </div>
                             ))}
+                            <button
+                                type="button"
+                                onClick={() => addSocialMedia('LinkedIn')}
+                                className="text-blue-500 flex items-center mt-2"
+                            >
+                                <Linkedin />
+                                <p className='mr-2 text-sm'>لینکدین</p>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addSocialMedia('X')}
+                                className="text-blue-500 flex items-center mt-2"
+                            >
+                                <Twitter />
+                                <p className='mr-2 text-sm'>ایکس</p>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addSocialMedia('Instagram')}
+                                className="text-blue-500 flex items-center mt-2"
+                            >
+                                <Instagram />
+                                <p className='mr-2 text-sm'>اینستاگرام</p>
+                            </button>
                         </div>
                         <div className='m-5'>
                             <KLabel>چند جمله راجع به خودتان بنویسید</KLabel>
@@ -209,7 +230,8 @@ const AboutMeModal: React.FC<{
                         <div className='flex justify-end mx-4'>
                             {isPending ? <KSpinner /> : <KButton color="primary" onClick={handleFormSubmit}>
                                 ذخیره
-                            </KButton>}
+                            </KButton>
+                            }
                         </div>
                     </form>
                 </KModal.Body>

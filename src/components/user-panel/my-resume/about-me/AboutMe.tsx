@@ -1,8 +1,10 @@
 import { Avatar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Edit from '../../../../assets/icons/Edit';
-import Linkedin from '../../../../assets/icons/Linkedin';
+import Edit from '../../../../assets/icons/Edit'; // Assuming this icon exists
+import Instagram from '../../../../assets/icons/Instagram';
+import Linkedin from '../../../../assets/icons/Linkedin'; // Assuming this icon exists
+import X from '../../../../assets/icons/X';
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
 import KCard from '../../../shared/Card';
@@ -79,9 +81,13 @@ const AboutMe: React.FC = () => {
                             </div>
                             <div className='flex'>
                                 {aboutMeData.socialMedias.map((socialMedia, index) => (
-                                    <Link key={index} to={socialMedia.link} target='_blank'>
-                                        <Linkedin />
-                                    </Link>
+                                    socialMedia.link ? (
+                                        <Link key={index} to={socialMedia.link} target='_blank'>
+                                            {socialMedia.Type === 'LinkedIn' && <Linkedin className='w-8 h-8 ml-2' />}
+                                            {socialMedia.Type === 'X' && <X className='ml-2' />}
+                                            {socialMedia.Type === 'Instagram' && <Instagram className='ml-2' />}
+                                        </Link>
+                                    ) : null
                                 ))}
                             </div>
                         </div>

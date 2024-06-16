@@ -149,7 +149,7 @@ export interface AboutMeData {
     mainJobTitle: string;
     description: string;
     socialMedias: {
-        type: string;
+        Type: string;
         link: string;
     }[];
 }
