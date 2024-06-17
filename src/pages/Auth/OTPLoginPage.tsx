@@ -72,12 +72,13 @@ const OTPLoginPage: React.FC = () => {
   return (
     <section className="w-full">
       <BackButton />
+
       <form className="p-8 pt-4 border-b">
         <OTPBox
           codeLength={6}
           onFinish={onFinish}
           phone={enteredUsername}
-          durationSeconds={60}
+          durationSeconds={120}
           onRefresh={onOTPRefresh}
         />
         {errorMessage && (

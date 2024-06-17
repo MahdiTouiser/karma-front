@@ -22,7 +22,7 @@ const UserHeader: React.FC = () => {
   ];
 
   const navLinks = [
-    { label: 'فرصت های شغلی', href: '/job-opportunities' },
+    // { label: 'فرصت های شغلی', href: '/job-opportunities' },
     { label: 'رزومه من', href: '/my-resume' },
     { label: 'رزومه ساز', href: '/cv-builder' },
   ];
@@ -70,7 +70,7 @@ const UserHeader: React.FC = () => {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse className='justify-center flex items-center'>
-        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm md:font-medium'>
+        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm'>
           {navLinks.map((link, index) => (
             <li key={index}>
               <a

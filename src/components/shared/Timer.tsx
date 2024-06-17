@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 interface TimerProps {
   durationSeconds: number;
   onEnd(): void;
 }
 
 const Timer: React.FC<TimerProps> = ({ durationSeconds, onEnd }) => {
-  // The state for our timer
   const [timer, setTimer] = useState("");
   const intervalRef: any = useRef(null);
 
@@ -32,8 +31,8 @@ const Timer: React.FC<TimerProps> = ({ durationSeconds, onEnd }) => {
       // add '0' at the beginning of the variable
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds)
       );
     } else {
       clearInterval(intervalRef.current);
