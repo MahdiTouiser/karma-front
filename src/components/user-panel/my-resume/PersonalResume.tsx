@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import Attachment from "../../../assets/icons/Attachment";
 import Download from "../../../assets/icons/Download";
 import Upload from "../../../assets/icons/Upload";
 import useApi from "../../../hooks/useApi";
@@ -113,11 +114,12 @@ const PersonalResume = () => {
                                 ref={fileInputRef}
                             />
                         </KTooltip>
-
                     </label>
-
                 )}
             </div>
+            {isUploadComplete && <span className='flex justify-center mt-10'>
+                <Attachment />
+            </span>}
 
         </KCard>
     );

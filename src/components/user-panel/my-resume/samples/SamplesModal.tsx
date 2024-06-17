@@ -10,7 +10,7 @@ import KSpinner from "../../../shared/Spinner";
 import KTextInput from "../../../shared/TextInput";
 
 const SamplesModal: React.FC<{ show: boolean; onClose: () => void; fetch: () => void }> = ({ show, onClose, fetch }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<SamplesFormData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<SamplesFormData>();
     const { sendRequest, isPending } = useApi<SamplesFormData, BaseResponse<null>>();
 
     const handleFormSubmit = () => {
@@ -28,7 +28,8 @@ const SamplesModal: React.FC<{ show: boolean; onClose: () => void; fetch: () => 
             (response) => {
                 toast.success(response.message);
                 onClose();
-                fetch()
+                fetch();
+                reset()
             },
             (error) => {
                 toast.error(error?.message);
