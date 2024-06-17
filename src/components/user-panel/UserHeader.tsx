@@ -1,5 +1,3 @@
-// UserHeader.tsx
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -7,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { RootState } from '../../store';
 import { authActions } from '../../store/auth';
+import { clearProfilePicture } from '../../store/profileSlice';
 import { removeAuthDataFromLocal } from '../../utils/authUtils';
 
 const UserHeader: React.FC = () => {
@@ -35,6 +34,7 @@ const UserHeader: React.FC = () => {
   const logOut = () => {
     removeAuthDataFromLocal();
     dispatch(authActions.logOut());
+    dispatch(clearProfilePicture());
   };
 
   return (

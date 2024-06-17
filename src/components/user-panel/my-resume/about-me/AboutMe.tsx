@@ -1,12 +1,14 @@
 import { Avatar } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Edit from '../../../../assets/icons/Edit'; // Assuming this icon exists
+import Edit from '../../../../assets/icons/Edit';
 import Instagram from '../../../../assets/icons/Instagram';
-import Linkedin from '../../../../assets/icons/Linkedin'; // Assuming this icon exists
+import Linkedin from '../../../../assets/icons/Linkedin';
 import X from '../../../../assets/icons/X';
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
+import { setProfilePicture } from '../../../../store/profileSlice';
 import KCard from '../../../shared/Card';
 import KSpinner from '../../../shared/Spinner';
 import AboutMeModal from './AboutMeModal';
@@ -19,6 +21,7 @@ const AboutMe: React.FC = () => {
     const closeModal = () => setIsModalOpen(false);
     const { sendRequest: fetch, isPending } = useApi<null, AboutMeData>();
     const { sendRequest: fetchImage, isPending: imageIsPending } = useApi<null, Blob>();
+    const dispatch = useDispatch();
 
     const fetchAboutMeData = () => {
         fetch(
@@ -43,6 +46,7 @@ const AboutMe: React.FC = () => {
             (response) => {
                 const imageURL = URL.createObjectURL(response);
                 setImageSrc(imageURL);
+                dispatch(setProfilePicture(imageURL));
             },
         );
     };
