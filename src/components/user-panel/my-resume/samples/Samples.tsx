@@ -70,7 +70,9 @@ const Samples: React.FC = () => {
                     <h1 className='text-xl font-extrabold'>نمونه کارها</h1>
                     <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
                         <Add />
-                        افزودن
+                        <span className='mr-1'>
+                            افزودن
+                        </span>
                     </button>
                 </div>
                 <div className="mt-5">

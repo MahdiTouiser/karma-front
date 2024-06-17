@@ -83,9 +83,9 @@ const AboutMe: React.FC = () => {
                                 {aboutMeData.socialMedias.map((socialMedia, index) => (
                                     socialMedia.link ? (
                                         <Link key={index} to={socialMedia.link} target='_blank'>
-                                            {socialMedia.Type === 'LinkedIn' && <Linkedin className='w-8 h-8 ml-2' />}
-                                            {socialMedia.Type === 'X' && <X className='ml-2' />}
-                                            {socialMedia.Type === 'Instagram' && <Instagram className='ml-2' />}
+                                            {socialMedia.type === 'LinkedIn' && <Linkedin className='w-8 h-8 ml-2' />}
+                                            {socialMedia.type === 'X' && <X className='ml-2' />}
+                                            {socialMedia.type === 'Instagram' && <Instagram className='ml-2' />}
                                         </Link>
                                     ) : null
                                 ))}
