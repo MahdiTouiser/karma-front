@@ -8,7 +8,13 @@ export interface InitialInformationFormData {
     telephone: string;
     birthDate: Date;
 }
-
+export interface SamplesFormData {
+    link: string;
+}
+export interface SamplesData {
+    link: string;
+    id: string
+}
 export interface WorkExperienceFormData {
     jobTitle: string;
     jobcategoryId: number;

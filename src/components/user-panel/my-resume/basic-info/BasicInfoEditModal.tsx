@@ -31,7 +31,6 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const formData: InitialInformationFormData = data as InitialInformationFormData;
-
         sendRequest(
             {
                 url: '/Resumes/BasicInfo',

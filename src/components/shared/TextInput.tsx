@@ -80,7 +80,7 @@ const KTextInput = forwardRef((props: KTextInputProps, ref: Ref<HTMLInputElement
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="h-8 w-8 stroke-green-500"
+                className="h-8 w-8 stroke-cyan-500"
               >
                 <path
                   strokeLinecap="round"

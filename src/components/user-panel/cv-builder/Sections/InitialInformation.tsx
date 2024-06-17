@@ -129,6 +129,14 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                         )}
                     </div>
                 </div>
+                <div className='flex justify-start'>
+                    <div className="w-1/2 p-5">
+                        <KLabel>آدرس ایمیل</KLabel>
+                        <KTextInput placeholder='abc@xyz.com' className='text-left placeholder-left' dir='ltr'
+                            {...register('email', { required: true })} type='email' />
+                        {errors.email && <span className="text-red-500 text-sm">آدرس ایمیل الزامی است</span>}
+                    </div>
+                </div>
                 <div className='flex justify-end p-5'>
                     {isPending ? <KSpinner color='primary' /> :
                         <KButton color='primary' type="button" onClick={handleFormSubmit}>

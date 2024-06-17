@@ -5,7 +5,7 @@ import KCard from '../../shared/Card';
 
 const CVBuilder: React.FC = () => {
     return (
-        <KCard className='flex items-center justify-center m-20 !p-36 !bg-green-500 rounded-2xl'>
+        <KCard className='flex items-center justify-center m-20 !p-36 !bg-cyan-500 rounded-2xl'>
             <div className='text-white'>
                 <p className='text-4xl'>
                     ساخت رزومه استاندارد و حرفه‌ای
@@ -15,7 +15,7 @@ const CVBuilder: React.FC = () => {
                 </p>
                 <div>
                     <Link to='/cv-builder/create'>
-                        <KButton className='bg-white text-green-500 mt-4 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-green-500 hover:text-white'>
+                        <KButton className='bg-white text-cyan-500 mt-4 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-cyan-500 hover:text-white'>
                             ساخت رزومه
                         </KButton>
                     </Link>

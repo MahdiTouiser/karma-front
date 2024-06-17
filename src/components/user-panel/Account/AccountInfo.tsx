@@ -179,7 +179,7 @@ const AccountInfo: React.FC = () => {
             <KLabel htmlFor="phone">رمز ورود</KLabel>
             <button
               type="button"
-              className="text-green-500 mb-2 font-semibold text-sm pl-2"
+              className="text-cyan-500 mb-2 font-semibold text-sm pl-2"
               disabled={otpPending}
               onClick={onStartChangePassword}
             >
@@ -198,7 +198,7 @@ const AccountInfo: React.FC = () => {
             <KLabel htmlFor="phone">موبایل</KLabel>
             {/* <button
               type="button"
-              className="text-green-500 mb-2 font-semibold text-sm pl-2"
+              className="text-cyan-500 mb-2 font-semibold text-sm pl-2"
             >
               ویرایش
             </button> */}
