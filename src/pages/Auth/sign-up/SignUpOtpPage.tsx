@@ -50,7 +50,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
           codeLength={6}
           onFinish={onFinish}
           phone={phone}
-          durationSeconds={60}
+          durationSeconds={120}
           onRefresh={onOTPRefresh}
         />
         {errors && (

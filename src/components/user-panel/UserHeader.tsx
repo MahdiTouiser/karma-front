@@ -1,5 +1,3 @@
-// UserHeader.tsx
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -7,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { RootState } from '../../store';
 import { authActions } from '../../store/auth';
+import { clearProfilePicture } from '../../store/profileSlice';
 import { removeAuthDataFromLocal } from '../../utils/authUtils';
 
 const UserHeader: React.FC = () => {
@@ -23,7 +22,7 @@ const UserHeader: React.FC = () => {
   ];
 
   const navLinks = [
-    { label: 'فرصت های شغلی', href: '/job-opportunities' },
+    // { label: 'فرصت های شغلی', href: '/job-opportunities' },
     { label: 'رزومه من', href: '/my-resume' },
     { label: 'رزومه ساز', href: '/cv-builder' },
   ];
@@ -35,6 +34,7 @@ const UserHeader: React.FC = () => {
   const logOut = () => {
     removeAuthDataFromLocal();
     dispatch(authActions.logOut());
+    dispatch(clearProfilePicture());
   };
 
   return (
@@ -70,7 +70,7 @@ const UserHeader: React.FC = () => {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse className='justify-center flex items-center'>
-        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm md:font-medium'>
+        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm'>
           {navLinks.map((link, index) => (
             <li key={index}>
               <a

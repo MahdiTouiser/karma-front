@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { getAuthDataFromLocal } from "../../utils/authUtils";
 
@@ -36,7 +36,7 @@ export default function AuthContainer() {
             </h1>
           </div>
           <Outlet />
-          <div className="bg-gray-200 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
+          {/* <div className="bg-gray-200 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
             <Link
               to={isJobseekerMode ? "/auth/employer" : "/auth"}
               onClick={handleModeToggle}
@@ -46,7 +46,7 @@ export default function AuthContainer() {
                 {isJobseekerMode ? "کارفرما هستید ؟" : "کارجو هستید ؟"}
               </h6>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
