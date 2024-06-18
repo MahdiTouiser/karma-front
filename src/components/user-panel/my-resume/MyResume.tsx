@@ -1,5 +1,4 @@
 import React from 'react';
-import Contact from './Contact';
 import Languages from './Languages';
 import PersonalResume from './PersonalResume';
 import SoftwareSkills from './SoftwareSkills';
@@ -57,9 +56,9 @@ const MyResume: React.FC = () => {
                     </div>
                 </div>
                 <div className='flex flex-col w-2/5 px-8'>
-                    <div>
+                    {/* <div>
                         <Contact />
-                    </div>
+                    </div> */}
                     <div className='mt-6'>
                         <PersonalResume />
                     </div>
