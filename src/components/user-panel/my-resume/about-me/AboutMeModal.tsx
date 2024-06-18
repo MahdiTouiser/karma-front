@@ -7,7 +7,7 @@ import Delete from '../../../../assets/icons/Delete';
 import Instagram from '../../../../assets/icons/Instagram';
 import Linkedin from '../../../../assets/icons/Linkedin';
 import Upload from '../../../../assets/icons/Upload';
-import Twitter from '../../../../assets/icons/X';
+import XIcon from '../../../../assets/icons/XIcon';
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
 import { AboutMeFormData } from '../../../../models/myresume.model';
@@ -175,11 +175,12 @@ const AboutMeModal: React.FC<{
                                 <div key={item.id} className='mb-2'>
                                     <div className='flex items-center'>
                                         <div className='relative w-full'>
-                                            <span className='absolute left-3 top-1/2 transform -translate-y-1/2 space-x-2'>
-                                                {item.type === 'LinkedIn' && <Linkedin />}
-                                                {item.type === 'X' && <Twitter />}
-                                                {item.type === 'Instagram' && <Instagram />}
+                                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                                                {item.type === "LinkedIn" && <Linkedin className="w-8 h-8" />}
+                                                {item.type === "X" && <XIcon className="w-8 h-8" />}
+                                                {item.type === "Instagram" && <Instagram className="w-8 h-8" />}
                                             </span>
+
                                             <KTextInput
                                                 {...register(`socialMedias.${index}.link` as const)}
                                                 className='pl-10 w-full !text-left'
@@ -210,7 +211,7 @@ const AboutMeModal: React.FC<{
                                 onClick={() => addSocialMedia('X')}
                                 className="text-blue-500 flex items-center mt-2"
                             >
-                                <Twitter />
+                                <XIcon />
                                 <p className='mr-2 text-sm'>ایکس</p>
                             </button>
                             <button

@@ -2,7 +2,6 @@ import { PDFViewer } from '@react-pdf/renderer';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckBadge from '../../../assets/icons/CheckBadge';
-import Eye from '../../../assets/icons/Eye';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
 import ResumePreview from './ResumePreview';
@@ -20,7 +19,7 @@ const FinalizeResume: React.FC = () => {
             <CheckBadge />
             <p className='font-extrabold mb-4'>تبریک !</p>
             <p>رزومه شما حاضر است!</p>
-            <span className='flex items-center mt-4'>
+            {/* <span className='flex items-center mt-4'>
                 <button
                     className='flex items-center'
                     onClick={() => setShowPreview(true)}
@@ -28,7 +27,7 @@ const FinalizeResume: React.FC = () => {
                     <Eye />
                     <p className='text-sm mr-2 text-blue-500'>پیش نمایش رزومه</p>
                 </button>
-            </span>
+            </span> */}
 
             <p className='text-sm mt-4'>تبریک می‌گوییم! حالا وقت آن است که در هزاران آگهی شغلی جستجو کنید و شغل متناسب با توانایی‌هایتان را پیدا کنید.</p>
 
