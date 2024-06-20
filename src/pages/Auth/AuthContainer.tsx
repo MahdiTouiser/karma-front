@@ -7,7 +7,7 @@ export default function AuthContainer() {
 
   const authState = useAppSelector((state) => state.auth);
   const [wasAuthenticated, setWasAuthenticated] = useState<boolean>(false);
-  const [isJobseekerMode, setIsJobseekerMode] = useState<boolean>(true);
+  // const [isJobseekerMode, setIsJobseekerMode] = useState<boolean>(true);
 
   useEffect(() => {
     const authData = getAuthDataFromLocal();
@@ -16,9 +16,9 @@ export default function AuthContainer() {
     );
   }, []);
 
-  const handleModeToggle = () => {
-    setIsJobseekerMode(!isJobseekerMode);
-  };
+  // const handleModeToggle = () => {
+  //   setIsJobseekerMode(!isJobseekerMode);
+  // };
 
   return ((authState.isAuthenticated &&
     authState.personalInformationCompleted &&

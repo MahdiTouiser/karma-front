@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { ReactToPrint } from "react-to-print";
 import useApi from "../../hooks/useApi";
-import { TicketsReport } from "../../models/reports.models";
 import { printResponse } from "../../utils/shared";
 import KButton from "./Button";
 import Grid from "./Grid/Grid";
@@ -27,10 +26,10 @@ const PdfPrintButton: React.FC<PdfPrintButtonProps> = ({
   inputText = "چاپ",
 }) => {
   const { sendRequest, isPending } = useApi<string[], Blob>();
-  const [gridData, setGridData] = useState<TicketsReport[]>([]);
+  const [gridData, setGridData] = useState([]);
   const componentRef = useRef<HTMLDivElement>(null);
 
-  const [colDefs] = useState<ColDef<TicketsReport>[]>([
+  const [colDefs] = useState<ColDef[]>([
     {
       field: 'eventCode',
       headerName: 'کد رویداد',

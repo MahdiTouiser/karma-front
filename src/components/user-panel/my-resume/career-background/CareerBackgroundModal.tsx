@@ -100,12 +100,6 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
     };
 
     const onSubmit: SubmitHandler<WorkExperienceFormData> = async (data) => {
-        const fieldsToConvert = ['cityId', 'countryId', 'fromMonth', 'toYear', 'fromYear', 'toMonth', 'jobcategoryId'] as const;
-        // fieldsToConvert.forEach((field) => {
-        //     if (data[field] !== undefined && data[field] !== null) {
-        //         data[field] = +data[field];
-        //     }
-        // });
 
         const url = editMode && record ? `/Resumes/UpdateCareerRecord/${record.id}` : '/Resumes/AddCareerRecord';
         const method = editMode && record ? "put" : "post";

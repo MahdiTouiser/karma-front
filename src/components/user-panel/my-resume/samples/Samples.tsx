@@ -15,7 +15,7 @@ const Samples: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
-    const { sendRequest: fetch, isPending } = useApi<null, SamplesData>();
+    const { sendRequest: fetch } = useApi<null, SamplesData>();
     const [sampleData, setSampleData] = useState<SamplesData[]>([]);
     const { sendRequest: deleteRequest } = useApi<null, BaseResponse<null>>();
 

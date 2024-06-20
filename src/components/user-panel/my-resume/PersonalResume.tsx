@@ -15,8 +15,8 @@ interface UploadFileResponse {
 }
 
 const PersonalResume = () => {
-    const { sendRequest: AddFile, isPending: isAddFilePending } = useApi<FormData, BaseResponse<UploadFileResponse>>();
-    const { sendRequest: UploadResume, isPending: isUploadResumePending } = useApi<{ fileId: string }, BaseResponse<null>>();
+    const { sendRequest: AddFile } = useApi<FormData, BaseResponse<UploadFileResponse>>();
+    const { sendRequest: UploadResume } = useApi<{ fileId: string }, BaseResponse<null>>();
     const { sendRequest: DownloadResume, isPending: isDownloadResumePending } = useApi<void, Blob>();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [isUploadComplete, setIsUploadComplete] = useState(false);
