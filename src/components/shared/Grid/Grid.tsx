@@ -127,7 +127,7 @@ function MainGrid<T = any>(
     [data, colDefs, makeGridRows, getData, pageSize]
   );
 
-  const onRowDobuleClisk = (item: T) => {
+  const onRowDobuleClick = (item: T) => {
     if (onDoubleClick) {
       onDoubleClick(item);
     }
@@ -282,8 +282,8 @@ function MainGrid<T = any>(
                       rowActions={rowActions}
                       onEditRow={onEditRow}
                       onRemoveRow={onRemoveRow}
-                      onRowDobuleClisk={
-                        onDoubleClick ? onRowDobuleClisk : undefined
+                      onRowDobuleClick={
+                        onDoubleClick ? onRowDobuleClick : undefined
                       }
                     />
                   ))}

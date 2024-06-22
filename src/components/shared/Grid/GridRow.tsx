@@ -7,7 +7,7 @@ import { GridRowActions, GridRowModel } from "./grid.types";
 
 interface GridRowProps<T> {
   row: GridRowModel<T>;
-  onRowDobuleClisk?: (item: T) => void;
+  onRowDobuleClick?: (item: T) => void;
   rowActions: GridRowActions<T> | null;
   onEditRow?: (item: T) => void;
   onRemoveRow?: (item: T) => void;
@@ -17,7 +17,7 @@ interface GridRowProps<T> {
 }
 
 function GridRow<T>({
-  onRowDobuleClisk,
+  onRowDobuleClick,
   row,
   rowActions,
   onEditRow,
@@ -31,7 +31,7 @@ function GridRow<T>({
     (e: React.TouchEvent, row: GridRowModel<T>) => {
       e.stopPropagation();
       // e.preventDefault();
-      if (!onRowDobuleClisk) {
+      if (!onRowDobuleClick) {
         return;
       }
       const currentTime = new Date().getTime();
@@ -40,22 +40,22 @@ function GridRow<T>({
 
       if (tapLength < 300 && tapLength > 0) {
         e.preventDefault();
-        onRowDobuleClisk(row.data);
+        onRowDobuleClick(row.data);
       }
     },
-    [lastTouched, onRowDobuleClisk],
+    [lastTouched, onRowDobuleClick],
   );
 
   return (
     <Table.Row
       onDoubleClick={(event) => {
         event.stopPropagation();
-        onRowDobuleClisk && onRowDobuleClisk(row.data);
+        onRowDobuleClick && onRowDobuleClick(row.data);
       }}
       onTouchEnd={(e) => {
         handleTouchEnd(e, row);
       }}
-      className={`${onRowDobuleClisk && "!cursor-pointer"
+      className={`${onRowDobuleClick && "!cursor-pointer"
         } bg-white dark:border-gray-700 dark:bg-gray-800`}
     >
       {selectable && (

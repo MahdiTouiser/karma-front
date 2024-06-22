@@ -11,7 +11,7 @@ interface AutenticateGuardProps {
 const AuthenticatedRoute: React.FC<AutenticateGuardProps> = props => {
   const navigate = useNavigate()
   const headerSet = useAppSelector(state => state.auth.httpHeaderSet)
-  const generalInfoSet = useAppSelector(state => state.auth.genralInfoSet)
+  const generalInfoSet = useAppSelector(state => state.auth.generalInfoSet)
   const dispatch = useAppDispatch()
   const { sendRequest } = useApi<null, BaseResponse<UserGeneralInfo>>()
 

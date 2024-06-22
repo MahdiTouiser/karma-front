@@ -7,6 +7,7 @@ import FinalizeResume from './components/user-panel/cv-builder/FinalizeResume';
 import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
 import MyResume from './components/user-panel/my-resume/MyResume';
 import SavedJobs from './components/user-panel/my-resume/SavedJobs';
+import AdminPanelContainer from './pages/admin-panel/AdminPanelContainer';
 import AuthContainer from './pages/auth/AuthContainer';
 import EmployerPage from './pages/auth/EmployerLoginPage';
 import OTPLoginPage from './pages/auth/OTPLoginPage';
@@ -50,6 +51,7 @@ const App = () => {
               <Route path="otp" element={<SignUpPasswordOtpPage />} />
             </Route>
           </Route>
+          <Route path="admin" element={<AuthenticatedRoute component={AdminPanelContainer} />} />
         </Routes>
       </Router>
     </>

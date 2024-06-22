@@ -19,7 +19,7 @@ interface AuthState {
   mobile: string
   userStatusDisplay: string
   isAdmin: boolean
-  genralInfoSet: boolean
+  generalInfoSet: boolean
   httpHeaderSet: boolean
   personalInformationCompleted: boolean
   securityInformationCompleted: boolean
@@ -42,7 +42,7 @@ const initialState: AuthState = {
   mobile: '',
   userStatusDisplay: '',
   isAdmin: false,
-  genralInfoSet: false,
+  generalInfoSet: false,
   httpHeaderSet: false,
   personalInformationCompleted: false,
   securityInformationCompleted: false,
@@ -66,8 +66,6 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken
       state.isAuthenticated = true
       // state.isAdmin = action.payload.isAdmin
-      // state.securityInformationCompleted = action.payload.securityInformationCompleted
-      // state.personalInformationCompleted = action.payload.personalInformationCompleted
     },
     signUpPhone: (state, action: PayloadAction<{ id: string; phone: string }>) => {
       state.enteredPhone = action.payload.phone
@@ -87,7 +85,7 @@ const authSlice = createSlice({
       state.enteredPhone = ''
       state.enteredUsername = ''
       state.enteredPassword = ''
-      state.genralInfoSet = true
+      state.generalInfoSet = true
     },
     setUserStatus: (state, action: PayloadAction<string>) => {
       state.userStatus = action.payload

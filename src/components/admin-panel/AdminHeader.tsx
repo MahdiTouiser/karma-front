@@ -1,52 +1,86 @@
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authActions } from "../../store/auth";
-import { removeAuthDataFromLocal } from "../../utils/authUtils";
-import KDropdown, { DropDownItem } from "../shared/Dropdown";
-import HamburgerButton from "../shared/HumbergerButtom";
-import { ShellElement } from "../shared/PanelShell";
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/reduxHooks';
+import { RootState } from '../../store';
+import { authActions } from '../../store/auth';
+import { clearProfilePicture } from '../../store/profileSlice';
+import { removeAuthDataFromLocal } from '../../utils/authUtils';
 
-const AdminHeader: React.FC<ShellElement> = (props) => {
-  const name = useAppSelector((state) => state.auth.name);
-  const dispatch = useDispatch();
-  const dropdownItems: DropDownItem[] = [
-    {
-      title: "خروج",
-      mode: "Button",
-      onClick: logOut,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-          />
-        </svg>
-      ),
-    },
+const UserHeader: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const profilePicture = useSelector((state: RootState) => state.profile.profilePicture);
+
+  const dropdownItems = [
+    { label: 'رزومه کارجویان', href: '/admin' },
+    { isDivider: true },
+    { label: 'خروج' },
   ];
 
-  function logOut() {
+  const navLinks = [
+    { label: 'رزومه های کارجویان', href: '/admin' },
+  ];
+
+  const handleDropdownItemClick = (href: string) => {
+    navigate(href);
+  };
+
+  const logOut = () => {
     removeAuthDataFromLocal();
     dispatch(authActions.logOut());
-  }
+    dispatch(clearProfilePicture());
+  };
+
   return (
-    <div className="bg-blue-900 h-[50px] flex items-center">
-      <HamburgerButton {...props} className="stroke-white"></HamburgerButton>
-      <div className="mr-auto md:ml-12">
-        <KDropdown items={dropdownItems} chevronClassName="stroke-white">
-          <span className="text-white">{name}</span>
-        </KDropdown>
+    <Navbar fluid className='bg-cyan-700'>
+      <Navbar.Brand href='/cv-builder' className='mr-12'>
+        <span className='self-center whitespace-nowrap text-xl font-semibold text-white'>کـــــــــــــــــارما</span>
+      </Navbar.Brand>
+      <div className='flex items-center ml-12 md:order-2'>
+        <Dropdown
+          arrowIcon={false}
+          inline
+          label={<Avatar alt='User settings' img={profilePicture || ''} rounded />}
+          className='ml-12'
+        >
+          <Dropdown.Header>
+            <span className='block text-sm'>ادمین</span>
+          </Dropdown.Header>
+          {dropdownItems.map((item, index) => {
+            if (item.isDivider) {
+              return <Dropdown.Divider key={index} />;
+            } else {
+              return (
+                <Dropdown.Item
+                  key={index}
+                  onClick={item.label === 'خروج' ? logOut : () => handleDropdownItemClick(item.href as string)}
+                >
+                  {item.label}
+                </Dropdown.Item>
+              );
+            }
+          })}
+        </Dropdown>
+        <Navbar.Toggle />
       </div>
-    </div>
+      <Navbar.Collapse className='justify-center flex items-center'>
+        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm'>
+          {navLinks.map((link, index) => (
+            <li key={index}>
+              <a
+                href={link.href}
+                className='block py-2 pr-4 pl-3 md:p-0 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
-export default AdminHeader;
+export default UserHeader;
