@@ -12,7 +12,7 @@ const UserPanelContainer: React.FC = () => {
     let interval: number;
     if (generalInfoSet) {
       dispatch(fetchMessages({}));
-      interval = setInterval(() => {
+      interval = setInterval(() => { 
         dispatch(fetchMessages({}));
       }, 30000);
     }

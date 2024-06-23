@@ -1,6 +1,7 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import Resumes from './components/admin-panel/resumes/Resumes';
 import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
 import CVCreation from './components/user-panel/cv-builder/CVCreation';
 import FinalizeResume from './components/user-panel/cv-builder/FinalizeResume';
@@ -51,7 +52,9 @@ const App = () => {
               <Route path="otp" element={<SignUpPasswordOtpPage />} />
             </Route>
           </Route>
-          <Route path="admin" element={<AuthenticatedRoute component={AdminPanelContainer} />} />
+          <Route path="admin" element={<AuthenticatedRoute component={AdminPanelContainer} />}>
+            <Route path="resumes" element={<Resumes />} />
+          </Route>
         </Routes>
       </Router>
     </>

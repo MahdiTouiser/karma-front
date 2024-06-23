@@ -61,7 +61,7 @@ const UsernameLoginPage = () => {
         dispatch(authActions.setToken(response.value as unknown as AuthData));
         toast.success(response.message);
         if (response.value.isAdmin) {
-          navigate("/admin");
+          navigate("/admin/resumes");
           return;
         }
         navigate("/");
