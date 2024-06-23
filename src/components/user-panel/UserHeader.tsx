@@ -15,8 +15,8 @@ const UserHeader: React.FC = () => {
 
   const dropdownItems = [
     { label: 'رزومه من', href: '/my-resume' },
-    { label: 'مشاغل نشان شده', href: '/saved-jobs' },
-    { label: 'تنظیمات', href: '/settings' },
+    // { label: 'مشاغل نشان شده', href: '/saved-jobs' },
+    // { label: 'تنظیمات', href: '/settings' },
     { isDivider: true },
     { label: 'خروج' },
   ];

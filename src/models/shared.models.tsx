@@ -143,6 +143,6 @@ export interface UserId {
 
 
 export interface OptionType {
-  value: number;
+  value: number | string;
   label: string;
 }

@@ -14,13 +14,13 @@ const UserHeader: React.FC = () => {
   const profilePicture = useSelector((state: RootState) => state.profile.profilePicture);
 
   const dropdownItems = [
-    { label: 'رزومه کارجویان', href: '/admin' },
+    { label: 'جستجوی بانک رزومه', href: '/admin/resumes' },
     { isDivider: true },
     { label: 'خروج' },
   ];
 
   const navLinks = [
-    { label: 'رزومه های کارجویان', href: '/admin' },
+    { label: 'جستجوی بانک رزومه', href: '/admin/resumes' },
   ];
 
   const handleDropdownItemClick = (href: string) => {

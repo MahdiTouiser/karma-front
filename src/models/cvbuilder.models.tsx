@@ -85,7 +85,6 @@ export interface AddLanguageFormData {
 }
 
 export interface LanguagesData {
-
     Language: {
         id: number,
         title: string
