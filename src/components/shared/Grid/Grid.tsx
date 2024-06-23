@@ -127,7 +127,7 @@ function MainGrid<T = any>(
     [data, colDefs, makeGridRows, getData, pageSize]
   );
 
-  const onRowDobuleClisk = (item: T) => {
+  const onRowDobuleClick = (item: T) => {
     if (onDoubleClick) {
       onDoubleClick(item);
     }
@@ -266,7 +266,7 @@ function MainGrid<T = any>(
                       colSpan={colDefs.length + Number(Boolean(rowActions))}
                     >
                       <div className="flex justify-center py-12">
-                        <KSpinner color="green" size={28} />
+                        <KSpinner color="blue" size={28} />
                       </div>
                     </Table.Cell>
                   </Table.Row>
@@ -282,8 +282,8 @@ function MainGrid<T = any>(
                       rowActions={rowActions}
                       onEditRow={onEditRow}
                       onRemoveRow={onRemoveRow}
-                      onRowDobuleClisk={
-                        onDoubleClick ? onRowDobuleClisk : undefined
+                      onRowDobuleClick={
+                        onDoubleClick ? onRowDobuleClick : undefined
                       }
                     />
                   ))}

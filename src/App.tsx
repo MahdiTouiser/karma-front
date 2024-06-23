@@ -1,12 +1,14 @@
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import Resumes from './components/admin-panel/resumes/Resumes';
 import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
 import CVCreation from './components/user-panel/cv-builder/CVCreation';
 import FinalizeResume from './components/user-panel/cv-builder/FinalizeResume';
 import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
 import MyResume from './components/user-panel/my-resume/MyResume';
 import SavedJobs from './components/user-panel/my-resume/SavedJobs';
+import AdminPanelContainer from './pages/admin-panel/AdminPanelContainer';
 import AuthContainer from './pages/auth/AuthContainer';
 import EmployerPage from './pages/auth/EmployerLoginPage';
 import OTPLoginPage from './pages/auth/OTPLoginPage';
@@ -49,6 +51,9 @@ const App = () => {
               <Route index element={<SignUpMobilePage />} />
               <Route path="otp" element={<SignUpPasswordOtpPage />} />
             </Route>
+          </Route>
+          <Route path="admin" element={<AuthenticatedRoute component={AdminPanelContainer} />}>
+            <Route path="resumes" element={<Resumes />} />
           </Route>
         </Routes>
       </Router>

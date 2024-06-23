@@ -6,18 +6,18 @@ import { fetchMessages } from "../../store/messages";
 
 const UserPanelContainer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const genralInfoSet = useAppSelector((state) => state.auth.genralInfoSet);
+  const generalInfoSet = useAppSelector((state) => state.auth.generalInfoSet);
   useEffect(() => {
     document.documentElement.style.fontSize = "16px";
     let interval: number;
-    if (genralInfoSet) {
+    if (generalInfoSet) {
       dispatch(fetchMessages({}));
-      interval = setInterval(() => {
+      interval = setInterval(() => { 
         dispatch(fetchMessages({}));
       }, 30000);
     }
     return () => clearInterval(interval);
-  }, [dispatch, genralInfoSet]);
+  }, [dispatch, generalInfoSet]);
   return (
     <div className="w-screen h-screen flex flex-col bg-gray-100">
       <UserHeader></UserHeader>

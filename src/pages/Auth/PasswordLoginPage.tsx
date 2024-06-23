@@ -60,13 +60,14 @@ const PasswordLoginPage: React.FC = () => {
         method: "post",
         data: { username: enteredUsername, password: password },
       },
-      (response) => {
+      (response: any) => {
+        debugger
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
-        // if (response.content.isAdmin) {
-        //   navigate("/admin");
-        //   return;
-        // }
+        if (response.value.isAdmin) {
+          navigate("/admin/resumes");
+          return;
+        }
         navigate("/");
       }
     );
