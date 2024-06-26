@@ -80,7 +80,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                         <div>
                             <p className='font-extrabold m-2 text-lg'>{record.jobTitle}</p>
                             <p className='m-2'>{record.companyName}</p>
-                            <p className='m-2'>{record.fromYear} - {record.toYear}</p>
+                            <p className='m-2'>{record.fromYear} - {record.toYear || 'تاکنون'}</p>
                         </div>
                     </div>
                 </KCard>

@@ -130,7 +130,10 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
             {
                 url: '/Resumes/AddCareerRecord',
                 method: 'post',
-                data: data,
+                data: {
+                    ...data,
+                    currentJob: currentJob
+                },
             },
             (response) => {
                 toast.success(response?.message);
@@ -142,6 +145,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
             }
         );
     };
+
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
