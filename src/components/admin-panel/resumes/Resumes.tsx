@@ -114,33 +114,12 @@ const Resumes: React.FC = () => {
         const values = getValues();
         const data: any = {};
 
-        if (values.jobcategoryId) {
-            data.jobcategoryId = +values.jobcategoryId;
-        }
-        if (values.careerExperienceLength) {
-            data.careerExperienceLength = values.careerExperienceLength;
-        }
-        if (values.cityId) {
-            data.cityId = +values.cityId;
-        }
-        if (values.birthDateLessThan) {
-            data.birthDateLessThan = values.birthDateLessThan;
-        }
-        if (values.birthDateMoreThan) {
-            data.birthDateMoreThan = values.birthDateMoreThan;
-        }
-        if (values.degreeLevel) {
-            data.degreeLevel = values.degreeLevel;
-        }
-        if (values.languageId) {
-            data.languageId = +values.languageId;
-        }
-        if (values.softwareSkillIds && values.softwareSkillIds.length > 0) {
-            data.softwareSkillIds = values.softwareSkillIds.map((id: number) => +id);
-        }
-        if (values.militaryServiceStatus) {
-            data.militaryServiceStatus = values.militaryServiceStatus;
-        }
+        Object.keys(values).forEach((key) => {
+            const value = values[key];
+            if (value !== undefined && value !== null && value !== "" && (!Array.isArray(value) || value.length > 0)) {
+                data[key] = Array.isArray(value) ? value.filter(v => v !== "") : [value];
+            }
+        });
 
         sendRequest(
             {
@@ -150,7 +129,7 @@ const Resumes: React.FC = () => {
                     pagesize: 10,
                     pageIndex: 0,
                 },
-                data: data,
+                data: Object.keys(data).length > 0 ? data : {},
             },
             (response) => {
                 console.log(response);
@@ -272,11 +251,9 @@ const Resumes: React.FC = () => {
                     </div>
                 </div>
                 <div className='flex justify-end p-5'>
-                    {/* {isPending ? <KSpinner color='primary' /> : */}
                     <KButton color='primary' type="button" onClick={handleFormSubmit}>
                         ذخیره
                     </KButton>
-                    {/* } */}
                 </div>
             </form>
         </KCard>

@@ -31,7 +31,7 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(defaultValue || null);
     const [newItemText, setNewItemText] = useState('');
     const [selectedItemsArray, setSelectedItemsArray] = useState<OptionType[]>(selectedItems || []);
-
+    console.log(selectedOption);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
