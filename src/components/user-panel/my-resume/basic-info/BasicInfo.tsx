@@ -17,7 +17,7 @@ const BasicInfo: React.FC = () => {
     const fetchData = async () => {
         fetch(
             {
-                url: "/Resumes/BasicInfo",
+                url: '/Resumes/BasicInfo',
                 params: {
                     pageSize: 10000,
                     pageIndex: 1,

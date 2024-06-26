@@ -117,3 +117,22 @@ export const skillLevelLabels = {
   [SkillLevels.Intermediate]: 'متوسط',
   [SkillLevels.Advanced]: 'پیشرفته',
 }
+export enum CareerExperienceLength {
+  None = '',
+  WithoutExperience = 'WithoutExperience',
+  LessThanOneYear = 'LessThanOneYear',
+  BetweenOneAndThreeYears = 'BetweenOneAndThreeYears',
+  BetweenThreeAndFiveYears = 'BetweenThreeAndFiveYears',
+  BetweenFiveAndTenYears = 'BetweenFiveAndTenYears',
+  MoreThanTenYears = 'MoreThanTenYears',
+}
+
+export const careerExperienceLengthLabels = {
+  [CareerExperienceLength.None]: 'انتخاب سطح',
+  [CareerExperienceLength.WithoutExperience]: 'بدون سابقه',
+  [CareerExperienceLength.LessThanOneYear]: 'کمتر از یکسال',
+  [CareerExperienceLength.BetweenOneAndThreeYears]: 'بین یک تا سه سال',
+  [CareerExperienceLength.BetweenThreeAndFiveYears]: 'بین سه تا پنج سال',
+  [CareerExperienceLength.BetweenFiveAndTenYears]: 'بین پنج تا ده سال',
+  [CareerExperienceLength.MoreThanTenYears]: 'بیش از ده سال',
+}

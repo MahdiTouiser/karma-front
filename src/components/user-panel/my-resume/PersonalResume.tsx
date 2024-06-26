@@ -26,17 +26,17 @@ const PersonalResume = () => {
             {
                 url: '/Resumes/DownloadPersonalResume',
                 method: 'get',
-                responseType: 'blob', // Expecting a Blob response
+                responseType: 'blob',
             },
             (response) => {
                 const url = window.URL.createObjectURL(new Blob([response]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'PersonalResume.pdf'); // Specify the file name
+                link.setAttribute('download', 'PersonalResume.pdf');
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode?.removeChild(link);
-                window.URL.revokeObjectURL(url); // Clean up the object URL
+                window.URL.revokeObjectURL(url);
             },
             (error) => {
                 toast.error(error?.message);

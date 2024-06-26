@@ -143,6 +143,21 @@ export interface UserId {
 
 
 export interface OptionType {
-  value: number;
+  value: number | string;
   label: string;
+}
+
+export interface Resume {
+  birthDate: string;
+  city: string;
+  code: string;
+  degreeLevel: string;
+  firstName: string;
+  gender: string;
+  id: string;
+  lastName: string;
+  maritalStatus: string;
+  militaryServiceStatus: string;
+  phoneNumber: string;
+  telephone: string;
 }
