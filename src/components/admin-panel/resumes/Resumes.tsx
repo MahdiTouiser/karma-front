@@ -16,13 +16,12 @@ const Resumes: React.FC = () => {
     const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
     const [cities, setCities] = useState<OptionType[]>([]);
     const [languages, setLanguages] = useState<OptionType[]>([]);
-    const { sendRequest } = useApi<{ gender: string }, null>();
-    const { register, handleSubmit, formState: { errors }, setValue, control } = useForm<any>();
+    const [skills, setSkills] = useState<OptionType[]>([]);
+    const { sendRequest } = useApi<any, null>();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues, control } = useForm<any>();
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
-    const [skills, setSkills] = useState<OptionType[]>([]);
-
 
     const fetchLanguages = async () => {
         fetch(
@@ -66,26 +65,6 @@ const Resumes: React.FC = () => {
         );
     };
 
-
-    const fetchRecords = async () => {
-        sendRequest(
-            {
-                url: '/Resumes/Query',
-                method: 'put',
-                params: {
-                    pagesize: 10,
-                    pageIndex: 0,
-                },
-                data: {
-                    gender: "Male"
-                }
-            },
-            (response) => {
-                console.log(response);
-            }
-        );
-    };
-
     const fetchCities = async () => {
         citySendRequest(
             {
@@ -123,24 +102,65 @@ const Resumes: React.FC = () => {
     useEffect(() => {
         fetchSkills();
         fetchCities();
-        fetchRecords();
         fetchLanguages();
         fetchJobCategories();
     }, []);
 
-    const handleItemChange = (item: 'jobcategoryId' | 'cityId' | 'countryId' | 'softwareSkillId', value: number) => {
+    const handleItemChange = (item: 'jobcategoryId' | 'cityId' | 'countryId' | 'softwareSkillIds', value: number | number[]) => {
         setValue(item, value);
     };
 
-    function onSubmit() {
-        console.log('submitted');
-    }
+    const onSubmit = () => {
+        const values = getValues();
+        const data: any = {};
 
+        if (values.jobcategoryId) {
+            data.jobcategoryId = +values.jobcategoryId;
+        }
+        if (values.careerExperienceLength) {
+            data.careerExperienceLength = values.careerExperienceLength;
+        }
+        if (values.cityId) {
+            data.cityId = +values.cityId;
+        }
+        if (values.birthDateLessThan) {
+            data.birthDateLessThan = values.birthDateLessThan;
+        }
+        if (values.birthDateMoreThan) {
+            data.birthDateMoreThan = values.birthDateMoreThan;
+        }
+        if (values.degreeLevel) {
+            data.degreeLevel = values.degreeLevel;
+        }
+        if (values.languageId) {
+            data.languageId = +values.languageId;
+        }
+        if (values.softwareSkillIds && values.softwareSkillIds.length > 0) {
+            data.softwareSkillIds = values.softwareSkillIds.map((id: number) => +id);
+        }
+        if (values.militaryServiceStatus) {
+            data.militaryServiceStatus = values.militaryServiceStatus;
+        }
+
+        sendRequest(
+            {
+                url: '/Resumes/Query',
+                method: 'put',
+                params: {
+                    pagesize: 10,
+                    pageIndex: 0,
+                },
+                data: data,
+            },
+            (response) => {
+                console.log(response);
+            }
+        );
+    };
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
     };
-
 
     return (
         <KCard className='p-10'>
@@ -189,17 +209,15 @@ const Resumes: React.FC = () => {
                             <div className="w-1/2 mx-2">
                                 <KDatepicker
                                     name="birthDateLessThan"
-                                    control={control}
-                                    id="birthDateLessThan"
                                     placeholder='کمتر از'
+                                    control={control}
                                 />
                             </div>
                             <div className="w-1/2 mx-2">
                                 <KDatepicker
                                     name="birthDateMoreThan"
-                                    control={control}
-                                    id="birthDateMoreThan"
                                     placeholder='بیشتر از'
+                                    control={control}
                                 />
                             </div>
                         </div>
@@ -234,15 +252,17 @@ const Resumes: React.FC = () => {
                     <div className="w-1/2 p-5">
                         <KLabel>مهارت های نرم افزاری کارجو</KLabel>
                         <SelectboxWithSearchAndAllowAdd
-                            id='softwareSkillId'
+                            id='softwareSkillIds'
                             options={skills}
-                            register={register('softwareSkillId')}
-                            errors={errors.softwareSkillId}
-                            onChange={(value: number) => handleItemChange('softwareSkillId', value)} />
+                            register={register('softwareSkillIds')}
+                            errors={errors.softwareSkillIds}
+                            onChange={(value: number[]) => handleItemChange('softwareSkillIds', value)}
+                        />
                     </div>
                     <div className="w-1/2 p-5">
                         <KLabel>وضعیت نظام وظیفه</KLabel>
                         <KSelect id='militaryServiceStatus' {...register('militaryServiceStatus')}>
+                            <option value="">انتخاب کنید</option>
                             {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
                                 <option key={key} value={value.value}>
                                     {value.label}

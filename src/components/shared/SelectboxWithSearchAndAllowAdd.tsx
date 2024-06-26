@@ -105,7 +105,6 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
         setSelectedOption(null);
         onChange(null);
     };
-
     return (
         <div className='relative w-full' ref={dropdownRef}>
             <input
@@ -136,7 +135,7 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                     <input
                         type='text'
                         className='w-full px-4 py-2 border-b border-gray-300 text-sm'
-                        placeholder='Search'
+                        placeholder='جستجو'
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
