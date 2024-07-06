@@ -9,9 +9,10 @@ import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
 import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
+import KSelectboxWithSearch from '../../../../../shared/SelectboxWithSearch';
 
 const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddLanguageFormData>();
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<AddLanguageFormData>();
     const [languages, setLanguages] = useState<OptionType[]>([]);
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
     const { sendRequest: AddLanguageData } = useApi<AddLanguageFormData, BaseResponse<null>>();
@@ -64,6 +65,9 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: 
             }
         );
     };
+    const handleItemChange = (item: 'languageId', value: number) => {
+        setValue(item, value);
+    };
 
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
@@ -74,11 +78,13 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: 
                 <form action="submit" onSubmit={handleSubmit(onSubmit)}>
                     <div className='m-5'>
                         <KLabel>زبان</KLabel>
-                        <KSelect {...register('languageId', { required: true })}>
-                            {languages.map((language) => (
-                                <option key={language.value} value={language.value}>{language.label}</option>
-                            ))}
-                        </KSelect>
+                        <KSelectboxWithSearch
+                            id='languageId'
+                            options={languages}
+                            register={register('languageId')}
+                            errors={errors.languageId}
+                            onChange={(value: number) => handleItemChange('languageId', value)}
+                        />
                         {errors.languageId && <span className="text-red-500 text-xs">انتخاب زبان الزامی است .</span>}
                     </div>
                     <div className='m-5'>

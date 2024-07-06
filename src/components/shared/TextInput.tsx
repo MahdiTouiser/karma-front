@@ -60,7 +60,7 @@ const KTextInput = forwardRef((props: KTextInputProps, ref: Ref<HTMLInputElement
           ? "border-red-500 focus:border-red-500 focus:ring-red-500"
           : "border-gray-300 focus:border-blue-500"
           } ${props.className || ""
-          } block h-10 w-full rounded-sm border  bg-gray-50 p-2.5 text-sm text-gray-900 placeholder:text-right focus:border-blue-500  focus:ring-blue-500 disabled:cursor-not-allowed disabled:text-gray-400  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
+          } block h-10 w-full rounded-sm border  bg-gray-50 p-2.5 text-sm text-gray-900 placeholder:text-gray-300 placeholder:text-right focus:border-blue-500  focus:ring-blue-500 disabled:cursor-not-allowed disabled:text-gray-400  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
       />
 
       {props.isPending ? (

@@ -55,7 +55,7 @@ const OTPLoginPage: React.FC = () => {
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
         toast.success(response.message);
-        navigate("/cv-builder");
+        navigate('/cv-builder/create');
       },
       (error) => {
         setErrorMessage(error?.message ?? '');

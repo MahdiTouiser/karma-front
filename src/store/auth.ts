@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthData } from '../models/auth.models'
-import { UserGeneralInfo, UserStatusesPersianMap } from '../models/shared.models'
+import { UserStatusesPersianMap } from '../models/shared.models'
 
 interface AuthState {
   enteredUsername: string
@@ -74,19 +74,19 @@ const authSlice = createSlice({
     logOut: () => {
       return { ...initialState }
     },
-    setUserGenralInfo: (state, action: PayloadAction<UserGeneralInfo>) => {
-      state.name = `${action.payload.firstName} ${action.payload.lastName}`
-      state.userStatus = action.payload.userStatus
-      state.userStatusDisplay = action.payload.userStatusDisplay
-      state.userType = action.payload.userType
-      state.username = action.payload.userName
-      state.code = action.payload.code
-      state.mobile = action.payload.mobile
-      state.enteredPhone = ''
-      state.enteredUsername = ''
-      state.enteredPassword = ''
-      state.generalInfoSet = true
-    },
+    // setUserGenralInfo: (state, action: PayloadAction<UserGeneralInfo>) => {
+    //   state.name = `${action.payload.firstName} ${action.payload.lastName}`
+    //   state.userStatus = action.payload.userStatus
+    //   state.userStatusDisplay = action.payload.userStatusDisplay
+    //   state.userType = action.payload.userType
+    //   state.username = action.payload.userName
+    //   state.code = action.payload.code
+    //   state.mobile = action.payload.mobile
+    //   state.enteredPhone = ''
+    //   state.enteredUsername = ''
+    //   state.enteredPassword = ''
+    //   state.generalInfoSet = true
+    // },
     setUserStatus: (state, action: PayloadAction<string>) => {
       state.userStatus = action.payload
       state.userStatusDisplay = UserStatusesPersianMap.get(action.payload) || ''

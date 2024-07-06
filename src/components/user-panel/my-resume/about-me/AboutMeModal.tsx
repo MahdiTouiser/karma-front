@@ -28,6 +28,7 @@ const AboutMeModal: React.FC<{
     imageSrc: string | null;
 }> = ({ show, onClose, aboutMeData, onSubmitSuccess, imageSrc: initialImageSrc }) => {
     const [imageSrc, setImageSrc] = useState<string | null>(initialImageSrc);
+    const [visibleInputs, setVisibleInputs] = useState<{ [key: string]: boolean }>({});
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { register, handleSubmit, reset, control } = useForm<AboutMeFormData>();
     const { fields, append, remove } = useFieldArray({
@@ -128,8 +129,15 @@ const AboutMeModal: React.FC<{
         remove(index);
     };
 
+    const toggleInputVisibility = (type: string) => {
+        setVisibleInputs((prev) => ({
+            ...prev,
+            [type]: !prev[type],
+        }));
+    };
+
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2 overflow-y-auto">
             <KModal.Header>
                 <h2>ویرایش درباره من</h2>
             </KModal.Header>
@@ -144,8 +152,7 @@ const AboutMeModal: React.FC<{
                             <div className='text-blue-500 flex ml-3 items-center text-center justify-center'>
                                 <button type="button" onClick={handleButtonClick}>
                                     <span className='flex'>
-                                        <Upload />
-                                        <p className='mr-2 text-sm'>اپلود تصویر پروفایل</p>
+                                        <Upload className='w-7 h-7' />
                                     </span>
                                 </button>
                                 <input
@@ -158,8 +165,7 @@ const AboutMeModal: React.FC<{
                                 {imageSrc && (
                                     <button type="button" onClick={handleDeleteImage} className='mr-2'>
                                         <span className='flex'>
-                                            <Delete />
-                                            <p className='text-sm !text-red-500'>حذف تصویر پروفایل</p>
+                                            <Delete className='w-7 h-7' />
                                         </span>
                                     </button>
                                 )}
@@ -172,18 +178,21 @@ const AboutMeModal: React.FC<{
                         <div className='m-5'>
                             <KLabel>آدرس شبکه های اجتماعی شما</KLabel>
                             {fields.map((item, index) => (
-                                <div key={item.id} className='mb-2'>
-                                    <div className='flex items-center'>
-                                        <div className='relative w-full'>
-                                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
-                                                {item.type === "LinkedIn" && <Linkedin className="w-8 h-8" />}
-                                                {item.type === "X" && <XIcon className="w-8 h-8" />}
-                                                {item.type === "Instagram" && <Instagram className="w-8 h-8" />}
-                                            </span>
-
+                                <div key={item.id} className='mb-2 flex items-center space-x-2'>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleInputVisibility(item.type)}
+                                        className='mr-2'
+                                    >
+                                        {item.type === "LinkedIn" && <Linkedin className="w-8 h-8" />}
+                                        {item.type === "X" && <XIcon className="w-8 h-8" />}
+                                        {item.type === "Instagram" && <Instagram className="w-8 h-8" />}
+                                    </button>
+                                    {visibleInputs[item.type] && (
+                                        <div className='relative w-full flex items-center'>
                                             <KTextInput
                                                 {...register(`socialMedias.${index}.link` as const)}
-                                                className='pl-10 w-full !text-left'
+                                                className='w-full !text-left'
                                                 placeholder={`لینک ${item.type}`}
                                             />
                                             <input
@@ -191,37 +200,24 @@ const AboutMeModal: React.FC<{
                                                 {...register(`socialMedias.${index}.type` as const)}
                                                 value={item.type}
                                             />
+                                            <button type="button" onClick={() => removeSocialMedia(index)} className='ml-2'>
+                                                <Delete />
+                                            </button>
                                         </div>
-                                        <button type="button" onClick={() => removeSocialMedia(index)} className='mr-2'>
-                                            <Delete />
-                                        </button>
-                                    </div>
+                                    )}
                                 </div>
                             ))}
-                            <button
-                                type="button"
-                                onClick={() => addSocialMedia('LinkedIn')}
-                                className="text-blue-500 flex items-center mt-2"
-                            >
-                                <Linkedin />
-                                <p className='mr-2 text-sm'>لینکدین</p>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => addSocialMedia('X')}
-                                className="text-blue-500 flex items-center mt-2"
-                            >
-                                <XIcon />
-                                <p className='mr-2 text-sm'>ایکس</p>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => addSocialMedia('Instagram')}
-                                className="text-blue-500 flex items-center mt-2"
-                            >
-                                <Instagram />
-                                <p className='mr-2 text-sm'>اینستاگرام</p>
-                            </button>
+                            <div className="flex mt-2 space-x-2">
+                                <button type="button" onClick={() => addSocialMedia('LinkedIn')} className="flex items-center">
+                                    <Linkedin className="w-8 h-8" />
+                                </button>
+                                <button type="button" onClick={() => addSocialMedia('X')} className="flex items-center">
+                                    <XIcon className="w-8 h-8" />
+                                </button>
+                                <button type="button" onClick={() => addSocialMedia('Instagram')} className="flex items-center">
+                                    <Instagram className="w-8 h-8" />
+                                </button>
+                            </div>
                         </div>
                         <div className='m-5'>
                             <KLabel>چند جمله راجع به خودتان بنویسید</KLabel>
@@ -230,8 +226,7 @@ const AboutMeModal: React.FC<{
                         <div className='flex justify-end mx-4'>
                             {isPending ? <KSpinner /> : <KButton color="primary" onClick={handleFormSubmit}>
                                 ذخیره
-                            </KButton>
-                            }
+                            </KButton>}
                         </div>
                     </form>
                 </KModal.Body>

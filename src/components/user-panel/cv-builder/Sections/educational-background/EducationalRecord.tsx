@@ -189,10 +189,9 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
-                            <KLabel>معدل</KLabel>
+                            <KLabel>معدل(اختیاری)</KLabel>
                             <KTextInput placeholder=' ۱۷.۳۶'
-                                numeric allowDecimal  {...register('gpa', { required: true })} maxLength={5} />
-                            {errors.gpa && <span className="text-red-500 text-xs">معدل الزامی است .</span>}
+                                numeric allowDecimal  {...register('gpa')} maxLength={5} />
                         </div>
                     </div>
                     <div className='mt-4'>

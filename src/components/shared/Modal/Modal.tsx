@@ -46,13 +46,14 @@ const ModalContainer: React.FC<ModalBodyProps> = ({ containerClass, children, cl
   return (
     <KCard
       className={`${containerClass} ${isVisible && !closing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} 
-      transition-all duration-300 ease-out z-50 fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 
-      bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-[100vh] !p-0`}
+      transition-all duration-300 ease-out z-50 fixed top-1/4 left-1/2 -translate-x-1/2 
+      bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-screen !p-0 overflow-y-auto`}
     >
       {children}
     </KCard>
   );
 };
+
 
 
 const KModalComponent: React.FC<ModalProps> = ({

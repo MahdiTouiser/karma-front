@@ -116,7 +116,7 @@ const CareerBackground: React.FC = () => {
                                 <div className="pl-2 mr-4">
                                     <p className='text-black font-extrabold'>{info.jobTitle}</p>
                                     <p className='mt-4'>{info.companyName}</p>
-                                    <p className='mt-4'>{`${info.fromYear} - ${info.toYear}`}</p>
+                                    <p className='mt-4'>{`${info.fromYear} - ${info.toYear ? info.toYear : 'تا کنون'}`}</p>
                                 </div>
                             </div>
                         ))}

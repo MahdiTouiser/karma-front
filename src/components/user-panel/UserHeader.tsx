@@ -49,9 +49,9 @@ const UserHeader: React.FC = () => {
           label={<Avatar alt='User settings' img={profilePicture || ''} rounded />}
           className='ml-12'
         >
-          <Dropdown.Header>
+          {/* <Dropdown.Header>
             <span className='block text-sm'>مهدی تویسرکانی</span>
-          </Dropdown.Header>
+          </Dropdown.Header> */}
           {dropdownItems.map((item, index) => {
             if (item.isDivider) {
               return <Dropdown.Divider key={index} />;

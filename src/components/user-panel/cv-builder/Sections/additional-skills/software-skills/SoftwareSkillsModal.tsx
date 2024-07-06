@@ -9,9 +9,10 @@ import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
 import KModal from '../../../../../shared/Modal/Modal';
 import KSelect from '../../../../../shared/Select';
+import KSelectboxWithSearch from '../../../../../shared/SelectboxWithSearch';
 
 const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: () => void }> = ({ show, onClose, onSuccess }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddSofwareSkillFormData>();
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<AddSofwareSkillFormData>();
     const [skills, setSkills] = useState<OptionType[]>([]);
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
     const { sendRequest: AddSkillsData } = useApi<AddSofwareSkillFormData, BaseResponse<null>>();
@@ -64,6 +65,9 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
             }
         );
     };
+    const handleItemChange = (item: 'softwareSkillId', value: number) => {
+        setValue(item, value);
+    };
 
     return (
         <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
@@ -74,11 +78,13 @@ const SoftwareSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSucc
                 <form action="submit" onSubmit={handleSubmit(onSubmit)}>
                     <div className='m-5'>
                         <KLabel>مهارت ها</KLabel>
-                        <KSelect {...register('softwareSkillId', { required: true })}>
-                            {skills.map((language) => (
-                                <option key={language.value} value={language.value}>{language.label}</option>
-                            ))}
-                        </KSelect>
+                        <KSelectboxWithSearch
+                            id='softwareSkillId'
+                            options={skills}
+                            register={register('softwareSkillId')}
+                            errors={errors.softwareSkillId}
+                            onChange={(value: number) => handleItemChange('softwareSkillId', value)}
+                        />
                         {errors.softwareSkillId && <span className="text-red-500 text-xs">انتخاب مهارت الزامی است .</span>}
                     </div>
                     <div className='m-5'>

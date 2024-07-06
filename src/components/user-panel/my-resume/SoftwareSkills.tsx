@@ -5,6 +5,7 @@ import Delete from '../../../assets/icons/Delete';
 import useApi from '../../../hooks/useApi';
 import useConfirm from '../../../hooks/useConfirm';
 import { SoftwareSkillsData } from '../../../models/cvbuilder.models';
+import { skillLevelLabels, SkillLevels } from '../../../models/enums';
 import { BaseResponse } from '../../../models/shared.models';
 import KCard from '../../shared/Card';
 import KSpinner from '../../shared/Spinner';
@@ -78,11 +79,11 @@ const SoftwareSkills: React.FC = () => {
                 ) : (
                     <div className="grid grid-cols-3 gap-2 mt-5">
                         {skills.map((info, index) => (
-                            <div key={index} className="flex items-center justify-center px-2 py-1 bg-gray-200 rounded" onClick={() => handleDeleteItem(info.id)}>
-                                <span className='ml-4'>
+                            <div key={index} className="flex items-center justify-center px-2 py-1 bg-gray-200 rounded">
+                                <button onClick={() => handleDeleteItem(info.id)}>
                                     <Delete />
-                                </span>
-                                <p className='text-black text-sm flex-1 text-center'>{info.SoftwareSkill.title} | {info.softwareSkillLevel}</p>
+                                </button>
+                                <p className='text-black text-sm flex-1 text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
                             </div>
                         ))}
                     </div>

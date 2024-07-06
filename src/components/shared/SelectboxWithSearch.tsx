@@ -26,12 +26,10 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(defaultValue || null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const handleToggleDropdown = () => {
         setIsOpen(!isOpen);
-        if (!isOpen && inputRef.current) {
-            inputRef.current.focus();
-        }
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +55,12 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
         }
     }, [defaultValue]);
 
+    useEffect(() => {
+        if (isOpen && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [isOpen]);
+
     const filteredOptions = options.filter(option =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -72,7 +76,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
         <div className='relative w-full' ref={dropdownRef}>
             <input
                 type='text'
-                className='w-full px-4 py-2 border border-gray-300 text-sm relative pr-10'
+                className='w-full px-4 py-2 border border-gray-300 text-sm relative pr-10 rounded'
                 onClick={handleToggleDropdown}
                 readOnly
                 placeholder={placeholder}
@@ -81,7 +85,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                 ref={inputRef}
                 {...register}
             />
-            <div className='absolute top-1/2 right-0 transform -translate-y-1/2'>
+            <div className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer'>
                 {isOpen ? (
                     <ChevronDown onClick={handleToggleDropdown} />
                 ) : (
@@ -96,6 +100,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                         placeholder='جستجو'
                         value={searchTerm}
                         onChange={handleSearchChange}
+                        ref={searchInputRef}
                     />
                     <ul className='max-h-48 overflow-y-auto'>
                         {filteredOptions.map(option => (

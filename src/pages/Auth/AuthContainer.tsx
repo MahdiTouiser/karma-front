@@ -31,9 +31,12 @@ export default function AuthContainer() {
       <div className="container px-1 m-auto py-1 flex justify-center items-center">
         <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border shadow-lg bg-white">
           <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">
-            <h1 className="font-bold text-xl text-center my-4">
+            <span className='w-48 h-48'>
+              <img src='/src/assets/karma-logo.png' />
+            </span>
+            {/* <h1 className="font-bold text-xl text-center my-4">
               کارما , جایی برای پیدا کردن کار
-            </h1>
+            </h1> */}
           </div>
           <Outlet />
           {/* <div className="bg-gray-200 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">

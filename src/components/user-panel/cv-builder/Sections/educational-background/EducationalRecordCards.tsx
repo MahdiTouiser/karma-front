@@ -83,7 +83,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                             <p className='font-extrabold m-2 text-lg'>{getDegreeLabel(record.degreeLevel)} - {record.major.title}</p>
                             <p className='m-2'>{record.university.title}</p>
                             <p className='m-2'>{record.fromYear} - {record.toYear}</p>
-                            <p className='m-2'>معدل : {record.gpa}</p>
+                            {record.gpa && <p className='m-2'>معدل : {record.gpa}</p>}
                         </div>
                     </div>
                 </KCard>

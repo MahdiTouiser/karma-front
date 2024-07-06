@@ -34,7 +34,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
       (response) => {
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
-        navigate('/cv-builder');
+        navigate('/cv-builder/create');
       }
     );
   }

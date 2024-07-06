@@ -5,6 +5,7 @@ import Delete from '../../../assets/icons/Delete';
 import useApi from '../../../hooks/useApi';
 import useConfirm from '../../../hooks/useConfirm';
 import { LanguagesData } from '../../../models/cvbuilder.models';
+import { skillLevelLabels, SkillLevels } from '../../../models/enums';
 import { BaseResponse } from '../../../models/shared.models';
 import KCard from '../../shared/Card';
 import KSpinner from '../../shared/Spinner';
@@ -83,7 +84,7 @@ const Languages: React.FC = () => {
                                 <button onClick={() => handleDeleteItem(info.id)} className="ml-4">
                                     <Delete />
                                 </button>
-                                <p className='text-black text-sm'>{info.Language.title} | {info.languageLevel}</p>
+                                <p className='text-black text-sm'>{info.Language.title} |  {skillLevelLabels[info.languageLevel as SkillLevels]}</p>
                             </div>
                         ))}
                     </div>
