@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useApi from "../../../../hooks/useApi";
-import { EducationalBackgroundFormData, EducationalRecordModel, Majors, Universities } from "../../../../models/cvbuilder.models";
+import {
+    EducationalBackgroundFormData,
+    EducationalRecordModel,
+    Majors,
+    Universities,
+} from "../../../../models/cvbuilder.models";
 import { DegreeLevel, DegreeLevelDescriptions } from "../../../../models/enums";
 import { BaseResponse, OptionType } from "../../../../models/shared.models";
 import KButton from "../../../shared/Button";
@@ -17,16 +22,17 @@ interface EducationalHistoryModalProps {
     show: boolean;
     onClose: () => void;
     fetch: () => void;
-    editMode: boolean,
-    record: EducationalRecordModel | null
+    editMode: boolean;
+    record: EducationalRecordModel | null;
 }
 
-
 const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) => {
-    const { show, onClose, fetch, editMode, record } = props
+    const { show, onClose, fetch, editMode, record } = props;
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<EducationalBackgroundFormData>();
     const [majors, setMajors] = useState<OptionType[]>([]);
     const [universities, setUniversities] = useState<OptionType[]>([]);
+    const [selectedMajor, setSelectedMajor] = useState<OptionType | null>(null);
+    const [selectedUniversity, setSelectedUniversity] = useState<OptionType | null>(null);
     const { sendRequest: universitiesSendRequest } = useApi<null, BaseResponse<Universities[]>>();
     const { sendRequest: majorsSendRequest } = useApi<null, BaseResponse<Majors[]>>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
@@ -80,20 +86,23 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
     }, []);
 
     useEffect(() => {
-        if (editMode && record) {
-            setValue("degreeLevel", record.degreeLevel);
-            setValue("majorId", record.major.id);
-            setValue("universityId", record.university.id);
-            setValue("gpa", record.gpa);
-            setValue("fromYear", record.fromYear);
-            setValue("toYear", record.toYear);
-        } else {
-            reset();
+        if (record) {
+            Object.keys(record).forEach((key) => {
+                if (key === "major") {
+                    setValue("majorId", record.major.id);
+                    setSelectedMajor({ value: record.major.id, label: record.major.title });
+                } else if (key === "university") {
+                    setValue("universityId", record.university.id);
+                    setSelectedUniversity({ value: record.university.id, label: record.university.title });
+                } else {
+                    setValue(key as keyof EducationalBackgroundFormData, (record as any)[key]);
+                }
+            });
         }
-    }, [editMode, record, reset, setValue]);
+    }, [record, setValue, reset]);
 
     const onSubmit: SubmitHandler<EducationalBackgroundFormData> = async (data) => {
-        const fieldsToConvert = ['fromYear', 'gpa', 'majorId', 'toYear', 'universityId'] as const;
+        const fieldsToConvert = ["fromYear", "gpa", "majorId", "toYear", "universityId"] as const;
 
         fieldsToConvert.forEach((field) => {
             if (data[field] !== undefined && data[field] !== null) {
@@ -102,8 +111,8 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
         });
 
         const apiCall = editMode && record ? UpdateEducationalData : AddEducationalData;
-        const url = editMode && record ? `/Resumes/UpdateEducationalRecord/${record.id}` : '/Resumes/AddEducationalRecord';
-        const method = editMode && record ? 'put' : 'post';
+        const url = editMode && record ? `/Resumes/UpdateEducationalRecord/${record.id}` : "/Resumes/AddEducationalRecord";
+        const method = editMode && record ? "put" : "post";
 
         apiCall(
             {
@@ -127,7 +136,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
         handleSubmit(onSubmit)();
     };
 
-    const handleItemChange = (item: 'majorId' | 'universityId', value: number) => {
+    const handleItemChange = (item: "majorId" | "universityId", value: number) => {
         setValue(item, value);
     };
 
@@ -136,17 +145,17 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
             <KModal.Header>
                 <h2>{editMode ? "ویرایش سابقه تحصیلی" : "افزودن سابقه تحصیلی جدید"}</h2>
             </KModal.Header>
-            <div className='p-4'>
+            <div className="p-4">
                 <KModal.Body>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-wrap justify-start">
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>مدرک تحصیلی</KLabel>
                                 <KSelect
-                                    defaultValue=''
-                                    id='degreeLevel'
+                                    defaultValue=""
+                                    id="degreeLevel"
                                     placeholder="انتخاب کنید"
-                                    {...register('degreeLevel', { required: true })}
+                                    {...register("degreeLevel", { required: true })}
                                 >
                                     {Object.values(DegreeLevel).map((degree) => (
                                         <option key={degree} value={degree}>
@@ -159,30 +168,32 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>رشته تحصیلی</KLabel>
                                 <KSelectboxWithSearch
-                                    id='majorId'
+                                    id="majorId"
                                     options={majors}
-                                    register={register('majorId', { required: true })}
+                                    register={register("majorId", { required: true })}
                                     errors={errors.majorId}
                                     onChange={(value: number) => handleItemChange('majorId', value)}
+                                    defaultValue={selectedMajor}
                                 />
                             </div>
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>دانشگاه</KLabel>
                                 <KSelectboxWithSearch
-                                    id='universityId'
+                                    id="universityId"
                                     options={universities}
-                                    register={register('universityId', { required: true })}
+                                    register={register("universityId", { required: true })}
                                     errors={errors.universityId}
                                     onChange={(value: number) => handleItemChange('universityId', value)}
+                                    defaultValue={selectedUniversity}
                                 />
                             </div>
                             <div className="w-full md:w-1/2 p-5">
                                 <KLabel>معدل (اختیاری)</KLabel>
                                 <KTextInput
-                                    placeholder=' ۱۷.۳۶'
+                                    placeholder=" ۱۷.۳۶"
                                     numeric
                                     allowDecimal
-                                    {...register('gpa')}
+                                    {...register("gpa")}
                                     maxLength={5}
                                 />
                                 {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
@@ -191,10 +202,10 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                 <KLabel>سال شروع</KLabel>
                                 <KTextInput
                                     numeric
-                                    placeholder=' ۱۳۹۵'
+                                    placeholder=" ۱۳۹۵"
                                     maxLength={4}
                                     id="fromYear"
-                                    {...register('fromYear', { required: true, maxLength: 4 })}
+                                    {...register("fromYear", { required: true, maxLength: 4 })}
                                 />
                                 {errors.fromYear && (
                                     <p className="text-red-500 text-xs">
@@ -206,10 +217,10 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                 <KLabel>سال پایان</KLabel>
                                 <KTextInput
                                     numeric
-                                    placeholder=' ۱۴۰۰'
+                                    placeholder=" ۱۴۰۰"
                                     maxLength={4}
                                     id="toYear"
-                                    {...register('toYear', { required: false, maxLength: 4 })}
+                                    {...register("toYear", { required: false, maxLength: 4 })}
                                 />
                                 {errors.toYear && (
                                     <p className="text-red-500 text-xs">
@@ -223,7 +234,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                         {isPending ? (
                             <KSpinner />
                         ) : (
-                            <KButton color='primary' type="button" onClick={handleFormSubmit}>
+                            <KButton color="primary" type="button" onClick={handleFormSubmit}>
                                 ذخیره
                             </KButton>
                         )}
@@ -231,7 +242,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                 </KModal.Body>
             </div>
         </KModal>
-    )
-}
+    );
+};
 
 export default EducationalHistoryModal;

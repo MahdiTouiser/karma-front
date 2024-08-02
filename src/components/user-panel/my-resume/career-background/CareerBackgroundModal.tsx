@@ -31,6 +31,11 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
     const [countries, setCountries] = useState<OptionType[]>([]);
     const [cities, setCities] = useState<OptionType[]>([]);
     const [jobCategories, setJobCategories] = useState<OptionType[]>([]);
+    const [selectedCity, setSelectedCity] = useState<OptionType | null>(null);
+    const [selectedCountryLabel, setSelectedCountryLabel] = useState<OptionType | null>(null);
+    const [selectedJobCategroyId, setSelectedJobCategroyId] = useState<OptionType | null>(null);
+
+
 
     useEffect(() => {
         fetchCities();
@@ -39,14 +44,23 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
     }, []);
 
     useEffect(() => {
-        if (editMode && record) {
-            for (const [key, value] of Object.entries(record)) {
-                setValue(key as keyof WorkExperienceFormData, value);
-            }
-        } else {
-            reset();
+        if (record) {
+            Object.keys(record).forEach((key) => {
+                if (key === 'country') {
+                    setValue('countryId', record.country.id);
+                    setSelectedCountryLabel({ value: record.country.id, label: record.country.title });
+                } else if (key === 'city') {
+                    setValue('cityId', record.city.id);
+                    setSelectedCity({ value: record.city.id, label: record.city.title });
+                } else if (key === 'jobCategory') {
+                    setValue('jobcategoryId', record.jobCategory.id);
+                    setSelectedJobCategroyId({ value: record.jobCategory.id, label: record.jobCategory.title });
+                } else {
+                    setValue(key as keyof WorkExperienceFormData, (record as any)[key]);
+                }
+            });
         }
-    }, [editMode, record, reset, setValue]);
+    }, [record, setValue, reset]);
 
     const fetchCountries = async () => {
         countrySendRequest(
@@ -126,8 +140,17 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
         handleSubmit(onSubmit)();
     };
 
-    const handleItemChange = (item: 'jobcategoryId', value: number) => {
+    const handleItemChange = (item: 'jobcategoryId' | 'countryId' | 'cityId', value: number) => {
         setValue(item, value);
+    };
+    const handleCountryChange = (event: number) => {
+        const countryId = event;
+        handleItemChange('countryId', countryId);
+    };
+
+    const handleItemAndCountryChange = (value: number) => {
+        handleItemChange('countryId', value);
+        handleCountryChange(value);
     };
 
 
@@ -177,6 +200,8 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                                 options={countries}
                                                 register={register('countryId', { required: true })}
                                                 errors={errors.countryId}
+                                                onChange={handleItemAndCountryChange}
+                                                defaultValue={selectedCountryLabel}
                                             />
                                             {errors.countryId && (
                                                 <p className="text-red-500 text-xs">
@@ -191,6 +216,8 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                                 options={cities}
                                                 register={register('cityId', { required: true })}
                                                 errors={errors.cityId}
+                                                onChange={(value: number) => handleItemChange('cityId', value)}
+                                                defaultValue={selectedCity}
                                             />
                                         </div>
                                     </div>
@@ -230,6 +257,7 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
                                                 register={register('jobcategoryId', { required: true })}
                                                 errors={errors.jobcategoryId}
                                                 onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                                defaultValue={selectedJobCategroyId}
                                             />
                                             {errors.jobcategoryId && (
                                                 <p className="text-red-500 text-xs">

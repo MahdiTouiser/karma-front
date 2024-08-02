@@ -9,11 +9,12 @@ interface KSelectboxWithSearchProps {
     options: OptionType[];
     register: any;
     errors: any;
-    onChange?: any;
-    defaultValue?: any;
+    onChange?: (value: number) => void;
+    defaultValue?: OptionType | null;
 }
 
 const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
+    id,
     placeholder,
     options,
     register,
@@ -69,7 +70,9 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
         setSelectedOption(option);
         setSearchTerm('');
         setIsOpen(false);
-        onChange(option.value);
+        if (onChange) {
+            onChange(option.value);
+        }
     };
 
     return (
@@ -83,6 +86,10 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                 value={selectedOption ? selectedOption.label : ''}
                 onChange={() => { }}
                 ref={inputRef}
+            />
+            <input
+                type="hidden"
+                value={selectedOption ? selectedOption.value : ''}
                 {...register}
             />
             <div className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer'>

@@ -26,7 +26,6 @@ const Samples: React.FC = () => {
                 url: "/Resumes/WorkSamples",
             },
             (response: any) => {
-                console.log(response);
                 setSampleData(response)
             }
         );

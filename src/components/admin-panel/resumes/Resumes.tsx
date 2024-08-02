@@ -1,17 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+
 import useApi from '../../../hooks/useApi';
-import { City, JobCategories, Languages, SoftwareSkills } from '../../../models/cvbuilder.models';
-import { CareerExperienceLength, DegreeLevel, DegreeLevelDescriptions, careerExperienceLengthLabels, militaryServiceStatusMapping } from '../../../models/enums';
-import { BaseResponse, OptionType, Resume } from '../../../models/shared.models';
+import {
+  City,
+  JobCategories,
+  Languages,
+  SoftwareSkills,
+} from '../../../models/cvbuilder.models';
+import {
+  CareerExperienceLength,
+  careerExperienceLengthLabels,
+  DegreeLevel,
+  DegreeLevelDescriptions,
+  militaryServiceStatusMapping,
+} from '../../../models/enums';
+import {
+  BaseResponse,
+  OptionType,
+  Resume,
+} from '../../../models/shared.models';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
 import KDatepicker from '../../shared/DatePicker';
 import KLabel from '../../shared/Label';
 import KSelect from '../../shared/Select';
 import KSelectboxWithSearch from '../../shared/SelectboxWithSearch';
-import SelectboxWithSearchAndAllowAdd from '../../shared/SelectboxWithSearchAndAllowAdd';
+import SelectboxWithSearchAndAllowAdd
+  from '../../shared/SelectboxWithSearchAndAllowAdd';
 import KSpinner from '../../shared/Spinner';
 import FoundedResumes from './FoundedResumes';
 
@@ -147,6 +168,7 @@ const Resumes: React.FC = () => {
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
+
     };
     const handleCardClick = (resume: Resume) => {
         console.log('Clicked resume:', resume);
@@ -155,128 +177,125 @@ const Resumes: React.FC = () => {
 
     return (
         <>
-            {displayResumes ? <FoundedResumes resumes={resumes} onCardClick={handleCardClick} />
-                :
-                <KCard className='p-10'>
-                    <h1>جستجو بانک رزومه</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='flex justify-start'>
-                            <div className="w-1/2 p-5">
-                                <KLabel>زمینه کاری کارجو</KLabel>
-                                <KSelectboxWithSearch
-                                    id='jobcategoryId'
-                                    options={jobCategories}
-                                    register={register('jobcategoryId')}
-                                    errors={errors.jobcategoryId}
-                                    onChange={(value: number) => handleItemChange('jobcategoryId', value)}
-                                />
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KLabel>سابقه کاری در زمینه شغلی مورد نظر</KLabel>
-                                <KSelect
-                                    defaultValue=''
-                                    id='careerExperienceLength'
-                                    {...register('careerExperienceLength')}
-                                >
-                                    {Object.values(CareerExperienceLength).map((degree) => (
-                                        <option key={degree} value={degree}>
-                                            {careerExperienceLengthLabels[degree]}
-                                        </option>
-                                    ))}
-                                </KSelect>
-                            </div>
+            <KCard className='p-10'>
+                <h1>جستجو بانک رزومه</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='flex justify-start'>
+                        <div className="w-1/2 p-5">
+                            <KLabel>زمینه کاری کارجو</KLabel>
+                            <KSelectboxWithSearch
+                                id='jobcategoryId'
+                                options={jobCategories}
+                                register={register('jobcategoryId')}
+                                errors={errors.jobcategoryId}
+                                onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                            />
                         </div>
-                        <div className='flex justify-start'>
-                            <div className="w-1/2 p-5">
-                                <KLabel>شهر محل سکونت</KLabel>
-                                <KSelectboxWithSearch
-                                    id='cityId'
-                                    options={cities}
-                                    register={register('cityId')}
-                                    errors={errors.cityId}
-                                    onChange={(value: number) => handleItemChange('cityId', value)}
-                                />
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KLabel>سن کارجو</KLabel>
-                                <div className="flex space-x-4">
-                                    <div className="w-1/2 mx-2">
-                                        <KDatepicker
-                                            name="birthDateLessThan"
-                                            placeholder='کمتر از'
-                                            control={control}
-                                        />
-                                    </div>
-                                    <div className="w-1/2 mx-2">
-                                        <KDatepicker
-                                            name="birthDateMoreThan"
-                                            placeholder='بیشتر از'
-                                            control={control}
-                                        />
-                                    </div>
+                        <div className="w-1/2 p-5">
+                            <KLabel>سابقه کاری در زمینه شغلی مورد نظر</KLabel>
+                            <KSelect
+                                defaultValue=''
+                                id='careerExperienceLength'
+                                {...register('careerExperienceLength')}
+                            >
+                                {Object.values(CareerExperienceLength).map((degree) => (
+                                    <option key={degree} value={degree}>
+                                        {careerExperienceLengthLabels[degree]}
+                                    </option>
+                                ))}
+                            </KSelect>
+                        </div>
+                    </div>
+                    <div className='flex justify-start'>
+                        <div className="w-1/2 p-5">
+                            <KLabel>شهر محل سکونت</KLabel>
+                            <KSelectboxWithSearch
+                                id='cityId'
+                                options={cities}
+                                register={register('cityId')}
+                                errors={errors.cityId}
+                                onChange={(value: number) => handleItemChange('cityId', value)}
+                            />
+                        </div>
+                        <div className="w-1/2 p-5">
+                            <KLabel>سن کارجو</KLabel>
+                            <div className="flex space-x-4">
+                                <div className="w-1/2 mx-2">
+                                    <KDatepicker
+                                        name="birthDateLessThan"
+                                        placeholder='کمتر از'
+                                        control={control}
+                                    />
+                                </div>
+                                <div className="w-1/2 mx-2">
+                                    <KDatepicker
+                                        name="birthDateMoreThan"
+                                        placeholder='بیشتر از'
+                                        control={control}
+                                    />
                                 </div>
                             </div>
                         </div>
-                        <div className='flex justify-start'>
-                            <div className="w-1/2 p-5">
-                                <KLabel>مدرک تحصیلی کارجو</KLabel>
-                                <KSelect
-                                    defaultValue=''
-                                    id='degreeLevel'
-                                    placeholder="انتخاب کنید"
-                                    {...register('degreeLevel')}
-                                >
-                                    {Object.values(DegreeLevel).map((degree) => (
-                                        <option key={degree} value={degree}>
-                                            {DegreeLevelDescriptions[degree]}
-                                        </option>
-                                    ))}
-                                </KSelect>
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KLabel>زبان ها</KLabel>
-                                <KSelect {...register('languageId')}>
-                                    {languages.map((language) => (
-                                        <option key={language.value} value={language.value}>{language.label}</option>
-                                    ))}
-                                </KSelect>
-                            </div>
+                    </div>
+                    <div className='flex justify-start'>
+                        <div className="w-1/2 p-5">
+                            <KLabel>مدرک تحصیلی کارجو</KLabel>
+                            <KSelect
+                                defaultValue=''
+                                id='degreeLevel'
+                                placeholder="انتخاب کنید"
+                                {...register('degreeLevel')}
+                            >
+                                {Object.values(DegreeLevel).map((degree) => (
+                                    <option key={degree} value={degree}>
+                                        {DegreeLevelDescriptions[degree]}
+                                    </option>
+                                ))}
+                            </KSelect>
                         </div>
-                        <div className='flex justify-start'>
-                            <div className="w-1/2 p-5">
-                                <KLabel>مهارت های نرم افزاری کارجو</KLabel>
-                                <SelectboxWithSearchAndAllowAdd
-                                    id='softwareSkillIds'
-                                    options={skills}
-                                    register={register('softwareSkillIds')}
-                                    errors={errors.softwareSkillIds}
-                                    onChange={(value: number[]) => handleItemChange('softwareSkillIds', value)}
-                                />
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KLabel>وضعیت نظام وظیفه</KLabel>
-                                <KSelect id='militaryServiceStatus' {...register('militaryServiceStatus')}>
-                                    <option value="">انتخاب کنید</option>
-                                    {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
-                                        <option key={key} value={value.value}>
-                                            {value.label}
-                                        </option>
-                                    ))}
-                                </KSelect>
-                            </div>
+                        <div className="w-1/2 p-5">
+                            <KLabel>زبان ها</KLabel>
+                            <KSelect {...register('languageId')}>
+                                {languages.map((language) => (
+                                    <option key={language.value} value={language.value}>{language.label}</option>
+                                ))}
+                            </KSelect>
                         </div>
-                        <div className='flex justify-end p-5'>
-                            {isPending ? <KSpinner color='primary' /> :
-                                <KButton color='primary' type="button" onClick={handleFormSubmit}>
-                                    جستجو
-                                </KButton>
-                            }
+                    </div>
+                    <div className='flex justify-start'>
+                        <div className="w-1/2 p-5">
+                            <KLabel>مهارت های نرم افزاری کارجو</KLabel>
+                            <SelectboxWithSearchAndAllowAdd
+                                id='softwareSkillIds'
+                                options={skills}
+                                register={register('softwareSkillIds')}
+                                errors={errors.softwareSkillIds}
+                                onChange={(value: number[]) => handleItemChange('softwareSkillIds', value)}
+                            />
                         </div>
-                    </form>
-                </KCard>
-            }
+                        <div className="w-1/2 p-5">
+                            <KLabel>وضعیت نظام وظیفه</KLabel>
+                            <KSelect id='militaryServiceStatus' {...register('militaryServiceStatus')}>
+                                <option value="">انتخاب کنید</option>
+                                {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
+                                    <option key={key} value={value.value}>
+                                        {value.label}
+                                    </option>
+                                ))}
+                            </KSelect>
+                        </div>
+                    </div>
+                    <div className='flex justify-end p-5'>
+                        {isPending ? <KSpinner color='primary' /> :
+                            <KButton color='primary' type='button' onClick={handleFormSubmit}>
+                                جستجو
+                            </KButton>
+                        }
+                    </div>
+                </form>
+            </KCard>
+            {displayResumes && <div className='mt-10'><FoundedResumes resumes={resumes} onCardClick={handleCardClick} /></div>}
         </>
     );
 }
-
 export default Resumes;

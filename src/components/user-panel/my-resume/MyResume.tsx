@@ -33,7 +33,7 @@ const MyResume: React.FC = () => {
                     </div>
                 </div>
                 <div className='flex flex-col w-2/5 px-8'>
-                    <div className='mt-6'>
+                    <div>
                         <PersonalResume />
                     </div>
                     <div className='mt-6'>

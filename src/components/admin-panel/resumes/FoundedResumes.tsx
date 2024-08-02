@@ -1,53 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GenderMapping, MaritalStatusMapping, MilitaryServiceStatusMapping, genderMapping, maritalStatusMapping, militaryServiceStatusMapping } from "../../../models/enums";
 import { Resume } from "../../../models/shared.models";
-import KCard from "../../shared/Card";
-
-
+import Grid from "../../shared/Grid/Grid";
+import { ColDef } from "../../shared/Grid/grid.types";
 
 interface Props {
     resumes: Resume[];
     onCardClick: (resume: Resume) => void;
 }
 
+interface GridData {
+    id: string;
+    fullName: string;
+    gender: string;
+    maritalStatus: string;
+    militaryServiceStatus: string;
+    city: string;
+    birthDate: string;
+    telephone: string;
+}
+
 const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
-    const cardStyles = {
-        cursor: 'pointer',
-        transition: 'transform 0.2s',
-    };
+    const [gridData, setGridData] = useState<GridData[]>([]);
 
-    const cardHoverStyles = {
-        transform: 'scale(1.01)',
-    };
+    useEffect(() => {
+        const mappedData = resumes.map((resume) => ({
+            id: resume.id,
+            fullName: `${resume.firstName} ${resume.lastName}`,
+            gender: genderMapping[resume.gender as keyof GenderMapping] || resume.gender,
+            maritalStatus: maritalStatusMapping[resume.maritalStatus as keyof MaritalStatusMapping] || resume.maritalStatus,
+            militaryServiceStatus: militaryServiceStatusMapping[resume.militaryServiceStatus as keyof MilitaryServiceStatusMapping]?.label || resume.militaryServiceStatus,
+            city: resume.city,
+            birthDate: resume.birthDate,
+            telephone: resume.telephone,
+        }));
+        setGridData(mappedData);
+    }, [resumes]);
 
-    const handleCardClick = (resume: Resume) => {
-        onCardClick(resume);
+    const [colDefs] = useState<ColDef<GridData>[]>([
+        {
+            field: 'fullName',
+            headerName: 'نام و نام خانوادگی',
+        },
+        {
+            field: 'gender',
+            headerName: 'جنسیت',
+        },
+        {
+            field: 'maritalStatus',
+            headerName: 'وضعیت تاهل',
+        },
+        {
+            field: 'militaryServiceStatus',
+            headerName: 'وضعیت نظام وظیفه',
+        },
+        {
+            field: 'city',
+            headerName: 'شهر محل سکونت',
+        },
+        {
+            field: 'birthDate',
+            headerName: 'تاریخ تولد',
+        },
+        {
+            field: 'telephone',
+            headerName: 'شماره موبایل',
+        },
+    ]);
+
+    const handleRowDoubleClick = (data: GridData) => {
+        alert(`ID: ${data.id}`);
     };
 
     return (
-        <KCard>
-            {resumes.length === 0 ? (
-                <div>رزومه ای مطابق با جستجو شما وجود ندارد</div>
-            ) : (
-                resumes.map((resume) => (
-                    <KCard
-                        key={resume.id}
-                        style={cardStyles}
-                        onMouseEnter={(e) => (e.currentTarget.style.transform = cardHoverStyles.transform)}
-                        onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
-                        onClick={() => handleCardClick(resume)}
-                    >
-                        <p>نام و نام خانوادگی : {resume.firstName} {resume.lastName}</p>
-                        <p className="mt-2">جنسیت : {genderMapping[resume.gender as keyof GenderMapping] || resume.gender}</p>
-                        <p className="mt-2">وضعیت تاهل : {maritalStatusMapping[resume.maritalStatus as keyof MaritalStatusMapping] || resume.maritalStatus}</p>
-                        <p className="mt-2">وضعیت نظام وظیفه : {militaryServiceStatusMapping[resume.militaryServiceStatus as keyof MilitaryServiceStatusMapping]?.label || resume.militaryServiceStatus}</p>
-                        <p className="mt-2">شهر محل سکونت : {resume.city}</p>
-                        <p className="mt-2">تاریخ تولد : {resume.birthDate}</p>
-                        <p className="mt-2">شماره موبایل : {resume.telephone}</p>
-                    </KCard>
-                ))
-            )}
-        </KCard>
+        <>
+            <h1 className='mb-5'>نتایج یافت شده</h1>
+            <Grid data={gridData} colDefs={colDefs} rowActions={null} onDoubleClick={handleRowDoubleClick} />
+        </>
     );
 }
 
