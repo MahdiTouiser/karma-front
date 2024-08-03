@@ -1,6 +1,6 @@
 import React, {
-  useEffect,
-  useState,
+    useEffect,
+    useState,
 } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -8,22 +8,22 @@ import { useNavigate } from 'react-router-dom';
 
 import useApi from '../../../hooks/useApi';
 import {
-  City,
-  JobCategories,
-  Languages,
-  SoftwareSkills,
+    City,
+    JobCategories,
+    Languages,
+    SoftwareSkills,
 } from '../../../models/cvbuilder.models';
 import {
-  CareerExperienceLength,
-  careerExperienceLengthLabels,
-  DegreeLevel,
-  DegreeLevelDescriptions,
-  militaryServiceStatusMapping,
+    CareerExperienceLength,
+    careerExperienceLengthLabels,
+    DegreeLevel,
+    DegreeLevelDescriptions,
+    militaryServiceStatusMapping,
 } from '../../../models/enums';
 import {
-  BaseResponse,
-  OptionType,
-  Resume,
+    BaseResponse,
+    OptionType,
+    Resume,
 } from '../../../models/shared.models';
 import KButton from '../../shared/Button';
 import KCard from '../../shared/Card';
@@ -31,8 +31,7 @@ import KDatepicker from '../../shared/DatePicker';
 import KLabel from '../../shared/Label';
 import KSelect from '../../shared/Select';
 import KSelectboxWithSearch from '../../shared/SelectboxWithSearch';
-import SelectboxWithSearchAndAllowAdd
-  from '../../shared/SelectboxWithSearchAndAllowAdd';
+import SelectboxWithSearchAndAllowAdd from '../../shared/SelectboxWithSearchAndAllowAdd';
 import KSpinner from '../../shared/Spinner';
 import FoundedResumes from './FoundedResumes';
 
@@ -48,8 +47,7 @@ const Resumes: React.FC = () => {
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: citySendRequest } = useApi<null, BaseResponse<City[]>>();
     const { sendRequest: fetch } = useApi<null, BaseResponse<null>>();
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
 
     const fetchLanguages = async () => {
         fetch(
@@ -148,6 +146,7 @@ const Resumes: React.FC = () => {
                 data[key] = Array.isArray(value) ? value.filter(v => v !== "") : [value];
             }
         });
+
         sendRequest(
             {
                 url: '/Resumes/Query',
@@ -160,28 +159,27 @@ const Resumes: React.FC = () => {
             },
             (response) => {
                 setResumes(response || []);
-                setDisplayResumes(true)
-
+                setDisplayResumes(true);
             }
         );
     };
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
-
     };
+
     const handleCardClick = (resume: Resume) => {
         console.log('Clicked resume:', resume);
-        navigate('/my-resume')
+        navigate('/my-resume');
     };
 
     return (
         <>
-            <KCard className='p-10'>
-                <h1>جستجو بانک رزومه</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className='flex justify-start'>
-                        <div className="w-1/2 p-5">
+            <KCard className='p-5'>
+                <h1 className='text-center text-2xl font-extrabold'>جستجو بانک رزومه</h1>
+                <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
+                    <div className='flex flex-col md:flex-row justify-between'>
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>زمینه کاری کارجو</KLabel>
                             <KSelectboxWithSearch
                                 id='jobcategoryId'
@@ -191,7 +189,7 @@ const Resumes: React.FC = () => {
                                 onChange={(value: number) => handleItemChange('jobcategoryId', value)}
                             />
                         </div>
-                        <div className="w-1/2 p-5">
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>سابقه کاری در زمینه شغلی مورد نظر</KLabel>
                             <KSelect
                                 defaultValue=''
@@ -206,8 +204,8 @@ const Resumes: React.FC = () => {
                             </KSelect>
                         </div>
                     </div>
-                    <div className='flex justify-start'>
-                        <div className="w-1/2 p-5">
+                    <div className='flex flex-col md:flex-row justify-between'>
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>شهر محل سکونت</KLabel>
                             <KSelectboxWithSearch
                                 id='cityId'
@@ -217,17 +215,17 @@ const Resumes: React.FC = () => {
                                 onChange={(value: number) => handleItemChange('cityId', value)}
                             />
                         </div>
-                        <div className="w-1/2 p-5">
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>سن کارجو</KLabel>
-                            <div className="flex space-x-4">
-                                <div className="w-1/2 mx-2">
+                            <div className="flex space-x-2">
+                                <div className="w-full">
                                     <KDatepicker
                                         name="birthDateLessThan"
                                         placeholder='کمتر از'
                                         control={control}
                                     />
                                 </div>
-                                <div className="w-1/2 mx-2">
+                                <div className="w-full">
                                     <KDatepicker
                                         name="birthDateMoreThan"
                                         placeholder='بیشتر از'
@@ -237,8 +235,8 @@ const Resumes: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-start'>
-                        <div className="w-1/2 p-5">
+                    <div className='flex flex-col md:flex-row justify-between'>
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>مدرک تحصیلی کارجو</KLabel>
                             <KSelect
                                 defaultValue=''
@@ -253,7 +251,7 @@ const Resumes: React.FC = () => {
                                 ))}
                             </KSelect>
                         </div>
-                        <div className="w-1/2 p-5">
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>زبان ها</KLabel>
                             <KSelect {...register('languageId')}>
                                 {languages.map((language) => (
@@ -262,8 +260,8 @@ const Resumes: React.FC = () => {
                             </KSelect>
                         </div>
                     </div>
-                    <div className='flex justify-start'>
-                        <div className="w-1/2 p-5">
+                    <div className='flex flex-col md:flex-row justify-between'>
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>مهارت های نرم افزاری کارجو</KLabel>
                             <SelectboxWithSearchAndAllowAdd
                                 id='softwareSkillIds'
@@ -273,7 +271,7 @@ const Resumes: React.FC = () => {
                                 onChange={(value: number[]) => handleItemChange('softwareSkillIds', value)}
                             />
                         </div>
-                        <div className="w-1/2 p-5">
+                        <div className="w-full md:w-1/2 p-2">
                             <KLabel>وضعیت نظام وظیفه</KLabel>
                             <KSelect id='militaryServiceStatus' {...register('militaryServiceStatus')}>
                                 <option value="">انتخاب کنید</option>
@@ -297,5 +295,6 @@ const Resumes: React.FC = () => {
             {displayResumes && <div className='mt-10'><FoundedResumes resumes={resumes} onCardClick={handleCardClick} /></div>}
         </>
     );
-}
+};
+
 export default Resumes;

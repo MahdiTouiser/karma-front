@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
 import { toast } from 'react-toastify';
+
 import Add from '../../../assets/icons/Add';
 import Delete from '../../../assets/icons/Delete';
 import useApi from '../../../hooks/useApi';
 import useConfirm from '../../../hooks/useConfirm';
 import { LanguagesData } from '../../../models/cvbuilder.models';
-import { skillLevelLabels, SkillLevels } from '../../../models/enums';
+import {
+    skillLevelLabels,
+    SkillLevels,
+} from '../../../models/enums';
 import { BaseResponse } from '../../../models/shared.models';
 import KCard from '../../shared/Card';
 import KSpinner from '../../shared/Spinner';

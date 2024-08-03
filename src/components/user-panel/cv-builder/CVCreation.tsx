@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
-import InitialInformation from './sections/InitialInformation';
 import AdditionalSkills from './sections/additional-skills/AdditionalSkillsNav';
-import EducationalBackground from './sections/educational-background/EducationalBackground';
+import EducationalBackground
+  from './sections/educational-background/EducationalBackground';
+import InitialInformation from './sections/InitialInformation';
 import WorkExperience from './sections/work-experience/WorkExperience';
 
 const CVCreation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const progressValues = [0, 30, 60, 90];
     const navigate = useNavigate();
-
 
     const handleFormSubmitSuccess = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, links.length - 1));
@@ -37,8 +39,8 @@ const CVCreation: React.FC = () => {
     ];
 
     return (
-        <div className="flex">
-            <KCard withPadding={false} className="w-1/6 min-h-screen m-2">
+        <div className="flex flex-col my-2 lg:flex-row min-h-screen">
+            <KCard withPadding={false} className="w-full lg:w-1/6 min-h-screen m-2 lg:m-0 lg:mr-2">
                 <InfoSidebar
                     links={links}
                     activeIndex={activeIndex}
@@ -46,7 +48,7 @@ const CVCreation: React.FC = () => {
                     onLinkClick={handleLinkClick}
                 />
             </KCard>
-            <div className="flex-1 p-10">
+            <div className="flex-1 p-4 lg:p-10">
                 {links[activeIndex].component}
             </div>
         </div>

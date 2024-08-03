@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { GenderMapping, MaritalStatusMapping, MilitaryServiceStatusMapping, genderMapping, maritalStatusMapping, militaryServiceStatusMapping } from "../../../models/enums";
-import { Resume } from "../../../models/shared.models";
-import Grid from "../../shared/Grid/Grid";
-import { ColDef } from "../../shared/Grid/grid.types";
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
+import {
+    genderMapping,
+    GenderMapping,
+    maritalStatusMapping,
+    MaritalStatusMapping,
+    militaryServiceStatusMapping,
+    MilitaryServiceStatusMapping,
+} from '../../../models/enums';
+import { Resume } from '../../../models/shared.models';
+import Grid from '../../shared/Grid/Grid';
+import { ColDef } from '../../shared/Grid/grid.types';
 
 interface Props {
     resumes: Resume[];
@@ -74,7 +85,7 @@ const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
 
     return (
         <>
-            <h1 className='mb-5'>نتایج یافت شده</h1>
+            <h1 className='mb-5 mr-1'>نتایج یافت شده</h1>
             <Grid data={gridData} colDefs={colDefs} rowActions={null} onDoubleClick={handleRowDoubleClick} />
         </>
     );

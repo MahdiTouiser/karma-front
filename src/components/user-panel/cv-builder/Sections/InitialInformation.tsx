@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../hooks/useApi';
-import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
+import {
+  InitialInformationFormData,
+} from '../../../../models/cvbuilder.models';
 import { militaryServiceStatusMapping } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
@@ -55,7 +63,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <h1 className="text-2xl font-bold">اطلاعات اولیه</h1>
-                <div className='flex justify-center mt-40'>
+                <div className='flex justify-center'>
                     <div className="w-1/2 p-5">
                         <KLabel>نام</KLabel>
                         <KTextInput placeholder='نام'  {...register('firstName', { required: true })} />

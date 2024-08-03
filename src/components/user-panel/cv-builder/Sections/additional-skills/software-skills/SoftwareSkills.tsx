@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
 import { toast } from 'react-toastify';
+
 import Add from '../../../../../../assets/icons/Add';
 import Delete from '../../../../../../assets/icons/Delete';
 import useApi from '../../../../../../hooks/useApi';
 import useConfirm from '../../../../../../hooks/useConfirm';
 import { SoftwareSkillsData } from '../../../../../../models/cvbuilder.models';
-import { SkillLevels, skillLevelLabels } from '../../../../../../models/enums';
+import {
+    skillLevelLabels,
+    SkillLevels,
+} from '../../../../../../models/enums';
 import { BaseResponse } from '../../../../../../models/shared.models';
 import KCard from '../../../../../shared/Card';
 import KCheckbox from '../../../../../shared/Checkbox';
@@ -76,55 +84,52 @@ const SoftwareSkills: React.FC = () => {
                     </div>
                 ) : (
                     <>
-                        {
-                            skills.length > 0 ? (
-                                <>
-                                    <div className="grid grid-cols-4 gap-2 mt-5">
-                                        {skills.map((info, index) => (
-                                            <div key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                                                <button onClick={() => handleDeleteItem(info.id)} className="ml-4">
-                                                    <Delete strokeColor='red' />
-                                                </button>
-                                                <div className="flex-grow">
-                                                    <p className='text-black text-sm text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
-                                                </div>
+                        {skills.length > 0 ? (
+                            <>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+                                    {skills.map((info, index) => (
+                                        <div key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
+                                            <button onClick={() => handleDeleteItem(info.id)} className="ml-4">
+                                                <Delete strokeColor='red' />
+                                            </button>
+                                            <div className="flex-grow">
+                                                <p className='text-black text-sm text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
                                             </div>
-                                        ))}
-                                    </div>
-                                    <div className='mt-4'>
-                                        <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
-                                            <Add />
-                                            افزودن
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    {isChecked ? (
-                                        <div className='flex mt-4'>
-                                            <p className='text-sm'>مهارت نرم افزاری ندارم.</p>
-                                            <button className='text-blue-500 text-sm mr-2' onClick={() => setIsChecked(!isChecked)}>تغییر</button>
                                         </div>
-                                    ) : (
-                                        <>
-                                            <div className='mt-6'>
-                                                <KCheckbox content={'مهارت نرم افزاری ندارم .'} onChange={handleOnChange} checked={isChecked} />
-                                                <div className='border-b-2 mt-4'></div>
-                                                <div className='mt-4'>
-                                                    <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
-                                                        <Add />
-                                                        افزودن
-                                                    </button>
-                                                </div>
+                                    ))}
+                                </div>
+                                <div className='mt-4 text-center'>
+                                    <button className="text-sm text-blue-500 flex items-center justify-center mx-auto" onClick={openModal}>
+                                        <Add />
+                                        افزودن
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                {isChecked ? (
+                                    <div className='flex mt-4 justify-center'>
+                                        <p className='text-sm'>مهارت نرم افزاری ندارم.</p>
+                                        <button className='text-blue-500 text-sm mr-2' onClick={() => setIsChecked(!isChecked)}>تغییر</button>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className='mt-6'>
+                                            <KCheckbox content={'مهارت نرم افزاری ندارم .'} onChange={handleOnChange} checked={isChecked} />
+                                            <div className='border-b-2 mt-4'></div>
+                                            <div className='mt-4 text-center'>
+                                                <button className="text-sm text-blue-500 flex items-center justify-center mx-auto" onClick={openModal}>
+                                                    <Add />
+                                                    افزودن
+                                                </button>
                                             </div>
-                                        </>
-                                    )}
-                                </>
-                            )
-                        }
+                                        </div>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </>
-                )
-                }
+                )}
             </KCard>
         </>
     );
