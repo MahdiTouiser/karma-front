@@ -1,6 +1,7 @@
-import React from "react";
-import { LinkWithIcon } from "../../models/shared.models";
-import CircularProgress from "../shared/CircularProgress";
+import React from 'react';
+
+import { LinkWithIcon } from '../../models/shared.models';
+import CircularProgress from '../shared/CircularProgress';
 
 interface InfoSidebarProps {
   links: LinkWithIcon[];

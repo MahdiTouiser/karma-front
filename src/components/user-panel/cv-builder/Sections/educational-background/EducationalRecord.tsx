@@ -163,7 +163,7 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                                 register={register('universityId', { required: true })}
                                 errors={errors.universityId}
                                 onChange={(value: number) => handleItemChange('universityId', value)}
-                                defaultValue={selectedUniversity}  // Set default value
+                                defaultValue={selectedUniversity}
                             />
                             {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
                         </div>

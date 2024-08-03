@@ -1,7 +1,12 @@
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
 import { Avatar } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import Edit from '../../../../assets/icons/Edit';
 import Instagram from '../../../../assets/icons/Instagram';
 import Linkedin from '../../../../assets/icons/Linkedin';

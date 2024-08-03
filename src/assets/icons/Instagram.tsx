@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 
 interface InstagramProps {
   className?: string;
+  size?: number; // New prop to define the size
 }
 
-const Instagram: React.FC<InstagramProps> = ({ className, ...props }) => (
+const Instagram: React.FC<InstagramProps> = ({ className = 'mr-1.5', size = 24, ...props }) => (
   <svg
-    width="32"
-    height="32"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     className={`inline-block ${className}`}
