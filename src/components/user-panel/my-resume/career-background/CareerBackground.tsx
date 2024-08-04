@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import { toast } from 'react-toastify';
+
 import Add from '../../../../assets/icons/Add';
 import Delete from '../../../../assets/icons/Delete';
 import Edit from '../../../../assets/icons/Edit';
 import useApi from '../../../../hooks/useApi';
 import useConfirm from '../../../../hooks/useConfirm';
-import { CareerRecordModel, WorkExperienceFormData } from '../../../../models/cvbuilder.models';
+import {
+  CareerRecordModel,
+  WorkExperienceFormData,
+} from '../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../models/shared.models';
 import KCard from '../../../shared/Card';
 import KSpinner from '../../../shared/Spinner';

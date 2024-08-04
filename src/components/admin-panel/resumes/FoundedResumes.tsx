@@ -1,15 +1,17 @@
 import React, {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from 'react';
 
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
 import {
-    genderMapping,
-    GenderMapping,
-    maritalStatusMapping,
-    MaritalStatusMapping,
-    militaryServiceStatusMapping,
-    MilitaryServiceStatusMapping,
+  genderMapping,
+  GenderMapping,
+  maritalStatusMapping,
+  MaritalStatusMapping,
+  militaryServiceStatusMapping,
+  MilitaryServiceStatusMapping,
 } from '../../../models/enums';
 import { Resume } from '../../../models/shared.models';
 import Grid from '../../shared/Grid/Grid';
@@ -33,6 +35,7 @@ interface GridData {
 
 const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
     const [gridData, setGridData] = useState<GridData[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const mappedData = resumes.map((resume) => ({
@@ -80,7 +83,7 @@ const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
     ]);
 
     const handleRowDoubleClick = (data: GridData) => {
-        alert(`ID: ${data.id}`);
+        navigate(`/admin/resumes/${data.id}`);
     };
 
     return (

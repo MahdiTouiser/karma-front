@@ -1,17 +1,30 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import KAlert from "../../components/shared/Alert";
-import BackButton from "../../components/shared/BackButton";
-import KButton from "../../components/shared/Button";
-import KSpinner from "../../components/shared/Spinner";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import useApi from "../../hooks/useApi";
-import { AuthData, OTPRequest, OTPResponse } from "../../models/auth.models";
-import { BaseResponse } from "../../models/shared.models";
-import { authActions } from "../../store/auth";
-import { setAuthDataInLocal } from "../../utils/authUtils";
-import { replacePersianArabicsNumbers } from "../../utils/shared";
+import {
+  FormEvent,
+  useEffect,
+  useState,
+} from 'react';
+
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import KAlert from '../../components/shared/Alert';
+import BackButton from '../../components/shared/BackButton';
+import KButton from '../../components/shared/Button';
+import KSpinner from '../../components/shared/Spinner';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/reduxHooks';
+import useApi from '../../hooks/useApi';
+import {
+  AuthData,
+  OTPRequest,
+  OTPResponse,
+} from '../../models/auth.models';
+import { BaseResponse } from '../../models/shared.models';
+import { authActions } from '../../store/auth';
+import { setAuthDataInLocal } from '../../utils/authUtils';
+import { replacePersianArabicsNumbers } from '../../utils/shared';
 
 const PasswordLoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -61,7 +74,6 @@ const PasswordLoginPage: React.FC = () => {
         data: { username: enteredUsername, password: password },
       },
       (response: any) => {
-        debugger
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
         if (response.value.isAdmin) {

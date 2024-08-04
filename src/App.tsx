@@ -1,26 +1,33 @@
-import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import {
+  Outlet,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import AuthenticatedRoute from './AuthenticatedRoute';
 import Resumes from './components/admin-panel/resumes/Resumes';
+import UserResumes from './components/admin-panel/resumes/UserResumes';
 import CVBuilder from './components/user-panel/cv-builder/CVBuilder';
 import CVCreation from './components/user-panel/cv-builder/CVCreation';
 import FinalizeResume from './components/user-panel/cv-builder/FinalizeResume';
 import JobOpportunities from './components/user-panel/job-opportunities/JobOpportunities';
-import MyResume from './components/user-panel/my-resume/MyResume';
+import MyResume from './components/user-panel/my-resume/MyResume'; // Import MyResume component
 import SavedJobs from './components/user-panel/my-resume/SavedJobs';
 import AdminPanelContainer from './pages/admin-panel/AdminPanelContainer';
 import AuthContainer from './pages/auth/AuthContainer';
 import EmployerPage from './pages/auth/EmployerLoginPage';
-import OTPLoginPage from './pages/auth/OTPLoginPage';
-import PasswordLoginPage from './pages/auth/PasswordLoginPage';
-import UsernameLoginPage from './pages/auth/UsernameLoginPage';
 import ChangePasswordPage from './pages/auth/forget-password/ChangePasswordPage';
 import ForgetPasswordFirstPage from './pages/auth/forget-password/ForgetPasswordFirstPage';
 import ForgetPasswordOtpPage from './pages/auth/forget-password/ForgetPasswordOtpPage';
+import OTPLoginPage from './pages/auth/OTPLoginPage';
+import PasswordLoginPage from './pages/auth/PasswordLoginPage';
 import SignUpMobilePage from './pages/auth/sign-up/SignUpMobilePage';
 import SignUpPasswordOtpPage from './pages/auth/sign-up/SignUpOtpPage';
-import UserPanelContainer from './pages/user-panel/UserPanelContainer';
+import UsernameLoginPage from './pages/auth/UsernameLoginPage';
 import Home from './pages/user-panel/home/Home';
+import UserPanelContainer from './pages/user-panel/UserPanelContainer';
 
 const App = () => {
   return (
@@ -54,6 +61,7 @@ const App = () => {
           </Route>
           <Route path="admin" element={<AuthenticatedRoute component={AdminPanelContainer} />}>
             <Route path="resumes" element={<Resumes />} />
+            <Route path="resumes/:id" element={<UserResumes />} />
           </Route>
         </Routes>
       </Router>
