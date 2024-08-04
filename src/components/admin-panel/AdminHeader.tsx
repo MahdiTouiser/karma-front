@@ -1,7 +1,13 @@
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
+
+import {
+  Avatar,
+  Dropdown,
+  Navbar,
+} from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { RootState } from '../../store';
 import { authActions } from '../../store/auth';

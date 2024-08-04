@@ -1,15 +1,29 @@
-import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import BackButton from "../../components/shared/BackButton";
-import KButton from "../../components/shared/Button";
-import KSpinner from "../../components/shared/Spinner";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import useApi from "../../hooks/useApi";
-import { AuthData, UserSecurityInformation } from "../../models/auth.models";
-import { authActions } from "../../store/auth";
-import { setAuthDataInLocal } from "../../utils/authUtils";
-import { replacePersianArabicsNumbers } from "../../utils/shared";
+import {
+  FormEvent,
+  useState,
+} from 'react';
+
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import BackButton from '../../components/shared/BackButton';
+import KButton from '../../components/shared/Button';
+import KSpinner from '../../components/shared/Spinner';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/reduxHooks';
+import useApi from '../../hooks/useApi';
+import {
+  AuthData,
+  UserSecurityInformation,
+} from '../../models/auth.models';
+import { authActions } from '../../store/auth';
+import { setAuthDataInLocal } from '../../utils/authUtils';
+import { replacePersianArabicsNumbers } from '../../utils/shared';
 
 const UsernameLoginPage = () => {
   const username = useAppSelector((state) => state.auth.enteredUsername);
@@ -56,7 +70,6 @@ const UsernameLoginPage = () => {
         data: data
       },
       (response: any) => {
-        debugger
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
         toast.success(response.message);
