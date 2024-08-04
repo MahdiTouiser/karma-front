@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import useApi from "../../../../hooks/useApi";
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
+import {
+    SubmitHandler,
+    useForm,
+} from 'react-hook-form';
+import { toast } from 'react-toastify';
+
+import useApi from '../../../../hooks/useApi';
 import {
     EducationalBackgroundFormData,
     EducationalRecordModel,
     Majors,
     Universities,
-} from "../../../../models/cvbuilder.models";
-import { DegreeLevel, DegreeLevelDescriptions } from "../../../../models/enums";
-import { BaseResponse, OptionType } from "../../../../models/shared.models";
-import KButton from "../../../shared/Button";
-import KLabel from "../../../shared/Label";
-import KModal from "../../../shared/Modal/Modal";
-import KSelect from "../../../shared/Select";
-import KSelectboxWithSearch from "../../../shared/SelectboxWithSearch";
-import KSpinner from "../../../shared/Spinner";
-import KTextInput from "../../../shared/TextInput";
+} from '../../../../models/cvbuilder.models';
+import {
+    DegreeLevel,
+    DegreeLevelDescriptions,
+} from '../../../../models/enums';
+import {
+    BaseResponse,
+    OptionType,
+} from '../../../../models/shared.models';
+import KButton from '../../../shared/Button';
+import KLabel from '../../../shared/Label';
+import KModal from '../../../shared/Modal/Modal';
+import KSelect from '../../../shared/Select';
+import KSelectboxWithSearch from '../../../shared/SelectboxWithSearch';
+import KSpinner from '../../../shared/Spinner';
+import KTextInput from '../../../shared/TextInput';
 
 interface EducationalHistoryModalProps {
     show: boolean;
@@ -100,13 +114,12 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
             });
         }
     }, [record, setValue, reset]);
-
     const onSubmit: SubmitHandler<EducationalBackgroundFormData> = async (data) => {
         const fieldsToConvert = ["fromYear", "gpa", "majorId", "toYear", "universityId"] as const;
 
         fieldsToConvert.forEach((field) => {
             if (data[field] !== undefined && data[field] !== null) {
-                data[field] = +data[field];
+                data[field] = +data[field]!;
             }
         });
 

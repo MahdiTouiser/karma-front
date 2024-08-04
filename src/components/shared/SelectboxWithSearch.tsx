@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
+
 import ChevronDown from '../../assets/icons/ChevronDown';
 import ChevronLeft from '../../assets/icons/ChevronLeft';
 import { OptionType } from '../../models/shared.models';
@@ -14,7 +19,6 @@ interface KSelectboxWithSearchProps {
 }
 
 const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
-    id,
     placeholder,
     options,
     register,

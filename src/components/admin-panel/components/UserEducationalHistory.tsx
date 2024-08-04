@@ -22,7 +22,7 @@ const UserEducationalHistory: React.FC<UserEducationalHistoryProps> = ({ educati
                     <div key={index} className="flex items-center mr-4 mt-6 text-gray-600 border-l-2 border-blue-500 bg-gray-50 p-5">
                         <div className="pl-2 mr-4">
                             <p className='text-black font-extrabold'>
-                                {DegreeLevelDescriptions[info.degreeLevel]} - {info.major.title}
+                                {DegreeLevelDescriptions[info.degreeLevel as keyof typeof DegreeLevelDescriptions]} - {info.major.title}
                             </p>
                             <p className='mt-4'>{info.university.title}</p>
                             <p className='mt-4'>{`${info.fromYear} - ${info.toYear}`}</p>

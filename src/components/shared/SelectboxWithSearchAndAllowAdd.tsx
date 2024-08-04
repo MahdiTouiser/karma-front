@@ -87,7 +87,7 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
         if (newItemText.trim() !== '') {
             const newItem: OptionType = {
                 label: newItemText,
-                value: newItemText.toLowerCase().replace(/\s/g, '-'),
+                value: +newItemText.toLowerCase().replace(/\s/g, '-'),
             };
             if (onAdd) {
                 onAdd(newItem);

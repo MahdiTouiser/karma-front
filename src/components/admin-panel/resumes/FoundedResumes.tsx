@@ -1,17 +1,17 @@
 import React, {
-  useEffect,
-  useState,
+    useEffect,
+    useState,
 } from 'react';
 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 import {
-  genderMapping,
-  GenderMapping,
-  maritalStatusMapping,
-  MaritalStatusMapping,
-  militaryServiceStatusMapping,
-  MilitaryServiceStatusMapping,
+    genderMapping,
+    GenderMapping,
+    maritalStatusMapping,
+    MaritalStatusMapping,
+    militaryServiceStatusMapping,
+    MilitaryServiceStatusMapping,
 } from '../../../models/enums';
 import { Resume } from '../../../models/shared.models';
 import Grid from '../../shared/Grid/Grid';
@@ -33,7 +33,7 @@ interface GridData {
     telephone: string;
 }
 
-const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
+const FoundedResumes: React.FC<Props> = ({ resumes }) => {
     const [gridData, setGridData] = useState<GridData[]>([]);
     const navigate = useNavigate();
 
