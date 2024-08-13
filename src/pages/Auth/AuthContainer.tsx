@@ -1,7 +1,16 @@
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { getAuthDataFromLocal } from "../../utils/authUtils";
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import {
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
+import karmaLogo from '/src/assets/karma-logo.png';
+
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { getAuthDataFromLocal } from '../../utils/authUtils';
 
 export default function AuthContainer() {
 
@@ -32,7 +41,7 @@ export default function AuthContainer() {
         <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border shadow-lg bg-white">
           <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">
             <span className='w-48 h-48'>
-              <img src='/src/assets/karma-logo.png' />
+              <img src={karmaLogo} alt="Karma Logo" />
             </span>
             {/* <h1 className="font-bold text-xl text-center my-4">
               کارما , جایی برای پیدا کردن کار

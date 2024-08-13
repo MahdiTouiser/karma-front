@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
+import {
+    FormProvider,
+    useForm,
+} from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../../hooks/useApi';
-import { EducationalBackgroundFormData, EducationalRecordModel } from '../../../../../models/cvbuilder.models';
+import {
+    EducationalBackgroundFormData,
+    EducationalRecordModel,
+} from '../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KSpinner from '../../../../shared/Spinner';
