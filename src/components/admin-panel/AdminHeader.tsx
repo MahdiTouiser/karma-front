@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Avatar,
@@ -14,10 +14,11 @@ import { authActions } from '../../store/auth';
 import { clearProfilePicture } from '../../store/profileSlice';
 import { removeAuthDataFromLocal } from '../../utils/authUtils';
 
-const UserHeader: React.FC = () => {
+const AdminHeader: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const profilePicture = useSelector((state: RootState) => state.profile.profilePicture);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); // State for mobile menu
 
   const dropdownItems = [
     { label: 'جستجوی بانک رزومه', href: '/admin/resumes' },
@@ -31,6 +32,7 @@ const UserHeader: React.FC = () => {
 
   const handleDropdownItemClick = (href: string) => {
     navigate(href);
+    setMobileMenuOpen(false); // Close mobile menu on dropdown item click
   };
 
   const logOut = () => {
@@ -41,10 +43,10 @@ const UserHeader: React.FC = () => {
 
   return (
     <Navbar fluid className='bg-cyan-900'>
-      <Navbar.Brand className='mr-12'>
+      <Navbar.Brand href='/admin/resumes' className='mr-12'>
         <span className='self-center whitespace-nowrap text-xl font-semibold text-white'>کـــــــــــــــــارما</span>
       </Navbar.Brand>
-      <div className='flex items-center ml-12 md:order-2'>
+      <div className='flex items-center md:order-2'>
         <Dropdown
           arrowIcon={false}
           inline
@@ -69,15 +71,26 @@ const UserHeader: React.FC = () => {
             }
           })}
         </Dropdown>
-        <Navbar.Toggle />
+
+        <button
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          className='p-2 text-2xl md:hidden text-white focus:outline-none'
+        >
+          {isMobileMenuOpen ? (
+            <span>&times;</span>
+          ) : (
+            <span>&#9776;</span>
+          )}
+        </button>
       </div>
-      <Navbar.Collapse className='justify-center flex items-center'>
-        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm'>
+      <Navbar.Collapse className={`justify-center flex items-center ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
+        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm md:justify-center'>
           {navLinks.map((link, index) => (
             <li key={index}>
               <a
                 href={link.href}
-                className='block py-2 pr-4 pl-3 md:p-0 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
+                className='block py-2 pl-3 md:p-0 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white text-white mr-4 transition-colors duration-300 md:hover:text-gray-800'
+                style={{ textAlign: 'center' }}
               >
                 {link.label}
               </a>
@@ -89,4 +102,4 @@ const UserHeader: React.FC = () => {
   );
 };
 
-export default UserHeader;
+export default AdminHeader;

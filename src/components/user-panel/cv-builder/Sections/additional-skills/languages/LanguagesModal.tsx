@@ -1,10 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../../../hooks/useApi';
-import { AddLanguageFormData, Languages } from '../../../../../../models/cvbuilder.models';
-import { SkillLevels, skillLevelLabels } from '../../../../../../models/enums';
-import { BaseResponse, OptionType } from '../../../../../../models/shared.models';
+import {
+    AddLanguageFormData,
+    Languages,
+} from '../../../../../../models/cvbuilder.models';
+import {
+    skillLevelLabels,
+    SkillLevels,
+} from '../../../../../../models/enums';
+import {
+    BaseResponse,
+    OptionType,
+} from '../../../../../../models/shared.models';
 import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
 import KModal from '../../../../../shared/Modal/Modal';
@@ -70,7 +84,7 @@ const LanguagesModal: React.FC<{ show: boolean; onClose: () => void; onSuccess: 
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose} containerClass="!w-full !md:max-w-full !pb-2">
             <KModal.Header>
                 <h2> افزودن مهارت زبان جدید </h2>
             </KModal.Header>

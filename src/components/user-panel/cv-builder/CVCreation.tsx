@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import KCard from '../../shared/Card';
 import InfoSidebar from '../InfoSidebar';
 import AdditionalSkills from './sections/additional-skills/AdditionalSkillsNav';
-import EducationalBackground
-  from './sections/educational-background/EducationalBackground';
+import EducationalBackground from './sections/educational-background/EducationalBackground';
 import InitialInformation from './sections/InitialInformation';
 import WorkExperience from './sections/work-experience/WorkExperience';
 
@@ -21,7 +20,7 @@ const CVCreation: React.FC = () => {
 
     const finalizeForm = () => {
         navigate('/cv-builder/finalize');
-    }
+    };
 
     const handleLinkClick = (index: number) => {
         setActiveIndex(index);
@@ -39,8 +38,10 @@ const CVCreation: React.FC = () => {
     ];
 
     return (
-        <div className="flex flex-col my-2 lg:flex-row min-h-screen">
-            <KCard withPadding={false} className="w-full lg:w-1/6 min-h-screen m-2 lg:m-0 lg:mr-2">
+        <div className="flex flex-col md:flex-row">
+            <KCard
+                withPadding={false}
+                className="w-full md:w-1/4 md:h-screen m-0 md:m-1">
                 <InfoSidebar
                     links={links}
                     activeIndex={activeIndex}
@@ -48,7 +49,7 @@ const CVCreation: React.FC = () => {
                     onLinkClick={handleLinkClick}
                 />
             </KCard>
-            <div className="flex-1 p-4 lg:p-10">
+            <div className="flex-1 p-4 lg:p-10 lg:max-h-screen">
                 {links[activeIndex].component}
             </div>
         </div>

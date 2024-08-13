@@ -1,8 +1,12 @@
 import React from 'react';
+
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../../../hooks/useApi';
-import { AddAdditionalSkillsFormData } from '../../../../../../models/cvbuilder.models';
+import {
+    AddAdditionalSkillsFormData,
+} from '../../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../../models/shared.models';
 import KButton from '../../../../../shared/Button';
 import KLabel from '../../../../../shared/Label';
@@ -39,7 +43,7 @@ const AdditionalSkillsModal: React.FC<{ show: boolean; onClose: () => void; onSu
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose} containerClass="!w-full !md:max-w-full !pb-2">
             <KModal.Header>
                 <h2>افزودن مهارت تکمیلی جدید</h2>
             </KModal.Header>

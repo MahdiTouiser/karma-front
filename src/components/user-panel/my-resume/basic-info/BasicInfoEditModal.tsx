@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
+import {
+    FieldValues,
+    SubmitHandler,
+    useForm,
+} from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../hooks/useApi';
-import { InitialInformationFormData } from '../../../../models/cvbuilder.models';
+import {
+    InitialInformationFormData,
+} from '../../../../models/cvbuilder.models';
 import { militaryServiceStatusMapping } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
@@ -62,7 +70,7 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
                     <div>
                         <div className='flex justify-center'>
                             <div className="w-1/2 p-5">
-                                <KTextInput placeholder='نام'  {...register('firstName', { required: true })} />
+                                <KTextInput {...register('firstName', { required: true })} />
                                 {errors.firstName && <span className="text-red-500 text-sm">نام الزامی است</span>}
                             </div>
                             <div className="w-1/2 p-5">

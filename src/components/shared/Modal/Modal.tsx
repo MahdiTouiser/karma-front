@@ -1,9 +1,14 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import KCard from "../Card";
-import KModalBody from "./ModalBody";
-import { ModalContext } from "./ModalContext";
-import KModalHeader from "./ModalHeader";
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
+
+import KCard from '../Card';
+import KModalBody from './ModalBody';
+import { ModalContext } from './ModalContext';
+import KModalHeader from './ModalHeader';
 
 interface ModalProps {
   children: React.ReactNode;

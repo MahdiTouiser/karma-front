@@ -104,7 +104,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                 )}
             </div>
             {isOpen && (
-                <div className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-10'>
+                <div className='absolute z-50 w-full top-full left-0 mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto'>
                     <input
                         type='text'
                         className='w-full px-4 py-2 border-b border-gray-300 text-sm'
@@ -113,16 +113,20 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                         onChange={handleSearchChange}
                         ref={searchInputRef}
                     />
-                    <ul className='max-h-48 overflow-y-auto'>
-                        {filteredOptions.map(option => (
-                            <li
-                                key={option.value}
-                                className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
-                                onClick={() => handleOptionClick(option)}
-                            >
-                                {option.label}
-                            </li>
-                        ))}
+                    <ul className=''>
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map(option => (
+                                <li
+                                    key={option.value}
+                                    className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
+                                    onClick={() => handleOptionClick(option)}
+                                >
+                                    {option.label}
+                                </li>
+                            ))
+                        ) : (
+                            <li className='px-4 py-2 text-gray-500'>گزینه‌ای موجود نیست</li>
+                        )}
                     </ul>
                 </div>
             )}
