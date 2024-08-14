@@ -25,7 +25,10 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
   ) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       onOptionChange(e.target.value);
+      register.onChange?.(e);
     };
+
+    const { onChange, ...restRegister } = register;
 
     return (
       <div className="flow-root border-gray-300 bg-white border rounded-md">
@@ -36,7 +39,7 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
             className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
             value={selectedOption}
             onChange={handleChange}
-            {...register}
+            {...restRegister}
           >
             {options.map(option => (
               <option key={option.value} value={option.value}>
@@ -46,7 +49,6 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
           </select>
         </div>
 
-        {/* Render radio buttons for lg devices and above */}
         <div className="hidden lg:flex lg:flex-row w-full">
           {options.map((option) => (
             <label
@@ -60,11 +62,9 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
                 type="radio"
                 value={option.value}
                 checked={selectedOption === option.value}
-                onChange={(e) => {
-                  handleChange(e);
-                  register.onChange(e);
-                }}
+                onChange={handleChange}
                 className="sr-only"
+                {...restRegister}
                 ref={ref}
               />
               <span className="flex-1 text-center">{option.label}</span>

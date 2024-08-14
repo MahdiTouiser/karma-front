@@ -1,6 +1,19 @@
-const CheckBadge = () => {
+import React from 'react';
+
+interface CheckBadgeProps {
+  className?: string;
+}
+
+const CheckBadge: React.FC<CheckBadgeProps> = ({ className }) => {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='green' className='h-20 w-20'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='green'
+      className={`h-20 w-20 ${className}`}
+    >
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -9,4 +22,5 @@ const CheckBadge = () => {
     </svg>
   )
 }
-export default CheckBadge
+
+export default CheckBadge;
