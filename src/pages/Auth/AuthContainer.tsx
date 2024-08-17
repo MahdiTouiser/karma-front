@@ -3,64 +3,55 @@ import {
   useState,
 } from 'react';
 
+import karmaLogo from '/src/assets/karma-logo.png';
 import {
   Navigate,
   Outlet,
 } from 'react-router-dom';
-import karmaLogo from '/src/assets/karma-logo.png';
 
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { getAuthDataFromLocal } from '../../utils/authUtils';
 
-export default function AuthContainer() {
-
+const AuthContainer = () => {
   const authState = useAppSelector((state) => state.auth);
   const [wasAuthenticated, setWasAuthenticated] = useState<boolean>(false);
-  // const [isJobseekerMode, setIsJobseekerMode] = useState<boolean>(true);
 
   useEffect(() => {
     const authData = getAuthDataFromLocal();
-    setWasAuthenticated(
-      !!authData
-    );
+    setWasAuthenticated(!!authData);
   }, []);
 
-  // const handleModeToggle = () => {
-  //   setIsJobseekerMode(!isJobseekerMode);
-  // };
-
-  return ((authState.isAuthenticated &&
+  const shouldRedirect = (authState.isAuthenticated &&
     authState.personalInformationCompleted &&
-    authState.securityInformationCompleted) ||
-    wasAuthenticated) &&
-    !authState.enteredPhone ? (
-    <Navigate to="/" />
-  ) : (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="container px-1 m-auto py-1 flex justify-center items-center">
-        <div className="w-full sm:w-5/6 flex flex-col items-center max-w-lg rounded-md border shadow-lg bg-white">
+    authState.securityInformationCompleted) || wasAuthenticated;
+
+  return (
+    shouldRedirect && !authState.enteredPhone ? (
+      <Navigate to="/" />
+    ) : (
+      <div className="bg-cyan-100 h-screen flex justify-center items-center lg:flex-row">
+        <div className="hidden lg:flex flex-1 justify-center items-center h-screen">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold">کارما</h1>
+            <p className="mt-2 text-xl">
+              استخدام و ساختن مسیر شغلی مطلوب برای کارجو
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col items-center max-w-lg shadow-lg bg-white m-0 lg:mx-32 justify-center h-full lg:h-screen">
           <div className="pt-5 border-b w-11/12 flex justify-center flex-col items-center">
-            <span className='w-48 h-48'>
+            <span className="w-48 h-48 flex justify-center items-center">
               <img src={karmaLogo} alt="Karma Logo" />
             </span>
-            {/* <h1 className="font-bold text-xl text-center my-4">
-              کارما , جایی برای پیدا کردن کار
-            </h1> */}
           </div>
-          <Outlet />
-          {/* <div className="bg-gray-200 w-full py-2 flex justify-center hover:bg-gray-200 transition duration-300 ease-in-out">
-            <Link
-              to={isJobseekerMode ? "/auth/employer" : "/auth"}
-              onClick={handleModeToggle}
-              className="flex items-center justify-center w-full"
-            >
-              <h6 className="text-blue-500">
-                {isJobseekerMode ? "کارفرما هستید ؟" : "کارجو هستید ؟"}
-              </h6>
-            </Link>
-          </div> */}
+          <div className="flex flex-col items-center justify-center w-full mt-5">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
+
+export default AuthContainer;
