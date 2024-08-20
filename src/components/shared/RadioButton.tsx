@@ -31,9 +31,8 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
     const { onChange, ...restRegister } = register;
 
     return (
-      <div className="flow-root border-gray-300 bg-white border rounded-md">
+      <div className="flow-root bg-white border border-gray-300 rounded-md">
 
-        {/* Render select box for lg devices and smaller */}
         <div className="lg:hidden">
           <select
             className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -49,7 +48,7 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
           </select>
         </div>
 
-        <div className="hidden lg:flex lg:flex-row w-full">
+        <div className="hidden w-full lg:flex lg:flex-row">
           {options.map((option) => (
             <label
               key={option.value}
