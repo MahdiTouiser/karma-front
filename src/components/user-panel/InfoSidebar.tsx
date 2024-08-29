@@ -21,7 +21,7 @@ const InfoSidebar: React.FC<InfoSidebarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg p-4">
+    <div className="p-4 bg-white rounded-lg">
       <div className="mb-5">
         <CircularProgress progress={progress} />
       </div>

@@ -12,11 +12,18 @@ import {
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import Delete from '../../../../assets/icons/Delete';
-import Instagram from '../../../../assets/icons/Instagram';
-import Linkedin from '../../../../assets/icons/Linkedin';
-import Upload from '../../../../assets/icons/Upload';
-import XIcon from '../../../../assets/icons/XIcon';
+import {
+    faInstagram,
+    faLinkedin,
+    faSquareInstagram,
+    faSquareXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+    faTrashAlt,
+    faUpload,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
 import { AboutMeFormData } from '../../../../models/myresume.model';
@@ -140,24 +147,24 @@ const AboutMeModal: React.FC<{
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2 overflow-y-auto">
+        <KModal show={show} onClose={onClose} containerClass="!max-w-[90vw] max-w-md !pb-2 overflow-y-auto">
             <KModal.Header>
-                <h2>ویرایش درباره من</h2>
+                <h2 className="text-center">ویرایش درباره من</h2>
             </KModal.Header>
             <div className="p-4">
                 <KModal.Body>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+                        <div className="flex flex-col items-center justify-between md:flex-row">
+                            <div className="flex items-center mb-4 md:mb-0">
                                 <Avatar rounded img={imageSrc || ''} size="lg" />
-                                <p className="text-sm mr-4">
+                                <p className="mr-4 text-sm">
                                     تصویر پروفایل <br /> فرمت‌های JPG, PNG, SVG, JPEG
                                 </p>
                             </div>
-                            <div className="text-blue-500 flex ml-3 items-center text-center justify-center">
+                            <div className="flex items-center justify-center ml-3 text-center text-blue-500">
                                 <button type="button" onClick={handleButtonClick}>
                                     <span className="flex">
-                                        <Upload className="w-7 h-7" />
+                                        <FontAwesomeIcon icon={faUpload} className="h-5 w5" />
                                     </span>
                                 </button>
                                 <input
@@ -170,7 +177,7 @@ const AboutMeModal: React.FC<{
                                 {imageSrc && (
                                     <button type="button" onClick={handleDeleteImage} className="mr-2">
                                         <span className="flex">
-                                            <Delete className="w-7 h-7" />
+                                            <FontAwesomeIcon icon={faTrashAlt} color='red' className="w-5 h-5" />
                                         </span>
                                     </button>
                                 )}
@@ -186,12 +193,22 @@ const AboutMeModal: React.FC<{
                                 {fields.map((item, index) => (
                                     <div key={item.id} className="flex items-center">
                                         <button type="button" onClick={() => toggleInput(item.type)} className="flex items-center">
-                                            {item.type === 'LinkedIn' && <Linkedin size={28} />}
-                                            {item.type === 'X' && <XIcon size={34} />}
-                                            {item.type === 'Instagram' && <Instagram size={28} />}
+                                            {item.type === 'LinkedIn' &&
+                                                <FontAwesomeIcon
+                                                    icon={faLinkedin}
+                                                    className="w-8 h-8"
+                                                    style={{ color: '#0077b5' }}
+                                                />}
+                                            {item.type === 'X' && <FontAwesomeIcon icon={faSquareXTwitter} className="w-8 h-8" />}
+                                            {item.type === 'Instagram' &&
+                                                <FontAwesomeIcon
+                                                    icon={faSquareInstagram}
+                                                    className="w-8 h-8"
+                                                    style={{ color: '#C13584' }}
+                                                />}
                                         </button>
                                         {visibleInputs[item.type] && (
-                                            <div className="relative w-full flex items-center mr-2">
+                                            <div className="relative flex items-center w-full mr-2">
                                                 <KTextInput
                                                     {...register(`socialMedias.${index}.link` as const)}
                                                     className="w-full !text-left"
@@ -204,17 +221,17 @@ const AboutMeModal: React.FC<{
                                 ))}
                                 {!fields.find(field => field.type === 'LinkedIn') && (
                                     <button type="button" onClick={() => append({ type: 'LinkedIn', link: '' })} className="flex items-center">
-                                        <Linkedin size={28} />
+                                        <FontAwesomeIcon icon={faLinkedin} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                                 {!fields.find(field => field.type === 'X') && (
-                                    <button type="button" onClick={() => append({ type: 'X', link: '' })} className="flex items-center pl-1">
-                                        <XIcon size={34} />
+                                    <button type="button" onClick={() => append({ type: 'X', link: '' })} className="flex items-center">
+                                        <FontAwesomeIcon icon={faSquareXTwitter} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                                 {!fields.find(field => field.type === 'Instagram') && (
                                     <button type="button" onClick={() => append({ type: 'Instagram', link: '' })} className="flex items-center">
-                                        <Instagram size={28} />
+                                        <FontAwesomeIcon icon={faInstagram} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                             </div>
@@ -224,7 +241,17 @@ const AboutMeModal: React.FC<{
                             <KTextArea {...register('description')} />
                         </div>
                         <div className="flex justify-end mx-4">
-                            {isPending ? <KSpinner /> : <KButton color="primary" onClick={handleFormSubmit}>ذخیره تغییرات</KButton>}
+                            {isPending ? (
+                                <KSpinner />
+                            ) : (
+                                <KButton
+                                    color="primary"
+                                    onClick={handleFormSubmit}
+                                    className="w-full md:w-auto"
+                                >
+                                    ذخیره تغییرات
+                                </KButton>
+                            )}
                         </div>
                     </form>
                 </KModal.Body>

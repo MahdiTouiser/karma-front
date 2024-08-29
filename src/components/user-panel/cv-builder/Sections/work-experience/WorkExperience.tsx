@@ -1,10 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../../hooks/useApi';
-import { CareerRecordModel, City, Country, JobCategories, WorkExperienceFormData } from '../../../../../models/cvbuilder.models';
-import { SeniorityLevels, hijriMonthOptions, seniorityLevelLabels } from '../../../../../models/enums';
-import { BaseResponse, OptionType } from '../../../../../models/shared.models';
+import {
+    CareerRecordModel,
+    City,
+    Country,
+    JobCategories,
+    WorkExperienceFormData,
+} from '../../../../../models/cvbuilder.models';
+import {
+    hijriMonthOptions,
+    seniorityLevelLabels,
+    SeniorityLevels,
+} from '../../../../../models/enums';
+import {
+    BaseResponse,
+    OptionType,
+} from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
@@ -31,7 +49,6 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
     const { sendRequest: jobCategoriesSendRequest } = useApi<null, BaseResponse<JobCategories[]>>();
     const { sendRequest: AddWorkExperience, isPending } = useApi<Partial<WorkExperienceFormData>, BaseResponse<null>>();
     const { sendRequest: fetch, isPending: fetchIsPending } = useApi<WorkExperienceFormData, CareerRecordModel[]>();
-
 
     const fetchCountries = async () => {
         countrySendRequest(
@@ -88,9 +105,8 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         fetchCities();
         fetchCountries();
         fetchJobCategories();
-        fetchCareerRecords()
+        fetchCareerRecords();
     }, []);
-
 
     const fetchCareerRecords = () => {
         fetch(
@@ -102,7 +118,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     setIsRecordCreated(false);
                 } else {
                     setCareerRecords(response);
-                    setIsRecordCreated(true)
+                    setIsRecordCreated(true);
                 }
             },
         );
@@ -132,7 +148,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                 method: 'post',
                 data: {
                     ...data,
-                    currentJob: currentJob
+                    currentJob: currentJob,
                 },
             },
             (response) => {
@@ -145,7 +161,6 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
             }
         );
     };
-
 
     const handleFormSubmit = () => {
         handleSubmit(onSubmit)();
@@ -168,7 +183,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
         <>
             <h1 className="text-2xl font-bold">سوابق شغلی</h1>
             {fetchIsPending ? (
-                <span className='flex justify-center items-center h-screen'>
+                <span className='flex items-center justify-center h-screen'>
                     <KSpinner color='primary' size={20} />
                 </span>
             ) : isRecordCreated ? (
@@ -191,28 +206,28 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {!hasWorkExperience && (
                             <>
-                                <div className='flex justify-center mt-10'>
-                                    <div className="w-1/2 p-5">
+                                <div className='flex flex-col justify-center mt-10 md:flex-row'>
+                                    <div className="w-full p-5 md:w-1/2">
                                         <KLabel>عنوان شغلی</KLabel>
                                         <KTextInput {...register('jobTitle', { required: true })} />
                                         {errors.jobTitle && (
-                                            <p className="text-red-500 text-xs">
+                                            <p className="text-xs text-red-500">
                                                 عنوان شغلی الزامی می باشد.
                                             </p>
                                         )}
                                     </div>
-                                    <div className="w-1/2 p-5">
+                                    <div className="w-full p-5 md:w-1/2">
                                         <KLabel>نام سازمان</KLabel>
                                         <KTextInput {...register('companyName', { required: true })} />
                                         {errors.companyName && (
-                                            <p className="text-red-500 text-xs">
+                                            <p className="text-xs text-red-500">
                                                 نام سازمان الزامی می باشد.
                                             </p>
                                         )}
                                     </div>
                                 </div>
-                                <div className='flex justify-center'>
-                                    <div className="w-1/2 p-5">
+                                <div className='flex flex-col justify-center md:flex-row'>
+                                    <div className="w-full p-5 md:w-1/2">
                                         <KLabel>سطح ارشدیت</KLabel>
                                         <KSelect {...register('seniorityLevel', { required: true })}>
                                             {Object.values(SeniorityLevels).map((seniorityValue) => (
@@ -222,12 +237,12 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                             ))}
                                         </KSelect>
                                         {errors.seniorityLevel && (
-                                            <p className="text-red-500 text-xs">
+                                            <p className="text-xs text-red-500">
                                                 سطح ارشدیت الزامی می باشد.
                                             </p>
                                         )}
                                     </div>
-                                    <div className="w-1/2 p-5">
+                                    <div className="w-full p-5 md:w-1/2">
                                         <KLabel>زمینه کاری شما</KLabel>
                                         <KSelectboxWithSearch
                                             id='jobcategoryId'
@@ -237,15 +252,15 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                             onChange={(value: number) => handleItemChange('jobcategoryId', value)}
                                         />
                                         {errors.jobcategoryId && (
-                                            <p className="text-red-500 text-xs">
+                                            <p className="text-xs text-red-500">
                                                 زمینه کاری الزامی می باشد.
                                             </p>
                                         )}
                                     </div>
                                 </div>
-                                <div className='flex justify-start'>
-                                    <div className="flex justify-start w-1/2">
-                                        <div className='w-1/2 p-5'>
+                                <div className='flex flex-col justify-start md:flex-row'>
+                                    <div className="flex justify-start w-full md:w-1/2">
+                                        <div className='w-full p-5 md:w-1/2'>
                                             <KLabel>کشور</KLabel>
                                             <KSelectboxWithSearch
                                                 id='countryId'
@@ -255,13 +270,13 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                                 onChange={handleItemAndCountryChange}
                                             />
                                             {errors.countryId && (
-                                                <p className="text-red-500 text-xs">
+                                                <p className="text-xs text-red-500">
                                                     انتخاب کشور الزامی می باشد.
                                                 </p>
                                             )}
                                         </div>
                                         {selectedCountry === 1 && (
-                                            <div className='w-1/2 p-5'>
+                                            <div className='w-full p-5 md:w-1/2'>
                                                 <KLabel>شهر</KLabel>
                                                 <KSelectboxWithSearch
                                                     id='cityId'
@@ -273,8 +288,8 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                             </div>
                                         )}
                                     </div>
-                                    <div className='flex justify-center w-1/2'>
-                                        <div className='w-1/2 p-5'>
+                                    <div className='flex justify-center w-full md:w-1/2'>
+                                        <div className='w-full p-5 md:w-1/2'>
                                             <KLabel>ماه شروع</KLabel>
                                             <KSelect
                                                 {...register('fromMonth', {
@@ -288,12 +303,12 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                                 ))}
                                             </KSelect>
                                             {errors.fromMonth && (
-                                                <p className="text-red-500 text-xs">
+                                                <p className="text-xs text-red-500">
                                                     ماه شروع الزامی می باشد.
                                                 </p>
                                             )}
                                         </div>
-                                        <div className='w-1/2 p-5'>
+                                        <div className='w-full p-5 md:w-1/2'>
                                             <KLabel>سال شروع</KLabel>
                                             <KTextInput numeric maxLength={4}
                                                 {...register('fromYear', {
@@ -301,30 +316,31 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                                                     setValueAs: value => value === "" ? undefined : Number(value)
                                                 })} />
                                             {errors.fromYear && (
-                                                <p className="text-red-500 text-xs">
+                                                <p className="text-xs text-red-500">
                                                     سال شروع الزامی می باشد.
                                                 </p>
                                             )}
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex justify-start'>
+                                <div className='flex flex-col justify-start md:flex-row'>
                                     {!currentJob && (
-                                        <div className='flex justify-center w-1/2'>
-                                            <div className='w-1/2 p-5'>
+                                        <div className='flex justify-center w-full md:w-1/2'>
+                                            <div className='w-full p-5 md:w-1/2'>
                                                 <KLabel>ماه پایان</KLabel>
                                                 <KSelect
                                                     {...register('toMonth', {
                                                         setValueAs: value => value === "" ? undefined : Number(value)
                                                     })}
-                                                >                                                    {hijriMonthOptions.map(option => (
-                                                    <option key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                ))}
+                                                >
+                                                    {hijriMonthOptions.map(option => (
+                                                        <option key={option.value} value={option.value}>
+                                                            {option.label}
+                                                        </option>
+                                                    ))}
                                                 </KSelect>
                                             </div>
-                                            <div className='w-1/2 p-5'>
+                                            <div className='w-full p-5 md:w-1/2'>
                                                 <KLabel>سال پایان</KLabel>
                                                 <KTextInput numeric maxLength={4}
                                                     {...register('toYear', {
@@ -344,7 +360,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                 </>
             )}
             {!isRecordVisible && (
-                <div className='flex justify-end p-5'>
+                <div className='flex justify-end p-2'>
                     <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                         مرحله قبلی
                     </KButton>
@@ -356,7 +372,6 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                 </div>
             )}
         </>
-
     );
 };
 

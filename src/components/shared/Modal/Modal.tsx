@@ -34,13 +34,13 @@ const BackDrop: React.FC<BackDropProps> = (props) => {
   }
   return (
     <div
-      className="fixed top-0 left-0 w-full h-screen z-40 bg-black opacity-75"
+      className="fixed top-0 left-0 z-40 w-full h-screen bg-black opacity-75"
       onClick={handleClick}
     />
   );
 };
 
-const ModalContainer: React.FC<ModalBodyProps> = ({ containerClass, children, closing }) => {
+const ModalContainer: React.FC<ModalBodyProps> = ({ children, closing }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -50,15 +50,15 @@ const ModalContainer: React.FC<ModalBodyProps> = ({ containerClass, children, cl
 
   return (
     <KCard
-      className={`${containerClass} ${isVisible && !closing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} 
-      transition-all duration-300 ease-out z-50 fixed top-1/4 left-1/2 -translate-x-1/2 
-      bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-screen !p-0 overflow-y-auto`}
+      className={`${isVisible && !closing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} 
+      transition-all duration-300 ease-out z-50 fixed left-1/2 -translate-x-1/2 
+      bg-white w-full sm:w-3/4 md:w-2/5 lg:w-1/3 max-w-[95vw] max-h-screen !p-0 
+      top-1/4  md:!max-w-[70vw] lg:!max-w-[60vw] !pb-2`}
     >
       {children}
     </KCard>
   );
 };
-
 
 
 const KModalComponent: React.FC<ModalProps> = ({
@@ -108,12 +108,9 @@ const KModalComponent: React.FC<ModalProps> = ({
   );
 };
 
-
-
 KModalComponent.displayName = "KModal";
 KModalHeader.displayName = "KModal.header";
 KModalBody.displayName = "KModal.body";
-
 
 export const KModal = Object.assign(KModalComponent, {
   Header: KModalHeader,

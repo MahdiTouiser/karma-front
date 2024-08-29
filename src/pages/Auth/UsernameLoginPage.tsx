@@ -91,9 +91,9 @@ const UsernameLoginPage = () => {
 
   return (
     <form onSubmit={usernameSubmitted ? onSubmitPassword : onSubmitUsername} className="p-8">
-      <div className="flex justify-between items-center relative">
+      <div className="relative flex items-center justify-between">
         {usernameSubmitted && (
-          <span className="absolute right-0 bottom-0" onClick={handlePreviousClick}>
+          <span className="absolute bottom-0 right-0" onClick={handlePreviousClick}>
             <BackButton />
           </span>
         )}
@@ -133,7 +133,7 @@ const UsernameLoginPage = () => {
               />
             </div>
             {submitted && !username && (
-              <p className="text-red-600 text-sm mb-3">
+              <p className="mb-3 text-sm text-red-600">
                 لطفا نام کاربری خود را وارد کنید.
               </p>
             )}
@@ -170,11 +170,11 @@ const UsernameLoginPage = () => {
               />
             </div>
             {!submitted && !password && (
-              <p className="text-red-600 text-sm pr-2 mb-3">
+              <p className="pr-2 mb-3 text-sm text-red-600">
                 لطفا رمز عبور خود را وارد کنید.
               </p>
             )}
-            <Link to="otp" className="text-blue-500 flex mb-4 items-center">
+            <Link to="otp" className="flex items-center mb-4 text-blue-500">
               <p>ورود با رمز یکبار مصرف</p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -186,7 +186,7 @@ const UsernameLoginPage = () => {
 
         <div className="w-full mr-1">
           <KButton
-            className="w-full"
+            className="!w-full"
             type="submit"
             color="primary"
             disabled={isPending}
@@ -196,17 +196,17 @@ const UsernameLoginPage = () => {
         </div>
       </div>
 
-      {errors && <p className="text-red-600 text-sm pr-2">{errors.message}</p>}
+      {errors && <p className="pr-2 text-sm text-red-600">{errors.message}</p>}
 
-      <div className="flex flex-wrap items-center gap-2 mt-6">
+      <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <KButton color="primary" className="w-full">
+          <KButton color="primary" className="justify-center">
             ایجاد حساب کاربری
           </KButton>
         </Link>
       </div>
-    </form >
+    </form>
   );
 }
 

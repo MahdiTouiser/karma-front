@@ -103,11 +103,10 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
         (isRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
     };
 
-
     return (
         <>
             {fetchIsPending ? (
-                <span className='flex justify-center items-center h-screen'>
+                <span className='flex items-center justify-center h-screen'>
                     <KSpinner color='primary' size={20} />
                 </span>
             ) : (
@@ -130,7 +129,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                         </FormProvider>
                     )}
                     {!isRecordVisible && (
-                        <div className='flex justify-end p-5'>
+                        <div className='flex justify-end p-2'>
                             <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                                 مرحله قبلی
                             </KButton>
@@ -142,8 +141,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                         </div>
                     )}
                 </>
-            )
-            }
+            )}
         </>
     );
 };

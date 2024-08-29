@@ -15,10 +15,9 @@ interface SelectboxWithSearchAndAllowAddProps {
     options: OptionType[];
     register: any;
     errors: any;
-    onChange?: any;
+    onChange?: (selectedItems: OptionType[]) => void;
     onAdd?: (newItem: OptionType) => void;
-    selectedItems?: OptionType[];
-    defaultValue?: any;
+    defaultValue?: OptionType[];
 }
 
 const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddProps> = ({
@@ -28,15 +27,13 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
     errors,
     onChange,
     onAdd,
-    selectedItems,
     defaultValue,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedOption, setSelectedOption] = useState<OptionType | null>(defaultValue || null);
     const [newItemText, setNewItemText] = useState('');
-    const [selectedItemsArray, setSelectedItemsArray] = useState<OptionType[]>(selectedItems || []);
-    console.log(selectedOption);
+    const [selectedItemsArray, setSelectedItemsArray] = useState<OptionType[]>(defaultValue || []);
+    console.log(selectedItemsArray);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,23 +61,23 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
         };
     }, []);
 
-    useEffect(() => {
-        if (defaultValue) {
-            setSelectedOption(defaultValue);
-        }
-    }, [defaultValue]);
-
     const filteredOptions = options.filter(option =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleOptionClick = (option: OptionType) => {
-        setSelectedOption(option);
+        if (selectedItemsArray.some(item => item.value === option.value)) {
+            setIsOpen(false);
+            return;
+        }
+
+        const newSelectedItemsArray = [...selectedItemsArray, option];
+        setSelectedItemsArray(newSelectedItemsArray);
         setSearchTerm('');
         setIsOpen(false);
-        onChange(option.value);
-
-        setSelectedItemsArray([...selectedItemsArray, option]);
+        if (onChange) {
+            onChange(newSelectedItemsArray);
+        }
     };
 
     const handleAddNewItem = () => {
@@ -89,15 +86,27 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                 label: newItemText,
                 value: +newItemText.toLowerCase().replace(/\s/g, '-'),
             };
+
+            if (
+                selectedItemsArray.some(item => item.value === newItem.value) ||
+                options.some(option => option.value === newItem.value)
+            ) {
+                return;
+            }
+
             if (onAdd) {
                 onAdd(newItem);
             }
-            setSelectedOption(newItem);
+
+            const newSelectedItemsArray = [...selectedItemsArray, newItem];
+            setSelectedItemsArray(newSelectedItemsArray);
             setSearchTerm('');
             setIsOpen(false);
             setNewItemText('');
 
-            setSelectedItemsArray([...selectedItemsArray, newItem]);
+            if (onChange) {
+                onChange(newSelectedItemsArray);
+            }
         }
     };
 
@@ -107,14 +116,16 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
 
     const handleClearSelection = () => {
         setSelectedItemsArray([]);
-        setSelectedOption(null);
-        onChange(null);
+        if (onChange) {
+            onChange([]);
+        }
     };
+
     return (
         <div className='relative w-full' ref={dropdownRef}>
             <input
                 type='text'
-                className='w-full px-4 py-2 border border-gray-300 text-sm relative pr-10'
+                className='relative w-full px-4 py-2 pr-10 text-sm border border-gray-300'
                 onClick={handleToggleDropdown}
                 readOnly
                 placeholder={placeholder}
@@ -124,11 +135,11 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                 {...register}
             />
             {selectedItemsArray.length > 0 && (
-                <div className='absolute top-1/2 left-10 transform -translate-y-1/2'>
+                <div className='absolute transform -translate-y-1/2 top-1/2 left-10'>
                     <Close onClick={handleClearSelection} className='cursor-pointer' />
                 </div>
             )}
-            <div className='absolute top-1/2 right-0 transform -translate-y-1/2'>
+            <div className='absolute right-0 transform -translate-y-1/2 top-1/2'>
                 {isOpen ? (
                     <ChevronDown onClick={handleToggleDropdown} />
                 ) : (
@@ -136,19 +147,19 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                 )}
             </div>
             {isOpen && (
-                <div className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-10'>
+                <div className='absolute left-0 right-0 z-10 mt-1 bg-white border border-gray-300 rounded shadow-lg top-full'>
                     <input
                         type='text'
-                        className='w-full px-4 py-2 border-b border-gray-300 text-sm'
+                        className='w-full px-4 py-2 text-sm border-b border-gray-300'
                         placeholder='جستجو'
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <ul className='max-h-48 overflow-y-auto'>
+                    <ul className='overflow-y-auto max-h-48'>
                         {filteredOptions.map(option => (
                             <li
                                 key={option.value}
-                                className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
+                                className='px-4 py-2 text-sm cursor-pointer hover:bg-gray-100'
                                 onClick={() => handleOptionClick(option)}
                             >
                                 {option.label}
@@ -157,13 +168,13 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                         <li className='px-4 py-2 border-t border-gray-300'>
                             <input
                                 type='text'
-                                className='w-full px-2 py-1 border border-gray-300 rounded-sm text-sm'
+                                className='w-full px-2 py-1 text-sm border border-gray-300 rounded-sm'
                                 placeholder='Add new item'
                                 value={newItemText}
                                 onChange={handleNewItemTextChange}
                             />
                             <button
-                                className='mt-2 px-4 py-1 bg-blue-500 text-white rounded-sm text-sm hover:bg-blue-600'
+                                className='px-4 py-1 mt-2 text-sm text-white bg-blue-500 rounded-sm hover:bg-blue-600'
                                 onClick={handleAddNewItem}
                             >
                                 Add
@@ -172,7 +183,7 @@ const SelectboxWithSearchAndAllowAdd: React.FC<SelectboxWithSearchAndAllowAddPro
                     </ul>
                 </div>
             )}
-            {errors && <span className='text-red-500 text-xs'>{errors.message}</span>}
+            {errors && <span className='text-xs text-red-500'>{errors.message}</span>}
         </div>
     );
 };

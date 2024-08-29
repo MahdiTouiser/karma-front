@@ -61,84 +61,77 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose} containerClass="w-full max-w-[60vw] md:max-w-[80vw] lg:max-w-[60vw] !pb-2">
             <KModal.Header>
                 <h2>ویرایش اطلاعات اولیه</h2>
             </KModal.Header>
             <KModal.Body>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                        <div className='flex justify-center'>
-                            <div className="w-1/2 p-5">
-                                <KTextInput {...register('firstName', { required: true })} />
-                                {errors.firstName && <span className="text-red-500 text-sm">نام الزامی است</span>}
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KTextInput placeholder='نام خانوادگی' {...register('lastName', { required: true })} />
-                                {errors.lastName && <span className="text-red-500 text-sm">نام خانوادگی الزامی است</span>}
-                            </div>
+                <form onSubmit={handleSubmit(onSubmit)} className='m-2'>
+                    <div className='flex flex-wrap justify-between'>
+                        <div className="w-full px-2 md:w-1/2">
+                            <KTextInput {...register('firstName', { required: true })} placeholder='نام' />
+                            {errors.firstName && <span className="text-sm text-red-500">نام الزامی است</span>}
                         </div>
-                        <div className='flex justify-center'>
-                            <div className="w-1/2 p-5">
-                                <KSelect id='gender' placeholder="جنسیت"  {...register('gender', { required: true })}>
-                                    <option value="Male">مرد</option>
-                                    <option value="Female">زن</option>
-                                </KSelect>
-                                {errors.gender && <span className="text-red-500 text-sm">جنسیت الزامی است</span>}
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KSelect id='maritalStatus' placeholder="وضعیت تاهل" {...register('maritalStatus', { required: true })}>
-                                    <option value="married">متاهل</option>
-                                    <option value="Single">مجرد</option>
-                                </KSelect>
-                                {errors.maritalStatus && <span className="text-red-500 text-sm">وضعیت تاهل الزامی است</span>}
-                            </div>
+                        <div className="w-full px-2 md:w-1/2">
+                            <KTextInput {...register('lastName', { required: true })} placeholder='نام خانوادگی' />
+                            {errors.lastName && <span className="text-sm text-red-500">نام خانوادگی الزامی است</span>}
                         </div>
-                        <div className='flex justify-center'>
-                            <div className="w-1/2 p-5">
-                                <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
-                                    {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
-                                        <option key={key} value={value.value}>
-                                            {value.label}
-                                        </option>
-                                    ))}
-                                </KSelect>
 
-                                {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KTextInput placeholder='شهر محل سکونت' {...register('city', { required: true })} />
-                                {errors.city && <span className="text-red-500 text-sm">شهر محل سکونت الزامی است</span>}
-                            </div>
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KSelect id='gender' placeholder="جنسیت" {...register('gender', { required: true })}>
+                                <option value="Male">مرد</option>
+                                <option value="Female">زن</option>
+                            </KSelect>
+                            {errors.gender && <span className="text-sm text-red-500">جنسیت الزامی است</span>}
                         </div>
-                        <div className='flex justify-center'>
-                            <div className="w-1/2 p-5">
-                                <KTextInput placeholder='شماره تلفن ثابت'
-                                    {...register('telephone', { required: true })} maxLength={11} />
-                                {errors.telephone && <span className="text-red-500 text-sm">شماره تلفن ثابت الزامی است</span>}
-                            </div>
-                            <div className="w-1/2 p-5">
-                                <KDatepicker
-                                    name="birthDate"
-                                    control={control}
-                                    required={true}
-                                    id="birthDate"
-                                    placeholder='تاریخ تولد'
-                                ></KDatepicker>
-                                {errors.birthDate && (
-                                    <p className="text-red-500 text-sm">
-                                        تاریخ تولد الزامی می باشد.
-                                    </p>
-                                )}
-                            </div>
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KSelect id='maritalStatus' placeholder="وضعیت تاهل" {...register('maritalStatus', { required: true })}>
+                                <option value="married">متاهل</option>
+                                <option value="Single">مجرد</option>
+                            </KSelect>
+                            {errors.maritalStatus && <span className="text-sm text-red-500">وضعیت تاهل الزامی است</span>}
                         </div>
-                        <div className='flex justify-end p-5'>
-                            {isPending ? <KSpinner color='primary' /> :
-                                <KButton color='primary' type="button" onClick={handleFormSubmit}>
-                                    ذخیره
-                                </KButton>
-                            }
+
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
+                                {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
+                                    <option key={key} value={value.value}>
+                                        {value.label}
+                                    </option>
+                                ))}
+                            </KSelect>
+                            {errors.militaryServiceStatus && <span className="text-sm text-red-500">وضعیت نظام وظیفه الزامی است</span>}
                         </div>
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KTextInput {...register('city', { required: true })} placeholder='شهر محل سکونت' />
+                            {errors.city && <span className="text-sm text-red-500">شهر محل سکونت الزامی است</span>}
+                        </div>
+
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KTextInput {...register('telephone', { required: true })} placeholder='شماره تلفن ثابت' maxLength={11} />
+                            {errors.telephone && <span className="text-sm text-red-500">شماره تلفن ثابت الزامی است</span>}
+                        </div>
+                        <div className="w-full px-2 mt-4 md:w-1/2">
+                            <KDatepicker
+                                name="birthDate"
+                                control={control}
+                                required={true}
+                                id="birthDate"
+                                placeholder='تاریخ تولد'
+                            />
+                            {errors.birthDate && (
+                                <p className="text-sm text-red-500">
+                                    تاریخ تولد الزامی می باشد.
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                    <div className='flex justify-end p-2'>
+                        {isPending ? <KSpinner color='primary' /> :
+                            <KButton color='primary' type="button" onClick={handleFormSubmit}>
+                                ذخیره
+                            </KButton>
+                        }
                     </div>
                 </form>
             </KModal.Body>
