@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
-import { toast } from 'react-toastify'
-import Add from '../../../../../assets/icons/Add'
-import Delete from '../../../../../assets/icons/Delete'
-import Edit from '../../../../../assets/icons/Edit'
-import useApi from '../../../../../hooks/useApi'
-import useConfirm from '../../../../../hooks/useConfirm'
-import { CareerRecordModel } from '../../../../../models/cvbuilder.models'
-import { BaseResponse, OptionType } from '../../../../../models/shared.models'
-import KCard from '../../../../shared/Card'
-import CareerRecord from './CareerRecord'
+import React, { useState } from 'react';
+
+import { toast } from 'react-toastify';
+
+import Add from '../../../../../assets/icons/Add';
+import Delete from '../../../../../assets/icons/Delete';
+import Edit from '../../../../../assets/icons/Edit';
+import useApi from '../../../../../hooks/useApi';
+import useConfirm from '../../../../../hooks/useConfirm';
+import { CareerRecordModel } from '../../../../../models/cvbuilder.models';
+import {
+    BaseResponse,
+    OptionType,
+} from '../../../../../models/shared.models';
+import KCard from '../../../../shared/Card';
+import CareerRecord from './CareerRecord';
 
 interface WorkExperienceRecordCardsProps {
     records: CareerRecordModel[];
@@ -68,8 +73,8 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
             <ConfirmModal />
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
-                    <div className='flex align-middle items-center'>
-                        <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
+                    <div className='flex items-center align-middle'>
+                        <div className='flex flex-col p-3 ml-4 bg-gray-200 rounded'>
                             <button onClick={() => handleEditRecord(record)}>
                                 <Edit className='w-5 h-5 mb-4' />
                             </button>
@@ -78,7 +83,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                             </button>
                         </div>
                         <div>
-                            <p className='font-extrabold m-2 text-lg'>{record.jobTitle}</p>
+                            <p className='m-2 text-lg font-extrabold'>{record.jobTitle}</p>
                             <p className='m-2'>{record.companyName}</p>
                             <p className='m-2'>{record.fromYear} - {record.toYear || 'تاکنون'}</p>
                         </div>
@@ -100,7 +105,7 @@ const WorkExperienceRecordCards: React.FC<WorkExperienceRecordCardsProps> = (pro
                     <button onClick={handleAddNewRecord}>
                         <span className='flex'>
                             <Add />
-                            <p className='mr-2 text-blue-500 text-sm'>
+                            <p className='mr-2 text-sm text-blue-500'>
                                 افزودن سابقه شغلی جدید
                             </p>
                         </span>

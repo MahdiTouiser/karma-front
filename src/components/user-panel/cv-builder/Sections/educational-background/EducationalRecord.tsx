@@ -1,6 +1,6 @@
 import React, {
-  useEffect,
-  useState,
+    useEffect,
+    useState,
 } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -8,18 +8,18 @@ import { toast } from 'react-toastify';
 
 import useApi from '../../../../../hooks/useApi';
 import {
-  EducationalBackgroundFormData,
-  EducationalRecordModel,
-  Majors,
-  Universities,
+    EducationalBackgroundFormData,
+    EducationalRecordModel,
+    Majors,
+    Universities,
 } from '../../../../../models/cvbuilder.models';
 import {
-  DegreeLevel,
-  DegreeLevelDescriptions,
+    DegreeLevel,
+    DegreeLevelDescriptions,
 } from '../../../../../models/enums';
 import {
-  BaseResponse,
-  OptionType,
+    BaseResponse,
+    OptionType,
 } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
@@ -158,9 +158,9 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
 
     return (
         <>
-            <form className='flex w-full mt-8' onSubmit={handleSubmit(onSubmit)}>
-                <div className='w-1/2 pr-4 mt-4'>
-                    <div className='inline-block w-full'>
+            <form className='flex flex-col w-full mt-8 md:flex-row' onSubmit={handleSubmit(onSubmit)}>
+                <div className='w-full pr-4 md:w-1/2'>
+                    <div className='mt-4'>
                         <KLabel>مقطع تحصیلی</KLabel>
                         <KRadioButton
                             options={options}
@@ -171,18 +171,16 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                         {errors.degreeLevel && <span className='text-xs text-red-500'>مقطع تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
-                        <div className='inline-block w-full'>
-                            <KLabel>دانشگاه</KLabel>
-                            <KSelectboxWithSearch
-                                id='universityId'
-                                options={universities}
-                                register={register('universityId', { required: true })}
-                                errors={errors.universityId}
-                                onChange={(value: number) => handleItemChange('universityId', value)}
-                                defaultValue={selectedUniversity}
-                            />
-                            {errors.universityId && <span className="text-xs text-red-500">نام دانشگاه الزامی است .</span>}
-                        </div>
+                        <KLabel>دانشگاه</KLabel>
+                        <KSelectboxWithSearch
+                            id='universityId'
+                            options={universities}
+                            register={register('universityId', { required: true })}
+                            errors={errors.universityId}
+                            onChange={(value: number) => handleItemChange('universityId', value)}
+                            defaultValue={selectedUniversity}
+                        />
+                        {errors.universityId && <span className="text-xs text-red-500">نام دانشگاه الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال شروع</KLabel>
@@ -190,8 +188,8 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                         {errors.fromYear && <span className='text-xs text-red-500'>سال شروع الزامی است .</span>}
                     </div>
                 </div>
-                <div className='w-1/2 pr-4 mt-4'>
-                    <div className='inline-block w-full'>
+                <div className='w-full pr-4 md:w-1/2'>
+                    <div className='mt-4'>
                         <KLabel>رشته تحصیلی</KLabel>
                         <KSelectboxWithSearch
                             id='majorId'
@@ -204,11 +202,8 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                         {errors.majorId && <span className='text-xs text-red-500'>رشته تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
-                        <div className='inline-block w-full'>
-                            <KLabel>معدل(اختیاری)</KLabel>
-                            <KTextInput placeholder=' ۱۷.۳۶'
-                                numeric allowDecimal  {...register('gpa')} maxLength={5} />
-                        </div>
+                        <KLabel>معدل(اختیاری)</KLabel>
+                        <KTextInput placeholder=' ۱۷.۳۶' numeric allowDecimal  {...register('gpa')} maxLength={5} />
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال پایان</KLabel>
@@ -217,7 +212,7 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                     </div>
                 </div>
             </form>
-            <div className='flex justify-end p-5'>
+            <div className='flex justify-end p-2'>
                 <KButton color='secondary' className='ml-4' onClick={handleCancel}>
                     انصراف
                 </KButton>

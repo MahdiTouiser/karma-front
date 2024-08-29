@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import useApi from "../../../../hooks/useApi";
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
+import {
+    SubmitHandler,
+    useForm,
+} from 'react-hook-form';
+import { toast } from 'react-toastify';
+
+import useApi from '../../../../hooks/useApi';
 import {
     EducationalBackgroundFormData,
     EducationalRecordModel,
     Majors,
     Universities,
-} from "../../../../models/cvbuilder.models";
-import { DegreeLevel, DegreeLevelDescriptions } from "../../../../models/enums";
-import { BaseResponse, OptionType } from "../../../../models/shared.models";
-import KButton from "../../../shared/Button";
-import KLabel from "../../../shared/Label";
-import KModal from "../../../shared/Modal/Modal";
-import KSelect from "../../../shared/Select";
-import KSelectboxWithSearch from "../../../shared/SelectboxWithSearch";
-import KSpinner from "../../../shared/Spinner";
-import KTextInput from "../../../shared/TextInput";
+} from '../../../../models/cvbuilder.models';
+import {
+    DegreeLevel,
+    DegreeLevelDescriptions,
+} from '../../../../models/enums';
+import {
+    BaseResponse,
+    OptionType,
+} from '../../../../models/shared.models';
+import KButton from '../../../shared/Button';
+import KLabel from '../../../shared/Label';
+import KModal from '../../../shared/Modal/Modal';
+import KSelect from '../../../shared/Select';
+import KSelectboxWithSearch from '../../../shared/SelectboxWithSearch';
+import KSpinner from '../../../shared/Spinner';
+import KTextInput from '../../../shared/TextInput';
 
 interface EducationalHistoryModalProps {
     show: boolean;
@@ -141,7 +155,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[40vw] !md:max-w-[70vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose}>
             <KModal.Header>
                 <h2>{editMode ? "ویرایش سابقه تحصیلی" : "افزودن سابقه تحصیلی جدید"}</h2>
             </KModal.Header>
@@ -149,7 +163,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                 <KModal.Body>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-wrap justify-start">
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>مدرک تحصیلی</KLabel>
                                 <KSelect
                                     defaultValue=""
@@ -163,9 +177,9 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                         </option>
                                     ))}
                                 </KSelect>
-                                {errors.degreeLevel && <span className="text-red-500 text-sm">این فیلد الزامی است</span>}
+                                {errors.degreeLevel && <span className="text-sm text-red-500">این فیلد الزامی است</span>}
                             </div>
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>رشته تحصیلی</KLabel>
                                 <KSelectboxWithSearch
                                     id="majorId"
@@ -176,7 +190,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                     defaultValue={selectedMajor}
                                 />
                             </div>
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>دانشگاه</KLabel>
                                 <KSelectboxWithSearch
                                     id="universityId"
@@ -187,7 +201,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                     defaultValue={selectedUniversity}
                                 />
                             </div>
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>معدل (اختیاری)</KLabel>
                                 <KTextInput
                                     placeholder=" ۱۷.۳۶"
@@ -196,9 +210,9 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                     {...register("gpa")}
                                     maxLength={5}
                                 />
-                                {errors.gpa && <span className="text-red-500 text-xs">نام الزامی است</span>}
+                                {errors.gpa && <span className="text-xs text-red-500">نام الزامی است</span>}
                             </div>
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>سال شروع</KLabel>
                                 <KTextInput
                                     numeric
@@ -208,12 +222,12 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                     {...register("fromYear", { required: true, maxLength: 4 })}
                                 />
                                 {errors.fromYear && (
-                                    <p className="text-red-500 text-xs">
+                                    <p className="text-xs text-red-500">
                                         سال شروع الزامی می باشد.
                                     </p>
                                 )}
                             </div>
-                            <div className="w-full md:w-1/2 p-5">
+                            <div className="w-full p-5 md:w-1/2">
                                 <KLabel>سال پایان</KLabel>
                                 <KTextInput
                                     numeric
@@ -223,7 +237,7 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
                                     {...register("toYear", { required: false, maxLength: 4 })}
                                 />
                                 {errors.toYear && (
-                                    <p className="text-red-500 text-xs">
+                                    <p className="text-xs text-red-500">
                                         سال پایان الزامی می باشد .
                                     </p>
                                 )}

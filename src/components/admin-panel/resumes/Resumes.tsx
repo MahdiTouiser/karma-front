@@ -132,9 +132,10 @@ const Resumes: React.FC = () => {
         fetchJobCategories();
     }, []);
 
-    const handleItemChange = (item: 'jobcategoryId' | 'cityId' | 'countryId' | 'softwareSkillIds', value: number | number[]) => {
+    const handleItemChange = (item: 'jobCategoryId' | 'cityId' | 'countryId' | 'softwareSkillIds', value: number | number[]) => {
         setValue(item, value);
     };
+
 
     const onSubmit = () => {
         const values = getValues();
@@ -143,7 +144,7 @@ const Resumes: React.FC = () => {
         Object.keys(values).forEach((key) => {
             const value = values[key];
             if (value !== undefined && value !== null && value !== "" && (!Array.isArray(value) || value.length > 0)) {
-                data[key] = Array.isArray(value) ? value.filter(v => v !== "") : [value];
+                data[key] = Array.isArray(value) ? value.filter(v => v !== "") : value;
             }
         });
 
@@ -176,20 +177,20 @@ const Resumes: React.FC = () => {
     return (
         <>
             <KCard className='p-5'>
-                <h1 className='text-center text-2xl font-extrabold'>جستجو بانک رزومه</h1>
+                <h1 className='text-2xl font-extrabold text-center'>جستجو بانک رزومه</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-                    <div className='flex flex-col md:flex-row justify-between'>
-                        <div className="w-full md:w-1/2 p-2">
+                    <div className='flex flex-col justify-between md:flex-row'>
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>زمینه کاری کارجو</KLabel>
                             <KSelectboxWithSearch
-                                id='jobcategoryId'
+                                id='jobCategoryId'
                                 options={jobCategories}
-                                register={register('jobcategoryId')}
-                                errors={errors.jobcategoryId}
-                                onChange={(value: number) => handleItemChange('jobcategoryId', value)}
+                                register={register('jobCategoryId')}
+                                errors={errors.jobCategoryId}
+                                onChange={(value: number) => handleItemChange('jobCategoryId', value)}
                             />
                         </div>
-                        <div className="w-full md:w-1/2 p-2">
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>سابقه کاری در زمینه شغلی مورد نظر</KLabel>
                             <KSelect
                                 defaultValue=''
@@ -204,8 +205,8 @@ const Resumes: React.FC = () => {
                             </KSelect>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row justify-between'>
-                        <div className="w-full md:w-1/2 p-2">
+                    <div className='flex flex-col justify-between md:flex-row'>
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>شهر محل سکونت</KLabel>
                             <KSelectboxWithSearch
                                 id='cityId'
@@ -215,9 +216,9 @@ const Resumes: React.FC = () => {
                                 onChange={(value: number) => handleItemChange('cityId', value)}
                             />
                         </div>
-                        <div className="w-full md:w-1/2 p-2">
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>سن کارجو</KLabel>
-                            <div className="flex space-x-2">
+                            <div className="flex">
                                 <div className="w-full">
                                     <KDatepicker
                                         name="birthDateLessThan"
@@ -225,7 +226,7 @@ const Resumes: React.FC = () => {
                                         control={control}
                                     />
                                 </div>
-                                <div className="w-full">
+                                <div className="w-full mr-2">
                                     <KDatepicker
                                         name="birthDateMoreThan"
                                         placeholder='بیشتر از'
@@ -235,8 +236,8 @@ const Resumes: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row justify-between'>
-                        <div className="w-full md:w-1/2 p-2">
+                    <div className='flex flex-col justify-between md:flex-row'>
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>مدرک تحصیلی کارجو</KLabel>
                             <KSelect
                                 defaultValue=''
@@ -251,7 +252,7 @@ const Resumes: React.FC = () => {
                                 ))}
                             </KSelect>
                         </div>
-                        <div className="w-full md:w-1/2 p-2">
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>زبان ها</KLabel>
                             <KSelect {...register('languageId')}>
                                 {languages.map((language) => (
@@ -260,18 +261,19 @@ const Resumes: React.FC = () => {
                             </KSelect>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row justify-between'>
-                        <div className="w-full md:w-1/2 p-2">
+                    <div className='flex flex-col justify-between md:flex-row'>
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>مهارت های نرم افزاری کارجو</KLabel>
                             <SelectboxWithSearchAndAllowAdd
                                 id='softwareSkillIds'
                                 options={skills}
                                 register={register('softwareSkillIds')}
                                 errors={errors.softwareSkillIds}
-                                onChange={(value: number[]) => handleItemChange('softwareSkillIds', value)}
+                                onChange={(selectedItems: OptionType[]) => handleItemChange('softwareSkillIds', selectedItems.map(item => item.value))}
                             />
+
                         </div>
-                        <div className="w-full md:w-1/2 p-2">
+                        <div className="w-full p-2 md:w-1/2">
                             <KLabel>وضعیت نظام وظیفه</KLabel>
                             <KSelect id='militaryServiceStatus' {...register('militaryServiceStatus')}>
                                 <option value="">انتخاب کنید</option>
@@ -283,7 +285,7 @@ const Resumes: React.FC = () => {
                             </KSelect>
                         </div>
                     </div>
-                    <div className='flex justify-end p-5'>
+                    <div className='flex justify-end p-2'>
                         {isPending ? <KSpinner color='primary' /> :
                             <KButton color='primary' type='button' onClick={handleFormSubmit}>
                                 جستجو

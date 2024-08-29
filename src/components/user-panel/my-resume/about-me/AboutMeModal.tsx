@@ -12,11 +12,18 @@ import {
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import Delete from '../../../../assets/icons/Delete';
-import Instagram from '../../../../assets/icons/Instagram';
-import Linkedin from '../../../../assets/icons/Linkedin';
-import Upload from '../../../../assets/icons/Upload';
-import XIcon from '../../../../assets/icons/XIcon';
+import {
+    faInstagram,
+    faLinkedin,
+    faSquareInstagram,
+    faSquareXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+    faTrashAlt,
+    faUpload,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import useApi from '../../../../hooks/useApi';
 import { AboutMeData } from '../../../../models/cvbuilder.models';
 import { AboutMeFormData } from '../../../../models/myresume.model';
@@ -140,7 +147,7 @@ const AboutMeModal: React.FC<{
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[90vw] max-w-md !pb-2 overflow-y-auto">
+        <KModal show={show} onClose={onClose} containerClass="!max-w-[90vw] max-w-md !pb-2 overflow-y-auto">
             <KModal.Header>
                 <h2 className="text-center">ویرایش درباره من</h2>
             </KModal.Header>
@@ -157,7 +164,7 @@ const AboutMeModal: React.FC<{
                             <div className="flex items-center justify-center ml-3 text-center text-blue-500">
                                 <button type="button" onClick={handleButtonClick}>
                                     <span className="flex">
-                                        <Upload className="w-7 h-7" />
+                                        <FontAwesomeIcon icon={faUpload} className="h-5 w5" />
                                     </span>
                                 </button>
                                 <input
@@ -170,7 +177,7 @@ const AboutMeModal: React.FC<{
                                 {imageSrc && (
                                     <button type="button" onClick={handleDeleteImage} className="mr-2">
                                         <span className="flex">
-                                            <Delete className="w-7 h-7" />
+                                            <FontAwesomeIcon icon={faTrashAlt} color='red' className="w-5 h-5" />
                                         </span>
                                     </button>
                                 )}
@@ -186,9 +193,19 @@ const AboutMeModal: React.FC<{
                                 {fields.map((item, index) => (
                                     <div key={item.id} className="flex items-center">
                                         <button type="button" onClick={() => toggleInput(item.type)} className="flex items-center">
-                                            {item.type === 'LinkedIn' && <Linkedin className="w-8 h-8" />}
-                                            {item.type === 'X' && <XIcon className="w-8 h-8" />}
-                                            {item.type === 'Instagram' && <Instagram className="w-8 h-8" />}
+                                            {item.type === 'LinkedIn' &&
+                                                <FontAwesomeIcon
+                                                    icon={faLinkedin}
+                                                    className="w-8 h-8"
+                                                    style={{ color: '#0077b5' }}
+                                                />}
+                                            {item.type === 'X' && <FontAwesomeIcon icon={faSquareXTwitter} className="w-8 h-8" />}
+                                            {item.type === 'Instagram' &&
+                                                <FontAwesomeIcon
+                                                    icon={faSquareInstagram}
+                                                    className="w-8 h-8"
+                                                    style={{ color: '#C13584' }}
+                                                />}
                                         </button>
                                         {visibleInputs[item.type] && (
                                             <div className="relative flex items-center w-full mr-2">
@@ -204,17 +221,17 @@ const AboutMeModal: React.FC<{
                                 ))}
                                 {!fields.find(field => field.type === 'LinkedIn') && (
                                     <button type="button" onClick={() => append({ type: 'LinkedIn', link: '' })} className="flex items-center">
-                                        <Linkedin size={28} className="w-8 h-8" />
+                                        <FontAwesomeIcon icon={faLinkedin} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                                 {!fields.find(field => field.type === 'X') && (
                                     <button type="button" onClick={() => append({ type: 'X', link: '' })} className="flex items-center">
-                                        <XIcon size={34} className="w-8 h-8" />
+                                        <FontAwesomeIcon icon={faSquareXTwitter} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                                 {!fields.find(field => field.type === 'Instagram') && (
                                     <button type="button" onClick={() => append({ type: 'Instagram', link: '' })} className="flex items-center">
-                                        <Instagram size={28} className="w-8 h-8" />
+                                        <FontAwesomeIcon icon={faInstagram} size="lg" className="w-8 h-8" />
                                     </button>
                                 )}
                             </div>

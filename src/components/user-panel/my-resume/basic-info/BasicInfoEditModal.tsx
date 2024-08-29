@@ -61,14 +61,13 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
     };
 
     return (
-        <KModal show={show} onClose={onClose} containerClass="!w-full !max-w-[90vw] !md:max-w-[80vw] !lg:max-w-[60vw] !pb-2">
+        <KModal show={show} onClose={onClose} containerClass="w-full max-w-[60vw] md:max-w-[80vw] lg:max-w-[60vw] !pb-2">
             <KModal.Header>
                 <h2>ویرایش اطلاعات اولیه</h2>
             </KModal.Header>
             <KModal.Body>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='m-2'>
                     <div className='flex flex-wrap justify-between'>
-                        {/* First Name and Last Name */}
                         <div className="w-full px-2 md:w-1/2">
                             <KTextInput {...register('firstName', { required: true })} placeholder='نام' />
                             {errors.firstName && <span className="text-sm text-red-500">نام الزامی است</span>}
@@ -78,7 +77,6 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
                             {errors.lastName && <span className="text-sm text-red-500">نام خانوادگی الزامی است</span>}
                         </div>
 
-                        {/* Gender and Marital Status */}
                         <div className="w-full px-2 mt-4 md:w-1/2">
                             <KSelect id='gender' placeholder="جنسیت" {...register('gender', { required: true })}>
                                 <option value="Male">مرد</option>
@@ -94,7 +92,6 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
                             {errors.maritalStatus && <span className="text-sm text-red-500">وضعیت تاهل الزامی است</span>}
                         </div>
 
-                        {/* Military Service Status and City */}
                         <div className="w-full px-2 mt-4 md:w-1/2">
                             <KSelect id='militaryServiceStatus' placeholder="وضعیت نظام وظیفه" {...register('militaryServiceStatus', { required: true })}>
                                 {Object.entries(militaryServiceStatusMapping).map(([key, value]) => (
@@ -129,7 +126,7 @@ const BasicInfoEditModal: React.FC<{ show: boolean; onClose: () => void; fetch: 
                             )}
                         </div>
                     </div>
-                    <div className='flex justify-end p-5'>
+                    <div className='flex justify-end p-2'>
                         {isPending ? <KSpinner color='primary' /> :
                             <KButton color='primary' type="button" onClick={handleFormSubmit}>
                                 ذخیره

@@ -360,7 +360,7 @@ const WorkExperience: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: 
                 </>
             )}
             {!isRecordVisible && (
-                <div className='flex justify-end p-5'>
+                <div className='flex justify-end p-2'>
                     <KButton color='secondary' className='ml-4' onClick={goToPreviousStep}>
                         مرحله قبلی
                     </KButton>

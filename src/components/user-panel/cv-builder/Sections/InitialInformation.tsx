@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 
 import {
-  FieldValues,
-  SubmitHandler,
-  useForm,
+    FieldValues,
+    SubmitHandler,
+    useForm,
 } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useApi from '../../../../hooks/useApi';
 import {
-  InitialInformationFormData,
+    InitialInformationFormData,
 } from '../../../../models/cvbuilder.models';
 import { militaryServiceStatusMapping } from '../../../../models/enums';
 import { BaseResponse } from '../../../../models/shared.models';
@@ -145,7 +145,7 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                         {errors.email && <span className="text-sm text-red-500">آدرس ایمیل الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-end p-5'>
+                <div className='flex justify-end p-2'>
                     {isPending ? <KSpinner color='primary' /> :
                         <KButton color='primary' type="button" onClick={handleFormSubmit}>
                             ذخیره و مرحله بعد

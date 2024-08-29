@@ -186,7 +186,7 @@ const UsernameLoginPage = () => {
 
         <div className="w-full mr-1">
           <KButton
-            className="w-full"
+            className="!w-full"
             type="submit"
             color="primary"
             disabled={isPending}
@@ -201,7 +201,7 @@ const UsernameLoginPage = () => {
       <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <KButton color="primary" className="justify-center w-full">
+          <KButton color="primary" className="justify-center">
             ایجاد حساب کاربری
           </KButton>
         </Link>

@@ -70,8 +70,12 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
     return (
         <div>
             <ConfirmModal />
+            <div className="flex items-center justify-between">
+                <h1 className='text-2xl font-extrabold'>سوابق تحصیلی</h1>
+            </div>
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
+
                     <div className='flex items-center align-middle'>
                         <div className='flex flex-col p-3 ml-4 bg-gray-200 rounded'>
                             <button onClick={() => handleEditRecord(record)}>
