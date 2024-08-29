@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { toast } from 'react-toastify';
+
 import Add from '../../../../../assets/icons/Add';
 import Delete from '../../../../../assets/icons/Delete';
 import Edit from '../../../../../assets/icons/Edit';
@@ -70,8 +72,8 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
             <ConfirmModal />
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
-                    <div className='flex align-middle items-center'>
-                        <div className='flex flex-col ml-4 bg-gray-200 p-3 rounded'>
+                    <div className='flex items-center align-middle'>
+                        <div className='flex flex-col p-3 ml-4 bg-gray-200 rounded'>
                             <button onClick={() => handleEditRecord(record)}>
                                 <Edit className='w-5 h-5 mb-4' />
                             </button>
@@ -80,7 +82,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                             </button>
                         </div>
                         <div>
-                            <p className='font-extrabold m-2 text-lg'>{getDegreeLabel(record.degreeLevel)} - {record.major.title}</p>
+                            <p className='m-2 text-lg font-extrabold'>{getDegreeLabel(record.degreeLevel)} - {record.major.title}</p>
                             <p className='m-2'>{record.university.title}</p>
                             <p className='m-2'>{record.fromYear} - {record.toYear}</p>
                             {record.gpa && <p className='m-2'>معدل : {record.gpa}</p>}
@@ -100,7 +102,7 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                     <button onClick={handleAddNewRecord}>
                         <span className='flex'>
                             <Add />
-                            <p className='mr-2 text-blue-500 text-sm'>
+                            <p className='mr-2 text-sm text-blue-500'>
                                 افزودن سابقه تحصیلی جدید
                             </p>
                         </span>

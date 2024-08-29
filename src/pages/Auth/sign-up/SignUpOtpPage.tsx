@@ -1,12 +1,18 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import OTPBox from "../../../components/auth/OTPBox";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import useApi, { axiosIntance } from "../../../hooks/useApi";
-import { AuthData } from "../../../models/auth.models";
-import { BaseResponse } from "../../../models/shared.models";
-import { authActions } from "../../../store/auth";
-import { setAuthDataInLocal } from "../../../utils/authUtils";
+import { useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import OTPBox from '../../../components/auth/OTPBox';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../hooks/reduxHooks';
+import useApi, { axiosIntance } from '../../../hooks/useApi';
+import { AuthData } from '../../../models/auth.models';
+import { BaseResponse } from '../../../models/shared.models';
+import { authActions } from '../../../store/auth';
+import { setAuthDataInLocal } from '../../../utils/authUtils';
 
 const SignUpPasswordOtpPage: React.FC = () => {
   const phone = useAppSelector((state) => state.auth.enteredPhone);
@@ -35,6 +41,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
         setAuthDataInLocal(response.value as unknown as AuthData);
         dispatch(authActions.setToken(response.value as unknown as AuthData));
         navigate('/cv-builder/create');
+        toast.success(response.message);
       }
     );
   }
@@ -54,7 +61,7 @@ const SignUpPasswordOtpPage: React.FC = () => {
           onRefresh={onOTPRefresh}
         />
         {errors && (
-          <p className="text-red-600 text-sm pr-2 mt-2 text-center">
+          <p className="pr-2 mt-2 text-sm text-center text-red-600">
             {errors.message}
           </p>
         )}

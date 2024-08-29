@@ -1,10 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import useApi from '../../../../../hooks/useApi';
-import { EducationalBackgroundFormData, EducationalRecordModel, Majors, Universities } from '../../../../../models/cvbuilder.models';
-import { DegreeLevel, DegreeLevelDescriptions } from '../../../../../models/enums';
-import { BaseResponse, OptionType } from '../../../../../models/shared.models';
+import {
+  EducationalBackgroundFormData,
+  EducationalRecordModel,
+  Majors,
+  Universities,
+} from '../../../../../models/cvbuilder.models';
+import {
+  DegreeLevel,
+  DegreeLevelDescriptions,
+} from '../../../../../models/enums';
+import {
+  BaseResponse,
+  OptionType,
+} from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
 import KLabel from '../../../../shared/Label';
 import KRadioButton from '../../../../shared/RadioButton';
@@ -142,7 +158,7 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
 
     return (
         <>
-            <form className='mt-8 w-full flex' onSubmit={handleSubmit(onSubmit)}>
+            <form className='flex w-full mt-8' onSubmit={handleSubmit(onSubmit)}>
                 <div className='w-1/2 pr-4 mt-4'>
                     <div className='inline-block w-full'>
                         <KLabel>مقطع تحصیلی</KLabel>
@@ -152,7 +168,7 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                             selectedOption={selectedOption}
                             register={register('degreeLevel', { required: true })}
                         />
-                        {errors.degreeLevel && <span className='text-red-500 text-xs'>مقطع تحصیلی الزامی است .</span>}
+                        {errors.degreeLevel && <span className='text-xs text-red-500'>مقطع تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
@@ -165,13 +181,13 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                                 onChange={(value: number) => handleItemChange('universityId', value)}
                                 defaultValue={selectedUniversity}
                             />
-                            {errors.universityId && <span className="text-red-500 text-xs">نام دانشگاه الزامی است .</span>}
+                            {errors.universityId && <span className="text-xs text-red-500">نام دانشگاه الزامی است .</span>}
                         </div>
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال شروع</KLabel>
                         <KTextInput numeric maxLength={4} {...register('fromYear', { required: true })} placeholder='۱۳۹۶' />
-                        {errors.fromYear && <span className="text-red-500 text-xs">سال شروع الزامی است .</span>}
+                        {errors.fromYear && <span className='text-xs text-red-500'>سال شروع الزامی است .</span>}
                     </div>
                 </div>
                 <div className='w-1/2 pr-4 mt-4'>
@@ -185,7 +201,7 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                             onChange={(value: number) => handleItemChange('majorId', value)}
                             defaultValue={selectedMajor}
                         />
-                        {errors.majorId && <span className="text-red-500 text-xs">رشته تحصیلی الزامی است .</span>}
+                        {errors.majorId && <span className='text-xs text-red-500'>رشته تحصیلی الزامی است .</span>}
                     </div>
                     <div className='mt-4'>
                         <div className='inline-block w-full'>
@@ -196,9 +212,8 @@ const EducationalRecord: React.FC<EducationalRecordProps> = (props) => {
                     </div>
                     <div className='mt-4'>
                         <KLabel>سال پایان</KLabel>
-                        <KTextInput numeric maxLength={4} {...register('toYear', { required: true })} placeholder='۱۴۰۰'
-                        />
-                        {errors.toYear && <span className="text-red-500 text-xs">سال پایان الزامی است .</span>}
+                        <KTextInput numeric maxLength={4} {...register('toYear', { required: true })} placeholder='۱۴۰۰' />
+                        {errors.toYear && <span className='text-xs text-red-500'>سال پایان الزامی است .</span>}
                     </div>
                 </div>
             </form>

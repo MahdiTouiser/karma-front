@@ -103,11 +103,10 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
         (isRecordVisible || !isRecordCreated) ? handleFormSubmit() : onSubmitSuccess();
     };
 
-
     return (
         <>
             {fetchIsPending ? (
-                <span className='flex justify-center items-center h-screen'>
+                <span className='flex items-center justify-center h-screen'>
                     <KSpinner color='primary' size={20} />
                 </span>
             ) : (
@@ -142,8 +141,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
                         </div>
                     )}
                 </>
-            )
-            }
+            )}
         </>
     );
 };

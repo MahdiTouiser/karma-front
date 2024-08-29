@@ -198,15 +198,15 @@ const UsernameLoginPage = () => {
 
       {errors && <p className="pr-2 text-sm text-red-600">{errors.message}</p>}
 
-      <div className="flex flex-wrap items-center gap-2 mt-6">
+      <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
         <p>حساب کاربری ندارید؟ ثبت نام کنید: </p>
         <Link to="signup" className="w-full xs:w-auto">
-          <KButton color="primary" className="w-full">
+          <KButton color="primary" className="justify-center w-full">
             ایجاد حساب کاربری
           </KButton>
         </Link>
       </div>
-    </form >
+    </form>
   );
 }
 

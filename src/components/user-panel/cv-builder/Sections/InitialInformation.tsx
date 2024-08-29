@@ -63,38 +63,38 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <h1 className="text-2xl font-bold">اطلاعات اولیه</h1>
-                <div className='flex justify-center'>
-                    <div className="w-1/2 p-5">
+                <div className='flex flex-col justify-center sm:flex-row'>
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>نام</KLabel>
-                        <KTextInput placeholder='نام'  {...register('firstName', { required: true })} />
-                        {errors.firstName && <span className="text-red-500 text-sm">نام الزامی است</span>}
+                        <KTextInput  {...register('firstName', { required: true })} />
+                        {errors.firstName && <span className="text-sm text-red-500">نام الزامی است</span>}
                     </div>
-                    <div className="w-1/2 p-5">
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>نام خانوادگی</KLabel>
                         <KTextInput {...register('lastName', { required: true })} />
-                        {errors.lastName && <span className="text-red-500 text-sm">نام خانوادگی الزامی است</span>}
+                        {errors.lastName && <span className="text-sm text-red-500">نام خانوادگی الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center'>
-                    <div className="w-1/2 p-5">
+                <div className='flex flex-col justify-center sm:flex-row'>
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>جنسیت</KLabel>
                         <KSelect id='gender'  {...register('gender', { required: true })}>
                             <option value="Male">مرد</option>
                             <option value="Female">زن</option>
                         </KSelect>
-                        {errors.gender && <span className="text-red-500 text-sm">جنسیت الزامی است</span>}
+                        {errors.gender && <span className="text-sm text-red-500">جنسیت الزامی است</span>}
                     </div>
-                    <div className="w-1/2 p-5">
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>وضعیت تاهل</KLabel>
                         <KSelect id='maritalStatus'  {...register('maritalStatus', { required: true })}>
                             <option value="married">متاهل</option>
                             <option value="Single">مجرد</option>
                         </KSelect>
-                        {errors.maritalStatus && <span className="text-red-500 text-sm">وضعیت تاهل الزامی است</span>}
+                        {errors.maritalStatus && <span className="text-sm text-red-500">وضعیت تاهل الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center'>
-                    <div className="w-1/2 p-5">
+                <div className='flex flex-col justify-center sm:flex-row'>
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>وضعیت نظام وظیفه</KLabel>
                         <KSelect
                             id='militaryServiceStatus'
@@ -106,22 +106,22 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                                 </option>
                             ))}
                         </KSelect>
-                        {errors.militaryServiceStatus && <span className="text-red-500 text-sm">وضعیت نظام وظیفه الزامی است</span>}
+                        {errors.militaryServiceStatus && <span className="text-sm text-red-500">وضعیت نظام وظیفه الزامی است</span>}
                     </div>
-                    <div className="w-1/2 p-5">
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>شهر محل سکونت</KLabel>
                         <KTextInput  {...register('city', { required: true })} />
-                        {errors.city && <span className="text-red-500 text-sm">شهر محل سکونت الزامی است</span>}
+                        {errors.city && <span className="text-sm text-red-500">شهر محل سکونت الزامی است</span>}
                     </div>
                 </div>
-                <div className='flex justify-center'>
-                    <div className="w-1/2 p-5">
+                <div className='flex flex-col justify-center sm:flex-row'>
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>شماره تلفن ثابت</KLabel>
                         <KTextInput placeholder='شماره تلفن ثابت'
                             {...register('telephone', { required: true })} maxLength={11} />
-                        {errors.telephone && <span className="text-red-500 text-sm">شماره تلفن ثابت الزامی است</span>}
+                        {errors.telephone && <span className="text-sm text-red-500">شماره تلفن ثابت الزامی است</span>}
                     </div>
-                    <div className="w-1/2 p-5">
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>تاریخ تولد</KLabel>
                         <KDatepicker
                             name="birthDate"
@@ -131,18 +131,18 @@ const InitialInformation: React.FC<InitialInformationProps> = ({ onSubmitSuccess
                             placeholder='تاریخ تولد'
                         ></KDatepicker>
                         {errors.birthDate && (
-                            <p className="text-red-500 text-sm">
+                            <p className="text-sm text-red-500">
                                 تاریخ تولد الزامی می باشد.
                             </p>
                         )}
                     </div>
                 </div>
-                <div className='flex justify-start'>
-                    <div className="w-1/2 p-5">
+                <div className='flex flex-col justify-start'>
+                    <div className="w-full p-5 sm:w-1/2">
                         <KLabel>آدرس ایمیل</KLabel>
                         <KTextInput placeholder='abc@xyz.com' className='text-left placeholder-left' dir='ltr'
                             {...register('email', { required: true })} type='email' />
-                        {errors.email && <span className="text-red-500 text-sm">آدرس ایمیل الزامی است</span>}
+                        {errors.email && <span className="text-sm text-red-500">آدرس ایمیل الزامی است</span>}
                     </div>
                 </div>
                 <div className='flex justify-end p-5'>

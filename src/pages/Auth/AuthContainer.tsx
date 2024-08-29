@@ -3,12 +3,12 @@ import {
   useState,
 } from 'react';
 
-import karmaLogo from '/src/assets/karma-logo.png';
-import backgroundPhoto from '/src/assets/protection-concept-with-pawns.jpg';
 import {
   Navigate,
   Outlet,
 } from 'react-router-dom';
+import karmaLogo from '/src/assets/karma-logo.png';
+import backgroundPhoto from '/src/assets/protection-concept-with-pawns.jpg';
 
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { getAuthDataFromLocal } from '../../utils/authUtils';
@@ -42,12 +42,6 @@ const AuthContainer = () => {
           minHeight: '100vh',
         }}
       >
-        <div className="p-8 text-center bg-black bg-opacity-50 rounded">
-          <h1 className="text-4xl font-bold text-white">کارما</h1>
-          <p className="mt-2 text-xl text-gray-200">
-            استخدام و ساختن مسیر شغلی مطلوب برای کارجو
-          </p>
-        </div>
       </div>
 
       <div className="flex flex-col items-center justify-center w-full h-full max-w-lg p-8 bg-white shadow-lg lg:h-screen">

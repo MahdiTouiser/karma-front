@@ -34,7 +34,7 @@ const BackDrop: React.FC<BackDropProps> = (props) => {
   }
   return (
     <div
-      className="fixed top-0 left-0 w-full h-screen z-40 bg-black opacity-75"
+      className="fixed top-0 left-0 z-40 w-full h-screen bg-black opacity-75"
       onClick={handleClick}
     />
   );
@@ -51,8 +51,9 @@ const ModalContainer: React.FC<ModalBodyProps> = ({ containerClass, children, cl
   return (
     <KCard
       className={`${containerClass} ${isVisible && !closing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} 
-      transition-all duration-300 ease-out z-50 fixed top-1/4 left-1/2 -translate-x-1/2 
-      bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-screen !p-0 overflow-y-auto`}
+      transition-all duration-300 ease-out z-50 fixed left-1/2 -translate-x-1/2 
+      bg-white w-4/5 xs:w-auto max-w-[95vw] max-h-screen !p-0 overflow-y-auto 
+      top-0 md:top-1/4`}
     >
       {children}
     </KCard>

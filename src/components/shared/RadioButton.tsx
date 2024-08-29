@@ -32,8 +32,7 @@ const KRadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
 
     return (
       <div className="flow-root bg-white border border-gray-300 rounded-md">
-
-        <div className="lg:hidden">
+        <div className="relative z-10 lg:hidden">
           <select
             className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
             value={selectedOption}

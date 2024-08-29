@@ -41,7 +41,7 @@ const CVCreation: React.FC = () => {
         <div className="flex flex-col md:flex-row">
             <KCard
                 withPadding={false}
-                className="w-full md:w-1/4 md:h-screen m-0 md:m-1">
+                className="w-full overflow-y-auto md:w-1/4 lg:w-1/6 md:h-screen md:m-1">
                 <InfoSidebar
                     links={links}
                     activeIndex={activeIndex}
@@ -49,7 +49,7 @@ const CVCreation: React.FC = () => {
                     onLinkClick={handleLinkClick}
                 />
             </KCard>
-            <div className="flex-1 p-4 lg:p-10 lg:max-h-screen">
+            <div className="flex-1 p-4 overflow-auto lg:p-10">
                 {links[activeIndex].component}
             </div>
         </div>
