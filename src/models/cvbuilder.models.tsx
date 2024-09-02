@@ -24,7 +24,7 @@ export interface WorkExperienceFormData {
     cityId: number;
     fromYear: number;
     fromMonth: number;
-    toYear?: number ;
+    toYear?: number;
     toMonth?: number;
     currentJob: boolean;
 }
@@ -34,7 +34,7 @@ export interface EducationalBackgroundFormData {
     majorId: number;
     universityId: number;
     fromYear: number;
-    toYear: number;
+    toYear?: number;
     gpa?: number;
     stillEducating?: boolean;
 }

@@ -1,22 +1,22 @@
 import React, {
-  useEffect,
-  useState,
+    useEffect,
+    useState,
 } from 'react';
 
 import { useFormContext } from 'react-hook-form';
 
 import useApi from '../../../../../hooks/useApi';
 import {
-  Majors,
-  Universities,
+    Majors,
+    Universities,
 } from '../../../../../models/cvbuilder.models';
 import {
-  DegreeLevel,
-  DegreeLevelDescriptions,
+    DegreeLevel,
+    DegreeLevelDescriptions,
 } from '../../../../../models/enums';
 import {
-  BaseResponse,
-  OptionType,
+    BaseResponse,
+    OptionType,
 } from '../../../../../models/shared.models';
 import KCheckbox from '../../../../shared/Checkbox';
 import KLabel from '../../../../shared/Label';
