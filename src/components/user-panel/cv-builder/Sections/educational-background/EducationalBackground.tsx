@@ -1,18 +1,18 @@
 import React, {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import {
-    FormProvider,
-    useForm,
+  FormProvider,
+  useForm,
 } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useApi from '../../../../../hooks/useApi';
 import {
-    EducationalBackgroundFormData,
-    EducationalRecordModel,
+  EducationalBackgroundFormData,
+  EducationalRecordModel,
 } from '../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
@@ -23,30 +23,12 @@ import EducationalRecordCards from './EducationalRecordCards';
 const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSuccess: () => void }> = (props) => {
     const { goToPreviousStep, onSubmitSuccess } = props;
     const methods = useForm<EducationalBackgroundFormData>({ defaultValues: { stillEducating: false } });
-    const { handleSubmit, formState: { errors } } = methods;
+    const { handleSubmit, formState: { errors }, reset } = methods;
     const { sendRequest: fetch, isPending: fetchIsPending } = useApi<EducationalBackgroundFormData, EducationalRecordModel[]>();
     const { sendRequest: AddEducationalData, isPending } = useApi<Partial<EducationalBackgroundFormData>, BaseResponse<null>>();
     const [isRecordCreated, setIsRecordCreated] = useState(false);
     const [educationalRecords, setEducationalRecords] = useState<EducationalRecordModel[]>([]);
     const [isRecordVisible, setIsRecordVisible] = useState(false);
-
-    const convertToType = (key: keyof EducationalBackgroundFormData, value: string | undefined): any => {
-        switch (key) {
-            case 'majorId':
-            case 'universityId':
-            case 'fromYear':
-            case 'toYear':
-                return value ? parseInt(value, 10) : undefined;
-            case 'gpa':
-                return value ? parseFloat(value) : undefined;
-            case 'stillEducating':
-                return value === 'true';
-            case 'degreeLevel':
-                return value || null;
-            default:
-                return value || '';
-        }
-    };
 
     const fetchEducationalRecords = () => {
         fetch(
@@ -69,25 +51,37 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
     }, []);
 
     const onSubmit = async (data: EducationalBackgroundFormData) => {
-        const finalData: Partial<EducationalBackgroundFormData> = {};
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                finalData[key as keyof EducationalBackgroundFormData] = convertToType(
-                    key as keyof EducationalBackgroundFormData,
-                    data[key as keyof EducationalBackgroundFormData] as unknown as string
-                );
-            }
+        const cleanedData: EducationalBackgroundFormData = {
+            ...data,
+            fromYear: +data.fromYear || 0,
+        };
+
+        if (!data.stillEducating) {
+            cleanedData.toYear = data.toYear !== undefined ? +data.toYear : 0;
+        }
+
+        if (data.gpa) {
+            cleanedData.gpa = +data.gpa;
+        }
+
+        if (data.stillEducating) {
+            delete cleanedData.toYear;
+        }
+
+        if (!data.gpa) {
+            delete cleanedData.gpa;
         }
         AddEducationalData(
             {
                 url: "/Resumes/AddEducationalRecord",
                 method: "post",
-                data: finalData,
+                data: cleanedData,
             },
             (response) => {
                 toast.success(response?.message);
                 setIsRecordCreated(true);
                 fetchEducationalRecords();
+                reset();
             },
             (error) => {
                 toast.error(error?.message);

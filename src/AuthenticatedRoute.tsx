@@ -1,10 +1,22 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from './hooks/reduxHooks'
-import useApi from './hooks/useApi'
-import { BaseResponse, UserGeneralInfo } from './models/shared.models'
-import { authActions } from './store/auth'
-import { getAuthDataFromLocal, setAuthDataInLocal } from './utils/authUtils'
+import { useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+} from './hooks/reduxHooks';
+import useApi from './hooks/useApi';
+import {
+  BaseResponse,
+  UserGeneralInfo,
+} from './models/shared.models';
+import { authActions } from './store/auth';
+import {
+  getAuthDataFromLocal,
+  setAuthDataInLocal,
+} from './utils/authUtils';
+
 interface AutenticateGuardProps {
   component: React.ComponentType
 }

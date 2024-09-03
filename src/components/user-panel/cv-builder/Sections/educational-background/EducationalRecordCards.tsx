@@ -75,7 +75,6 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
             </div>
             {sortedRecords.map(record => (
                 <KCard key={record.id} className='mt-4'>
-
                     <div className='flex items-center align-middle'>
                         <div className='flex flex-col p-3 ml-4 bg-gray-200 rounded'>
                             <button onClick={() => handleEditRecord(record)}>
@@ -86,10 +85,14 @@ const EducationalRecordCards: React.FC<EducationalRecordCardsProps> = (props) =>
                             </button>
                         </div>
                         <div>
-                            <p className='m-2 text-lg font-extrabold'>{getDegreeLabel(record.degreeLevel)} - {record.major.title}</p>
+                            <p className='m-2 text-lg font-extrabold'>
+                                {getDegreeLabel(record.degreeLevel)} - {record.major.title}
+                            </p>
                             <p className='m-2'>{record.university.title}</p>
-                            <p className='m-2'>{record.fromYear} - {record.toYear}</p>
-                            {record.gpa && <p className='m-2'>معدل : {record.gpa}</p>}
+                            <p className='m-2'>
+                                {record.fromYear} - {record.stillEducating ? 'در حال تحصیل' : record.toYear}
+                            </p>
+                            {record.gpa && <p className='m-2'>معدل: {record.gpa}</p>}
                         </div>
                     </div>
                 </KCard>

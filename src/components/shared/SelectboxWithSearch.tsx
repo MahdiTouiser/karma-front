@@ -1,7 +1,7 @@
 import React, {
-    useEffect,
-    useRef,
-    useState,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
 
 import ChevronDown from '../../assets/icons/ChevronDown';
@@ -16,6 +16,7 @@ interface KSelectboxWithSearchProps {
     errors: any;
     onChange?: (value: number) => void;
     defaultValue?: OptionType | null;
+    clearError?: any
 }
 
 const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
@@ -83,7 +84,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
         <div className='relative w-full' ref={dropdownRef}>
             <input
                 type='text'
-                className='w-full px-4 py-2 border border-gray-300 text-sm relative pr-10 rounded'
+                className='relative w-full px-4 py-2 pr-10 text-sm border border-gray-300 rounded'
                 onClick={handleToggleDropdown}
                 readOnly
                 placeholder={placeholder}
@@ -96,7 +97,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                 value={selectedOption ? selectedOption.value : ''}
                 {...register}
             />
-            <div className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer'>
+            <div className='absolute right-0 transform -translate-y-1/2 cursor-pointer top-1/2'>
                 {isOpen ? (
                     <ChevronDown onClick={handleToggleDropdown} />
                 ) : (
@@ -104,10 +105,10 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                 )}
             </div>
             {isOpen && (
-                <div className='absolute z-50 w-full top-full left-0 mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto'>
+                <div className='absolute left-0 z-50 w-full mt-1 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg top-full max-h-60'>
                     <input
                         type='text'
-                        className='w-full px-4 py-2 border-b border-gray-300 text-sm'
+                        className='w-full px-4 py-2 text-sm border-b border-gray-300'
                         placeholder='جستجو'
                         value={searchTerm}
                         onChange={handleSearchChange}
@@ -118,7 +119,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                             filteredOptions.map(option => (
                                 <li
                                     key={option.value}
-                                    className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
+                                    className='px-4 py-2 text-sm cursor-pointer hover:bg-gray-100'
                                     onClick={() => handleOptionClick(option)}
                                 >
                                     {option.label}
@@ -130,7 +131,7 @@ const KSelectboxWithSearch: React.FC<KSelectboxWithSearchProps> = ({
                     </ul>
                 </div>
             )}
-            {errors && <span className='text-red-500 text-xs'>{errors.message}</span>}
+            {errors && <span className='text-xs text-red-500'>{errors.message}</span>}
         </div>
     );
 };

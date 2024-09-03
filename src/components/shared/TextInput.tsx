@@ -1,7 +1,12 @@
-import React, { InputHTMLAttributes, Ref, forwardRef } from "react";
-import { replacePersianArabicsNumbers } from "../../utils/shared";
-import KButton from "./Button";
-import KSpinner from "./Spinner";
+import React, {
+  forwardRef,
+  InputHTMLAttributes,
+  Ref,
+} from 'react';
+
+import { replacePersianArabicsNumbers } from '../../utils/shared';
+import KButton from './Button';
+import KSpinner from './Spinner';
 
 export interface KTextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean;
@@ -44,10 +49,14 @@ const KTextInput = forwardRef((props: KTextInputProps, ref: Ref<HTMLInputElement
       if (value.startsWith("-")) {
         value = "-" + value.replace(/-/g, "");
       }
-    }
 
-    event.target.value = value;
+      if (value && !isNaN(Number(value))) {
+        event.target.value = props.allowDecimal ? parseFloat(value).toString() : parseInt(value).toString();
+      }
+    }
   };
+
+
 
   return (
     <div className="relative">
@@ -64,12 +73,12 @@ const KTextInput = forwardRef((props: KTextInputProps, ref: Ref<HTMLInputElement
       />
 
       {props.isPending ? (
-        <div className="absolute inset-y-0 left-1 flex items-center pr-3">
+        <div className="absolute inset-y-0 flex items-center pr-3 left-1">
           <KSpinner />
         </div>
       ) : (
         props.magnifier && (
-          <div className="absolute inset-y-0 left-1 flex items-center pr-3">
+          <div className="absolute inset-y-0 flex items-center pr-3 left-1">
             <KButton
               className="!h-8 w-8 bg-white font-extrabold  hover:bg-gray-300"
               onClick={props.onButtonClick}
@@ -80,7 +89,7 @@ const KTextInput = forwardRef((props: KTextInputProps, ref: Ref<HTMLInputElement
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="h-8 w-8 stroke-cyan-500"
+                className="w-8 h-8 stroke-cyan-500"
               >
                 <path
                   strokeLinecap="round"

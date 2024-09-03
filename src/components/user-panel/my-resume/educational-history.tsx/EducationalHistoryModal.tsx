@@ -1,28 +1,28 @@
 import React, {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import {
-    SubmitHandler,
-    useForm,
+  SubmitHandler,
+  useForm,
 } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useApi from '../../../../hooks/useApi';
 import {
-    EducationalBackgroundFormData,
-    EducationalRecordModel,
-    Majors,
-    Universities,
+  EducationalBackgroundFormData,
+  EducationalRecordModel,
+  Majors,
+  Universities,
 } from '../../../../models/cvbuilder.models';
 import {
-    DegreeLevel,
-    DegreeLevelDescriptions,
+  DegreeLevel,
+  DegreeLevelDescriptions,
 } from '../../../../models/enums';
 import {
-    BaseResponse,
-    OptionType,
+  BaseResponse,
+  OptionType,
 } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
 import KLabel from '../../../shared/Label';
@@ -118,8 +118,9 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
         const fieldsToConvert = ["fromYear", "gpa", "majorId", "toYear", "universityId"] as const;
 
         fieldsToConvert.forEach((field) => {
-            if (data[field] !== undefined && data[field] !== null) {
-                data[field] = +data[field]!;
+            const value = data[field];
+            if (value !== undefined && value !== null) {
+                data[field] = +value;
             }
         });
 
