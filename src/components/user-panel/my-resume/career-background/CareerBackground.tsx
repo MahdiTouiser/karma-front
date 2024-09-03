@@ -98,7 +98,7 @@ const CareerBackground: React.FC = () => {
             <KCard className='flex flex-col justify-between w-full'>
                 <div className="flex items-center justify-between">
                     <h1 className='text-xl font-extrabold'>سوابق شغلی</h1>
-                    <button className="text-sm text-blue-500 flex items-center" onClick={() => openModal()}>
+                    <button className="flex items-center text-sm text-blue-500" onClick={() => openModal()}>
                         <Add />
                         <span className='mr-1'>
                             افزودن
@@ -106,28 +106,31 @@ const CareerBackground: React.FC = () => {
                     </button>
                 </div>
                 {isPending ? (
-                    <span className='flex justify-center items-center'>
+                    <span className='flex items-center justify-center'>
                         <KSpinner color='primary' size={20} />
                     </span>
                 ) : (
                     <div className="flex flex-col mt-5">
                         {sortedRecords.map((info, index) => (
-                            <div key={index} className="flex items-center mr-4 mt-6 text-gray-600 border-l-2 border-blue-500 bg-gray-50 p-5">
+                            <div key={index} className="flex items-center p-5 mt-6 mr-4 text-gray-600 border-l-2 border-blue-500 bg-gray-50">
                                 <div className='flex flex-col' id='icons'>
                                     <button className="mr-2" onClick={() => openModal(info)}>
                                         <Edit />
                                     </button>
-                                    <button className="mr-2 mt-4" onClick={() => handleDeleteRecord(info.id)}>
+                                    <button className="mt-4 mr-2" onClick={() => handleDeleteRecord(info.id)}>
                                         <Delete />
                                     </button>
                                 </div>
                                 <div className="pl-2 mr-4">
-                                    <p className='text-black font-extrabold'>{info.jobTitle}</p>
+                                    <p className='font-extrabold text-black'>{info.jobTitle}</p>
                                     <p className='mt-4'>{info.companyName}</p>
                                     <p className='mt-4'>{`${info.fromYear} - ${info.toYear ? info.toYear : 'تا کنون'}`}</p>
                                 </div>
                             </div>
                         ))}
+                        <p className="mt-6 text-center">
+                            مجموع سوابق شغلی: {sortedRecords.reduce((total, record) => total + record.workTotalMonths, 0)} ماه
+                        </p>
                     </div>
                 )}
             </KCard>

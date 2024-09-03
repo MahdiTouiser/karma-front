@@ -1,30 +1,30 @@
 import React, {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import {
-    SubmitHandler,
-    useForm,
+  SubmitHandler,
+  useForm,
 } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useApi from '../../../../hooks/useApi';
 import {
-    CareerRecordModel,
-    City,
-    Country,
-    JobCategories,
-    WorkExperienceFormData,
+  CareerRecordModel,
+  City,
+  Country,
+  JobCategories,
+  WorkExperienceFormData,
 } from '../../../../models/cvbuilder.models';
 import {
-    hijriMonthOptions,
-    seniorityLevelLabels,
-    SeniorityLevels,
+  hijriMonthOptions,
+  seniorityLevelLabels,
+  SeniorityLevels,
 } from '../../../../models/enums';
 import {
-    BaseResponse,
-    OptionType,
+  BaseResponse,
+  OptionType,
 } from '../../../../models/shared.models';
 import KButton from '../../../shared/Button';
 import KLabel from '../../../shared/Label';
@@ -56,6 +56,12 @@ const CareerBackgroundModal: React.FC<CareerBackgroundModalProps> = (props) => {
     const [selectedCity, setSelectedCity] = useState<OptionType | null>(null);
     const [selectedCountryLabel, setSelectedCountryLabel] = useState<OptionType | null>(null);
     const [selectedJobCategroyId, setSelectedJobCategroyId] = useState<OptionType | null>(null);
+
+    useEffect(() => {
+        if (show) {
+            reset();
+        }
+    }, [show, reset]);
 
     useEffect(() => {
         fetchCities();

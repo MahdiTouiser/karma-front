@@ -56,6 +56,7 @@ export interface EducationalRecordModel {
     };
 }
 export interface CareerRecordModel {
+    workTotalMonths: number;
     id: string,
     jobTitle: string,
     jobCategory: {

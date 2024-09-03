@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import { toast } from 'react-toastify';
+
 import Add from '../../../assets/icons/Add';
 import Delete from '../../../assets/icons/Delete';
 import useApi from '../../../hooks/useApi';
 import useConfirm from '../../../hooks/useConfirm';
 import { SoftwareSkillsData } from '../../../models/cvbuilder.models';
-import { skillLevelLabels, SkillLevels } from '../../../models/enums';
+import {
+  skillLevelLabels,
+  SkillLevels,
+} from '../../../models/enums';
 import { BaseResponse } from '../../../models/shared.models';
 import KCard from '../../shared/Card';
 import KSpinner from '../../shared/Spinner';
-import SoftwareSkillsModal from '../cv-builder/sections/additional-skills/software-skills/SoftwareSkillsModal';
+import SoftwareSkillsModal
+  from '../cv-builder/sections/additional-skills/software-skills/SoftwareSkillsModal';
 
 const SoftwareSkills: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,7 +74,7 @@ const SoftwareSkills: React.FC = () => {
             <KCard className='flex flex-col justify-between w-full'>
                 <div className="flex items-center justify-between">
                     <h1 className='text-xl font-extrabold'>مهارت های نرم افزاری</h1>
-                    <button className="text-sm text-blue-500 flex items-center" onClick={openModal}>
+                    <button className="flex items-center text-sm text-blue-500" onClick={openModal}>
                         <Add />
                         <span className='mr-1'>
                             افزودن
@@ -77,17 +86,16 @@ const SoftwareSkills: React.FC = () => {
                         <KSpinner color='primary' size={10} />
                     </div>
                 ) : (
-                    <div className="grid grid-cols-3 gap-2 mt-5">
+                    <div className="grid grid-cols-1 gap-2 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
                         {skills.map((info, index) => (
                             <div key={index} className="flex items-center justify-center px-2 py-1 bg-gray-200 rounded">
                                 <button onClick={() => handleDeleteItem(info.id)}>
                                     <Delete />
                                 </button>
-                                <p className='text-black text-sm flex-1 text-center'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
+                                <p className='flex-1 text-sm text-center text-black'>{info.SoftwareSkill.title} | {skillLevelLabels[info.softwareSkillLevel as SkillLevels]}</p>
                             </div>
                         ))}
                     </div>
-
                 )}
             </KCard >
         </>
