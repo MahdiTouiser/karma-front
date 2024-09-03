@@ -33,7 +33,7 @@ interface GridData {
     telephone: string;
 }
 
-const FoundedResumes: React.FC<Props> = ({ resumes, onCardClick }) => {
+const FoundedResumes: React.FC<Props> = ({ resumes }) => {
     const [gridData, setGridData] = useState<GridData[]>([]);
     const navigate = useNavigate();
 

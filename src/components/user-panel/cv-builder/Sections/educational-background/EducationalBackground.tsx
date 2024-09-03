@@ -1,18 +1,18 @@
 import React, {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import {
-    FormProvider,
-    useForm,
+  FormProvider,
+  useForm,
 } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useApi from '../../../../../hooks/useApi';
 import {
-    EducationalBackgroundFormData,
-    EducationalRecordModel,
+  EducationalBackgroundFormData,
+  EducationalRecordModel,
 } from '../../../../../models/cvbuilder.models';
 import { BaseResponse } from '../../../../../models/shared.models';
 import KButton from '../../../../shared/Button';
@@ -57,7 +57,7 @@ const EducationalBackground: React.FC<{ goToPreviousStep: () => void, onSubmitSu
         };
 
         if (!data.stillEducating) {
-            cleanedData.toYear = +data.toYear || 0;
+            cleanedData.toYear = data.toYear !== undefined ? +data.toYear : 0;
         }
 
         if (data.gpa) {
