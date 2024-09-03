@@ -114,7 +114,6 @@ const EducationalHistoryModal: React.FC<EducationalHistoryModalProps> = (props) 
             });
         }
     }, [record, setValue, reset]);
-
     const onSubmit: SubmitHandler<EducationalBackgroundFormData> = async (data) => {
         const fieldsToConvert = ["fromYear", "gpa", "majorId", "toYear", "universityId"] as const;
 
