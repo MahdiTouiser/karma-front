@@ -15,7 +15,6 @@ import { toast } from 'react-toastify';
 import {
     faInstagram,
     faLinkedin,
-    faSquareInstagram,
     faSquareXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -44,11 +43,6 @@ const AboutMeModal: React.FC<{
     imageSrc: string | null;
 }> = ({ show, onClose, aboutMeData, onSubmitSuccess, imageSrc: initialImageSrc }) => {
     const [imageSrc, setImageSrc] = useState<string | null>(initialImageSrc);
-    const [visibleInputs, setVisibleInputs] = useState<{ [key: string]: boolean }>({
-        LinkedIn: false,
-        X: false,
-        Instagram: false,
-    });
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { register, handleSubmit, reset, control } = useForm<AboutMeFormData>();
     const { fields, append } = useFieldArray({
@@ -139,13 +133,6 @@ const AboutMeModal: React.FC<{
         handleSubmit(onSubmit)();
     };
 
-    const toggleInput = (type: string) => {
-        setVisibleInputs((prev) => ({
-            ...prev,
-            [type]: !prev[type],
-        }));
-    };
-
     return (
         <KModal show={show} onClose={onClose} containerClass="!max-w-[90vw] max-w-md !pb-2 overflow-y-auto">
             <KModal.Header>
@@ -192,31 +179,19 @@ const AboutMeModal: React.FC<{
                             <div className="flex flex-col space-y-2">
                                 {fields.map((item, index) => (
                                     <div key={item.id} className="flex items-center">
-                                        <button type="button" onClick={() => toggleInput(item.type)} className="flex items-center">
-                                            {item.type === 'LinkedIn' &&
-                                                <FontAwesomeIcon
-                                                    icon={faLinkedin}
-                                                    className="w-8 h-8"
-                                                    style={{ color: '#0077b5' }}
-                                                />}
-                                            {item.type === 'X' && <FontAwesomeIcon icon={faSquareXTwitter} className="w-8 h-8" />}
-                                            {item.type === 'Instagram' &&
-                                                <FontAwesomeIcon
-                                                    icon={faSquareInstagram}
-                                                    className="w-8 h-8"
-                                                    style={{ color: '#C13584' }}
-                                                />}
-                                        </button>
-                                        {visibleInputs[item.type] && (
-                                            <div className="relative flex items-center w-full mr-2">
-                                                <KTextInput
-                                                    {...register(`socialMedias.${index}.link` as const)}
-                                                    className="w-full !text-left"
-                                                    placeholder={`لینک ${item.type}`}
-                                                />
-                                                <input type="hidden" {...register(`socialMedias.${index}.type` as const)} value={item.type} />
-                                            </div>
-                                        )}
+                                        <FontAwesomeIcon
+                                            icon={item.type === 'LinkedIn' ? faLinkedin : item.type === 'X' ? faSquareXTwitter : faInstagram}
+                                            className="w-8 h-8"
+                                            style={{ color: item.type === 'LinkedIn' ? '#0077b5' : item.type === 'X' ? 'black' : '#C13584' }}
+                                        />
+                                        <div className="relative flex items-center w-full mr-2">
+                                            <KTextInput
+                                                {...register(`socialMedias.${index}.link` as const)}
+                                                className="w-full !text-left"
+                                                placeholder={`لینک ${item.type}`}
+                                            />
+                                            <input type="hidden" {...register(`socialMedias.${index}.type` as const)} value={item.type} />
+                                        </div>
                                     </div>
                                 ))}
                                 {!fields.find(field => field.type === 'LinkedIn') && (
