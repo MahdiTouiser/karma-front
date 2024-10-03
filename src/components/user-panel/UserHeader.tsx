@@ -45,9 +45,9 @@ const UserHeader: React.FC = () => {
   return (
     <Navbar fluid className='bg-cyan-700'>
       <Navbar.Brand href='/cv-builder' className='mr-12'>
-        <span className='self-center whitespace-nowrap text-xl font-semibold text-white'>کـــــــــــــــــارما</span>
+        <span className='self-center text-xl font-semibold text-white whitespace-nowrap'>کـــــــــــــــــارما</span>
       </Navbar.Brand>
-      <div className='flex items-center md:order-2'>
+      <div className='flex items-center mx-6 md:order-2'>
         <Dropdown
           arrowIcon={false}
           inline
@@ -72,7 +72,7 @@ const UserHeader: React.FC = () => {
 
         <button
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-          className='p-2 text-2xl md:hidden text-white focus:outline-none'
+          className='p-2 text-2xl text-white md:hidden focus:outline-none'
         >
           {isMobileMenuOpen ? (
             <span>&times;</span>
@@ -82,12 +82,12 @@ const UserHeader: React.FC = () => {
         </button>
       </div>
       <Navbar.Collapse className={`justify-center flex items-center ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
-        <ul className='mt-4 flex flex-col md:mt-0 md:flex-row md:text-sm text-center'>
+        <ul className='flex flex-col mt-4 text-center md:mt-0 md:flex-row md:text-sm'>
           {navLinks.map((link, index) => (
             <li key={index}>
               <a
                 href={link.href}
-                className='block py-2 pr-4 pl-3 text-lg sm:text-base md:text-base lg:text-lg hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white text-white transition-colors duration-300'
+                className='block py-2 pl-3 pr-4 text-lg text-white transition-colors duration-300 sm:text-base md:text-base lg:text-lg hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:dark:hover:bg-transparent md:dark:hover:text-white'
               >
                 {link.label}
               </a>

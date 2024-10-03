@@ -33,7 +33,7 @@ const KButton: React.FC<KButtonProps> = (props) => {
     <Button
       theme={customTheme}
       {...props}
-      className={`${props.className || ''} border-0 outline-none shadow-none rounded w-full sm:w-auto`}>
+      className={`${props.className || ''} border-0 outline-none shadow-none rounded w-full sm:w-auto transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg`}>
       {props.children}
     </Button>
   );
