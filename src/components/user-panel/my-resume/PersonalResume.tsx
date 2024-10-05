@@ -1,13 +1,18 @@
-import { useRef, useState } from "react";
-import { toast } from "react-toastify";
-import Attachment from "../../../assets/icons/Attachment";
-import Download from "../../../assets/icons/Download";
-import Upload from "../../../assets/icons/Upload";
-import useApi from "../../../hooks/useApi";
-import { BaseResponse } from "../../../models/shared.models";
-import KCard from "../../shared/Card";
-import KSpinner from "../../shared/Spinner";
-import KTooltip from "../../shared/Tooltip";
+import {
+  useRef,
+  useState,
+} from 'react'
+
+import { toast } from 'react-toastify'
+
+import Attachment from '../../../assets/icons/Attachment'
+import Download from '../../../assets/icons/Download'
+import Upload from '../../../assets/icons/Upload'
+import useApi from '../../../hooks/useApi'
+import { BaseResponse } from '../../../models/shared.models'
+import KCard from '../../shared/Card'
+import KSpinner from '../../shared/Spinner'
+import KTooltip from '../../shared/Tooltip'
 
 interface UploadFileResponse {
     value: string;
@@ -99,7 +104,7 @@ const PersonalResume = () => {
                 )}
                 {isDownloadResumePending && <KSpinner />}
                 {!isUploadComplete && (
-                    <label className="text-sm text-blue-500 flex items-center cursor-pointer">
+                    <label className="text-md text-blue-500 flex items-center cursor-pointer">
                         <KTooltip
                             content={'بارگذاری رزومه'}
                             trigger="hover"
